@@ -1,0 +1,38 @@
+--- 
+title: "213708 Teaching materials"
+subtitle: "Experimental design and environmental data analysis"
+author: "Assistant Professor Dr. Pimonrat Tiansawat"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+
+description: "This is material for lectures."
+---
+
+# Preface {-}
+
+These teaching materials are for the course "Experimental design and environmental data analysis" (Course code 213708), taught by the author. The materials are designed for graduate students across multiple curricula. The teaching materials are divided into thirteen lessons, totaling thirty lecture hours. 
+
+The lessons include :-
+
+1. Scientific methods, role of experimental design, and statistics in ecological and environmental studies, 
+2. Nature of experimentation and principles of experimental design, 
+3. Random variables,  
+4. Probability and stochastic distributions,
+5. Exploratory data analysis,
+6. Design of experiments,
+7. Inferential statistics,
+8. Hypothesis testing,
+9. Statistical modeling,
+10. Regression
+11. Analysis of Variance and Analysis of Covariance,  
+12. Mixed model, and 
+13. Multivariate analyses in ecological and environmental studies.
+
+The illustrations in this teaching material consist of images taken or created by the author, as well as images obtained from other sources, including articles published in academic journals by the author.
+
+The author would like to thank Associate Professor Dr. Jatupol Kampuansai for his comments on the earlier version of the materials and suggestions for improving these materials.

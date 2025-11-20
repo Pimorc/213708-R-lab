@@ -1,0 +1,98 @@
+# Scientific methods, role of experimental design and statistics in  ecological and environmental studies {#scientific-methods}
+
+**(1-hour lecture)**
+
+## Learning Outcomes
+
+Students should be able to:
+
+1. Describe scientific reasoning and scientific methods.
+2. Explain the importance of experimental design and data analysis.
+
+## Introduction
+
+The first lesson serves as a review of the scientific method, the essence of experimentation, and the fundamental principles of experimental design. The aim of this class is to enable students to articulate scientific reasoning and the scientific method while emphasizing the significance of experimental design and data analysis in research studies especially in ecology and environmental sciences.
+
+In this class, we will introduce key terminology such as falsifiability, deduction, induction, predictive models, and testing—each integral to the scientific method. Let's begin with falsifiability.
+
+## Falsifiability
+
+This is a concept pioneered by Mr. Karl Popper, a renowned philosopher depicted in the accompanying image. Popper's contemplation on scientific methodology underscore the importance of falsifiability as a cornerstone of rigorous scientific inquiry.
+
+Falsifiability refers to the idea that for a theory or hypothesis to be considered scientific, it must be capable of being proven false through empirical observation or experimentation. In other words, a scientific claim should be structured in a way that can be tested and potentially disproven by evidence.
+
+Let's look at the following two statements and answer which one is falsifiable?
+
+  1. Rhinoceros lives on Doi Suthep.
+  2. No rhinoceros has lived in Doi Suthep.
+
+**Hint:** If you find just one rhino, which statement is disproved?
+
+The answer is that statement 2. is falsifiable.
+
+Falsifiability is essential for distinguishing scientific theories from non-scientific or pseudoscientific claims. Scientific theories should be open to testing and potential refutation, which allows for the advancement of knowledge through the iterative process of experimentation and observation. However, the concept of falsifiability does have some significant drawbacks. Its strict definition does not adequately consider the contributions of observational studies to scientific inquiry.
+
+## Inductive and Deductive Reasoning
+
+Inductive reasoning involves deriving general principles or conclusions from specific observations (Figure \@ref(fig:reasoning)). While deductive reasoning involves deriving specific conclusions from general principles or premises. Let's look at the two examples below.
+
+```{r reasoning, echo = FALSE, fig.cap = "Examples of inductive vs deductive reasoning", out.width="100%"}
+knitr::include_graphics("figures/1induction.png")
+```
+
+In summary, deduction moves from general principles to specific conclusions, ensuring certainty if the premises are true, while induction moves from specific observations to general principles, providing probabilistic support for its conclusions.
+
+In doing scientific research, one can use either reasoning to form the basis of studies. Let's see Figure \@ref(fig:scientific-process) to understand the scientific process based on inductive and deductive reasoning. For induction, we start from specific observations and patterns and then generalize to form broader conclusions. For deduction, we form a specific hypothesis based on previous proposed theories then we conduct experiments to test those hypotheses and make a conclusion whether we have the evidence to support the theory. For both types of reasoning, the findings from a study may become a background observation of a new study (notice the arrow from conclusions to observations/hypothesis).
+
+```{r scientific-process, echo = FALSE, fig.cap = "Scientific process based on inductive and deductive reasoning", out.width="80%"}
+knitr::include_graphics("figures/1process2.png")
+```
+
+## Roles of Experimental Design in Ecological and Environmental Studies
+
+Experimental design helps guide the process of data collection and interpreting the results [@gotelli2013]. Well-designed experiments make sure that the results are credible while badly designed experiments can lead to incorrect results and conclusions. Because research studies require time, labor, and money, wrong conclusions from badly designed experiments wasted the resources and money. We will learn more in a later topic about principles of experimental designs and several types of designs and their advantages and disadvantages.
+
+## Roles of Statistics in Ecological and Environmental Studies
+
+Statistics provides the quantitative tools and methodologies necessary for ecological and environmental research studies.
+
+### Sampling Design
+
+Due to limitations in accessing all possible subjects of interest (population), we need to sample some individuals in the population. Statistics play a role in sample size determination, randomization, and stratification to ensure that data collected are representative of the population of interest and provide reliable estimates of ecological parameters.
+
+### Data Analysis
+
+Statistics play a role in obtaining information from raw data. The raw data collected from a study are valuable, but the data are not informative until they are analyzed. For data analysis, statistics provides the tools to analyze complex ecological and environmental data. Data analysis is one of the main focuses of this course. From simple descriptive statistics to advanced multivariate techniques, statistical analysis helps researchers identify patterns, trends, and relationships within datasets. Examples include:
+
+#### Hypothesis Testing
+
+Research studies often involve testing hypotheses about the relationships between variables or the effects of specific factors (independent variables) on ecosystems or environmental processes (dependent variables). Statistics allows researchers to quantify the strength and significance of these relationships and determine whether observed differences are statistically significant or occurred by chance. You will learn more about hypothesis testing in a later topic.
+
+#### Modeling
+
+Statistical modeling is widely used in ecological and environmental studies to develop predictive models, assess the impact of environmental changes, and simulate ecological processes. Techniques such as regression analysis and generalized linear models (GLMs) help researchers understand and predict complex ecological systems and environmental processes. You will learn more about statistical modeling in a later topic.
+
+#### Biodiversity Assessment
+
+Statistical methods are used to assess biodiversity patterns, estimate species richness, and analyze species abundance and distributions in ecological communities. Indices such as Shannon diversity index, Simpson diversity index, and species accumulation curves are used to quantify and compare biodiversity across different habitats or regions. This course will not focus on this subject.
+
+#### Meta-analysis
+
+Meta-analysis is a statistical technique for synthesizing results from multiple studies [@koricheva2013]. The step includes gathering data from existing literature (both published and non-published forms) and analyzing the data to quantify the effects of independent variables and identify sources of variation across studies. Meta-analysis helps researchers draw more robust conclusions and generalize findings beyond individual studies. This course will not focus on this subject.
+
+## Exercises
+
+1. Why is experimental design important for scientific studies?
+
+2. How many replicates are in this experiment?
+
+```{r lesson1-exercise, echo = FALSE, out.width = "80%", results='asis', fig.cap = "Illustration of a fertilizer experiment"}
+knitr::include_graphics("figures/1exercise.JPG")
+```
+
+3. In what step of scientific methods (e.g. Figure \@ref(fig:lesson1-exercise)) are the data obtained?
+
+## References
+
+::: {#refs}
+:::
