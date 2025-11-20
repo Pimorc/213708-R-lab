@@ -61,7 +61,7 @@ The sample space is point numbers on the six sides - 1, 2, 3, 4, 5, and 6.
 
 Then we make a graph of X on the x-axis and its P(X) on the y-axis. We will get the following graph (Figure \@ref(fig:die-pmf)):
 
-```{r die-pmf, echo=TRUE, fig.cap="PMF of rolling a die.", fig.width=6, fig.height=4}
+```{r die-pmf, echo = FALSE, fig.cap="PMF of rolling a die.", fig.width=6, fig.height=4}
 # Create PMF for rolling a die
 x <- 1:6
 prob <- rep(1/6, 6)
@@ -69,7 +69,7 @@ prob <- rep(1/6, 6)
 barplot(prob, names.arg = x, 
         xlab = "Outcome (X)", 
         ylab = "Probability P(X)",
-        main = "Probability Mass Function of Rolling a Die",
+        main = "Probability nass function of rolling a die",
         col = "steelblue",
         ylim = c(0, 0.2))
 ```
@@ -89,15 +89,15 @@ These values are described by a **probability density function (PDF)**, which as
 
 Figure \@ref(fig:height-pdf) shows the height data modeled as a normal distribution with a mean height of 170 cm and a standard deviation of 10 cm. The curve represents the likelihood of observing a given height, with the area under the curve summing up to 1.
 
-```{r height-pdf, echo=TRUE, fig.cap="PDF of height measurement of students.", fig.width=7, fig.height=5}
+```{r height-pdf, echo = FALSE, fig.cap="PDF of height measurement of students.", fig.width=7, fig.height=5}
 # Create PDF for height measurements
 x <- seq(130, 210, length.out = 1000)
 y <- dnorm(x, mean = 170, sd = 10)
 
 plot(x, y, type = "l", lwd = 2, col = "darkblue",
      xlab = "Height (cm)", 
-     ylab = "Probability Density",
-     main = "Probability Density Function of Student Heights")
+     ylab = "Probability density",
+     main = "Probability density function of student heights")
 grid()
 ```
 
@@ -126,19 +126,19 @@ $$E(X) = 1 \times \frac{1}{6} + 2 \times \frac{1}{6} + 3 \times \frac{1}{6} + 4 
 
 This means that the average outcome over many rolls is 3.5 (Figure \@ref(fig:die-running-avg)).
 
-```{r die-running-avg, echo=TRUE, fig.cap="Running average of rolling a die 1000 times and the expected value.", fig.width=7, fig.height=5}
+```{r die-running-avg, echo = FALSE, fig.cap="Running average of rolling a die 1000 times and the expected value.", fig.width=7, fig.height=5}
 # Simulate rolling a die 1000 times
 set.seed(123)
 rolls <- sample(1:6, 1000, replace = TRUE)
 running_avg <- cumsum(rolls) / seq_along(rolls)
 
 plot(1:1000, running_avg, type = "l", lwd = 2, col = "darkgreen",
-     xlab = "Number of Rolls", 
-     ylab = "Running Average",
-     main = "Running Average of Die Rolls",
+     xlab = "Number of rolls", 
+     ylab = "Running average",
+     main = "Running average of die rolls",
      ylim = c(2.5, 4.5))
 abline(h = 3.5, col = "red", lwd = 2, lty = 2)
-legend("topright", legend = c("Running Average", "Expected Value (3.5)"),
+legend("topright", legend = c("Running average", "Expected value (3.5)"),
        col = c("darkgreen", "red"), lwd = 2, lty = c(1, 2))
 grid()
 ```
@@ -220,7 +220,7 @@ where:
 - $x_i$ are the values of each data point
 - $\bar{x}$ is sample mean
 
-```{r variance-example, echo=TRUE, fig.cap="An example of 10 data points of cat's height and the mean.", fig.width=7, fig.height=5}
+```{r variance-example, echo = FALSE, fig.cap="An example of 10 data points of cat's height and the mean.", fig.width=7, fig.height=5}
 # Example: 10 data points
 set.seed(456)
 cat_heights <- c(25, 27, 26, 28, 24, 29, 25, 26, 27, 28)
@@ -228,8 +228,8 @@ mean_height <- mean(cat_heights)
 
 # Visualize data points and mean
 plot(1:10, cat_heights, pch = 19, col = "darkgreen", cex = 1.5,
-     xlab = "Cat Number", ylab = "Height (cm)",
-     main = "Cat Heights and Mean",
+     xlab = "Cat number", ylab = "Height (cm)",
+     main = "Cat heights and mean",
      ylim = c(23, 30))
 abline(h = mean_height, col = "purple", lwd = 2, lty = 2)
 segments(1:10, mean_height, 1:10, cat_heights, col = "darkgreen", lty = 2)
@@ -262,7 +262,7 @@ cat("Sample standard deviation:", round(std_dev, 2), "cm\n")
 
 1. With the following research question, what is the population of interest and what is the sample?
 
-   *"Does seed mass variation underlie interspecific differences in seed physical and chemical defenses of species in the genus Macaranga?"*
+   "Does seed mass variation underlie interspecific differences in seed physical and chemical defenses of species in the genus *Macaranga*?"
 
 2. If you run a study with the research question in Exercise 1, what would be random variables we measure from the experiment?
 
@@ -272,7 +272,7 @@ cat("Sample standard deviation:", round(std_dev, 2), "cm\n")
 
 ## Summary
 
-In this chapter, we learned:
+In this lesson, we learned:
 
 - The relationships among population, sample, and statistical inference
 - The definition and characteristics of random variables
