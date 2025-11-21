@@ -38,7 +38,7 @@ knitr::include_graphics("figures/fig3-2-random-variables.png")
 
 ## Types of Random Variables
 
-There are two main types of random variables based on nature of their values:
+There are two main types of random variables based on nature of their values [@gotelli2013]:
 
 ### Discrete Random Variables
 
@@ -187,7 +187,7 @@ $$E(X) = 2,000 \times 0.01 + (-80) \times 0.99 = -59.2 \text{ baht}$$
 
 The expected value is still negative.
 
-```{r lottery-expected, echo=TRUE}
+```{r lottery-expected, echo= FALSE}
 # Calculate expected values for Thai lottery
 first_prize <- 5970000 * 0.000001 + (-80) * 0.999999
 two_digit <- 2000 * 0.01 + (-80) * 0.99
@@ -221,25 +221,71 @@ where:
 - $\bar{x}$ is sample mean
 
 ```{r variance-example, echo = FALSE, fig.cap="An example of 10 data points of cat's height and the mean.", fig.width=7, fig.height=5}
+if (!require("png")) {
+install.packages("png")
+library(png)
+}
+
+if (!require("patchwork")) {
+install.packages("patchwork")
+library(patchwork)
+}
+
+if (!require("ggplot2")) {
+install.packages("ggplot2")
+library(ggplot2)
+}
 # Example: 10 data points
 set.seed(456)
+par(mar = c(5, 4, 1, 1), oma = c(0, 0, 1, 0))
 cat_heights <- c(25, 27, 26, 28, 24, 29, 25, 26, 27, 28)
 mean_height <- mean(cat_heights)
 
 # Visualize data points and mean
-plot(1:10, cat_heights, pch = 19, col = "darkgreen", cex = 1.5,
-     xlab = "Cat number", ylab = "Height (cm)",
-     main = "Cat heights and mean",
-     ylim = c(23, 30))
-abline(h = mean_height, col = "purple", lwd = 2, lty = 2)
-segments(1:10, mean_height, 1:10, cat_heights, col = "darkgreen", lty = 2)
-legend("topright", legend = c("Cat Height", "Mean Height", "Deviation"),
-       col = c("darkgreen", "purple", "darkgreen"), 
-       pch = c(19, NA, NA), lty = c(NA, 2, 2), lwd = c(NA, 2, 1))
+cat_data <- data.frame(
+  cat_number = 1:10,
+  height = cat_heights
+)
 
 # Calculate variance
 variance <- var(cat_heights)
 cat("\nSample variance:", round(variance, 2), "cm²\n")
+
+# Create the plot
+cat.plot <- ggplot(cat_data, aes(x = cat_number, y = height)) +
+  geom_hline(aes(yintercept = mean_height, linetype = "Mean Height"), 
+             color = "purple", linewidth = 1) +
+  geom_segment(aes(xend = cat_number, yend = mean_height, linetype = "Deviation"), 
+               color = "darkgreen") +
+  geom_point(aes(shape = "Cat Height"), color = "darkgreen", size = 4) +
+  scale_x_continuous(breaks = 1:10) +
+  scale_y_continuous(limits = c(17, 30)) +
+  scale_shape_manual(values = c("Cat Height" = 16)) +
+  scale_linetype_manual(values = c("Mean Height" = "dashed", "Deviation" = "dashed")) +
+  labs(x = "Cat number", 
+       y = "Height (cm)",
+       title = "Cat heights and mean",
+       shape = NULL,
+       linetype = NULL) +
+  theme_minimal() +
+  theme(
+    legend.position = "top",
+    legend.direction = "horizontal",
+    legend.box = "horizontal",
+    plot.title = element_text(hjust = 0.5)
+  )
+
+cat.image <- readPNG("figures/cat.png", native = TRUE)
+
+# Combine plot & image
+combine.image <- cat.plot +                  
+  inset_element(p = cat.image,
+                left = 0,
+                bottom = 0,
+                right = 1,
+                top = 0.4)
+combine.image 
+
 ```
 
 ### Variance and Standard Deviation
@@ -281,4 +327,9 @@ In this lesson, we learned:
 - How to calculate and interpret variance and standard deviation
 - Practical applications of these concepts through examples
 
-These foundational concepts will be essential as we move forward to more advanced statistical topics in subsequent chapters.
+These concepts will be essential as we move forward to more advanced statistical topics in subsequent lesson.
+
+## References
+
+::: {#refs}
+:::
