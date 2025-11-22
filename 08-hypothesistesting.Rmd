@@ -1,0 +1,298 @@
+# Hypothesis Testing
+
+**Duration:** 2-hour lecture
+
+## Learning outcomes
+
+Students should be able to:
+
+- Describe the meaning of P-value
+- Perform classical hypothesis tests
+- Distinguish between null and alternative hypothesis
+
+## Introduction
+
+Hypothesis testing is a fundamental statistical method used to make decisions or inferences about a population based on sample data. It involves formulating two competing statements: the null hypothesis ($H_0$), which typically represents a position of no effect or no difference, and the alternative hypothesis ($H_1$ or $H_a$), which suggests the presence of an effect or a difference.
+
+## The relationship between scientific and statistical hypotheses
+
+### What is a scientific Hypothesis and its link to statistical hypothesis?
+
+A scientific hypothesis is a testable prediction about the relationship between variables or the outcome of a phenomenon. It forms the foundation of scientific inquiry and guides our research studies. The scientific hypothesis is established before running experiments. After the experiment has finished and data are collected and ready to be analyzed, a statistical hypothesis will come into play.
+
+Statistical hypothesis testing uses statistical methods to evaluate whether the predictions of a scientific hypothesis are supported by data. It is important to understand that:
+
+1. Using statistics to test hypotheses is only a small facet of the scientific method
+2. It requires significant time and effort to conduct properly
+3. We use statistics to describe patterns in our data and make inferences
+
+### The Role of Statistics in Hypothesis Testing
+
+The goal of hypothesis testing is to use sample evidence to determine whether to reject or fail to reject the null hypothesis. This decision is made using test statistics and a corresponding p-value, which quantifies how likely the observed data would be if the null hypothesis were true.
+
+Statistics help us:
+
+1. Describe patterns in our data
+2. Test predictions derived from our hypotheses
+3. Determine probability that a given hypothesis is true: $P(\text{data}|H_0)$
+
+## Types of Statistical Hypotheses
+
+### Null Hypothesis ($H_0$) - Fisher's Approach
+
+A null hypothesis is opposite of our expectation. For example, if we test the effect of newly developed fertilizer on seedling growth. Our expectation is that our fertilizer should be better than not using fertilizer (control treatment). The null hypothesis in this case is that fertilizer and the control yield the same seedling growth.
+
+The null hypothesis is rejected based on data that is significantly unlikely if the null is true. It is important to remember that the null hypothesis is never accepted or proved. We can only reject or fail to reject it.
+
+### Alternative Hypothesis ($H_1$ or $H_a$) - Neyman and Pearson Approach
+
+The null hypothesis is contrasted with an alternative hypothesis. The alternative hypothesis is what we are interested in e.g. our fertilizer treatment makes seedlings grow better than the control treatment.
+
+- The two hypotheses are distinguished based on data, with certain error rates
+- This approach considers both hypotheses explicitly
+
+## P-Value definition and interpretation
+
+P-value presents the probability of finding the observed results, or more extreme results, when the null hypothesis ($H_0$) of a study question is true. P-value measures the strength of evidence against $H_0$.
+
+It is crucial to remember that P-value is NOT the probability that the null hypothesis is true or that P-value is the probability of observing the data (or more extreme) given that $H_0$ is true.
+
+**Example**:
+
+If the P-value is 0.80 or 80%, it means that the probability of finding the observed results, when the null hypothesis ($H_0$) is true is very high (0.80 or 80%). So, the null hypothesis should not be rejected. We make a conclusion based on the null hypothesis.
+
+If the P-value is 0.01 or 1%, it means that the probability of finding the observed results, when the null hypothesis ($H_0$) is true is very small (0.01 or 1%). So, if we set a significance value at 5%, the null hypothesis should be rejected. We make a conclusion based on the alternative hypothesis.
+
+## Errors in Hypothesis Testing
+
+Every time we make a statistical decision, we can potentially make an error [@navarro2023]. There are two types of errors (Table 8.1):
+
+### Type I Error ($\alpha$ - Alpha Error)
+
+This error means rejecting $H_0$ when $H_0$ is true. We use $\alpha$ to represent the probability of making a Type I error. Common values of $\alpha$ are 0.05, 0.01, 0.001.
+
+### Type II Error ($\beta$ - Beta Error)
+
+This error means failing to reject $H_0$ when $H_1$ is true. This is analogous to a guilty person escaping conviction (Table 8.2).
+
+Table: (\#tab:error-type) Error Type Summary Table
+
+| Truth         | Decision          |                                                                      |
+|---------------|-------------------|----------------------------------------------------------------------|
+|               | Accept $H_0$      | Reject $H_0$                                                         |
+| $H_0$ is true | Correct decision  | Type I error: alpha error, $\alpha$ (significance level)             |
+| $H_0$ is false| Type II error: beta error, $\beta$ | Correct decision<br>Power = $1 - \beta$                    |
+
+Table: (\#tab:error-type-analog) Criminal trial analogy of error types
+
+| Truth: the suspect is | Decision: The judge says the suspect is |                                                           |
+|-----------------------|-----------------------------------------|-----------------------------------------------------------|
+|                       | Innocent                                | Convicted                                                 |
+| Innocent              | Correct decision                        | Type I error:<br>The judge convicted an innocent person.  |
+| Guilty                | Type II error:<br>The judge fails to convict the criminal. | Correct decision<br>Power = $1 - \beta$    |
+
+## Significance level ($\alpha$: alpha)
+
+We want to keep both $\alpha$ and $\beta$ small, but there's a trade-off.
+
+If the $\alpha$ is set to small (0.01), it requires more evidence to reject $H_0$ compared to larger $\alpha$ (e.g., 0.05). When it is set to small, we don't want to reject the null hypothesis if it's true. The choice of $\alpha$ should be determined before collecting data, not after seeing results.
+
+## Statistical power ($1 - \beta$)
+
+The probability of correctly rejecting a false null hypothesis. When we have statistical power, it means we detect an effect when it truly exists.
+
+## Power analysis
+
+Power analysis is a statistical technique used to determine the likelihood that a study will detect an effect of a given size, assuming the effect truly exists. It is a critical step in study design, helping researchers decide how large a sample size is needed to achieve a desired level of statistical power—commonly set at 80% or higher—while controlling for the risk of Type I and Type II errors.
+
+Four quantities have an intimate relationship in hypothesis testing:
+
+1. Sample size ($n$)
+2. Effect size (magnitude of the difference or relationship) calculated using some index such as Cohen's $d$.
+3. Significance level ($\alpha$) = $P(\text{Type I error})$
+4. Power ($1-\beta$) = $P(\text{detecting a true effect})$
+
+**Example**
+
+For a two-sample t-test (test if two means are different), the power can be estimated using:
+
+$$\text{Power} = P(t > t_\alpha \mid \text{true effect size}, n)$$
+
+In practice, researchers often use statistical software that numerically solves these equations based on input values. For example, if we want to determine the sample size needed for the experiment, the researcher gives the three quantities:
+
+- Effect size (e.g., Cohen's $d$ = 0.5)
+- Alpha level (e.g., 0.05)
+- Desired power (e.g., 0.80)
+
+Then, the software returns the required sample size per group.
+
+## One-tailed vs Two-tailed Tests
+
+In hypothesis testing, the term "tail" refers to the extreme ends of a probability distribution where we look for evidence against the null hypothesis ($H_0$). The number of tails in a test—one-tailed or two-tailed—determines how you define this region of extremity.
+
+### One-tailed test
+
+This tests for an effect in only one direction. We place the entire significance level ($\alpha$) in one tail of the distribution. We use the one-tailed test when the alternative hypothesis ($H_1$) is directional (e.g., $\mu > \mu_0$ or $\mu < \mu_0$).
+
+**Example**
+Testing if a new fertilizer treatment gives better growth of seedlings than the standard fertilizer.
+
+### Two-tailed test
+
+This tests for an effect in both directions (either higher or lower). The significance level ($\alpha$) is split between both tails ($\alpha/2$ in each). We use the two-tailed test when the alternative hypothesis ($H_1$) is non-directional (not equal sign) (e.g., $\mu \neq \mu_0$).
+
+**Example**
+Testing if a new fertilizer treatment gives different growth of seedlings than the standard fertilizer. We are interested in both better or worse seedling growth.
+
+It is important to remember that choosing a one-tailed test just to achieve significance is not appropriate. The choice should be based on theoretical considerations before data collection.
+
+## Effect Size
+
+This is a quantitative measure of the strength of a phenomenon. This is important because statistical significance does not tell us about practical significance. Reporting effect sizes is considered good practice in reporting the research findings. There are about 50-100 different measures of effect size. Here are some examples.
+
+### Types of Effect Size Measures
+
+#### 1. Correlation family
+
+**Correlation coefficient ($r$)**
+
+$$r = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum (x_i - \bar{x})^2 \sum (y_i - \bar{y})^2}}$$
+
+Where:
+
+- $x_i$, $y_i$ are individual data points
+- $\bar{x}$, $\bar{y}$ are means of $x$ and $y$
+
+**Interpretation**: $r$ ranges from -1 to 1
+
+- Small: 0.1
+- Medium: 0.3
+- Large: 0.5
+
+**Coefficient of determination ($r^2$)**: proportion of variance explained. It is calculated by squaring correlation coefficient ($r$).
+
+**Interpretation**:
+
+- If it is 0, it means the model explains none of the variability.
+- If it is 1, it means the model explains all the variability.
+
+**Example**:
+
+If $r = 0.8$, then $r^2 = 0.64$
+
+This means 64% of the variation in $y$ can be explained by variation in $x$.
+
+#### 2. Difference family
+
+**Cohen's $d$**: The difference between two means divided by pooled standard deviation
+
+$$d = \frac{\bar{x}_1 - \bar{x}_2}{SD_{\text{pooled}}}$$
+
+Where:
+
+- $\bar{x}_1$, $\bar{x}_2$ are group means
+- $SD_{\text{pooled}}$ is the pooled standard deviation
+
+**Interpretation** (Cohen's rule of thumb):
+
+- Small effect: 0.2
+- Medium effect: 0.5
+- Large effect: 0.8
+
+## Classical tests: single and two-sample problems
+
+### Some examples of questions of single sample tests
+
+1. What is the mean value?
+2. Is the mean value significantly different from current expectation or theory?
+3. What is the level of uncertainty associated with our estimate?
+4. Are the values normally distributed?
+5. Are there outliers in the data?
+
+### Test for normality
+
+- $H_0$: Data follows a normal distribution.
+- $H_1$: Data do not follow a normal distribution.
+
+**Methods**:
+
+1. Visual: QQ plots
+2. Statistical: Shapiro-Wilk test
+
+### R example
+
+First, let us create hypothetical data from a normal distribution with a mean of 20 and a standard deviation of two (Figure 8.1). In this example, we expect the test of normality should lead to a decision that the data follow a normal distribution.
+
+```{r fig-normal-data, echo=FALSE, fig.cap="An example of data from a normal distribution", out.width="70%"}
+knitr::include_graphics("figures/normal_data.png")
+```
+
+Texts in the grey box are the R scripts to create the data and run the test.
+
+```{r eval=FALSE}
+y <- rnorm(100, mean = 20, sd = 2)
+shapiro.test(y)
+```
+
+**Result of the Shapiro test**:
+
+```
+data: y 
+W = 0.98581, p-value = 0.363
+```
+
+The P-value means that the probability of finding the observed results, when the null hypothesis ($H_0$) is 0.36. It is quite likely (36%) that if the $H_0$ is true, we will see the data look like what we have. If we use the significance level of 0.05, we cannot reject the $H_0$. We will conclude that the data is normally distributed, which is what it should be.
+
+Second, let us create hypothetical data from a non-normal distribution (here is a log-normal distribution). We expect the test of normality should lead to a decision that the data do not follow a normal distribution (reject $H_0$).
+
+```{r fig-lognormal-data, echo=FALSE, fig.cap="An example of log normal data", out.width="70%"}
+knitr::include_graphics("figures/lognormal_data.png")
+```
+
+```{r eval=FALSE}
+ylog.norm <- rlnorm(100)
+shapiro.test(ylog.norm)
+```
+
+**Result of the Shapiro test**:
+
+```
+data: ylog.norm 
+W = 0.62803, p-value = 1.514e-14
+```
+
+The P-value means that the probability of finding the observed results, when the null hypothesis ($H_0$) is $1.5 \times 10^{-14}$ (< 0.000001). It is unlikely to see the data like we have, if the $H_0$ is true. If we use the significance level of 0.05, we will reject the $H_0$. We will conclude that the data is not normally distributed, which is what it should be.
+
+### Two sample tests
+
+Here are some examples of hypothesis testing and R function to use in parentheses:
+
+1. Two variances: Fisher's F-test (`var.test`)
+2. Two means with normal errors: Student's T-test (`t.test`)
+3. Correlation: Pearson's or Spearman's rank correlation (`cor.test`)
+4. Two means with non-normal errors: Wilcoxon's rank test (`wilcox.test`)
+
+Hypothesis testing provides a structured, objective framework for evaluating scientific questions and is widely applied across experimental and observational studies in ecology and environmental science.
+
+## Exercise
+
+1. What is the meaning of P-value?
+2. What is alpha and beta error?
+3. Why is it good practice to report effect size in research?
+4. Give some examples of classical hypothesis tests – single and two sample problems
+5. Fill in the table below about hypothesis and tailed tests
+
+| Statement | Is it null or an alternative hypothesis? | In case of the answer of column 2 is an alternative hypothesis, specify if it is a one- or two-tailed test. |
+|-----------|------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| $\mu > 20$ | | |
+| $\mu = 20$ | | |
+| Data follows a normal distribution | | |
+| $\mu_{\text{treatment 1}} = \mu_{\text{treatment 2}}$ | | |
+| $\mu_{\text{treatment 1}} < \mu_{\text{treatment 2}}$ | | |
+| $\mu_{\text{treatment 1}} \neq \mu_{\text{treatment 2}}$ | | |
+| There is no correlation between x and y. | | |
+| Two variances are not equal. | | |
+
+---
+
+## References
