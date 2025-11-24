@@ -65,7 +65,7 @@ If the P-value is 0.01 or 1%, it means that the probability of finding the obser
 
 ## Errors in Hypothesis Testing
 
-Every time we make a statistical decision, we can potentially make an error [@navarro2023]. There are two types of errors (Table 8.1):
+Every time we make a statistical decision, we can potentially make an error [@navarro2023]. There are two types of errors (Table \@ref(tab:error-type)):
 
 ### Type I Error ($\alpha$ - Alpha Error)
 
@@ -73,7 +73,7 @@ This error means rejecting $H_0$ when $H_0$ is true. We use $\alpha$ to represen
 
 ### Type II Error ($\beta$ - Beta Error)
 
-This error means failing to reject $H_0$ when $H_1$ is true. This is analogous to a guilty person escaping conviction (Table 8.2).
+This error means failing to reject $H_0$ when $H_1$ is true. This is analogous to a guilty person escaping conviction (Table \@ref(tab:error-type-analog)).
 
 Table: (\#tab:error-type) Error Type Summary Table
 
