@@ -1,0 +1,246 @@
+# Regression
+
+**Duration:** 4-hour lecture
+
+## Learning outcomes
+
+Students should be able to:
+
+- Give some examples of types of regression analyses
+- Determine the assumptions of linear regression
+- Identify if data are suitable for regression analysis
+- Determine the steps for doing regression analysis
+- Determine link functions to be used for different data types
+- Identify the problems with fitting generalized linear models and adjust the models
+
+## Introduction
+
+Regression analysis is a fundamental statistical technique used to explore and model the relationship between variables. The primary goal is to determine how one or more explanatory (independent) variables influence a response (dependent) variable. Beyond identifying relationships, regression models are widely applied for making predictions.
+
+For regression analysis, both response and explanatory variables are *continuous*. It allows researchers to:
+
+1. Quantify the strength and form of the relationship between variables.
+2. Estimate parameters that describe this relationship.
+3. Use the model for prediction.
+
+We will explore different types of regression models, with emphasis on linear and nonlinear regression. At its core, a regression model expresses the response variable, $Y$, as a function of one or more explanatory variables $X$, plus an error term. Here is an example of equation for multiple linear regression when there is more than one explanatory variable.
+
+$$Y = a + b_1 X_1 + b_2 X_2 + \cdots + b_k X_k + \varepsilon$$
+
+Where:
+
+- $\varepsilon$ = random error that cannot be explained by the model
+- $a$, $b$ = parameter estimate
+
+## Different types of regression
+
+There is not a single fixed number of regression types, but statisticians usually group them into several major categories depending on data structure, assumptions, the form of the relationship, and the research question.
+
+### 1. Linear regression
+
+Linear regression is the simplest and most common approach, where the relationship between explanatory and response variables is assumed to follow a straight line. Some subtypes of linear regression are:
+
+- **Simple linear regression** – there is one explanatory variable
+- **Multiple linear regression** – there are two or more explanatory variables
+- **Polynomial** - this is considered a linear model, even though the curve it produces is not a straight line. For example, below the relationship between $X$ and $Y$ is not linear in shape but each parameter enters the equation in a linear way.
+
+$$Y = a + b_1 X + b_2 X^2 + \varepsilon$$
+
+- **Piecewise regression** – it fits separate linear models to different ranges of data, allowing researchers to capture relationships that change at certain thresholds or breakpoints.
+- **Robust regression** - This is useful when a dataset contains outliers or influential points. Robust regression reduces the impact of extreme values, producing more reliable estimates in the presence of noisy or imperfect data.
+
+### 2. Nonlinear regression
+
+Nonlinear regression is used when the relationship between explanatory and response variables cannot be adequately described by a straight line. Instead of assuming linearity, the model specifies a nonlinear function, such as exponential, logarithmic, or logistic forms.
+
+### 3. Generalized linear regression or generalized linear models (GLMs)
+
+This extends the framework of linear regression to situations where the response variable does not follow a normal distribution. GLMs allow for different types of response distributions (e.g., binomial for binary outcomes, Poisson for count data).
+
+### 4. Other approaches such as nonparametric regression
+
+The nonparametric regression does not assume a specific functional form. It is flexible but less interpretable.
+
+In this course, the focus will be on simple linear regression, nonlinear regression and GLMs.
+
+## Linear regression
+
+The simplest form of regression is linear regression, where the relationship between $Y$ and $X$ is assumed to be linear. For a simple linear regression (a single explanatory variable), the model is:
+
+$$Y = a + bX + \varepsilon$$
+
+Where:
+
+- $Y$ is the response variable
+- $X$ is the explanatory variable
+- $a$ is the intercept (value of $Y$ when $X = 0$)
+- $b$ is the slope (change in $Y$ for a one-unit change in $X$)
+- $\varepsilon$ is the random error term
+
+## Assumptions of linear regression
+
+For the linear regression model to be valid, several assumptions must be met. Violations of these assumptions can lead to biased estimates or invalid conclusions.
+
+1. **Linearity** - The relationship between explanatory variables and the response is linear.
+2. **Independence** - Observations are independent of one another.
+3. **Homoscedasticity** - Errors have constant variance ($\sigma^2$).
+4. **Normality** - Errors are normally distributed with mean zero.
+5. **No errors in X**
+6. **No missing value**
+
+### Example: examine the relationship between ground vs aerial based seedling-height survey
+
+@changsalak2022 compared software tools to help with seedling measurement in a restoration project. They aimed to compare the seedling height from ground measurement with the seedling height from 3D models of aerial photographs. The $Y$ was seedling height of the models, and the $X$ was height from the ground measurement (ground truth data) (Figure \@ref(fig:fig-seedling-height)).
+
+**Biological hypothesis**: The researchers expected that if the aerial photography is a good estimate of seedling height, the slope coefficient should be close to 1 and the $R^2$ should be close to 1.
+
+```{r fig-seedling-height, echo=FALSE, fig.cap="Plotting seedling height from ground measurements against the height derived from the 3D model of aerial photography (Figure is modified from [@changsalak2022])", out.width="80%"}
+
+# Load required library
+library(ggplot2)
+
+# Create sample data (approximating the plot)
+# You should replace this with your actual data
+ground_Height <- c(0.3, 0.5, 0.6, 0.7, 0.75, 0.8, 0.85, 1.0, 1.05, 1.1, 1.15, 1.2, 1.3, 1.6, 1.9)
+Dronedeploy_Height <- c(0.28, 0.52, 0.72, 0.62, 0.8, 0.72, 0.65, 1.15, 0.9, 1.15, 1.28, 1.1, 1.05, 1.6, 1.6)
+
+# Create a data frame
+data <- data.frame(ground_Height, Dronedeploy_Height)
+
+# Fit linear regression through the origin (intercept = 0)
+model <- lm(Dronedeploy_Height ~ 0 + ground_Height, data = data)
+
+# Get the slope
+slope <- coef(model)[1]
+
+# Calculate fitted values and residuals
+data$fitted <- predict(model, data)
+data$residuals <- data$Dronedeploy_Height - data$fitted
+
+# Calculate fitted values and residuals
+data$fitted <- predict(model, data)
+data$residuals <- data$Dronedeploy_Height - data$fitted
+
+# Get R-squared value
+r_squared <- summary(model)$r.squared
+
+# Create equation text
+equation_text <- paste0("y = ", round(slope, 2), "x")
+r2_text <- paste0("R² = ", round(r_squared, 3))
+
+# Create the plot
+ggplot(data, aes(x = ground_Height, y = Dronedeploy_Height)) +
+  
+  # Add points on top
+  geom_point(color = "#3182bd", size = 4, alpha = 0.8) +
+  
+  labs(x = "\nGround truth height (m)",
+       y = "Height derived from Dronedeploy (m)\n") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 16, face = "bold", hjust = 0),
+    axis.title = element_text(size = 12),
+    axis.text = element_text(size = 10),
+    panel.grid.major = element_line(color = "gray90"),
+    panel.grid.minor = element_line(color = "gray95"),
+    panel.background = element_rect(fill = "gray98", color = NA),
+    plot.background = element_rect(fill = "gray98", color = NA)
+  ) +
+  scale_x_continuous(limits = c(0, 2.1), breaks = seq(0, 2, 0.5)) +
+  scale_y_continuous(limits = c(0, 2.1), breaks = seq(0, 2, 0.5)) +
+  coord_fixed(ratio = 1)  # Equal aspect ratio
+
+# Alternative: to save the plot
+# ggsave("dronedeploy_regression.png", width = 8, height = 6, dpi = 300)
+```
+
+Linear regression attempts to fit a straight line through a cloud of data points. Many lines are generated through the data points. Each line has its own intercept and slope coefficient estimates. The best-fitting line (black line in Figure \@ref(fig:fig-residuals)) is the line that minimizes the sum of squared differences between observed values and predicted values (least squares method).
+
+It is important to see that there are residuals (errors) between the actual data points and the fitted line (Figure \@ref(fig:fig-residuals)). The residual means the vertical distance between observed points and the fitted line.
+
+```{r fig-residuals, echo=FALSE, fig.cap="Residuals of the regression line. Residuals provide a measure of model accuracy. If residuals are large or show patterns, the linear model may be inappropriate. (Figure is modified from [@changsalak2022])", out.width="80%"}
+# Create the plot
+ggplot(data, aes(x = ground_Height, y = Dronedeploy_Height)) +
+  # Add red residual lines first
+  geom_segment(aes(x = ground_Height, y = Dronedeploy_Height,
+                   xend = ground_Height, yend = fitted),
+               color = "red", linewidth = 0.5, alpha = 0.7) +
+  # Add regression line
+  geom_abline(intercept = 0, slope = slope, 
+              color = "#2c3e50", linewidth = 0.8) +
+  # Add points on top
+  geom_point(color = "#3182bd", size = 4, alpha = 0.8) +
+  # Add equation and R-squared text
+  annotate("text", x = 0.3, y = 1.9, 
+           label = equation_text, 
+           hjust = 0, size = 4.5, fontface = "bold") +
+  annotate("text", x = 0.3, y = 1.75, 
+           label = r2_text, 
+           hjust = 0, size = 4.5, fontface = "bold") +
+  labs(x = "\nGround truth height (m)",
+       y = "Height derived from Dronedeploy (m)\n") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 16, face = "bold", hjust = 0),
+    axis.title = element_text(size = 12),
+    axis.text = element_text(size = 10),
+    panel.grid.major = element_line(color = "gray90"),
+    panel.grid.minor = element_line(color = "gray95"),
+    panel.background = element_rect(fill = "gray98", color = NA),
+    plot.background = element_rect(fill = "gray98", color = NA)
+  ) +
+  scale_x_continuous(limits = c(0, 2.1), breaks = seq(0, 2, 0.5)) +
+  scale_y_continuous(limits = c(0, 2.1), breaks = seq(0, 2, 0.5)) +
+  coord_fixed(ratio = 1)  # Equal aspect ratio
+
+# Print regression statistics
+cat("Regression through the origin:\n")
+cat("Slope:", round(slope, 3), "\n")
+cat("R-squared:", round(summary(model)$r.squared, 3), "\n")
+
+```
+
+By plotting ground height against height derived from one of the models, we observe a positive linear trend. After using linear regression, the linear equation ($n = 15$) is $Y = 0.94X$ and the $R^2 = 0.98$. It seems like the height from 3D model can be used to estimate the height of seedlings well.
+
+## Nonlinear regression
+
+ADD content here: thinking about my data - Tree Khamyong paper?
+
+## Generalized linear regression or generalized linear models (GLMs)
+
+ADD content here: Aom data??
+
+
+
+## Exercise: Lesson 10 Regression
+
+1. Give three names of types of regression analyses
+
+2. What are the assumptions of linear regression?
+
+3. Incomplete - Is this data suitable for regression analysis?
+
+| Data                                | Answer |
+|-------------------------------------|--------|
+| (to be added)                       |        |
+| ?                                   |        |
+| All continuous                      |        |
+| Mixed continuous and categorical    |        |
+| Mixed continuous and categorical    |        |
+
+4. Determine the steps for doing regression analysis
+
+5. Determine link functions to be used for different data types
+
+| Response variables | Link function |
+|--------------------|---------------|
+| Proportion         |               |
+| Continuous         |               |
+| Binary             |               |
+| Count              |               |
+
+6. What is overdispersion? Why is it a problem when fitting generalized linear models? What to do if you encounter overdispersion?
+
+---
+
+## References
