@@ -23,7 +23,7 @@ For regression analysis, both response and explanatory variables are *continuous
 2. Estimate parameters that describe this relationship.
 3. Use the model for prediction.
 
-We will explore different types of regression models, with emphasis on linear and nonlinear regression. At its core, a regression model expresses the response variable, $Y$, as a function of one or more explanatory variables $X$, plus an error term. Here is an example of equation for multiple linear regression when there is more than one explanatory variable.
+We will explore different types of regression models, with emphasis on linear and non-linear regression. At its core, a regression model expresses the response variable, $Y$, as a function of one or more explanatory variables $X$, plus an error term. Here is an example of equation for multiple linear regression when there is more than one explanatory variable.
 
 $$Y = a + b_1 X_1 + b_2 X_2 + \cdots + b_k X_k + \varepsilon$$
 
@@ -49,9 +49,9 @@ $$Y = a + b_1 X + b_2 X^2 + \varepsilon$$
 - **Piecewise regression** – it fits separate linear models to different ranges of data, allowing researchers to capture relationships that change at certain thresholds or breakpoints.
 - **Robust regression** - This is useful when a dataset contains outliers or influential points. Robust regression reduces the impact of extreme values, producing more reliable estimates in the presence of noisy or imperfect data.
 
-### 2. Nonlinear regression
+### 2. Non-linear regression
 
-Nonlinear regression is used when the relationship between explanatory and response variables cannot be adequately described by a straight line. Instead of assuming linearity, the model specifies a nonlinear function, such as exponential, logarithmic, or logistic forms.
+Non-linear regression is used when the relationship between explanatory and response variables cannot be adequately described by a straight line. Instead of assuming linearity, the model specifies a non-linear function, such as exponential, logarithmic, or logistic forms.
 
 ### 3. Generalized linear regression or generalized linear models (GLMs)
 
@@ -61,7 +61,7 @@ This extends the framework of linear regression to situations where the response
 
 The nonparametric regression does not assume a specific functional form. It is flexible but less interpretable.
 
-In this course, the focus will be on simple linear regression, nonlinear regression and GLMs.
+In this course, the focus will be on simple linear regression, non-linear regression and GLMs.
 
 ## Linear regression
 
@@ -202,9 +202,10 @@ cat("R-squared:", round(summary(model)$r.squared, 3), "\n")
 
 By plotting ground height against height derived from one of the models, we observe a positive linear trend. After using linear regression, the linear equation ($n = 15$) is $Y = 0.94X$ and the $R^2 = 0.98$. It seems like the height from 3D model can be used to estimate the height of seedlings well.
 
-## Nonlinear regression
+## non-linear regression
 
-ADD content here: thinking about my data - Tree Khamyong paper?
+Scatter plots are a good way to visualize the relationship between $X$ and $Y$ variables. a non-linear regression can be used, if the pattern of points in space are not fit with a straight line. In addition, we may have a mechanistic model for the relationships and we would like to estimate the parameters of the non-linear equation. 
+
 
 ## Generalized linear regression or generalized linear models (GLMs)
 
@@ -216,17 +217,16 @@ ADD content here: Aom data??
 
 1. Give three names of types of regression analyses
 
-2. What are the assumptions of linear regression?
+2. What are the assumptions of a linear regression?
 
-3. Incomplete - Is this data suitable for regression analysis?
+3. Is this data set suitable for regression analysis?
 
-| Data                                | Answer |
-|-------------------------------------|--------|
-| (to be added)                       |        |
-| ?                                   |        |
-| All continuous                      |        |
-| Mixed continuous and categorical    |        |
-| Mixed continuous and categorical    |        |
+| Independent variable|Dependent variable | Answer |
+|---------------------|-------------------|--------|
+| Different plant species | Leaf color    |        |
+| Leaf length (mm)         | Leaf thickness (mm)    |        |
+| Smoke or not        | Life span (years)        |        |
+| Amount of heavy metal (mg/kg) in soil | Amount of heavy metal in tissue of bats (mg/kg)|         |
 
 4. Determine the steps for doing regression analysis
 
