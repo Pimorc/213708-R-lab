@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Scientific methods, role of experimental design and statistics in  ecological and environmental studies {#scientific-methods}
 
 **Duration:** 1-hour lecture

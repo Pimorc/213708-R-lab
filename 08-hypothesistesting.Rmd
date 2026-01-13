@@ -223,8 +223,15 @@ Where:
 
 First, let us create hypothetical data from a normal distribution with a mean of 20 and a standard deviation of two (Figure 8.1). In this example, we expect the test of normality should lead to a decision that the data follow a normal distribution.
 
-```{r fig-normal-data, echo=FALSE, fig.cap="An example of data from a normal distribution", out.width="70%"}
-knitr::include_graphics("figures/normal_data.png")
+```{r fig-normal-data, echo=FALSE, fig.cap="An example of data from a normal distribution", }
+suppressWarnings(library(ggplot2))
+set.seed(1234)
+y <- rnorm(100, mean = 20, sd = 2)
+ggplot(data.frame(x = y), aes(x)) +
+  geom_histogram(binwidth = 0.5, fill = "lightgreen", color = "black") +
+  xlab("Value") + ylab("Frequency") +
+  theme_bw()
+
 ```
 
 Texts in the grey box are the R scripts to create the data and run the test.
@@ -245,8 +252,14 @@ The P-value means that the probability of finding the observed results, when the
 
 Second, let us create hypothetical data from a non-normal distribution (here is a log-normal distribution). We expect the test of normality should lead to a decision that the data do not follow a normal distribution (reject $H_0$).
 
-```{r fig-lognormal-data, echo=FALSE, fig.cap="An example of log normal data", out.width="70%"}
-knitr::include_graphics("figures/lognormal_data.png")
+```{r fig-lognormal-data, echo=FALSE, fig.cap="An example of log-normal data"}
+set.seed(1234)
+ylog.norm <- rlnorm(100)
+library(ggplot2)
+ggplot(data.frame(x = ylog.norm), aes(x)) +
+  geom_histogram(binwidth = 0.5, fill = "skyblue", color = "black") +
+  xlab("Value") + ylab("Frequency") +
+  theme_bw()
 ```
 
 ```{r eval=FALSE}
