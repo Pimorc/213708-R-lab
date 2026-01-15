@@ -6,9 +6,9 @@
 
 Students should be able to:
 
-- Describe the meaning of P-value
-- Perform classical hypothesis tests
-- Distinguish between null and alternative hypothesis
+-   Describe the meaning of P-value
+-   Perform classical hypothesis tests
+-   Distinguish between null and alternative hypothesis
 
 ## Introduction
 
@@ -22,9 +22,9 @@ A scientific hypothesis is a testable prediction about the relationship between 
 
 Statistical hypothesis testing uses statistical methods to evaluate whether the predictions of a scientific hypothesis are supported by data. It is important to understand that:
 
-1. Using statistics to test hypotheses is only a small facet of the scientific method
-2. It requires significant time and effort to conduct properly
-3. We use statistics to describe patterns in our data and make inferences
+1.  Using statistics to test hypotheses is only a small facet of the scientific method
+2.  It requires significant time and effort to conduct properly
+3.  We use statistics to describe patterns in our data and make inferences
 
 ### The Role of Statistics in Hypothesis Testing
 
@@ -32,9 +32,9 @@ The goal of hypothesis testing is to use sample evidence to determine whether to
 
 Statistics help us:
 
-1. Describe patterns in our data
-2. Test predictions derived from our hypotheses
-3. Determine probability that a given hypothesis is true: $P(\text{data}|H_0)$
+1.  Describe patterns in our data
+2.  Test predictions derived from our hypotheses
+3.  Determine probability that a given hypothesis is true: $P(\text{data}|H_0)$
 
 ## Types of Statistical Hypotheses
 
@@ -48,8 +48,8 @@ The null hypothesis is rejected based on data that is significantly unlikely if 
 
 The null hypothesis is contrasted with an alternative hypothesis. The alternative hypothesis is what we are interested in e.g. our fertilizer treatment makes seedlings grow better than the control treatment.
 
-- The two hypotheses are distinguished based on data, with certain error rates
-- This approach considers both hypotheses explicitly
+-   The two hypotheses are distinguished based on data, with certain error rates
+-   This approach considers both hypotheses explicitly
 
 ## P-Value definition and interpretation
 
@@ -75,21 +75,57 @@ This error means rejecting $H_0$ when $H_0$ is true. We use $\alpha$ to represen
 
 This error means failing to reject $H_0$ when $H_1$ is true. This is analogous to a guilty person escaping conviction (Table \@ref(tab:error-type-analog)).
 
-Table: (\#tab:error-type) Error Type Summary Table
+Table: (#tab:error-type) Error Type Summary Table
 
-| Truth         | Decision          |                                                                      |
-|---------------|-------------------|----------------------------------------------------------------------|
-|               | Accept $H_0$      | Reject $H_0$                                                         |
-| $H_0$ is true | Correct decision  | Type I error: alpha error, $\alpha$ (significance level)             |
-| $H_0$ is false| Type II error: beta error, $\beta$ | Correct decision<br>Power = $1 - \beta$                    |
+```{r error-type, echo=FALSE}
+if(!require("kableExtra", character.only = TRUE)) {
+  install.packages("kableExtra", dependencies = TRUE)
+  library("kableExtra", character.only = TRUE)
+}
 
-Table: (\#tab:error-type-analog) Criminal trial analogy of error types
+if(!require("knitr", character.only = TRUE)) {
+  install.packages("knitr", dependencies = TRUE)
+  library("knitr", character.only = TRUE)
+}
 
-| Truth: the suspect is | Decision: The judge says the suspect is |                                                           |
-|-----------------------|-----------------------------------------|-----------------------------------------------------------|
-|                       | Innocent                                | Convicted                                                 |
-| Innocent              | Correct decision                        | Type I error:<br>The judge convicted an innocent person.  |
-| Guilty                | Type II error:<br>The judge fails to convict the criminal. | Correct decision<br>Power = $1 - \beta$    |
+# Create the data frame
+error_table <- data.frame(
+  Truth = c("$H_0$ is true", "$H_0$ is false"),
+  Accept_H0 = c("Correct decision", 
+                "Type II error: beta error, $\\beta$"),
+  Reject_H0 = c("Type I error: alpha error, $\\alpha$ (significance level)", 
+                "Correct decision P\nPower = $1 - \\beta$")
+)
+
+# Create the table with kableExtra
+kable(error_table,
+      col.names = c("Truth", "Accept $H_0$:", "Reject $H_0$:"),
+      align = c("l", "l", "l"),
+      escape = FALSE,
+      booktabs = TRUE,
+      caption = "Error Type Summary Table") %>%
+
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+               full_width = FALSE,
+               position = "left",
+               font_size = 14) %>%
+  column_spec(1, width = "8em", border_right = TRUE, background = "white") %>%
+  column_spec(2, width = "15em", background = c("white", "white", "white", "#FFE6CC")) %>%
+  column_spec(3, width = "15em", c("white", "white", "#FFE6CC", "white")) %>%
+  #row_spec(0, bold = TRUE, background = c("white", "white","#FFE6CC")) %>%
+  #row_spec(1, background = c("white", "white","#FFE6CC")) %>%
+  #row_spec(2, background = c("white", "#FFE6CC", "white")) %>%
+  add_header_above(c(" " = 1, "Decision" = 2))
+
+```
+
+| Truth: the suspect is | Decision: The judge says the suspect is                    |                                                          |
+|-----------------|-----------------------|---------------------------------|
+|                       | Innocent                                                   | Convicted                                                |
+| Innocent              | Correct decision                                           | Type I error:<br>The judge convicted an innocent person. |
+| Guilty                | Type II error:<br>The judge fails to convict the criminal. | Correct decision<br>Power = $1 - \beta$                  |
+
+: (#tab:error-type-analog) Criminal trial analogy of error types
 
 ## Significance level ($\alpha$: alpha)
 
@@ -103,14 +139,14 @@ The probability of correctly rejecting a false null hypothesis. When we have sta
 
 ## Power analysis
 
-Power analysis is a statistical technique used to determine the likelihood that a study will detect an effect of a given size, assuming the effect truly exists. It is a critical step in study design, helping researchers decide how large a sample size is needed to achieve a desired level of statistical power—commonly set at 80% or higher—while controlling for the risk of Type I and Type II errors.
+Power analysis is a statistical technique used to determine the likelihood that a study will detect an effect of a given size, assuming the effect truly exists. It is a critical step in study design, helping researchers decide how large a sample size is needed to achieve a desired level of statistical power---commonly set at 80% or higher---while controlling for the risk of Type I and Type II errors.
 
 Four quantities have an intimate relationship in hypothesis testing:
 
-1. Sample size ($n$)
-2. Effect size (magnitude of the difference or relationship) calculated using some index such as Cohen's $d$.
-3. Significance level ($\alpha$) = $P(\text{Type I error})$
-4. Power ($1-\beta$) = $P(\text{detecting a true effect})$
+1.  Sample size ($n$)
+2.  Effect size (magnitude of the difference or relationship) calculated using some index such as Cohen's $d$.
+3.  Significance level ($\alpha$) = $P(\text{Type I error})$
+4.  Power ($1-\beta$) = $P(\text{detecting a true effect})$
 
 **Example**
 
@@ -120,29 +156,27 @@ $$\text{Power} = P(t > t_\alpha \mid \text{true effect size}, n)$$
 
 In practice, researchers often use statistical software that numerically solves these equations based on input values. For example, if we want to determine the sample size needed for the experiment, the researcher gives the three quantities:
 
-- Effect size (e.g., Cohen's $d$ = 0.5)
-- Alpha level (e.g., 0.05)
-- Desired power (e.g., 0.80)
+-   Effect size (e.g., Cohen's $d$ = 0.5)
+-   Alpha level (e.g., 0.05)
+-   Desired power (e.g., 0.80)
 
 Then, the software returns the required sample size per group.
 
 ## One-tailed vs Two-tailed Tests
 
-In hypothesis testing, the term "tail" refers to the extreme ends of a probability distribution where we look for evidence against the null hypothesis ($H_0$). The number of tails in a test—one-tailed or two-tailed—determines how you define this region of extremity.
+In hypothesis testing, the term "tail" refers to the extreme ends of a probability distribution where we look for evidence against the null hypothesis ($H_0$). The number of tails in a test---one-tailed or two-tailed---determines how you define this region of extremity.
 
 ### One-tailed test
 
 This tests for an effect in only one direction. We place the entire significance level ($\alpha$) in one tail of the distribution. We use the one-tailed test when the alternative hypothesis ($H_1$) is directional (e.g., $\mu > \mu_0$ or $\mu < \mu_0$).
 
-**Example**
-Testing if a new fertilizer treatment gives better growth of seedlings than the standard fertilizer.
+**Example** Testing if a new fertilizer treatment gives better growth of seedlings than the standard fertilizer.
 
 ### Two-tailed test
 
 This tests for an effect in both directions (either higher or lower). The significance level ($\alpha$) is split between both tails ($\alpha/2$ in each). We use the two-tailed test when the alternative hypothesis ($H_1$) is non-directional (not equal sign) (e.g., $\mu \neq \mu_0$).
 
-**Example**
-Testing if a new fertilizer treatment gives different growth of seedlings than the standard fertilizer. We are interested in both better or worse seedling growth.
+**Example** Testing if a new fertilizer treatment gives different growth of seedlings than the standard fertilizer. We are interested in both better or worse seedling growth.
 
 It is important to remember that choosing a one-tailed test just to achieve significance is not appropriate. The choice should be based on theoretical considerations before data collection.
 
@@ -154,27 +188,27 @@ This is a quantitative measure of the strength of a phenomenon. This is importan
 
 #### 1. Correlation family
 
-**Correlation coefficient ($r$)**
+**Correlation coefficient (**$r$)
 
 $$r = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum (x_i - \bar{x})^2 \sum (y_i - \bar{y})^2}}$$
 
 Where:
 
-- $x_i$, $y_i$ are individual data points
-- $\bar{x}$, $\bar{y}$ are means of $x$ and $y$
+-   $x_i$, $y_i$ are individual data points
+-   $\bar{x}$, $\bar{y}$ are means of $x$ and $y$
 
 **Interpretation**: $r$ ranges from -1 to 1
 
-- Small: 0.1
-- Medium: 0.3
-- Large: 0.5
+-   Small: 0.1
+-   Medium: 0.3
+-   Large: 0.5
 
-**Coefficient of determination ($r^2$)**: proportion of variance explained. It is calculated by squaring correlation coefficient ($r$).
+**Coefficient of determination (**$r^2$): proportion of variance explained. It is calculated by squaring correlation coefficient ($r$).
 
 **Interpretation**:
 
-- If it is 0, it means the model explains none of the variability.
-- If it is 1, it means the model explains all the variability.
+-   If it is 0, it means the model explains none of the variability.
+-   If it is 1, it means the model explains all the variability.
 
 **Example**:
 
@@ -184,40 +218,40 @@ This means 64% of the variation in $y$ can be explained by variation in $x$.
 
 #### 2. Difference family
 
-**Cohen's $d$**: The difference between two means divided by pooled standard deviation
+**Cohen's** $d$: The difference between two means divided by pooled standard deviation
 
 $$d = \frac{\bar{x}_1 - \bar{x}_2}{SD_{\text{pooled}}}$$
 
 Where:
 
-- $\bar{x}_1$, $\bar{x}_2$ are group means
-- $SD_{\text{pooled}}$ is the pooled standard deviation
+-   $\bar{x}_1$, $\bar{x}_2$ are group means
+-   $SD_{\text{pooled}}$ is the pooled standard deviation
 
 **Interpretation** (Cohen's rule of thumb):
 
-- Small effect: 0.2
-- Medium effect: 0.5
-- Large effect: 0.8
+-   Small effect: 0.2
+-   Medium effect: 0.5
+-   Large effect: 0.8
 
 ## Classical tests: single and two-sample problems
 
 ### Some examples of questions of single sample tests
 
-1. What is the mean value?
-2. Is the mean value significantly different from current expectation or theory?
-3. What is the level of uncertainty associated with our estimate?
-4. Are the values normally distributed?
-5. Are there outliers in the data?
+1.  What is the mean value?
+2.  Is the mean value significantly different from current expectation or theory?
+3.  What is the level of uncertainty associated with our estimate?
+4.  Are the values normally distributed?
+5.  Are there outliers in the data?
 
 ### Test for normality
 
-- $H_0$: Data follows a normal distribution.
-- $H_1$: Data do not follow a normal distribution.
+-   $H_0$: Data follows a normal distribution.
+-   $H_1$: Data do not follow a normal distribution.
 
 **Methods**:
 
-1. Visual: QQ plots
-2. Statistical: Shapiro-Wilk test
+1.  Visual: QQ plots
+2.  Statistical: Shapiro-Wilk test
 
 ### R example
 
@@ -243,7 +277,7 @@ shapiro.test(y)
 
 **Result of the Shapiro test**:
 
-```
+```         
 data: y 
 W = 0.98581, p-value = 0.363
 ```
@@ -269,43 +303,43 @@ shapiro.test(ylog.norm)
 
 **Result of the Shapiro test**:
 
-```
+```         
 data: ylog.norm 
 W = 0.62803, p-value = 1.514e-14
 ```
 
-The P-value means that the probability of finding the observed results, when the null hypothesis ($H_0$) is $1.5 \times 10^{-14}$ (< 0.000001). It is unlikely to see the data like we have, if the $H_0$ is true. If we use the significance level of 0.05, we will reject the $H_0$. We will conclude that the data is not normally distributed, which is what it should be.
+The P-value means that the probability of finding the observed results, when the null hypothesis ($H_0$) is $1.5 \times 10^{-14}$ (\< 0.000001). It is unlikely to see the data like we have, if the $H_0$ is true. If we use the significance level of 0.05, we will reject the $H_0$. We will conclude that the data is not normally distributed, which is what it should be.
 
 ### Two sample tests
 
 Here are some examples of hypothesis testing and R function to use in parentheses:
 
-1. Two variances: Fisher's F-test (`var.test`)
-2. Two means with normal errors: Student's T-test (`t.test`)
-3. Correlation: Pearson's or Spearman's rank correlation (`cor.test`)
-4. Two means with non-normal errors: Wilcoxon's rank test (`wilcox.test`)
+1.  Two variances: Fisher's F-test (`var.test`)
+2.  Two means with normal errors: Student's T-test (`t.test`)
+3.  Correlation: Pearson's or Spearman's rank correlation (`cor.test`)
+4.  Two means with non-normal errors: Wilcoxon's rank test (`wilcox.test`)
 
 Hypothesis testing provides a structured, objective framework for evaluating scientific questions and is widely applied across experimental and observational studies in ecology and environmental science.
 
 ## Exercise
 
-1. What is the meaning of P-value?
-2. What is alpha and beta error?
-3. Why is it good practice to report effect size in research?
-4. Give some examples of classical hypothesis tests – single and two sample problems
-5. Fill in the table below about hypothesis and tailed tests
+1.  What is the meaning of P-value?
+2.  What is alpha and beta error?
+3.  Why is it good practice to report effect size in research?
+4.  Give some examples of classical hypothesis tests -- single and two sample problems
+5.  Fill in the table below about hypothesis and tailed tests
 
-| Statement | Is it null or an alternative hypothesis? | In case of the answer of column 2 is an alternative hypothesis, specify if it is a one- or two-tailed test. |
-|-----------|------------------------------------------|--------------------------------------------------------------------------------------------------------------|
-| $\mu > 20$ | | |
-| $\mu = 20$ | | |
-| Data follows a normal distribution | | |
-| $\mu_{\text{treatment 1}} = \mu_{\text{treatment 2}}$ | | |
-| $\mu_{\text{treatment 1}} < \mu_{\text{treatment 2}}$ | | |
-| $\mu_{\text{treatment 1}} \neq \mu_{\text{treatment 2}}$ | | |
-| There is no correlation between x and y. | | |
-| Two variances are not equal. | | |
+| Statement                                                | Is it null or an alternative hypothesis? | In case of the answer of column 2 is an alternative hypothesis, specify if it is a one- or two-tailed test. |
+|--------------|---------------|-------------------------------------------|
+| $\mu > 20$                                               |                                          |                                                                                                             |
+| $\mu = 20$                                               |                                          |                                                                                                             |
+| Data follows a normal distribution                       |                                          |                                                                                                             |
+| $\mu_{\text{treatment 1}} = \mu_{\text{treatment 2}}$    |                                          |                                                                                                             |
+| $\mu_{\text{treatment 1}} < \mu_{\text{treatment 2}}$    |                                          |                                                                                                             |
+| $\mu_{\text{treatment 1}} \neq \mu_{\text{treatment 2}}$ |                                          |                                                                                                             |
+| There is no correlation between x and y.                 |                                          |                                                                                                             |
+| Two variances are not equal.                             |                                          |                                                                                                             |
 
----
+------------------------------------------------------------------------
 
 ## References
