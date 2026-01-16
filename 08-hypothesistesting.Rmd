@@ -67,15 +67,8 @@ If the P-value is 0.01 or 1%, it means that the probability of finding the obser
 
 Every time we make a statistical decision, we can potentially make an error [@navarro2023]. There are two types of errors (Table \@ref(tab:error-type)):
 
-### Type I Error ($\alpha$ - Alpha Error)
+Table: (\#tab:error-type) Error Type Summary Table
 
-This error means rejecting $H_0$ when $H_0$ is true. We use $\alpha$ to represent the probability of making a Type I error. Common values of $\alpha$ are 0.05, 0.01, 0.001.
-
-### Type II Error ($\beta$ - Beta Error)
-
-This error means failing to reject $H_0$ when $H_1$ is true. This is analogous to a guilty person escaping conviction (Table \@ref(tab:error-type-analog)).
-
-Table: (#tab:error-type) Error Type Summary Table
 
 ```{r error-type, echo=FALSE}
 if(!require("kableExtra", character.only = TRUE)) {
@@ -97,35 +90,62 @@ error_table <- data.frame(
                 "Correct decision P\nPower = $1 - \\beta$")
 )
 
-# Create the table with kableExtra
-kable(error_table,
-      col.names = c("Truth", "Accept $H_0$:", "Reject $H_0$:"),
-      align = c("l", "l", "l"),
-      escape = FALSE,
-      booktabs = TRUE,
-      caption = "Error Type Summary Table") %>%
 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
-               full_width = FALSE,
-               position = "left",
-               font_size = 14) %>%
-  column_spec(1, width = "8em", border_right = TRUE, background = "white") %>%
-  column_spec(2, width = "15em", background = c("white", "white", "white", "#FFE6CC")) %>%
-  column_spec(3, width = "15em", c("white", "white", "#FFE6CC", "white")) %>%
-  #row_spec(0, bold = TRUE, background = c("white", "white","#FFE6CC")) %>%
-  #row_spec(1, background = c("white", "white","#FFE6CC")) %>%
-  #row_spec(2, background = c("white", "#FFE6CC", "white")) %>%
+# Create the table with kableExtra
+
+error_table %>%
+  kbl(align = "l",
+      col.names = c("Truth", "Accept $H_0$:", "Reject $H_0$:")) %>% 
+  kable_styling(full_width = F) %>%
+  column_spec(column = 1, width = "8em", border_right = TRUE,
+              background = "white") %>%
+  column_spec(3, background = c("#FFE6CC", "white"), width = "15em",
+              border_left = TRUE) %>%
+  column_spec(2, background = c("white", "#FFE6CC"), width = "15em") %>%
   add_header_above(c(" " = 1, "Decision" = 2))
+
 
 ```
 
-| Truth: the suspect is | Decision: The judge says the suspect is                    |                                                          |
-|-----------------|-----------------------|---------------------------------|
-|                       | Innocent                                                   | Convicted                                                |
-| Innocent              | Correct decision                                           | Type I error:<br>The judge convicted an innocent person. |
-| Guilty                | Type II error:<br>The judge fails to convict the criminal. | Correct decision<br>Power = $1 - \beta$                  |
+### Type I Error ($\alpha$ - Alpha Error)
 
-: (#tab:error-type-analog) Criminal trial analogy of error types
+This error means rejecting $H_0$ when $H_0$ is true. We use $\alpha$ to represent the probability of making a Type I error. Common values of $\alpha$ are 0.05, 0.01, 0.001.
+
+### Type II Error ($\beta$ - Beta Error)
+
+This error means failing to reject $H_0$ when $H_1$ is true. This is analogous to a guilty person escaping conviction (Table \@ref(tab:error-type-analog)).
+
+Table: (\#tab:error-type-analog) Criminal trial analogy of error types
+
+```{r error-type-analog, echo=FALSE}
+
+# Create the data frame
+error_table_analog <- data.frame(
+  Truth = c("Innocent", "Guilty"),
+  Innocent = c("Correct decision", 
+                "Type II error: The judge fails to convict the criminal."),
+  Guilty = c("Type I error: The judge convicted an innocent person.", 
+                "Correct decision P\nPower = $1 - \\beta$")
+)
+
+
+# Create the table with kableExtra
+
+error_table_analog %>%
+  kbl(align = "l",
+      col.names = c("Truth: the suspect is", "Innocent", "Convicted")) %>% 
+  kable_styling(full_width = F) %>%
+  column_spec(column = 1, width = "8em", border_right = TRUE,
+              background = "white") %>%
+  column_spec(3, background = c("#FFE6CC", "white"), width = "15em",
+              border_left = TRUE) %>%
+  column_spec(2, background = c("white", "#FFE6CC"), width = "15em") %>%
+  add_header_above(c(" " = 1, "Decision: The judge says the suspect is" = 2))
+
+
+```
+
+
 
 ## Significance level ($\alpha$: alpha)
 
@@ -330,7 +350,7 @@ Hypothesis testing provides a structured, objective framework for evaluating sci
 5.  Fill in the table below about hypothesis and tailed tests
 
 | Statement                                                | Is it null or an alternative hypothesis? | In case of the answer of column 2 is an alternative hypothesis, specify if it is a one- or two-tailed test. |
-|--------------|---------------|-------------------------------------------|
+|------------------|------------------|-------------------------------------|
 | $\mu > 20$                                               |                                          |                                                                                                             |
 | $\mu = 20$                                               |                                          |                                                                                                             |
 | Data follows a normal distribution                       |                                          |                                                                                                             |
