@@ -214,17 +214,15 @@ The fundamental structure of a GLM involves three key components: 1. A probabili
 
 Unlike traditional linear models, GLMs do not require errors to be normally distributed, though they must be independent. Parameter estimation relies on maximum likelihood estimation (MLE) rather than ordinary least squares. The choice of distribution and link function depends on the type of response variable (\@ref(tab:link-function)):
 
-Table: (\#tab:link-function) Link functions of different types of response variables and explanatory variables
-
 | Distribution of response variable (y) | Link function | Model name           | Explanatory variables (x) |
-|---------------------|-----------------|-----------------|-----------------|
-| Normal (Continuous data)               | Identity      | Linear regression    | Continuous      |
-| Binomial (Binary data)                 | Logit         | Logistic regression  | Mixed           |
-| Binomial (Binary data)                 | Logit         | Logit model          | Categorical     |
-| Poisson (Count data)                   | Log           | Loglinear regression | Categorical     |
-| Poisson (Count data)                   | Log           | Poisson regression   | Mixed           |
+|--------------------|------------------|------------------|------------------|
+| Normal (Continuous data)              | Identity      | Linear regression    | Continuous                |
+| Binomial (Binary data)                | Logit         | Logistic regression  | Mixed                     |
+| Binomial (Binary data)                | Logit         | Logit model          | Categorical               |
+| Poisson (Count data)                  | Log           | Loglinear regression | Categorical               |
+| Poisson (Count data)                  | Log           | Poisson regression   | Mixed                     |
 
-
+: (#tab:link-function) Link functions of different types of response variables and explanatory variables
 
 ### Understanding Probability and Odds
 
@@ -236,12 +234,11 @@ It is essential to understand the distinction between probability and odds (Figu
 knitr::include_graphics("figures/fig10-odds.png")
 ```
 
-The relationship between probability and odds becomes particularly important in logistic regression. If the probability of success is denoted as $p$, then the probability of failure is $1-p$, and the odds ratio equals $p/(1-p)$. This formulation allows us to transform probabilities, which are bounded between 0 and 1, into odds that range from 0 to infinity. The logit link function takes this one step further by applying the natural logarithm to the odds, creating the log-odds or logit: $ln(p/(1-p))$. This transformation produces values ranging from negative to positive infinity, which can then be modeled as a linear function of explanatory variables. When we exponentiate the logit function, we recover the probability through the equation $p = 1/(1 + e\^(-βx))$, creating the characteristic S-shaped curve of logistic regression.
+The relationship between probability and odds becomes particularly important in logistic regression. If the probability of success is denoted as $p$, then the probability of failure is $1-p$, and the odds ratio equals $\frac{p}{(1-p)}$. This formulation allows us to transform probabilities, which are bounded between 0 and 1, into odds that range from 0 to infinity. The logit link function takes this one step further by applying the natural logarithm to the odds, creating the log-odds or logit: $ln(\frac{p}{(1-p)})$. This transformation produces values ranging from negative to positive infinity, which can then be modeled as a linear function of explanatory variables. When we exponentiate the logit function, we recover the probability through the equation $p = \frac{1}{(1 + e^{-βx})}$, creating the characteristic S-shaped curve of logistic regression.
 
 ### Logistic Regression for Binary Data
 
 Jan19 Here
-
 
 Logistic regression is the most commonly used GLM for analyzing binary response variables---data with only two possible outcomes such as dead/alive, presence/absence, or success/failure. These outcomes are typically coded as 0 and 1, with the model estimating the probability that the response equals 1 given specific values of the explanatory variables. The binomial distribution with n=1 (known as the Bernoulli distribution) provides the probability framework, while the logit link function ensures that predicted probabilities remain within the valid range of 0 to 1 regardless of the values of the predictors. Explanatory variables in logistic regression can be continuous, categorical, or a mixture of both, providing considerable flexibility in modeling real-world phenomena.
 
@@ -268,7 +265,7 @@ Overdispersion can be detected by examining the ratio of residual deviance to re
 3.  Is this data set suitable for regression analysis?
 
 | Independent variable                  | Dependent variable                              | Answer |
-|-----------------------------|--------------------------|-----------------|
+|----------------------------|--------------------------|------------------|
 | Different plant species               | Leaf color                                      |        |
 | Leaf length (mm)                      | Leaf thickness (mm)                             |        |
 | Smoke or not                          | Life span (years)                               |        |
