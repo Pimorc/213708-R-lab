@@ -67,10 +67,7 @@ If the P-value is 0.01 or 1%, it means that the probability of finding the obser
 
 Every time we make a statistical decision, we can potentially make an error [@navarro2023]. There are two types of errors (Table \@ref(tab:error-type)):
 
-Table: (\#tab:error-type) Error Type Summary Table
-
-
-```{r error-type, echo=FALSE}
+```{r table-package, echo=FALSE, include=FALSE}
 if(!require("kableExtra", character.only = TRUE)) {
   install.packages("kableExtra", dependencies = TRUE)
   library("kableExtra", character.only = TRUE)
@@ -80,6 +77,10 @@ if(!require("knitr", character.only = TRUE)) {
   install.packages("knitr", dependencies = TRUE)
   library("knitr", character.only = TRUE)
 }
+
+```
+
+```{r error-type, echo=FALSE, results =  "asis"}
 
 # Create the data frame
 error_table <- data.frame(
@@ -95,7 +96,8 @@ error_table <- data.frame(
 
 error_table %>%
   kbl(align = "l",
-      col.names = c("Truth", "Accept $H_0$:", "Reject $H_0$:")) %>% 
+      col.names = c("Truth", "Accept $H_0$:", "Reject $H_0$:"),
+      caption = "Error type summary table") %>% 
   kable_styling(full_width = F) %>%
   column_spec(column = 1, width = "8em", border_right = TRUE,
               background = "white") %>%
@@ -103,7 +105,6 @@ error_table %>%
               border_left = TRUE) %>%
   column_spec(2, background = c("white", "#FFE6CC"), width = "15em") %>%
   add_header_above(c(" " = 1, "Decision" = 2))
-
 
 ```
 
@@ -115,9 +116,7 @@ This error means rejecting $H_0$ when $H_0$ is true. We use $\alpha$ to represen
 
 This error means failing to reject $H_0$ when $H_1$ is true. This is analogous to a guilty person escaping conviction (Table \@ref(tab:error-type-analog)).
 
-Table: (\#tab:error-type-analog) Criminal trial analogy of error types
-
-```{r error-type-analog, echo=FALSE}
+```{r error-type-analog, results = "asis", echo=FALSE}
 
 # Create the data frame
 error_table_analog <- data.frame(
@@ -133,7 +132,8 @@ error_table_analog <- data.frame(
 
 error_table_analog %>%
   kbl(align = "l",
-      col.names = c("Truth: the suspect is", "Innocent", "Convicted")) %>% 
+      col.names = c("Truth: the suspect is", "Innocent", "Convicted"),
+      caption = "Criminal trial analogy of error types") %>% 
   kable_styling(full_width = F) %>%
   column_spec(column = 1, width = "8em", border_right = TRUE,
               background = "white") %>%
@@ -141,7 +141,6 @@ error_table_analog %>%
               border_left = TRUE) %>%
   column_spec(2, background = c("white", "#FFE6CC"), width = "15em") %>%
   add_header_above(c(" " = 1, "Decision: The judge says the suspect is" = 2))
-
 
 ```
 
