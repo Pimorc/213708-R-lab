@@ -77,7 +77,7 @@ Where:
 -   $b$ is the slope (change in $Y$ for a one-unit change in $X$)
 -   $\varepsilon$ is the random error term
 
-## Assumptions of linear regression
+### Assumptions of linear regression
 
 For the linear regression model to be valid, several assumptions must be met. Violations of these assumptions can lead to biased estimates or invalid conclusions.
 
@@ -202,25 +202,25 @@ cat("R-squared:", round(summary(model)$r.squared, 3), "\n")
 
 By plotting ground height against height derived from one of the models, we observe a positive linear trend. After using linear regression, the linear equation ($n = 15$) is $Y = 0.94X$ and the $R^2 = 0.98$. It seems like the height from 3D model can be used to estimate the height of seedlings well.
 
-## non-linear regression
+## Non-linear regression
 
 Scatter plots are a good way to visualize the relationship between $X$ and $Y$ variables. a non-linear regression can be used, if the pattern of points in space are not fit with a straight line. In addition, we may have a mechanistic model for the relationships and we would like to estimate the parameters of the non-linear equation.
 
-## Generalized linear regression or generalized linear models (GLMs)
+## Generalized Linear Regression or Generalized Linear Models (GLMs)
 
 Generalized linear models extend traditional linear regression to accommodate response variables that follow non-normal distributions from the exponential family. This framework is particularly valuable when working with count data, binary outcomes, or proportions where the assumptions of ordinary least squares regression are violated. For example, - Poisson distributions require that the rate parameter λ be positive. - Binomial distributions constrain the probability parameter θ to lie between 0 and 1---restrictions that linear functions cannot safely maintain without transformation.
 
 The fundamental structure of a GLM involves three key components: 1. A probability distribution from the exponential family for the response variable 2. A linear predictor combining the explanatory variables 3. A link function that connects the expected value of the response to the linear predictor.
 
-Unlike traditional linear models, GLMs do not require errors to be normally distributed, though they must be independent. Parameter estimation relies on maximum likelihood estimation (MLE) rather than ordinary least squares. The choice of distribution and link function depends on the type of response variable (\@ref(tab:link-function)):
+Unlike traditional linear models, GLMs do not require errors to be normally distributed, though they must be independent. Parameter estimation relies on maximum likelihood estimation (MLE) rather than ordinary least squares. The choice of distribution and link function depends on the type of response variable (Table \@ref(tab:link-function)):
 
-| Distribution of response variable (y) | Link function | Model name           | Explanatory variables (x) |
-|--------------------|------------------|------------------|------------------|
-| Normal (Continuous data)              | Identity      | Linear regression    | Continuous                |
-| Binomial (Binary data)                | Logit         | Logistic regression  | Mixed                     |
-| Binomial (Binary data)                | Logit         | Logit model          | Categorical               |
-| Poisson (Count data)                  | Log           | Loglinear regression | Categorical               |
-| Poisson (Count data)                  | Log           | Poisson regression   | Mixed                     |
+| Distribution of response variable (y) | Link function | Model name | Explanatory variables (x) |
+|-------------------|------------------|------------------|------------------|
+| Normal (Continuous data) | Identity | Linear regression | Continuous |
+| Binomial (Binary data) | Logit | Logistic regression | Mixed |
+| Binomial (Binary data) | Logit | Logit model | Categorical |
+| Poisson (Count data) | Log | Loglinear regression | Categorical |
+| Poisson (Count data) | Log | Poisson regression | Mixed |
 
 : (#tab:link-function) Link functions of different types of response variables and explanatory variables
 
@@ -238,23 +238,81 @@ The relationship between probability and odds becomes particularly important in 
 
 ### Logistic Regression for Binary Data
 
-Jan19 Here
-
 Logistic regression is the most commonly used GLM for analyzing binary response variables---data with only two possible outcomes such as dead/alive, presence/absence, or success/failure. These outcomes are typically coded as 0 and 1, with the model estimating the probability that the response equals 1 given specific values of the explanatory variables. The binomial distribution with n=1 (known as the Bernoulli distribution) provides the probability framework, while the logit link function ensures that predicted probabilities remain within the valid range of 0 to 1 regardless of the values of the predictors. Explanatory variables in logistic regression can be continuous, categorical, or a mixture of both, providing considerable flexibility in modeling real-world phenomena.
 
-Consider an ecological example examining bird breeding patterns on islands. The response variable is binary (breeding or not breeding), while explanatory variables include island area (continuous) and isolation distance from the mainland (continuous). In R, we fit this model using the `glm()` function with `family = "binomial"`. The model takes the form ln(p/(1-p)) = β₀ + β₁(area) + β₂(isolation), where the coefficients represent the change in log-odds for each unit increase in the predictor. Interpreting these coefficients requires exponentiation: exp(β) gives the multiplicative change in odds for a one-unit increase in the corresponding variable. For instance, if the coefficient for area is 0.5807, then exp(0.5807) = 1.78, meaning that each additional unit of island area increases the odds of bird breeding by 78%. Similarly, a negative coefficient for isolation of -1.3719 yields exp(-1.3719) = 0.25, indicating that each unit increase in isolation distance reduces the odds of breeding to 25% of their previous value.
+##### Example: bird breeding patterns on islands (@crawley2012)
 
-## Poisson Regression for Count Data
+Consider an ecological example examining bird breeding patterns on islands (Figure \@ref(fig:isolation-data)). The response variable is binary (incidence: breeding (1) or not breeding (0)), while explanatory variables include island area ($km^2$: continuous) and isolation distance from the mainland ($km$: continuous).
 
-When the response variable consists of counts---such as the number of species in ecological plots, the number of defects in manufacturing, or the number of events occurring in a fixed time period---Poisson regression provides an appropriate modeling framework. Count data are non-negative integers that often exhibit variance proportional to their mean, a characteristic feature of the Poisson distribution. The log link function, which takes the natural logarithm of the expected count, ensures that predicted values remain positive while allowing the linear predictor to range over all real numbers. This transformation means we model ln(E[Y]) = β₀ + β₁X₁ + β₂X₂ + ..., which implies that E[Y] = exp(β₀ + β₁X₁ + β₂X₂ + ...).
+```{r isolation-data, echo=FALSE, eval=TRUE, fig.cap="The example of top rows of the breeding dataset with three variables", message=FALSE, warning=FALSE}
+if(!require("gridExtra", character.only = TRUE)) {
+  install.packages("gridExtra", dependencies = TRUE)
+  library("gridExtra", character.only = TRUE)
+}
+if(!require("grid", character.only = TRUE)) {
+  install.packages("grid", dependencies = TRUE)
+  library("grid", character.only = TRUE)
+}
 
-For example, suppose we are studying plant species richness in plots with varying biomass levels and soil pH categories (high, mid, low). The response variable is the count of species, biomass is a continuous explanatory variable, and pH is categorical with three levels. We fit this model in R using `glm(Species ~ Biomass * pH, family = "poisson")` to allow for interaction effects, or `glm(Species ~ Biomass + pH, family = "poisson")` for additive effects only. Model selection can be performed using analysis of deviance, which compares nested models through a chi-squared test. The deviance measures the distance between two probabilistic models, with the difference in deviance between models following a chi-squared distribution with degrees of freedom equal to the difference in the number of parameters. Coefficients in Poisson regression are interpreted on the log scale, so exp(β) represents the multiplicative change in the expected count for each unit increase in the predictor.
+breed.data <- read.table("data/isolation.txt", header = T)
+rownames(breed.data) <- NULL
+# Capture printed output into a grob
 
-## Model Diagnostics and Overdispersion
+tbl <- tableGrob(head(breed.data), rows = NULL)
 
-Proper model checking is crucial for ensuring that GLM assumptions are met and that the model provides reliable inferences. One fundamental assumption is homoscedasticity---constant variance of errors across fitted values. Plotting residuals against fitted values helps diagnose violations of this assumption, with patterns or systematic trends indicating potential problems. Additionally, GLMs assume that the variance of the response follows what is specified by the chosen distribution family: for binomial data, variance should equal np(1-p), and for Poisson data, variance should equal the mean. When observed variance exceeds what the model predicts, we encounter overdispersion, a common problem that leads to underestimated standard errors and overly optimistic significance tests.
+grid::grid.draw(tbl)
+```
 
-Overdispersion can be detected by examining the ratio of residual deviance to residual degrees of freedom in the model output. For a well-fitting model, this ratio should be approximately 1. Values substantially greater than 1 indicate overdispersion, which can arise from several sources: individual-level variability in experimental material, correlation between responses (such as when sampling units come from related individuals), cluster sampling effects, or excess zero counts in the data. For the bird breeding example, a residual deviance of 28.402 on 47 degrees of freedom yields a ratio of 0.60, suggesting adequate model fit. However, if this ratio exceeded 1.5 or 2, we would need to address overdispersion. The solution involves using quasi-likelihood methods by specifying `family = "quasibinomial"` for binary data or `family = "quasipoisson"` for count data. These families estimate a dispersion parameter from the data rather than fixing it at 1, providing more realistic standard errors and preserving the validity of hypothesis tests even when the strict distributional assumptions are not met.
+In R, we fit this model using the `glm()` function with `family = "binomial"`. The model takes the form $ln(p/(1-p)) = β₀ + β₁(area) + β₂(isolation)$, where the coefficients represent the change in log-odds for each unit increase in the predictor (Figure \@ref(fig:glm-isolation)).
+
+```{r glm-isolation, echo=FALSE, eval=TRUE, fig.cap="The output of the logistic regression with bird breeding data"}
+
+model <- glm(incidence ~ area + isolation, family = "binomial", data = breed.data)
+
+summary_text <- capture.output(summary(model))
+
+summary_df <- data.frame(Output = summary_text, stringsAsFactors = FALSE)
+
+# Display the table
+grid.table(summary_df, rows = NULL)
+
+```
+
+Interpreting these coefficients (Figure \@ref(fig:glm-isolation)) requires exponentiation: $exp(β)$ gives the multiplicative change in odds for a one-unit increase in the corresponding variable. For instance, if the coefficient for `area` is 0.5807, then $exp(0.5807) = 1.78$, meaning that each additional unit of island area increases the odds of bird breeding by 78%. Similarly, a negative coefficient for `isolation` of -1.3719 yields $exp(-1.3719) = 0.25$, indicating that each unit increase in isolation distance reduces the odds of breeding to 25% of their previous value.
+
+### Poisson Regression for Count Data
+
+When the response variable consists of counts---such as the number of species in ecological plots, the number of defects in manufacturing, or the number of events occurring in a fixed time period---Poisson regression provides an appropriate modeling framework.
+
+Count data are non-negative integers that often exhibit variance proportional to their mean, a characteristic feature of the Poisson distribution. The log link function, which takes the natural logarithm of the expected count, ensures that predicted values remain positive while allowing the linear predictor to range over all real numbers. This transformation means we model $ln(E[Y]) = β₀ + β₁X₁ + β₂X₂ + ...$, which implies that $E[Y] = exp(β₀ + β₁X₁ + β₂X₂ + ...)$.
+
+#### Example: species richness in the plot (@crawley2012)
+
+We are studying plant species richness in plots with varying biomass levels and soil pH categories (high, mid, low). The response variable is the count of species, biomass is a continuous explanatory variable, and pH is categorical with three levels (Figure \@ref(fig:fig-poisson)).
+
+```{r fig-poisson, echo = FALSE, fig.cap ="The number of plant species influenced by plots' biomass and soil pH", out.width="100%"}
+# Placeholder for Figure
+
+knitr::include_graphics("figures/fig10glm.png")
+```
+
+We fit this model in R using `glm(Species ~ Biomass * pH, family = "poisson")` to allow for interaction effects, or `glm(Species ~ Biomass + pH, family = "poisson")` for additive effects only.
+
+Model selection can be performed using analysis of deviance, which compares nested models through a chi-squared test. The deviance measures the distance between two probabilistic models, with the difference in deviance between models following a chi-squared distribution with degrees of freedom equal to the difference in the number of parameters. Coefficients in Poisson regression are interpreted on the log scale, so $exp(β)$ represents the multiplicative change in the expected count for each unit increase in the predictor.
+
+### Model Diagnostics and Overdispersion
+
+Proper model checking is crucial for ensuring that GLM assumptions are met and that the model provides reliable inferences. One fundamental assumption is homoscedasticity---constant variance of errors across fitted values. Plotting residuals against fitted values helps diagnose violations of this assumption, with patterns or systematic trends indicating potential problems (Figure \@ref(fig:fig-residuals)).
+
+Additionally, GLMs assume that the variance of the response follows what is specified by the chosen distribution family: for binomial data, variance should equal $np(1-p)$, and for Poisson data, variance should equal the mean. When observed variance exceeds what the model predicts, we encounter overdispersion, a common problem that leads to underestimated standard errors and overly optimistic significance tests.
+
+Overdispersion can be detected by examining the ratio of residual deviance to residual degrees of freedom in the model output. For a well-fitting model, this ratio should be approximately 1. Values substantially greater than 1 indicate overdispersion, which can arise from several sources:
+
+1.  individual-level variability in experimental material, correlation between responses (such as when sampling units come from related individuals)
+2.  cluster sampling effects e.g. areas; schools; classes; children
+3.  excess zero counts in the data.
+
+For the bird breeding example (Figure \@ref(fig:glm-isolation)), a residual deviance of 28.402 on 47 degrees of freedom yields a ratio of 0.60, suggesting adequate model fit. However, if this ratio exceeded 1.5 or 2, we would need to address overdispersion. The solution involves using quasi-likelihood methods by specifying `family = "quasibinomial"` for binary data or `family = "quasipoisson"` for count data. These families estimate a dispersion parameter from the data rather than fixing it at 1, providing more realistic standard errors and preserving the validity of hypothesis tests even when the strict distributional assumptions are not met.
 
 ## Exercise: Lesson 10 Regression
 
@@ -264,12 +322,12 @@ Overdispersion can be detected by examining the ratio of residual deviance to re
 
 3.  Is this data set suitable for regression analysis?
 
-| Independent variable                  | Dependent variable                              | Answer |
-|----------------------------|--------------------------|------------------|
-| Different plant species               | Leaf color                                      |        |
-| Leaf length (mm)                      | Leaf thickness (mm)                             |        |
-| Smoke or not                          | Life span (years)                               |        |
-| Amount of heavy metal (mg/kg) in soil | Amount of heavy metal in tissue of bats (mg/kg) |        |
+| Independent variable | Dependent variable | Answer |
+|---------------------------|--------------------------|-------------------|
+| Different plant species | Leaf color |  |
+| Leaf length (mm) | Leaf thickness (mm) |  |
+| Smoke or not | Life span (years) |  |
+| Amount of heavy metal (mg/kg) in soil | Amount of heavy metal in tissue of bats (mg/kg) |  |
 
 4.  Determine the steps for doing regression analysis
 
