@@ -1,5 +1,13 @@
----
-title: "11 Anova"
-output: html_document
----
+# Analysis of Variance and Analysis of Covariance
 
+**Duration:** 2-hour lecture
+
+## Learning outcomes
+
+Students should be able to:
+
+-   Describe the meaning of P-value
+-   Perform classical hypothesis tests
+-   Distinguish between null and alternative hypothesis
+
+## Introduction
