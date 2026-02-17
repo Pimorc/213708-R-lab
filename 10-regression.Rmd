@@ -214,13 +214,13 @@ The fundamental structure of a GLM involves three key components: 1. A probabili
 
 Unlike traditional linear models, GLMs do not require errors to be normally distributed, though they must be independent. Parameter estimation relies on maximum likelihood estimation (MLE) rather than ordinary least squares. The choice of distribution and link function depends on the type of response variable (Table \@ref(tab:link-function)):
 
-| Distribution of response variable (y) | Link function | Model name | Explanatory variables (x) |
+| Distribution of response variable (y) | Link function | Model name           | Explanatory variables (x) |
 |-------------------|------------------|------------------|------------------|
-| Normal (Continuous data) | Identity | Linear regression | Continuous |
-| Binomial (Binary data) | Logit | Logistic regression | Mixed |
-| Binomial (Binary data) | Logit | Logit model | Categorical |
-| Poisson (Count data) | Log | Loglinear regression | Categorical |
-| Poisson (Count data) | Log | Poisson regression | Mixed |
+| Normal (Continuous data)              | Identity      | Linear regression    | Continuous                |
+| Binomial (Binary data)                | Logit         | Logistic regression  | Mixed                     |
+| Binomial (Binary data)                | Logit         | Logit model          | Categorical               |
+| Poisson (Count data)                  | Log           | Loglinear regression | Categorical               |
+| Poisson (Count data)                  | Log           | Poisson regression   | Mixed                     |
 
 : (#tab:link-function) Link functions of different types of response variables and explanatory variables
 
@@ -322,12 +322,12 @@ For the bird breeding example (Figure \@ref(fig:glm-isolation)), a residual devi
 
 3.  Is this data set suitable for regression analysis?
 
-| Independent variable | Dependent variable | Answer |
+| Independent variable                  | Dependent variable                              | Answer |
 |---------------------------|--------------------------|-------------------|
-| Different plant species | Leaf color |  |
-| Leaf length (mm) | Leaf thickness (mm) |  |
-| Smoke or not | Life span (years) |  |
-| Amount of heavy metal (mg/kg) in soil | Amount of heavy metal in tissue of bats (mg/kg) |  |
+| Different plant species               | Leaf color                                      |        |
+| Leaf length (mm)                      | Leaf thickness (mm)                             |        |
+| Smoke or not                          | Life span (years)                               |        |
+| Amount of heavy metal (mg/kg) in soil | Amount of heavy metal in tissue of bats (mg/kg) |        |
 
 4.  Determine the steps for doing regression analysis
 

@@ -6,8 +6,118 @@
 
 Students should be able to:
 
--   Describe the meaning of P-value
--   Perform classical hypothesis tests
--   Distinguish between null and alternative hypothesis
+-   Describe common terminology relating to ANOVA
+-   Determine steps for performing ANOVA
+-   Identify when to use ANCOVA versus ANOVA
+-   Explain the purpose of covariates in experimental design
+-   Interpret ANOVA and ANCOVA results and post-hoc tests
 
 ## Introduction
+
+Analysis of Variance (ANOVA) is a fundamental statistical technique used to test differences between two or more group means. ANOVA extends the t-test to more than two groups. The test determines whether observed differences among group means are statistically significant by partitioning total variability into meaningful sources of variation.
+
+Analysis of Covariance (ANCOVA) is also a statistical techniques that combines ANOVA and regression to evaluate the influence of categorical and continuous predictors on a response variable. ANCOVA incorporates one or more covariates, allowing adjustment for potential confounding variables and increasing the precision of treatment comparisons.
+
+### ANOVA vs. ANCOVA vs. Regression
+
+There are some key different features among the tests (Table \@ref(tab:differences)). A covariate is a continuous (sometimes categorical) variable that is not the main factor of interest in a research study. However, the covariate is included in the analysis because it may influence the dependent variable. By accounting for a covariate, researchers can reduce error variation and obtain a clearer estimate of the treatment of interest.
+
+| Feature               | ANOVA               | ANCOVA                   | Regression                        |
+|-----------------|-----------------|-----------------|--------------------|
+| Explanatory variables | Categorical only    | Categorical + Continuous | Any combination                   |
+| Purpose               | Compare group means | Compare adjusted means   | Predict and explain relationships |
+| Covariates            | None                | Yes (continuous)         | Can be included                   |
+
+: (#tab:differences) Key differences among ANOVA, ANCOVA, and regression
+
+For example, suppose researchers are comparing tree growth rates among different forest restoration treatments (e.g., natural regeneration vs. active planting). In this case, soil moisture or initial seedling height could be included as a covariate. These variables are not the main treatment, but they strongly affect growth.
+
+## What is ANOVA?
+
+It is conceptually similar to regression analysis, with one key difference that the explanatory variable is **categorical** (e.g., treatment groups, fertilizer types) (Table \@ref(tab:differences)). ANOVA tells you whether means differ, but **not which specific means** are different from one another. To identify specific differenceswhich treatments are different post-hoc tests (e.g. Tukey's HSD) are needed.
+
+## The Basic Concept of ANOVA
+
+ANOVA works by partitioning the total variation in the data into:
+
+1.  **Variation among groups** (due to treatment effects)
+2.  **Variation within groups** (random error)
+
+If the variation among groups is **substantially larger** than the variation within groups, we conclude that the groups have different means.
+
+## One-Way ANOVA
+
+### Hypotheses
+
+For one-way ANOVA with k groups:
+
+**Null Hypothesis (H₀):** μ₁ = μ₂ = μ₃ = ... = μₖ
+
+-   All population means are equal.
+-   Interpretation: There is no treatment effect.
+
+**Alternative Hypothesis (H₁):** Not all means are equal
+
+-   At least one population mean is different from the others. This does NOT mean all means are different; some may be equal
+-   Interpretation:There is a treatment effect.
+
+## Example: Plant Growth with Two Fertilizers
+
+Let's work through an example with:
+
+-   **Explanatory variable**: Fertilizer type (A and B)
+-   **Response variable**: Plant height (cm)
+-   **Sample size**: 7 plants per treatment (14 plants total)
+
+```{r example-data}
+# Create example dataset
+set.seed(213708)
+fertilizer <- rep(c("A", "B"), each = 7)
+height <- c(
+  # Treatment A (lower heights)
+  6, 3, 4, 5, 3, 6, 4,
+  # Treatment B (higher heights)
+  8, 5, 6, 7, 8, 6, 8
+)
+
+plant_data <- data.frame(
+  Plant_ID = 1:14,
+  Fertilizer = factor(fertilizer),
+  Height = height
+)
+
+# Display the data
+print(plant_data)
+
+# Summary statistics
+library(dplyr)
+plant_data %>%
+  group_by(Fertilizer) %>%
+  summarise(
+    n = n(),
+    Mean = mean(Height),
+    SD = sd(Height),
+    Min = min(Height),
+    Max = max(Height)
+  )
+```
+
+### Visualizing the Data
+
+```{r visualize-groups, fig.height=5}
+library(ggplot2)
+
+# Boxplot
+ggplot(plant_data, aes(x = Fertilizer, y = Height, fill = Fertilizer)) +
+  geom_boxplot(alpha = 0.6) +
+  geom_jitter(width = 0.1, size = 2) +
+  geom_hline(yintercept = mean(plant_data$Height), 
+             linetype = "dashed", color = "purple", size = 1) +
+  annotate("text", x = 1.5, y = mean(plant_data$Height) + 0.3, 
+           label = "Overall Mean", color = "purple") +
+  labs(title = "Plant Height by Fertilizer Treatment",
+       x = "Fertilizer Treatment",
+       y = "Height (cm)") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
