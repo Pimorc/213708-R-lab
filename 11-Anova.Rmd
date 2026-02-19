@@ -72,16 +72,18 @@ Let's work through an example with:
 ```{r example-data}
 # Create example dataset
 set.seed(213708)
-fertilizer <- rep(c("A", "B"), each = 7)
+fertilizer <- rep(c("A", "B", "No fertilizer"), each = 7)
 height <- c(
   # Treatment A (lower heights)
   6, 3, 4, 5, 3, 6, 4,
   # Treatment B (higher heights)
-  8, 5, 6, 7, 8, 6, 8
+  8, 5, 6, 7, 8, 6, 8,
+  # control (lower heights)
+  3, 2, 4, 5, 3, 3, 2
 )
 
 plant_data <- data.frame(
-  Plant_ID = 1:14,
+  Plant_ID = 1:21,
   Fertilizer = factor(fertilizer),
   Height = height
 )
@@ -105,7 +107,11 @@ plant_data %>%
 ### Visualizing the Data
 
 ```{r visualize-groups, fig.height=5}
+
+if(!require("ggthemes", character.only = TRUE)) {
+  install.packages("ggthemes", dependencies = TRUE)}
 library(ggplot2)
+library(ggthemes)
 
 # Boxplot
 ggplot(plant_data, aes(x = Fertilizer, y = Height, fill = Fertilizer)) +
@@ -115,9 +121,196 @@ ggplot(plant_data, aes(x = Fertilizer, y = Height, fill = Fertilizer)) +
              linetype = "dashed", color = "purple", size = 1) +
   annotate("text", x = 1.5, y = mean(plant_data$Height) + 0.3, 
            label = "Overall Mean", color = "purple") +
-  labs(title = "Plant Height by Fertilizer Treatment",
+  labs(
        x = "Fertilizer Treatment",
-       y = "Height (cm)") +
-  theme_minimal() +
-  theme(legend.position = "none")
+       y = "Plant height (cm)") +
+  theme_bw() +
+  theme(panel.border = element_blank(), legend.position = "none",
+  axis.line.x = element_line(size = 0.5, linetype = "solid", colour = "black"),
+  axis.line.y = element_line(size = 0.5, linetype = "solid", colour = "black"),
+  axis.text = element_text(size = 14), axis.title = element_text(size = 14))
+
+  
+  
 ```
+### Understanding Sums of Squares
+
+ANOVA partitions the total variation into components:
+
+#### Total Sum of Squares (SSTotal)
+
+Measures total variation of all observations from the overall mean:
+
+$$SS_{Total} = \sum_{i=1}^{n}(y_i - \bar{\bar{y}})^2$$
+
+where:
+
+- $y_i$ = value of each data point
+- $\bar{\bar{y}}$ = overall mean (grand mean)
+
+#### Sum of Squared Error (SSE)
+
+Also called "within-group variation" or "residual variation":
+
+$$SSE = \sum_{i=1}^{n}(y_i - \bar{y}_A)^2 + \sum_{i=1}^{n}(y_i - \bar{y}_B)^2$$
+
+This represents variation of individuals within each treatment group.
+
+#### Sum of Squares Between (SSB)
+
+Also called "among-group variation" or "treatment variation":
+
+Measures variation of group means from the overall mean, weighted by sample size.
+
+#### The Partition
+
+$$SS_{Total} = SS_B + SS_E$$
+
+```{r calculate-ss}
+# Calculate sums of squares manually
+overall_mean <- mean(plant_data$Height)
+group_means <- plant_data %>%
+  group_by(Fertilizer) %>%
+  summarise(group_mean = mean(Height))
+
+# SSTotal
+ss_total <- sum((plant_data$Height - overall_mean)^2)
+
+# SSE (within groups)
+sse <- plant_data %>%
+  left_join(group_means, by = "Fertilizer") %>%
+  mutate(sq_dev = (Height - group_mean)^2) %>%
+  summarise(SSE = sum(sq_dev)) %>%
+  pull(SSE)
+
+# SSB (between groups)
+ssb <- sum(7 * (group_means$group_mean - overall_mean)^2)
+
+# Verify partition
+cat("SSTotal =", round(ss_total, digits = 2), "\n")
+cat("SSB =", round(ssb, digits = 2), "\n")
+cat("SSE =", round(sse, digits = 2), "\n")
+cat("SSB + SSE =", round(ssb + sse, digits = 2), "\n")
+```
+
+### Degrees of Freedom
+
+The concept of degrees of freedom (df) was introduced by Johann Carl Friedrich Gauss in 1821. It represents the **number of values in a calculation that are free to vary**.
+
+For our example:
+
+- **df for SSB** = k - 1 = 2 - 1 = 1 (where k = number of treatments)
+- **df for SSE** = k(n - 1) = 2(7 - 1) = 12 (where n = replicates per treatment)
+- **df for SSTotal** = N - 1 = 14 - 1 = 13 (where N = total observations)
+
+## The F-Distribution and F-Statistic
+
+The F-distribution is used to test whether two variances are equal. The F-statistic is the ratio:
+
+$$F = \frac{\text{Variance among groups}}{\text{Variance within groups}} = \frac{MS_B}{MS_E}$$
+
+where:
+
+- $MS_B = \frac{SS_B}{df_B}$ (Mean Square Between)
+- $MS_E = \frac{SS_E}{df_E}$ (Mean Square Error)
+
+**Interpretation:**
+
+- If F is close to 1, sample variances are equal (no treatment effect)
+- If F is large, variation among groups exceeds variation within groups (treatment effect likely)
+
+#### The ANOVA Table
+
+The standard format for presenting ANOVA results:
+
+| Source of Variation | SS | df | Mean Square (MS) | F | Critical F |
+|---------------------|----|----|------------------|---|------------|
+| Treatment (Between) | SSB | k-1 | MSB = SSB/(k-1) | F = MSB/MSE | From F-table |
+| Error (Within) | SSE | k(n-1) | MSE = SSE/[k(n-1)] | - | - |
+| Total | SSTotal | kn-1 | - | - | - |
+
+## Running ANOVA in R
+
+```{r run-anova}
+# Fit the model
+anova_model <- aov(Height ~ Fertilizer, data = plant_data)
+
+# Display ANOVA table
+summary(anova_model)
+
+# More detailed output
+anova_results <- anova(anova_model)
+print(anova_results)
+
+# Extract key values
+f_statistic <- anova_results$`F value`[1]
+p_value <- anova_results$`Pr(>F)`[1]
+df_treatment <- anova_results$Df[1]
+df_error <- anova_results$Df[2]
+
+cat("\nF-statistic:", round(f_statistic, 3), "\n")
+cat("p-value:", round(p_value, 4), "\n")
+cat("Degrees of freedom: Treatment =", df_treatment, ", Error =", df_error, "\n")
+```
+
+## Assumptions of ANOVA
+Before interpreting ANOVA results, verify these assumptions:
+
+### 1. Random Sampling
+Data should be collected through random sampling.
+
+### 2. Homogeneity of Variance (Homoscedasticity)
+Variances should be equal across groups.
+
+**Check BEFORE running ANOVA:**
+
+```{r levene-test}
+# Levene's test for homogeneity of variance
+library(car)
+leveneTest(Height ~ Fertilizer, data = plant_data)
+
+# Visual check
+ggplot(plant_data, aes(x = Fertilizer, y = Height)) +
+  geom_boxplot() +
+  labs(title = "Check for Equal Variances",
+       subtitle = "Boxplots should have similar spreads") +
+  theme_minimal()
+```
+
+### 3. Independence of Errors
+Residuals should be independent of each other.
+
+### 4. Normality of Residuals
+Residuals should follow a normal distribution.
+
+**Check AFTER running ANOVA:**
+
+```{r check-normality}
+# Extract residuals
+residuals <- residuals(anova_model)
+
+# Q-Q plot
+par(mfrow = c(1, 2))
+qqnorm(residuals)
+qqline(residuals, col = "red")
+
+# Histogram
+hist(residuals, breaks = 10, main = "Histogram of Residuals",
+     xlab = "Residuals", col = "lightblue")
+
+# Shapiro-Wilk test
+shapiro.test(residuals)
+```
+
+```{r residual-plots, fig.height=8}
+# Comprehensive diagnostic plots
+par(mfrow = c(2, 2))
+plot(anova_model)
+par(mfrow = c(1, 1))
+```
+
+## Effect Size: Eta-Squared (η²)
+
+Effect size measures the magnitude of the treatment effect:
+
+$$\eta^2 = \frac{SS_{effect}}{SS_{Total}}$$
