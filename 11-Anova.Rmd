@@ -56,7 +56,7 @@ For one-way ANOVA with k groups:
 -   All population means are equal.
 -   Interpretation: There is no treatment effect.
 
-**Alternative Hypothesis (H₁):** Not all means are equal
+**Alternative Hypothesis (H₁):** Not all means are equal.
 
 -   At least one population mean is different from the others. This does NOT mean all means are different; some may be equal
 -   Interpretation:There is a treatment effect.
@@ -106,6 +106,8 @@ plant_data %>%
 
 ### Visualizing the Data
 
+It is always a good practice to explore the data before testing.
+
 ```{r visualize-groups, fig.height=5}
 
 if(!require("ggthemes", character.only = TRUE)) {
@@ -130,8 +132,6 @@ ggplot(plant_data, aes(x = Fertilizer, y = Height, fill = Fertilizer)) +
   axis.line.y = element_line(size = 0.5, linetype = "solid", colour = "black"),
   axis.text = element_text(size = 14), axis.title = element_text(size = 14))
 
-  
-  
 ```
 ### Understanding Sums of Squares
 
@@ -139,7 +139,7 @@ ANOVA partitions the total variation into components:
 
 #### Total Sum of Squares (SSTotal)
 
-Measures total variation of all observations from the overall mean:
+SSTotal measures total variation of all observations from the overall mean:
 
 $$SS_{Total} = \sum_{i=1}^{n}(y_i - \bar{\bar{y}})^2$$
 
@@ -150,7 +150,7 @@ where:
 
 #### Sum of Squared Error (SSE)
 
-Also called "within-group variation" or "residual variation":
+SSE is also called "within-group variation" or "residual variation":
 
 $$SSE = \sum_{i=1}^{n}(y_i - \bar{y}_A)^2 + \sum_{i=1}^{n}(y_i - \bar{y}_B)^2$$
 
@@ -158,9 +158,7 @@ This represents variation of individuals within each treatment group.
 
 #### Sum of Squares Between (SSB)
 
-Also called "among-group variation" or "treatment variation":
-
-Measures variation of group means from the overall mean, weighted by sample size.
+SSB is also called "among-group variation" or "treatment variation." It measures variation of group means from the overall mean, weighted by sample size.
 
 #### The Partition
 
@@ -197,22 +195,22 @@ cat("SSB + SSE =", round(ssb + sse, digits = 2), "\n")
 
 The concept of degrees of freedom (df) was introduced by Johann Carl Friedrich Gauss in 1821. It represents the **number of values in a calculation that are free to vary**.
 
-For our example:
+For our fertilizer example:
 
-- **df for SSB** = k - 1 = 2 - 1 = 1 (where k = number of treatments)
-- **df for SSE** = k(n - 1) = 2(7 - 1) = 12 (where n = replicates per treatment)
-- **df for SSTotal** = N - 1 = 14 - 1 = 13 (where N = total observations)
+- **df for SSB** = k - 1 = 3 - 1 = 2 (where k = number of treatments)
+- **df for SSE** = k(n - 1) = 3(7 - 1) = 18 (where n = replicates per treatment)
+- **df for SSTotal** = N - 1 = 21 - 1 = 20 (where N = total observations)
 
 ## The F-Distribution and F-Statistic
 
 The F-distribution is used to test whether two variances are equal. The F-statistic is the ratio:
 
-$$F = \frac{\text{Variance among groups}}{\text{Variance within groups}} = \frac{MS_B}{MS_E}$$
+$$F = \frac{\text{Variance among groups}}{\text{Variance within groups}} = \frac{MSB}{MSE}$$
 
 where:
 
-- $MS_B = \frac{SS_B}{df_B}$ (Mean Square Between)
-- $MS_E = \frac{SS_E}{df_E}$ (Mean Square Error)
+- $MSB = \frac{SSB}{df_SSB}$ (Mean Square Between)
+- $MSE = \frac{SSE}{df_SSE}$ (Mean Square Error)
 
 **Interpretation:**
 
@@ -254,7 +252,7 @@ cat("Degrees of freedom: Treatment =", df_treatment, ", Error =", df_error, "\n"
 ```
 
 ## Assumptions of ANOVA
-Before interpreting ANOVA results, verify these assumptions:
+It is important that before interpreting ANOVA results, these assumptions must be verified:
 
 ### 1. Random Sampling
 Data should be collected through random sampling.
@@ -264,18 +262,22 @@ Variances should be equal across groups.
 
 **Check BEFORE running ANOVA:**
 
+There are several tests for homogenerity of variance such as Levene's test below. It is a hypothesis testing with a null hypothesis of equal variances. For visual check, boxplots should have similar spreads (see Figure (\@ref(fig:visualize-group))).
+
 ```{r levene-test}
 # Levene's test for homogeneity of variance
 library(car)
 leveneTest(Height ~ Fertilizer, data = plant_data)
 
 # Visual check
-ggplot(plant_data, aes(x = Fertilizer, y = Height)) +
-  geom_boxplot() +
-  labs(title = "Check for Equal Variances",
-       subtitle = "Boxplots should have similar spreads") +
-  theme_minimal()
+#ggplot(plant_data, aes(x = Fertilizer, y = Height)) +
+#  geom_boxplot() +
+#  labs(title = "Check for Equal Variances",
+#       subtitle = "Boxplots should have similar spreads") +
+#  theme_minimal()
 ```
+
+In our case, the result of the Levene's Test (P value  = 0.7) indicates that the null hypothesis is not rejected. The variances among groups are homogenous.
 
 ### 3. Independence of Errors
 Residuals should be independent of each other.
@@ -284,6 +286,8 @@ Residuals should be independent of each other.
 Residuals should follow a normal distribution.
 
 **Check AFTER running ANOVA:**
+
+This assumption is checked using visualization and Shapiro-Wilk noremality test.
 
 ```{r check-normality}
 # Extract residuals
@@ -302,6 +306,8 @@ hist(residuals, breaks = 10, main = "Histogram of Residuals",
 shapiro.test(residuals)
 ```
 
+The p-value is 0.30; the null hypothesis is not rejected. The Shapiro test indicates that the residuals are normally distributed.
+
 ```{r residual-plots, fig.height=8}
 # Comprehensive diagnostic plots
 par(mfrow = c(2, 2))
@@ -314,3 +320,49 @@ par(mfrow = c(1, 1))
 Effect size measures the magnitude of the treatment effect:
 
 $$\eta^2 = \frac{SS_{effect}}{SS_{Total}}$$
+
+### The results of one-way ANOVA
+After running the test and checking all the assumptions, the ANOVA test we ran is valid. The conclusion is that not all plant height means are equal. There are the effects of fertilizer treatment on plant growth.
+
+When ANOVA shows a significant F-statistic, we know that **at least one group mean differs** from the others. However, ANOVA doesn't tell us:
+
+- Which specific groups are different?
+- How many pairwise differences exist?
+- The magnitude of these differences?
+
+The next step is to use post-hoc tests
+
+## Post-Hoc Tests (A Posteriori)
+
+- Conducted **after** finding significant ANOVA
+- Exploratory
+- Compare all possible pairs or specific subsets
+- Require stronger error rate control
+
+### Common Post-Hoc Tests
+
+## Overview of Methods
+
+| Test | Use When | Conservativeness | Special Features |
+|------|----------|------------------|------------------|
+| **Tukey HSD** | All pairwise comparisons | Moderate | Most popular, good power |
+| **Bonferroni** | Few planned comparisons | Conservative | Simple, very strict |
+| **Holm** | Multiple comparisons | Less conservative than Bonferroni | Sequential method |
+| **Scheffe** | Complex contrasts | Very conservative | Can test any contrast |
+| **Dunnett** | Comparing to control | Moderate | Only vs. control group |
+| **Fisher LSD** | Protected by significant ANOVA | Liberal | Use cautiously |
+| **Games-Howell** | Unequal variances | Moderate | No homogeneity assumption |
+
+## Post-hoc Test of Plant Growth Example 
+
+Let's use a simple fertilizer experiment with three treatments to demonstrate each test:
+
+### Tukey's Honestly Significant Difference (HSD)
+
+Tukey's HSD compares all possible pairs of means using the Studentized Range Distribution.
+
+- **All pairwise comparisons** among groups
+- **Equal sample sizes** (works best, but robust to minor imbalances)
+- **Homogeneity of variance** assumed
+- **Most popular** post-hoc test
+

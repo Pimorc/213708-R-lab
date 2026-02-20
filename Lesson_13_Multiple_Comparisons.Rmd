@@ -1,0 +1,1231 @@
+---
+title: "Lesson 13: Multiple Comparisons and Post-Hoc Tests"
+author: "Pimonrat Tiansawat"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    number_sections: true
+    theme: united
+    highlight: tango
+    code_folding: show
+  pdf_document:
+    toc: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE,
+                      fig.width = 8, fig.height = 6, fig.align = 'center')
+```
+
+# Learning Objectives
+
+By the end of this lesson, students should be able to:
+
+- Understand why multiple comparisons require special statistical treatment
+- Explain the concept of familywise error rate
+- Choose appropriate post-hoc tests for different situations
+- Conduct and interpret Tukey's HSD, Bonferroni, Dunnett's, and other tests in R
+- Use planned contrasts vs. post-hoc comparisons appropriately
+- Present multiple comparison results clearly
+
+# The Multiple Comparisons Problem
+
+## Why We Need Post-Hoc Tests
+
+When ANOVA shows a significant F-statistic, we know that **at least one group mean differs** from the others. However, ANOVA doesn't tell us:
+
+- Which specific groups are different?
+- How many pairwise differences exist?
+- The magnitude of these differences?
+
+**This is where post-hoc tests come in!**
+
+## The Problem with Multiple t-tests
+
+### Example: Three Treatment Groups
+
+In our fertilizer study, we have 3 groups and want to compare all pairs:
+
+```{r calculate-comparisons}
+# Number of groups
+k <- 3
+
+# Number of pairwise comparisons
+n_comparisons <- k * (k - 1) / 2
+
+cat("Number of groups:", k, "\n")
+cat("Number of pairwise comparisons:", n_comparisons, "\n")
+
+# List all pairs
+groups <- c("No fertilizer", "A", "B")
+pairs_list <- combn(groups, 2, simplify = FALSE)
+cat("\nAll possible pairs:\n")
+for (i in seq_along(pairs_list)) {
+  cat(pairs_list[[i]][1], "vs", pairs_list[[i]][2], "\n")
+}
+```
+
+### The Inflation of Type I Error
+
+If we conduct each comparison at α = 0.05:
+
+$$P(\text{at least one Type I error}) = 1 - (1 - \alpha)^c$$
+
+where c = number of comparisons
+
+```{r error-inflation}
+library(ggplot2)
+
+# Calculate familywise error rate
+alpha <- 0.05
+n_groups <- 2:10
+n_comps <- n_groups * (n_groups - 1) / 2
+
+# Familywise error rate (FWER)
+fwer <- 1 - (1 - alpha)^n_comps
+
+error_data <- data.frame(
+  Groups = n_groups,
+  Comparisons = n_comps,
+  FWER = fwer,
+  FWER_percent = fwer * 100
+)
+
+print(error_data)
+
+# Visualize error inflation
+ggplot(error_data, aes(x = Groups, y = FWER_percent)) +
+  geom_line(color = "red", size = 1.5) +
+  geom_point(size = 3, color = "darkred") +
+  geom_hline(yintercept = 5, linetype = "dashed", color = "blue") +
+  annotate("text", x = 8, y = 7, label = "Nominal α = 0.05", color = "blue") +
+  scale_x_continuous(breaks = 2:10) +
+  labs(title = "Inflation of Type I Error with Multiple Comparisons",
+       subtitle = "Without correction for multiple testing",
+       x = "Number of Groups",
+       y = "Familywise Error Rate (%)") +
+  theme_minimal()
+```
+
+**Key Finding:** With just 5 groups (10 comparisons), the probability of making at least one Type I error rises to **40%**, even though each individual test is conducted at α = 0.05!
+
+## Familywise Error Rate (FWER)
+
+**Definition:** The probability of making one or more Type I errors when conducting multiple hypothesis tests.
+
+**Goal of post-hoc tests:** Control the FWER at a desired level (usually 0.05).
+
+# Types of Multiple Comparison Procedures
+
+## Planned Comparisons vs. Post-Hoc Tests
+
+### Planned Comparisons (A Priori Contrasts)
+
+- Specified **before** data collection
+- Based on theoretical predictions
+- More statistical power
+- Fewer corrections needed
+
+### Post-Hoc Tests (A Posteriori)
+
+- Conducted **after** finding significant ANOVA
+- Exploratory
+- Compare all possible pairs or specific subsets
+- Require stronger error rate control
+
+# Common Post-Hoc Tests
+
+## Overview of Methods
+
+| Test | Use When | Conservativeness | Special Features |
+|------|----------|------------------|------------------|
+| **Tukey HSD** | All pairwise comparisons | Moderate | Most popular, good power |
+| **Bonferroni** | Few planned comparisons | Conservative | Simple, very strict |
+| **Holm** | Multiple comparisons | Less conservative than Bonferroni | Sequential method |
+| **Scheffe** | Complex contrasts | Very conservative | Can test any contrast |
+| **Dunnett** | Comparing to control | Moderate | Only vs. control group |
+| **Fisher LSD** | Protected by significant ANOVA | Liberal | Use cautiously |
+| **Games-Howell** | Unequal variances | Moderate | No homogeneity assumption |
+
+# Example Dataset: Fertilizer Study
+
+Let's use a simple fertilizer experiment with three treatments to demonstrate each test:
+
+```{r create-dataset}
+library(dplyr)
+library(ggplot2)
+
+set.seed(213708)
+
+# Three fertilizer treatments: A, B, and No fertilizer (control)
+fertilizer <- rep(c("A", "B", "No fertilizer"), each = 7)
+height <- c(
+  # Treatment A (lower heights)
+  6, 3, 4, 5, 3, 6, 4,
+  # Treatment B (higher heights)
+  8, 5, 6, 7, 8, 6, 8,
+  # Control (lowest heights)
+  3, 2, 4, 5, 3, 3, 2
+)
+
+plant_data <- data.frame(
+  Plant_ID = 1:21,
+  Fertilizer = factor(fertilizer, levels = c("No fertilizer", "A", "B")),
+  Height = height
+)
+
+# Display the data
+cat("Dataset: Plant Height by Fertilizer Treatment\n")
+cat("============================================\n\n")
+print(plant_data)
+
+# Summary statistics
+summary_stats <- plant_data %>%
+  group_by(Fertilizer) %>%
+  summarise(
+    n = n(),
+    Mean = mean(Height),
+    SD = sd(Height),
+    SE = SD / sqrt(n),
+    .groups = 'drop'
+  )
+
+cat("\n\nSummary Statistics:\n")
+print(summary_stats)
+```
+
+## Visualize the Data
+
+```{r visualize-data, fig.height=6}
+# Boxplot with individual points
+ggplot(plant_data, aes(x = Fertilizer, y = Height, fill = Fertilizer)) +
+  geom_boxplot(alpha = 0.6, outlier.shape = NA) +
+  geom_jitter(width = 0.2, alpha = 0.4, size = 2) +
+  stat_summary(fun = mean, geom = "point", shape = 23, size = 3, 
+               fill = "white", color = "black") +
+  labs(title = "Plant Height by Fertilizer Treatment",
+       subtitle = "Diamonds show group means",
+       y = "Plant Height (cm)",
+       x = "Fertilizer Treatment") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Mean plot with error bars
+ggplot(summary_stats, aes(x = Fertilizer, y = Mean, fill = Fertilizer)) +
+  geom_col(alpha = 0.7) +
+  geom_errorbar(aes(ymin = Mean - SE, ymax = Mean + SE), 
+                width = 0.3, size = 1) +
+  geom_text(aes(label = round(Mean, 1)), vjust = -2.5, size = 3.5) +
+  labs(title = "Mean Plant Height by Treatment",
+       subtitle = "Error bars show ± 1 SE",
+       y = "Mean Height (cm)") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Run ANOVA First
+
+**Important:** Always run ANOVA before post-hoc tests. Post-hoc tests are only appropriate when ANOVA shows a significant result.
+
+```{r anova-first}
+# Always start with ANOVA
+anova_model <- aov(Height ~ Fertilizer, data = plant_data)
+anova_summary <- summary(anova_model)
+
+print(anova_summary)
+
+# Extract key statistics
+f_stat <- anova_summary[[1]]["Fertilizer", "F value"]
+p_value <- anova_summary[[1]]["Fertilizer", "Pr(>F)"]
+df_treatment <- anova_summary[[1]]["Fertilizer", "Df"]
+df_error <- anova_summary[[1]]["Residuals", "Df"]
+
+cat("\nANOVA Results:\n")
+cat("F-statistic: F(", df_treatment, ", ", df_error, ") = ", 
+    round(f_stat, 3), "\n", sep = "")
+cat("p-value:", format.pval(p_value, digits = 4), "\n")
+
+if (p_value < 0.05) {
+  cat("\n✓ ANOVA is significant (p < 0.05). Proceed with post-hoc tests.\n")
+} else {
+  cat("\n✗ ANOVA is not significant (p ≥ 0.05). Post-hoc tests not recommended.\n")
+}
+
+# Calculate effect size
+library(effectsize)
+eta_sq <- eta_squared(anova_model)
+cat("\nEffect size (η²):", round(eta_sq$Eta2, 3), "\n")
+```
+
+# Tukey's Honestly Significant Difference (HSD)
+
+## When to Use Tukey's HSD
+
+- **All pairwise comparisons** among groups
+- **Equal sample sizes** (works best, but robust to minor imbalances)
+- **Homogeneity of variance** assumed
+- **Most popular** post-hoc test
+
+## How Tukey's HSD Works
+
+Tukey's HSD compares all possible pairs of means using the **Studentized Range Distribution**.
+
+### The Test Statistic
+
+$$HSD = q_{\alpha, k, df_e} \times \sqrt{\frac{MS_E}{n}}$$
+
+where:
+
+- $q$ = critical value from studentized range distribution
+- $k$ = number of groups
+- $df_e$ = error degrees of freedom
+- $MS_E$ = mean square error
+- $n$ = sample size per group (assumes equal n)
+
+## Running Tukey's HSD in R
+
+```{r tukey-hsd}
+# Perform Tukey's HSD test
+tukey_results <- TukeyHSD(anova_model, conf.level = 0.95)
+
+print(tukey_results)
+
+# Access the table
+tukey_table <- as.data.frame(tukey_results$Fertilizer)
+tukey_table$Comparison <- rownames(tukey_table)
+tukey_table <- tukey_table[, c("Comparison", "diff", "lwr", "upr", "p adj")]
+colnames(tukey_table) <- c("Comparison", "Mean_Diff", "Lower_CI", "Upper_CI", "p_adj")
+
+# Add significance indicator
+tukey_table$Significant <- ifelse(tukey_table$p_adj < 0.05, "***", 
+                                  ifelse(tukey_table$p_adj < 0.10, "*", "ns"))
+
+print(tukey_table)
+```
+
+## Visualizing Tukey's HSD Results
+
+```{r tukey-plot, fig.height=8}
+# Plot confidence intervals
+par(mar = c(5, 2, 4, 2))
+plot(tukey_results, las = 1, col = "blue")
+abline(v = 0, lty = 2, col = "red")
+title(main = "Tukey's HSD: 95% Confidence Intervals for Pairwise Differences")
+
+# Reset margins
+par(mar = c(5, 4, 4, 2))
+```
+
+```{r tukey-plot-ggplot, fig.height=8}
+# Using ggplot2 for better visualization
+library(broom)
+
+tukey_df <- tidy(tukey_results)
+
+ggplot(tukey_df, aes(x = estimate, y = contrast)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "red", size = 1) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.3, size = 1) +
+  geom_point(size = 3, color = "blue") +
+  labs(title = "Tukey's HSD: Pairwise Comparisons",
+       subtitle = "95% Confidence Intervals for Mean Differences",
+       x = "Mean Difference in Height (cm)",
+       y = "Comparison") +
+  theme_minimal() +
+  theme(axis.text.y = element_text(size = 10))
+```
+
+## Compact Letter Display (CLD)
+
+A convenient way to show which groups differ:
+
+```{r cld-tukey}
+library(multcomp)
+
+# Compact letter display
+cld_model <- glht(anova_model, linfct = mcp(Fertilizer = "Tukey"))
+cld_results <- cld(cld_model, level = 0.05, Letters = letters)
+
+print(cld_results)
+
+# Extract letters
+cld_df <- data.frame(
+  Fertilizer = names(cld_results$mcletters$Letters),
+  Letter = cld_results$mcletters$Letters
+)
+
+# Merge with summary stats
+summary_with_letters <- summary_stats %>%
+  left_join(cld_df, by = "Fertilizer")
+
+print(summary_with_letters)
+```
+
+```{r plot-cld, fig.height=6}
+# Plot with significance letters
+ggplot(summary_with_letters, aes(x = Fertilizer, y = Mean, fill = Fertilizer)) +
+  geom_col(alpha = 0.7) +
+  geom_errorbar(aes(ymin = Mean - SE, ymax = Mean + SE), 
+                width = 0.3, size = 1) +
+  geom_text(aes(label = Letter, y = Mean + SE + 2), 
+            size = 6, fontface = "bold") +
+  labs(title = "Plant Height by Fertilizer with Tukey's HSD Results",
+       subtitle = "Groups sharing a letter are not significantly different (α = 0.05)",
+       y = "Mean Height (cm)",
+       x = "Fertilizer Treatment") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+# Bonferroni Correction
+
+## When to Use Bonferroni
+
+- **Small number** of planned comparisons
+- **Maximum control** of Type I error
+- Simple to understand and calculate
+- Can be overly conservative with many comparisons
+
+## How Bonferroni Works
+
+The Bonferroni correction adjusts the significance level:
+
+$$\alpha_{adjusted} = \frac{\alpha_{family}}{c}$$
+
+where c = number of comparisons
+
+**Example:** With 10 comparisons and α = 0.05:
+- Adjusted α = 0.05 / 10 = 0.005
+- Each test must have p < 0.005 to be significant
+
+## Running Bonferroni in R
+
+```{r bonferroni}
+# Pairwise t-tests with Bonferroni correction
+bonferroni_results <- pairwise.t.test(
+  plant_data$Height,
+  plant_data$Fertilizer,
+  p.adjust.method = "bonferroni"
+)
+
+print(bonferroni_results)
+
+# Create a more readable table
+library(tidyr)
+
+bonf_matrix <- bonferroni_results$p.value
+bonf_df <- as.data.frame(bonf_matrix)
+bonf_df$Group1 <- rownames(bonf_df)
+
+bonf_long <- bonf_df %>%
+  pivot_longer(cols = -Group1, names_to = "Group2", values_to = "p_value") %>%
+  filter(!is.na(p_value)) %>%
+  mutate(
+    Comparison = paste(Group1, "vs", Group2),
+    Significant = ifelse(p_value < 0.05, "Yes", "No"),
+    Sig_code = ifelse(p_value < 0.001, "***",
+                      ifelse(p_value < 0.01, "**",
+                             ifelse(p_value < 0.05, "*", "ns")))
+  ) %>%
+  arrange(p_value)
+
+print(bonf_long)
+```
+
+## Visualizing Bonferroni Results
+
+```{r bonferroni-heatmap, fig.height=6, fig.width=7}
+# Create a heatmap of p-values
+bonf_matrix_full <- bonf_matrix
+bonf_matrix_full[is.na(bonf_matrix_full)] <- 1  # Fill diagonal with 1
+
+library(reshape2)
+bonf_melted <- melt(as.matrix(bonf_matrix_full))
+
+ggplot(bonf_melted, aes(x = Var2, y = Var1, fill = value)) +
+  geom_tile(color = "white") +
+  geom_text(aes(label = ifelse(value < 1, sprintf("%.3f", value), "")), 
+            size = 3) +
+  scale_fill_gradient2(low = "red", mid = "yellow", high = "white",
+                       midpoint = 0.05, limit = c(0, 0.15),
+                       name = "p-value") +
+  labs(title = "Bonferroni Correction: Pairwise Comparisons",
+       x = NULL, y = NULL) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+# Holm's Sequential Method
+
+## When to Use Holm's Method
+
+- Alternative to Bonferroni
+- **Less conservative** while still controlling FWER
+- Good for many comparisons
+
+## How Holm's Method Works
+
+1. Order p-values from smallest to largest
+2. Compare each p-value to adjusted threshold:
+   - 1st p-value: α/c
+   - 2nd p-value: α/(c-1)
+   - 3rd p-value: α/(c-2)
+   - etc.
+3. Stop at first non-significant result
+
+```{r holm}
+# Pairwise t-tests with Holm correction
+holm_results <- pairwise.t.test(
+  plant_data$Height,
+  plant_data$Fertilizer,
+  p.adjust.method = "holm"
+)
+
+print(holm_results)
+
+# Compare Bonferroni vs. Holm
+comparison <- data.frame(
+  Comparison = bonf_long$Comparison,
+  Raw_p = NA,  # Would need to calculate separately
+  Bonferroni_p = bonf_long$p_value
+)
+
+# Get Holm p-values
+holm_matrix <- holm_results$p.value
+holm_df <- as.data.frame(holm_matrix)
+holm_df$Group1 <- rownames(holm_df)
+
+holm_long <- holm_df %>%
+  pivot_longer(cols = -Group1, names_to = "Group2", values_to = "Holm_p") %>%
+  filter(!is.na(Holm_p)) %>%
+  mutate(Comparison = paste(Group1, "vs", Group2))
+
+# Merge
+comparison_full <- bonf_long %>%
+  select(Comparison, p_value) %>%
+  rename(Bonferroni_p = p_value) %>%
+  left_join(holm_long %>% select(Comparison, Holm_p), by = "Comparison") %>%
+  mutate(
+    Bonf_Sig = ifelse(Bonferroni_p < 0.05, "Yes", "No"),
+    Holm_Sig = ifelse(Holm_p < 0.05, "Yes", "No"),
+    Agreement = ifelse(Bonf_Sig == Holm_Sig, "Same", "Different")
+  )
+
+print(comparison_full)
+```
+
+# Dunnett's Test
+
+## When to Use Dunnett's Test
+
+- **Comparing all treatments to a control group**
+- Not interested in comparing treatments to each other
+- More powerful than Tukey for this specific purpose
+- In our example: Compare fertilizers A and B to "No fertilizer" control
+
+## Running Dunnett's Test in R
+
+```{r dunnett}
+library(DescTools)
+
+# Dunnett's test (comparing all to No fertilizer control)
+dunnett_results <- DunnettTest(
+  x = Height ~ Fertilizer,
+  data = plant_data,
+  control = "No fertilizer"  # Specify control group
+)
+
+print(dunnett_results)
+
+cat("\nInterpretation:\n")
+cat("This test compares Fertilizer A and Fertilizer B to the control (No fertilizer)\n")
+cat("It does NOT compare A vs B (not needed for this research question)\n")
+```
+
+```{r dunnett-plot, fig.height=5}
+# Visualize Dunnett's results
+dunnett_df <- as.data.frame(dunnett_results$Control)
+dunnett_df$Comparison <- rownames(dunnett_df)
+
+ggplot(dunnett_df, aes(x = Comparison, y = diff)) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  geom_errorbar(aes(ymin = lwr.ci, ymax = upr.ci), width = 0.3, size = 1) +
+  geom_point(size = 4, color = "blue") +
+  geom_text(aes(label = ifelse(pval < 0.05, "*", "ns")), 
+            vjust = -1, size = 5) +
+  labs(title = "Dunnett's Test: Comparisons to Control",
+       subtitle = "95% Confidence Intervals",
+       x = "Comparison vs. Control",
+       y = "Mean Difference") +
+  theme_minimal() +
+  coord_flip()
+```
+
+# Games-Howell Test
+
+## When to Use Games-Howell
+
+- **Variances are NOT equal** across groups
+- Unequal sample sizes
+- Alternative to Tukey's HSD when assumptions violated
+
+## Running Games-Howell Test in R
+
+```{r games-howell}
+library(rstatix)
+
+# Games-Howell test
+gh_results <- games_howell_test(plant_data, Height ~ Fertilizer)
+
+print(gh_results)
+
+# Add significance stars
+gh_results <- gh_results %>%
+  mutate(
+    sig = case_when(
+      p.adj < 0.001 ~ "***",
+      p.adj < 0.01 ~ "**",
+      p.adj < 0.05 ~ "*",
+      TRUE ~ "ns"
+    )
+  )
+
+print(gh_results)
+```
+
+# Fisher's Least Significant Difference (LSD)
+
+## When to Use Fisher's LSD
+
+- **Only after significant ANOVA** (Fisher's Protected LSD)
+- Comparing just a few specific pairs
+- Understanding: more liberal, less conservative
+
+## Running Fisher's LSD in R
+
+```{r fisher-lsd}
+library(agricolae)
+
+# Fisher's LSD test
+lsd_results <- LSD.test(anova_model, "Fertilizer", p.adj = "none")
+
+print(lsd_results)
+
+# Extract groups
+lsd_groups <- lsd_results$groups
+print(lsd_groups)
+```
+
+# Scheffé's Test
+
+## When to Use Scheffé's Test
+
+- Testing **complex contrasts** (not just pairwise)
+- Most conservative method
+- Can test any contrast, even after looking at data
+
+## Running Scheffé's Test in R
+
+```{r scheffe}
+library(DescTools)
+
+# Scheffé test for all pairwise comparisons
+scheffe_results <- ScheffeTest(anova_model)
+
+print(scheffe_results)
+```
+
+# Comparison of All Methods
+
+Let's compare all methods side by side:
+
+```{r compare-methods, fig.height=10}
+# Function to get significant pairs from each method
+get_sig_pairs <- function(results_list, method_name) {
+  # This is simplified - actual implementation depends on result structure
+  tibble(Method = method_name)
+}
+
+# Create comparison summary
+library(knitr)
+library(kableExtra)
+
+comparison_summary <- data.frame(
+  Method = c("Tukey HSD", "Bonferroni", "Holm", "Dunnett", 
+             "Games-Howell", "Fisher LSD", "Scheffé"),
+  Conservativeness = c("Moderate", "High", "Moderate-High", "Moderate",
+                       "Moderate", "Low", "Very High"),
+  Use_Case = c(
+    "All pairwise, equal n",
+    "Few planned comparisons",
+    "Many comparisons, less conservative",
+    "Compare to control only",
+    "Unequal variances",
+    "Post-hoc, few comparisons",
+    "Complex contrasts"
+  ),
+  Assumptions = c(
+    "Homogeneity of variance",
+    "None (but uses t-tests)",
+    "None",
+    "Homogeneity of variance",
+    "Unequal variances OK",
+    "Homogeneity of variance",
+    "Homogeneity of variance"
+  )
+)
+
+kable(comparison_summary, 
+      caption = "Comparison of Post-Hoc Test Methods") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE) %>%
+  column_spec(1, bold = TRUE)
+```
+
+## Comparing Power and Type I Error
+
+```{r power-comparison, fig.height=6}
+# Conceptual visualization of conservativeness
+methods_df <- data.frame(
+  Method = factor(c("Fisher LSD", "Tukey HSD", "Holm", "Bonferroni", "Scheffé"),
+                  levels = c("Fisher LSD", "Tukey HSD", "Holm", "Bonferroni", "Scheffé")),
+  Conservativeness = c(2, 5, 6, 8, 9),
+  Power = c(9, 7, 6.5, 4, 3)
+)
+
+library(patchwork)
+
+p1 <- ggplot(methods_df, aes(x = Method, y = Conservativeness, fill = Method)) +
+  geom_col(alpha = 0.7) +
+  scale_fill_brewer(palette = "Set2") +
+  labs(title = "Conservativeness",
+       subtitle = "Higher = stricter control of Type I error",
+       y = "Relative Conservativeness") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+p2 <- ggplot(methods_df, aes(x = Method, y = Power, fill = Method)) +
+  geom_col(alpha = 0.7) +
+  scale_fill_brewer(palette = "Set2") +
+  labs(title = "Statistical Power",
+       subtitle = "Higher = better at detecting true differences",
+       y = "Relative Power") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+p1 / p2 + plot_annotation(
+  title = "Trade-off Between Type I Error Control and Statistical Power",
+  theme = theme(plot.title = element_text(face = "bold", size = 13))
+)
+```
+
+**Key Insight:** There is always a trade-off between:
+- **Type I error control** (avoiding false positives) 
+- **Statistical power** (detecting real differences)
+
+Choose your method based on what's more important for your research question!
+
+# Planned Contrasts
+
+## What Are Contrasts?
+
+**Contrasts** are specific comparisons planned before data collection, based on theory or research questions.
+
+### Example Research Questions:
+
+1. Do fertilizer treatments differ from control? (Treatment vs. Control)
+2. Do organic methods differ from synthetic methods?
+3. Is there a linear trend across fertilizer concentrations?
+
+## Types of Contrasts
+
+### 1. Simple Contrasts
+
+Compare each group to a reference (e.g., control):
+
+```{r simple-contrasts}
+# Set "No fertilizer" as reference
+plant_data$Fertilizer <- relevel(plant_data$Fertilizer, ref = "No fertilizer")
+
+# Fit model
+contrast_model <- lm(Height ~ Fertilizer, data = plant_data)
+summary(contrast_model)
+
+cat("\nInterpretation:\n")
+cat("(Intercept): Mean height for No fertilizer group\n")
+cat("FertilizerA: Difference between Fertilizer A and No fertilizer\n")
+cat("FertilizerB: Difference between Fertilizer B and No fertilizer\n")
+```
+
+### 2. Orthogonal Contrasts
+
+Independent contrasts that don't overlap. For our 3 groups, we can create 2 orthogonal contrasts:
+
+```{r orthogonal-contrasts}
+# Define orthogonal contrasts for 3 groups
+# Contrast 1: Control vs. Both Fertilizers (A and B combined)
+# Contrast 2: Fertilizer A vs. Fertilizer B
+
+library(emmeans)
+
+# Get estimated marginal means
+emm <- emmeans(anova_model, ~ Fertilizer)
+
+# Define custom contrasts
+contrast_list <- list(
+  "Control vs Fertilizers" = c(2, -1, -1),  # No fert vs (A+B)/2
+  "Fertilizer A vs B" = c(0, 1, -1)         # A vs B
+)
+
+# Test contrasts
+contrast_results <- contrast(emm, contrast_list, adjust = "none")
+print(contrast_results)
+confint(contrast_results)
+
+cat("\n\nVerifying Orthogonality:\n")
+cat("Two contrasts are orthogonal if sum of products = 0\n")
+c1 <- contrast_list[[1]]
+c2 <- contrast_list[[2]]
+cat("Contrast 1:", c1, "\n")
+cat("Contrast 2:", c2, "\n")
+cat("Sum of products:", sum(c1 * c2), "\n")
+if (sum(c1 * c2) == 0) {
+  cat("✓ Contrasts are orthogonal!\n")
+}
+```
+
+### 3. Visualizing Contrasts
+
+```{r visualize-contrasts, fig.height=6}
+# Visualize the contrasts
+contrast_df <- as.data.frame(contrast_results)
+contrast_df$Contrast <- rownames(contrast_df)
+
+ggplot(contrast_df, aes(x = Contrast, y = estimate)) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), 
+                width = 0.3, size = 1.2) +
+  geom_point(size = 4, color = "blue") +
+  geom_text(aes(label = ifelse(p.value < 0.05, "*", "ns")), 
+            vjust = -1.5, size = 6, fontface = "bold") +
+  labs(title = "Planned Orthogonal Contrasts",
+       subtitle = "95% Confidence Intervals\n* indicates p < 0.05",
+       x = "Contrast",
+       y = "Estimated Difference") +
+  theme_minimal() +
+  coord_flip()
+```
+
+# Visualization Best Practices
+
+## 1. Significance Letters on Bar Plots
+
+```{r vis-letters, fig.height=6}
+# Using Tukey results with compact letter display
+summary_final <- summary_with_letters
+
+ggplot(summary_final, aes(x = Fertilizer, y = Mean, fill = Fertilizer)) +
+  geom_col(alpha = 0.8, color = "black", size = 0.5) +
+  geom_errorbar(aes(ymin = Mean - SE, ymax = Mean + SE), 
+                width = 0.25, size = 0.8) +
+  geom_text(aes(label = Letter, y = Mean + SE + 1.5), 
+            size = 8, fontface = "bold") +
+  geom_text(aes(label = round(Mean, 1), y = Mean/2),
+            color = "white", fontface = "bold", size = 4) +
+  scale_fill_brewer(palette = "Set2") +
+  labs(title = "Plant Height by Fertilizer Treatment",
+       subtitle = "Groups with different letters are significantly different (Tukey's HSD, α = 0.05)",
+       y = "Mean Height (cm)",
+       x = "Fertilizer Treatment") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 11),
+        plot.title = element_text(size = 14, face = "bold"))
+```
+
+## 2. Pairwise Comparison Matrix
+
+```{r vis-matrix, fig.height=7, fig.width=8}
+# Create significance matrix from Tukey results
+sig_matrix <- matrix(NA, nrow = 5, ncol = 5)
+rownames(sig_matrix) <- colnames(sig_matrix) <- levels(plant_data$Fertilizer)
+
+# Fill matrix with p-values
+tukey_table_matrix <- tukey_results$Fertilizer
+for (i in 1:nrow(tukey_table_matrix)) {
+  comparison <- strsplit(rownames(tukey_table_matrix)[i], "-")[[1]]
+  group1 <- comparison[1]
+  group2 <- comparison[2]
+  p_val <- tukey_table_matrix[i, "p adj"]
+  
+  sig_matrix[group2, group1] <- p_val
+}
+
+# Create heatmap
+library(reshape2)
+sig_melted <- melt(sig_matrix)
+sig_melted$Significance <- cut(sig_melted$value,
+                               breaks = c(0, 0.001, 0.01, 0.05, 1),
+                               labels = c("***", "**", "*", "ns"),
+                               include.lowest = TRUE)
+
+ggplot(sig_melted, aes(x = Var1, y = Var2, fill = value)) +
+  geom_tile(color = "white", size = 1) +
+  geom_text(aes(label = Significance), size = 6, fontface = "bold") +
+  scale_fill_gradient2(low = "darkred", mid = "yellow", high = "lightgreen",
+                       midpoint = 0.05, na.value = "grey90",
+                       name = "p-value",
+                       limits = c(0, 0.15)) +
+  labs(title = "Pairwise Comparison Matrix (Tukey's HSD)",
+       subtitle = "*** p<0.001  ** p<0.01  * p<0.05  ns = not significant",
+       x = NULL, y = NULL) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 11),
+        axis.text.y = element_text(size = 11))
+```
+
+## 3. Forest Plot for Effect Sizes
+
+```{r forest-plot, fig.height=6}
+# Calculate effect sizes (Cohen's d) for each comparison vs. control
+control_mean <- summary_stats$Mean[summary_stats$Fertilizer == "Control"]
+control_sd <- summary_stats$SD[summary_stats$Fertilizer == "Control"]
+
+effect_sizes <- summary_stats %>%
+  filter(Fertilizer != "Control") %>%
+  mutate(
+    Cohens_d = (Mean - control_mean) / 
+      sqrt((SD^2 + control_sd^2) / 2),
+    Lower_CI = Cohens_d - 1.96 * sqrt(2/n),
+    Upper_CI = Cohens_d + 1.96 * sqrt(2/n)
+  )
+
+ggplot(effect_sizes, aes(x = Cohens_d, y = Fertilizer)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
+  geom_vline(xintercept = c(0.2, 0.5, 0.8), linetype = "dotted", 
+             color = "gray70", alpha = 0.5) +
+  geom_errorbarh(aes(xmin = Lower_CI, xmax = Upper_CI), 
+                 height = 0.2, size = 1) +
+  geom_point(size = 4, color = "darkblue") +
+  annotate("text", x = 0.2, y = 4.5, label = "Small", angle = 90, 
+           color = "gray50", size = 3) +
+  annotate("text", x = 0.5, y = 4.5, label = "Medium", angle = 90, 
+           color = "gray50", size = 3) +
+  annotate("text", x = 0.8, y = 4.5, label = "Large", angle = 90, 
+           color = "gray50", size = 3) +
+  labs(title = "Effect Sizes: Treatments vs. Control",
+       subtitle = "Cohen's d with 95% confidence intervals",
+       x = "Effect Size (Cohen's d)",
+       y = "Treatment") +
+  theme_minimal()
+```
+
+# Decision Tree: Choosing a Post-Hoc Test
+
+```{r decision-tree, echo=FALSE, fig.height=8}
+library(DiagrammeR)
+
+grViz("
+digraph post_hoc_decision {
+  
+  # Graph attributes
+  graph [layout = dot, rankdir = TB]
+  
+  # Node definitions
+  node [shape = box, style = filled, fillcolor = lightblue, fontname = Helvetica]
+  
+  start [label = 'ANOVA Significant?', fillcolor = lightgreen]
+  stop [label = 'STOP\nNo post-hoc tests needed', fillcolor = pink, shape = oval]
+  
+  q1 [label = 'What comparisons?']
+  
+  all_pairs [label = 'All pairwise\ncomparisons?']
+  vs_control [label = 'All vs.\nControl only?']
+  planned [label = 'Planned\ncontrasts?']
+  
+  equal_var [label = 'Equal variances?']
+  
+  tukey [label = 'Use Tukey HSD', fillcolor = yellow, shape = oval]
+  gh [label = 'Use Games-Howell', fillcolor = yellow, shape = oval]
+  dunnett [label = 'Use Dunnett', fillcolor = yellow, shape = oval]
+  contrasts [label = 'Use Planned Contrasts\n(no correction needed)', fillcolor = yellow, shape = oval]
+  
+  few [label = 'Few comparisons?']
+  bonf [label = 'Use Bonferroni', fillcolor = yellow, shape = oval]
+  holm [label = 'Use Holm', fillcolor = yellow, shape = oval]
+  
+  # Edges
+  start -> stop [label = 'No']
+  start -> q1 [label = 'Yes']
+  
+  q1 -> all_pairs [label = 'All pairs']
+  q1 -> vs_control [label = 'vs Control']
+  q1 -> planned [label = 'Planned']
+  q1 -> few [label = 'Few specific']
+  
+  all_pairs -> equal_var
+  equal_var -> tukey [label = 'Yes']
+  equal_var -> gh [label = 'No']
+  
+  vs_control -> dunnett
+  planned -> contrasts
+  
+  few -> bonf [label = 'Yes (< 5)']
+  few -> holm [label = 'No (≥ 5)']
+}
+", width = 800, height = 700)
+```
+
+# Reporting Multiple Comparison Results
+
+## Template for Writing Results
+
+### Example 1: Tukey's HSD
+
+> "A one-way ANOVA revealed a significant effect of fertilizer treatment on plant height, F(2, 18) = 8.52, p = 0.003, η² = 0.49. Post-hoc comparisons using Tukey's HSD test indicated that plants receiving Fertilizer B (M = 6.86, SD = 1.35) grew significantly taller than those in the control group with no fertilizer (M = 3.14, SD = 1.07, p = 0.002). Fertilizer A (M = 4.43, SD = 1.27) showed an intermediate height that was not significantly different from either the control (p = 0.16) or Fertilizer B (p = 0.053)."
+
+### Example 2: With Compact Letter Display
+
+> "Tukey's HSD post-hoc test revealed that Fertilizer B produced the greatest mean plant height (6.86 cm, group 'b'), which was significantly different from the control group with no fertilizer (3.14 cm, group 'a'). Fertilizer A (4.43 cm, group 'ab') showed intermediate growth that did not differ significantly from either group at α = 0.05."
+
+### Example 3: Dunnett's Test
+
+> "Dunnett's test comparing both fertilizer treatments to the control group showed that Fertilizer B produced significantly taller plants than the control (mean difference = 3.71 cm, 95% CI [1.53, 5.90], p = 0.002). Fertilizer A showed a non-significant trend toward greater height compared to control (mean difference = 1.29 cm, 95% CI [-0.90, 3.47], p = 0.20)."
+
+### Example 4: Planned Contrasts
+
+> "Two planned orthogonal contrasts were conducted. The first contrast, comparing the control group to both fertilizer treatments combined, was significant (t(18) = 3.85, p = 0.001), indicating that fertilization increased plant height. The second contrast, comparing Fertilizer A to Fertilizer B, approached significance (t(18) = 2.04, p = 0.056), suggesting that Fertilizer B may be more effective than Fertilizer A."
+
+## Creating Publication-Ready Tables
+
+```{r publication-table}
+library(knitr)
+library(kableExtra)
+
+# Summary table with post-hoc results
+pub_table <- summary_final %>%
+  mutate(
+    Mean_SD = sprintf("%.2f (%.2f)", Mean, SD),
+    SE = sprintf("%.2f", SE),
+    Group = Letter
+  ) %>%
+  select(Fertilizer, n, Mean_SD, SE, Group)
+
+kable(pub_table,
+      col.names = c("Treatment", "n", "Mean (SD)", "SE", "Tukey Group"),
+      caption = "Table 1. Plant Height (cm) by Fertilizer Treatment with Post-Hoc Groupings",
+      align = c("l", "c", "c", "c", "c")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE) %>%
+  row_spec(0, bold = TRUE) %>%
+  footnote(general = "Groups with different letters are significantly different at α = 0.05 (Tukey's HSD test). Data represent mean plant height from 7 plants per treatment.",
+           general_title = "Note:")
+```
+
+```{r anova-table}
+# ANOVA table
+anova_table <- tidy(anova_model)
+
+kable(anova_table,
+      col.names = c("Source", "df", "Sum Sq", "Mean Sq", "F", "p-value"),
+      caption = "Table 2. Analysis of Variance for Plant Height",
+      digits = c(0, 0, 2, 2, 2, 4),
+      align = c("l", "c", "c", "c", "c", "c")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE) %>%
+  row_spec(0, bold = TRUE)
+```
+
+# Common Mistakes to Avoid
+
+## Mistake 1: Doing Post-Hoc Tests Without Significant ANOVA
+
+```{r mistake1, eval=FALSE}
+# ❌ WRONG: Doing post-hoc tests when ANOVA is not significant
+# If p > 0.05 from ANOVA, STOP. Don't do post-hoc tests.
+
+# ✓ RIGHT: Check ANOVA first
+if (anova_p < 0.05) {
+  # Proceed with post-hoc tests
+  tukey_results <- TukeyHSD(anova_model)
+} else {
+  cat("ANOVA not significant. Post-hoc tests not appropriate.\n")
+}
+```
+
+## Mistake 2: Not Correcting for Multiple Comparisons
+
+```{r mistake2, eval=FALSE}
+# ❌ WRONG: Multiple t-tests without correction
+# This inflates Type I error!
+t.test(height[group == "A"], height[group == "B"])
+t.test(height[group == "A"], height[group == "C"])
+t.test(height[group == "B"], height[group == "C"])
+# ... etc.
+
+# ✓ RIGHT: Use post-hoc tests with correction
+TukeyHSD(anova_model)
+# OR
+pairwise.t.test(height, group, p.adjust.method = "bonferroni")
+```
+
+## Mistake 3: Using the Wrong Test
+
+```{r mistake3, eval=FALSE}
+# ❌ WRONG: Using Tukey when variances are unequal
+# Check assumptions first!
+
+# ✓ RIGHT: Check assumptions, use appropriate test
+leveneTest(Height ~ Fertilizer, data = plant_data)
+
+if (levene_p < 0.05) {
+  # Variances unequal - use Games-Howell
+  games_howell_test(plant_data, Height ~ Fertilizer)
+} else {
+  # Variances equal - use Tukey
+  TukeyHSD(anova_model)
+}
+```
+
+## Mistake 4: Over-interpreting Non-Significant Results
+
+```{r mistake4, eval=FALSE}
+# ❌ WRONG: "Groups A and B are the same" (when p > 0.05)
+
+# ✓ RIGHT: "No significant difference was found between groups A and B"
+# Absence of evidence ≠ Evidence of absence
+```
+
+# Practice Exercises
+
+## Exercise 1: Basic Post-Hoc Testing
+
+Analyze this dataset and conduct appropriate post-hoc tests:
+
+```{r exercise1}
+set.seed(999)
+n <- 10
+
+study_data <- data.frame(
+  Method = factor(rep(c("Method_A", "Method_B", "Method_C", "Method_D"), each = n)),
+  Score = c(
+    rnorm(n, 75, 8),
+    rnorm(n, 82, 7),
+    rnorm(n, 78, 9),
+    rnorm(n, 85, 7)
+  )
+)
+
+# Your tasks:
+# 1. Run ANOVA
+# 2. Check assumptions
+# 3. Conduct Tukey's HSD
+# 4. Create visualization with significance letters
+# 5. Write results paragraph
+```
+
+## Exercise 2: Choosing the Right Test
+
+For each scenario, choose the most appropriate post-hoc test:
+
+```{r exercise2-scenarios, eval=FALSE}
+# Scenario A: Testing 5 drug treatments vs. placebo
+# Your answer: _______________
+
+# Scenario B: Comparing 6 groups, variances very different
+# Your answer: _______________
+
+# Scenario C: 4 specific planned comparisons based on theory
+# Your answer: _______________
+
+# Scenario D: Exploratory study with 8 groups, all pairwise comparisons
+# Your answer: _______________
+```
+
+## Exercise 3: Complex Contrasts
+
+```{r exercise3}
+# Three crop varieties grown under three water conditions
+crop_data <- expand.grid(
+  Variety = factor(c("V1", "V2", "V3")),
+  Water = factor(c("Low", "Medium", "High"))
+)
+
+set.seed(111)
+crop_data$Yield <- with(crop_data,
+  50 + 
+  10 * as.numeric(Variety) +
+  8 * as.numeric(Water) +
+  3 * as.numeric(Variety) * as.numeric(Water) +
+  rnorm(nrow(crop_data), 0, 5)
+)
+
+# Replicate each combination
+crop_data <- crop_data[rep(1:nrow(crop_data), each = 5), ]
+crop_data$Yield <- crop_data$Yield + rnorm(nrow(crop_data), 0, 3)
+
+# Your tasks:
+# 1. Run two-way ANOVA
+# 2. If no interaction: test main effects with appropriate post-hoc
+# 3. If interaction: conduct simple effects analysis
+# 4. Plan and test 2 orthogonal contrasts
+```
+
+# Summary
+
+**Key Concepts:**
+
+1. **Multiple comparisons inflate Type I error** - must be controlled
+2. **Choose post-hoc test based on:**
+   - Type of comparisons (all pairs, vs. control, specific)
+   - Sample size and equality
+   - Variance homogeneity
+   - Conservativeness desired
+
+3. **Most common choices:**
+   - Tukey's HSD for all pairwise comparisons
+   - Bonferroni for few planned comparisons
+   - Dunnett for comparisons to control
+   - Games-Howell for unequal variances
+
+4. **Planned contrasts** are more powerful than post-hoc tests
+
+5. **Always check ANOVA significance** before post-hoc tests
+
+**R Functions Summary:**
+
+```{r summary-functions, eval=FALSE}
+# Post-hoc tests
+TukeyHSD(model)                                    # Tukey's HSD
+pairwise.t.test(y, group, p.adjust = "bonferroni") # Bonferroni
+pairwise.t.test(y, group, p.adjust = "holm")       # Holm
+DunnettTest(y ~ group, control = "Control")        # Dunnett
+games_howell_test(data, y ~ group)                 # Games-Howell
+LSD.test(model, "factor")                          # Fisher's LSD
+ScheffeTest(model)                                 # Scheffé
+
+# Visualization
+cld(glht(model, linfct = mcp(factor = "Tukey")))  # Compact letter display
+
+# Planned contrasts
+contrast(emmeans(model, ~ factor), list)           # Custom contrasts
+```
+
+# References
+
+- Maxwell, S. E., & Delaney, H. D. (2004). *Designing Experiments and Analyzing Data: A Model Comparison Perspective* (2nd ed.). Lawrence Erlbaum Associates.
+- Hochberg, Y., & Tamhane, A. C. (1987). *Multiple Comparison Procedures*. Wiley.
+- Toothaker, L. E. (1993). *Multiple Comparison Procedures*. SAGE Publications.
+- Hsu, J. C. (1996). *Multiple Comparisons: Theory and Methods*. Chapman & Hall/CRC.
+
+---
+
+**Next Lesson:** Lesson 14 - Repeated Measures and Mixed Models
