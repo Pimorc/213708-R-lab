@@ -108,6 +108,18 @@ plant_data %>%
 
 It is always a good practice to explore the data before testing.
 
+```{r summary_stats, fig.height=5, echo = FALSE}
+summary_stats <- plant_data %>%
+  group_by(Fertilizer) %>%
+  summarise(
+    n = n(),
+    Mean = mean(Height),
+    SD = sd(Height),
+    SE = SD / sqrt(n),
+    .groups = 'drop'
+  )
+```
+
 ```{r visualize-groups, fig.height=5}
 
 if(!require("ggthemes", character.only = TRUE)) {
@@ -201,7 +213,7 @@ For our fertilizer example:
 - **df for SSE** = k(n - 1) = 3(7 - 1) = 18 (where n = replicates per treatment)
 - **df for SSTotal** = N - 1 = 21 - 1 = 20 (where N = total observations)
 
-## The F-Distribution and F-Statistic
+### The F-Distribution and F-Statistic
 
 The F-distribution is used to test whether two variances are equal. The F-statistic is the ratio:
 
@@ -217,7 +229,7 @@ where:
 - If F is close to 1, sample variances are equal (no treatment effect)
 - If F is large, variation among groups exceeds variation within groups (treatment effect likely)
 
-#### The ANOVA Table
+### The ANOVA Table
 
 The standard format for presenting ANOVA results:
 
@@ -321,7 +333,7 @@ Effect size measures the magnitude of the treatment effect:
 
 $$\eta^2 = \frac{SS_{effect}}{SS_{Total}}$$
 
-### The results of one-way ANOVA
+## The results of one-way ANOVA
 After running the test and checking all the assumptions, the ANOVA test we ran is valid. The conclusion is that not all plant height means are equal. There are the effects of fertilizer treatment on plant growth.
 
 When ANOVA shows a significant F-statistic, we know that **at least one group mean differs** from the others. However, ANOVA doesn't tell us:
@@ -341,7 +353,9 @@ The next step is to use post-hoc tests
 
 ### Common Post-Hoc Tests
 
-## Overview of Methods
+### Overview of Methods
+
+There are many post-hoc tests to choose from (Table \@ref(tab: post-hoc-list)). It is good to keep in mind the features of each test and the purpose of the comparisons. In terms of conservativeness, that the test is conservative means that the method requires stronger evidence to reject the null hypothesis. The method keeps Type I error (false positives) very low, but reducing statistical power to detect real differences.
 
 | Test | Use When | Conservativeness | Special Features |
 |------|----------|------------------|------------------|
@@ -353,16 +367,93 @@ The next step is to use post-hoc tests
 | **Fisher LSD** | Protected by significant ANOVA | Liberal | Use cautiously |
 | **Games-Howell** | Unequal variances | Moderate | No homogeneity assumption |
 
-## Post-hoc Test of Plant Growth Example 
+: (#tab:post-hoc-test) Comparisons of Post-Hoc Methods
 
-Let's use a simple fertilizer experiment with three treatments to demonstrate each test:
+## Example: Post-hoc Test of Plant Growth Example 
+
+Let's use the fertilizer experiment with three treatments to demonstrate two of the post-hoc tests:
 
 ### Tukey's Honestly Significant Difference (HSD)
 
-Tukey's HSD compares all possible pairs of means using the Studentized Range Distribution.
+Tukey's HSD compares all possible pairs of means (**All pairwise comparisons** among groups) using the Studentized Range Distribution.
 
-- **All pairwise comparisons** among groups
-- **Equal sample sizes** (works best, but robust to minor imbalances)
-- **Homogeneity of variance** assumed
-- **Most popular** post-hoc test
+- Tukey's HSD works best with **Equal sample sizes** (but it is robust to minor imbalances).
+- The test assumes **Homogeneity of variance**.
+- Tukey's HSD is the most post-hoc test
+
+```{r tukey-hsd}
+# Perform Tukey's HSD test
+tukey_results <- TukeyHSD(anova_model, conf.level = 0.95)
+
+print(tukey_results)
+
+# Access the table
+tukey_table <- as.data.frame(tukey_results$Fertilizer)
+tukey_table$Comparison <- rownames(tukey_table)
+tukey_table <- tukey_table[, c("Comparison", "diff", "lwr", "upr", "p adj")]
+colnames(tukey_table) <- c("Comparison", "Mean_Diff", "Lower_CI", "Upper_CI", "p_adj")
+
+# Add significance indicator
+tukey_table$Significant <- ifelse(tukey_table$p_adj < 0.05, "***", 
+                                  ifelse(tukey_table$p_adj < 0.10, "*", "ns"))
+
+print(tukey_table)
+```
+
+#### Visualization of Tukey's HSD results
+
+```{r visualize-hsd, fig.height = 5}
+
+if(!require("ggthemes", character.only = TRUE)) {
+  install.packages("ggthemes", dependencies = TRUE)}
+library(ggplot2)
+library(ggthemes)
+
+add_letter <- c(by(plant_data$Height, plant_data$Fertilizer, mean))
+
+# Boxplot
+ggplot(plant_data, aes(x = Fertilizer, y = Height, fill = Fertilizer)) +
+  geom_boxplot(alpha = 0.6) +
+#  geom_jitter(width = 0.1, size = 2) +
+#  geom_hline(yintercept = mean(plant_data$Height), 
+#             linetype = "dashed", color = "purple", size = 1) +
+  annotate("text", x = 1:3, y = add_letter + 2.5, 
+           label = c("b", "a", "b"), color = "black", size = 6, fontface = "bold") +
+  stat_summary(fun.y = mean, geom = "point", shape = 18, size = 3, color = "darkred") +
+  geom_point(x = 2.8, y = 9, shape = 18, size = 3, color = "darkred") +
+  annotate("text", x = 3.1, y = 9, 
+           label = "=  Mean", color = "black", size = 5) +
+  annotate("rect", xmin = 2.6, xmax = 3.5, ymin = 8.5, ymax = 9.5,
+           fill = NA, alpha = 0.3, color = "black") +
+  labs(
+       x = "Fertilizer Treatment",
+       y = "Plant height (cm)") +
+  ylim(0, 9.5) +
+  theme_bw() +
+  theme(panel.border = element_blank(), legend.position = "none",
+  axis.line.x = element_line(size = 0.5, linetype = "solid", colour = "black"),
+  axis.line.y = element_line(size = 0.5, linetype = "solid", colour = "black"),
+  axis.text = element_text(size = 14), axis.title = element_text(size = 14))
+```
+
+### Dunnett's Test
+
+Dunnett's Test is used to compare treatments to a control group. The test is used when the researchers are not interested in comparing treatments to each other. It is more powerful than Tukey's HSD for this specific purpose. In our example, Dunnet's test is used to compare fertilizers A and B to "No fertilizer" control.
+
+```{r dunnett}
+library(DescTools)
+
+# Dunnett's test (comparing all to No fertilizer control)
+dunnett_results <- DunnettTest(
+  Height ~ Fertilizer,
+  data = plant_data,
+  control = "No fertilizer"  # Specify control group
+)
+
+print(dunnett_results)
+
+cat("\nInterpretation:\n")
+cat("This test compares Fertilizer A and Fertilizer B to the control (No fertilizer)\n")
+cat("It does NOT compare A vs B\n")
+```
 

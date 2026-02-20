@@ -536,7 +536,7 @@ library(DescTools)
 
 # Dunnett's test (comparing all to No fertilizer control)
 dunnett_results <- DunnettTest(
-  x = Height ~ Fertilizer,
+  Height ~ Fertilizer,
   data = plant_data,
   control = "No fertilizer"  # Specify control group
 )
@@ -550,7 +550,7 @@ cat("It does NOT compare A vs B (not needed for this research question)\n")
 
 ```{r dunnett-plot, fig.height=5}
 # Visualize Dunnett's results
-dunnett_df <- as.data.frame(dunnett_results$Control)
+dunnett_df <- as.data.frame(dunnett_results$`No fertilizer`)
 dunnett_df$Comparison <- rownames(dunnett_df)
 
 ggplot(dunnett_df, aes(x = Comparison, y = diff)) +
