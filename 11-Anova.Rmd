@@ -69,7 +69,7 @@ Let's work through an example with:
 -   **Response variable**: Plant height (cm)
 -   **Sample size**: 7 plants per treatment (14 plants total)
 
-```{r example-data}
+```{r example-data, echo=FALSE, include=FALSE}
 # Create example dataset
 set.seed(213708)
 fertilizer <- rep(c("A", "B", "No fertilizer"), each = 7)
@@ -93,32 +93,53 @@ print(plant_data)
 
 # Summary statistics
 library(dplyr)
-plant_data %>%
+summary_plant <- plant_data %>%
   group_by(Fertilizer) %>%
   summarise(
     n = n(),
-    Mean = mean(Height),
-    SD = sd(Height),
+    Mean = round(mean(Height), digit = 1),
+    SD = round(sd(Height), digit = 1),
+    SE = round(SD / sqrt(n), digit = 1),
     Min = min(Height),
-    Max = max(Height)
+    Max = max(Height),
+    .groups = 'drop'
   )
+
 ```
+
+```{r plant-data-tab, echo=FALSE, include=FALSE}
+### Write the data into a table
+library(knitr)
+library(kableExtra)
+
+plant_data %>%
+  kbl(align = "c",
+      col.names = c("Plant ID", "Fertilizer", "Height (cm)"),
+      caption = "Plant height under different fertilizer treatments") %>% 
+  kable_styling(full_width = F) %>%
+  column_spec(1, bold = TRUE)
+
+
+```
+
+
 
 ### Visualizing the Data
 
-It is always a good practice to explore the data before testing.
+It is always a good practice to explore the data before testing. The research should make the summary of the data separated by the factor of interest (Fertilizer) in a table (Table \@ref(tab:summary-data)) and/or a boxplot (Figure \@ref(fig:visualize-group)).
 
-```{r summary_stats, fig.height=5, echo = FALSE}
-summary_stats <- plant_data %>%
-  group_by(Fertilizer) %>%
-  summarise(
-    n = n(),
-    Mean = mean(Height),
-    SD = sd(Height),
-    SE = SD / sqrt(n),
-    .groups = 'drop'
-  )
+```{r summary-data, echo=FALSE, include=FALSE}
+summary_plant%>%
+  kbl(align = "c",
+      col.names = c("Fertilizer", "n", "Mean height (cm)", 
+                    "SD (cm)", "SE (cm)",
+                    "Mininum height (cm)",
+                    "Maximum height (cm)"),
+      caption = "Summary of plant height separated by fertilizer treatments") %>% 
+  kable_styling(full_width = F) %>%
+  column_spec(1, bold = TRUE)
 ```
+
 
 ```{r visualize-groups, fig.height=5}
 
@@ -153,7 +174,7 @@ ANOVA partitions the total variation into components:
 
 SSTotal measures total variation of all observations from the overall mean:
 
-$$SS_{Total} = \sum_{i=1}^{n}(y_i - \bar{\bar{y}})^2$$
+$$SS{Total} = \sum_{i=1}^{n}(y_i - \bar{\bar{y}})^2$$
 
 where:
 
@@ -174,7 +195,7 @@ SSB is also called "among-group variation" or "treatment variation." It measures
 
 #### The Partition
 
-$$SS_{Total} = SS_B + SS_E$$
+$$SS{Total} = SSB + SSE$$
 
 ```{r calculate-ss}
 # Calculate sums of squares manually
