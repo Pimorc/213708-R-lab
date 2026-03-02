@@ -7,7 +7,7 @@
 Students should be able to:
 
 -   Describe common terminology relating to ANOVA
--   Determine steps for performing ANOVA
+-   Determine steps for performing ANOVA and ANCOVA
 -   Identify when to use ANCOVA versus ANOVA
 -   Explain the purpose of covariates in experimental design
 -   Interpret ANOVA and ANCOVA results and post-hoc tests
@@ -66,11 +66,12 @@ For one-way ANOVA with k groups:
 Researcher want to compare plant height under three fertilizer treatments (Fertilizer A and B and Control - no fertilizer). The researhcers starts with seedlings with the same sizes.
 
 **Research design**
+
 -   **Explanatory variable**: Fertilizer type (A, B, and no fertilizer)
 -   **Response variable**: Plant height (cm)
 -   **Sample size**: 7 plants per treatment (21 plants total)
 
-```{r example-data, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE}
+```{r example-data, echo=FALSE, results = 'hide', message=FALSE, warning=FALSE}
 # Create example dataset
 set.seed(213708)
 fertilizer <- rep(c("A", "B", "No fertilizer"), each = 7)
@@ -108,7 +109,7 @@ summary_plant <- plant_data %>%
 
 ```
 
-```{r plant-data-tab, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE}
+```{r plant-data-tab, echo=FALSE, message=FALSE, warning=FALSE}
 ### Write the data into a table
 library(knitr)
 library(kableExtra)
@@ -123,13 +124,11 @@ plant_data %>%
 
 ```
 
-
-
 ### Visualizing the Data
 
-It is always a good practice to explore the data before testing. The research should make the summary of the data separated by the factor of interest (Fertilizer) in a table (Table \@ref(tab:summary-data)) and/or a boxplot (Figure \@ref(fig:visualize-group)).
+It is always a good practice to explore the data before testing. The research should make the summary of the data separated by the factor of interest (Fertilizer) in a table (Table \@ref(tab:summary-data)) and/or a boxplot (Figure \@ref(fig:visualize-groups)).
 
-```{r summary-data, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE}
+```{r summary-data, echo=FALSE, message=FALSE, warning=FALSE}
 summary_plant%>%
   kbl(align = "c",
       col.names = c("Fertilizer", "n", "Mean height (cm)", 
@@ -142,7 +141,7 @@ summary_plant%>%
 ```
 
 
-```{r visualize-groups, fig.height=5, message=FALSE, warning=FALSE}
+```{r visualize-groups, fig.height=5, message=FALSE, warning=FALSE, echo=FALSE}
 
 if(!require("ggthemes", character.only = TRUE)) {
   install.packages("ggthemes", dependencies = TRUE)}
@@ -167,6 +166,7 @@ ggplot(plant_data, aes(x = Fertilizer, y = Height, fill = Fertilizer)) +
   axis.text = element_text(size = 14), axis.title = element_text(size = 14))
 
 ```
+
 ### Understanding Sums of Squares
 
 ANOVA partitions the total variation into components:
@@ -197,8 +197,12 @@ SSB is also called "among-group variation" or "treatment variation." It measures
 #### The Partition
 
 $$SS{Total} = SSB + SSE$$
+In this fertilizer experiment, 
+- SSB is `r round(ssb, digits = 2)`.
+- SSE is `r round(sse, digits = 2)`.
+- SSTotal is `r round(ssb, digits = 2)` + `r round(sse, digits = 2)`, equal to `r round(ss_total, digits = 2)`.
 
-```{r calculate-ss, message=FALSE, warning=FALSE}
+```{r calculate-ss, message=FALSE, echo=FALSE, warning=FALSE, results='hide'}
 # Calculate sums of squares manually
 overall_mean <- mean(plant_data$Height)
 group_means <- plant_data %>%
@@ -263,6 +267,7 @@ The standard format for presenting ANOVA results:
 
 ## Running ANOVA in R
 
+******* to do Mar 2 - format the text to the book content not in r code chunk.
 ```{r run-anova, message=FALSE, warning=FALSE}
 # Fit the model
 anova_model <- aov(Height ~ Fertilizer, data = plant_data)
@@ -288,10 +293,10 @@ cat("Degrees of freedom: Treatment =", df_treatment, ", Error =", df_error, "\n"
 ## Assumptions of ANOVA
 It is important that before interpreting ANOVA results, these assumptions must be verified:
 
-### 1. Random Sampling
+### Random Sampling
 Data should be collected through random sampling.
 
-### 2. Homogeneity of Variance (Homoscedasticity)
+### Homogeneity of Variance (Homoscedasticity)
 Variances should be equal across groups.
 
 **Check BEFORE running ANOVA:**
@@ -313,10 +318,10 @@ leveneTest(Height ~ Fertilizer, data = plant_data)
 
 In our case, the result of the Levene's Test (P value  = 0.7) indicates that the null hypothesis is not rejected. The variances among groups are homogenous.
 
-### 3. Independence of Errors
+### Independence of Errors
 Residuals should be independent of each other.
 
-### 4. Normality of Residuals
+### Normality of Residuals
 Residuals should follow a normal distribution.
 
 **Check AFTER running ANOVA:**
@@ -355,7 +360,8 @@ Effect size measures the magnitude of the treatment effect:
 
 $$\eta^2 = \frac{SS_{effect}}{SS_{Total}}$$
 
-## The results of one-way ANOVA
+## Reporting ANOVA Results
+
 After running the test and checking all the assumptions, the ANOVA test we ran is valid. The conclusion is that not all plant height means are equal. There are the effects of fertilizer treatment on plant growth.
 
 When ANOVA shows a significant F-statistic, we know that **at least one group mean differs** from the others. However, ANOVA doesn't tell us:
@@ -499,7 +505,7 @@ Researchers want to compare three fertilizer treatments (Organic, Synthetic, and
 **Why use ANCOVA here?**
 Even with random assignment, seedlings naturally vary in initial size. By controlling for initial height, we can more accurately assess the effect of fertilizer treatments on growth.
 
-```{r create-data, echo =false, message=FALSE, warning=FALSE}
+```{r create-data, echo =FALSE, message=FALSE, warning=FALSE}
 library(dplyr)
 library(ggplot2)
 
@@ -554,9 +560,9 @@ summary_stats <- fertilizer_data %>%
 print(summary_stats)
 ```
 
-## Visualizing the Data
+### Visualizing the Data
 
-```{r visualize-data, fig.height=8, echo =false, message=FALSE, warning=FALSE}
+```{r visualize-data, fig.height=8, echo =FALSE, message=FALSE, warning=FALSE}
 library(patchwork)
 
 # Scatter plot: Initial vs Final Height by Fertilizer
@@ -658,13 +664,12 @@ print(comparison)
 cat("\n*** Notice how ANCOVA increases statistical power! ***\n")
 ```
 
-# Understanding Adjusted Means
+## Understanding Adjusted Means
 
-## What Are Adjusted Means?
+### What Are Adjusted Means?
 
 In ANCOVA, we calculate **adjusted means** - the expected group means if all groups had the same average covariate value.
 
-** doesn't work for now.
 ```{r adjusted-means}
 library(emmeans)
 
@@ -681,22 +686,21 @@ unadjusted_means <- fertilizer_data %>%
 adjusted_df <- as.data.frame(adjusted_means)
 comparison_means <- unadjusted_means %>%
   left_join(
-    adjusted_df %>% select(Fertilizer, emmean),
-    by = "Fertilizer"
-  ) %>%
+    adjusted_df,
+    by = "Fertilizer") %>%
   rename(adjusted_mean = emmean)
 
 print(comparison_means)
 ```
 
-## Visualizing Adjusted vs. Unadjusted Means
+### Visualizing Adjusted vs. Unadjusted Means
 
-```{r plot-adjusted-means, fig.height=6}
+```{r plot-adjusted-means, fig.height=6, ,}
 # Reshape for plotting
 library(tidyr)
 
 comparison_long <- comparison_means %>%
-  pivot_longer(cols = c(Unadjusted_Mean, Adjusted_Mean),
+  pivot_longer(cols = c(Unadjusted_Mean, adjusted_mean),
                names_to = "Type",
                values_to = "Mean")
 
@@ -710,17 +714,18 @@ ggplot(comparison_long, aes(x = Fertilizer, y = Mean, fill = Type)) +
        y = "Final Plant Height (cm)",
        x = "Fertilizer Treatment",
        fill = "Mean Type") +
-  theme_minimal() +
+  theme_bw() +
+  
   theme(legend.position = "bottom")
 ```
 
 **Interpretation:** The adjusted means show what the final heights would be if all seedlings started at the same initial height. This gives us a fairer comparison of the fertilizer treatments' true effects.
 
-# Assumptions of ANCOVA
+## Assumptions of ANCOVA
 
 ANCOVA has all the assumptions of ANOVA, **plus additional ones**:
 
-## 1. Linear Relationship
+### 1. Linear Relationship
 
 The relationship between the covariate (initial height) and dependent variable (final height) should be linear.
 
@@ -746,7 +751,7 @@ abline(h = 0, col = "red", lty = 2, lwd = 2)
 
 **Interpretation:** If the relationship is linear, the blue and red lines should be similar, and residuals should show no pattern.
 
-## 2. Homogeneity of Regression Slopes
+### 2. Homogeneity of Regression Slopes
 
 **CRITICAL ASSUMPTION:** The relationship between initial height and final height should be the same across all fertilizer treatments (parallel slopes).
 
@@ -783,7 +788,7 @@ if (interaction_p < 0.05) {
 
 **Why this matters:** If slopes differ, it means the fertilizer treatments affect not just overall growth, but how much plants respond to their initial size. In that case, ANCOVA's assumption is violated.
 
-## 3. Independence of Covariate and Treatment
+### 3. Independence of Covariate and Treatment
 
 The covariate should not be affected by the treatment. This means:
 
@@ -798,7 +803,7 @@ The covariate should not be affected by the treatment. This means:
 **Counter-example where this would be violated:**
 If we measured "leaf chlorophyll content" after one week of fertilizer treatment and used it as a covariate, this would be WRONG because the fertilizer already influenced chlorophyll levels.
 
-## 4. Standard ANOVA Assumptions
+### 4. Standard ANOVA Assumptions
 
 - **Normality of residuals**
 - **Homogeneity of variance**
@@ -840,7 +845,7 @@ plot(ancova_model)
 par(mfrow = c(1, 1))
 ```
 
-# Post-Hoc Comparisons with ANCOVA
+## Post-Hoc Comparisons with ANCOVA
 
 When ANCOVA shows significant group differences, we use post-hoc tests to identify which groups differ.
 
@@ -867,7 +872,7 @@ adj_means_df <- as.data.frame(adjusted_means)
 cld_result <- cld(adjusted_means, Letters = letters)
 cld_df <- as.data.frame(cld_result)
 
-ggplot(cld_df, aes(x = Method, y = emmean, fill = Method)) +
+ggplot(cld_df, aes(x = Fertilizer, y = emmean, fill = Fertilizer)) +
   geom_col(alpha = 0.7) +
   geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), 
                 width = 0.2, size = 1) +
@@ -880,9 +885,9 @@ ggplot(cld_df, aes(x = Method, y = emmean, fill = Method)) +
   theme(legend.position = "none")
 ```
 
-# Effect Size for ANCOVA
+## Effect Size for ANCOVA
 
-## Partial Eta-Squared
+### Partial Eta-Squared
 
 For ANCOVA, we use **partial eta-squared** which shows the proportion of variance in the outcome explained by each effect, after controlling for other effects.
 
@@ -899,95 +904,12 @@ cat("Medium: η² = 0.06\n")
 cat("Large: η² = 0.14\n")
 ```
 
-# Complete ANCOVA Workflow
 
-## Step-by-Step Analysis
+## Multiple Covariates
 
-```{r complete-workflow}
-cat("=== ANCOVA WORKFLOW ===\n\n")
+ANCOVA can include multiple covariates to further improve precision. For example, with the fertilizer experiment, adding one more covariate of leaf number to reflect seedling vigor at the beginning of the experiment will give us a more precise estimate of fertilizer effects.
 
-# Step 1: Exploratory Data Analysis
-cat("Step 1: Explore the data\n")
-cat("- Check distributions\n")
-cat("- Visualize relationships\n")
-cat("- Calculate descriptive statistics\n\n")
-
-# Step 2: Check Assumptions
-cat("Step 2: Check assumptions\n")
-
-# 2a. Homogeneity of regression slopes
-cat("2a. Homogeneity of regression slopes... ")
-slopes_test <- aov(Posttest ~ Pretest * Method, data = teaching_data)
-slopes_p <- summary(slopes_test)[[1]]["Pretest:Method", "Pr(>F)"]
-if (slopes_p >= 0.05) {
-  cat("✓ PASSED (p =", round(slopes_p, 3), ")\n")
-} else {
-  cat("✗ FAILED (p =", round(slopes_p, 3), ")\n")
-}
-
-# 2b. Linearity
-cat("2b. Linearity... ✓ (visual check)\n")
-
-# 2c. Normality
-cat("2c. Normality... ")
-norm_p <- shapiro.test(residuals(ancova_model))$p.value
-if (norm_p >= 0.05) {
-  cat("✓ PASSED (p =", round(norm_p, 3), ")\n")
-} else {
-  cat("✗ FAILED (p =", round(norm_p, 3), ")\n")
-}
-
-# 2d. Homogeneity of variance
-cat("2d. Homogeneity of variance... ")
-levene_p <- leveneTest(Posttest ~ Method, data = teaching_data)$`Pr(>F)`[1]
-if (levene_p >= 0.05) {
-  cat("✓ PASSED (p =", round(levene_p, 3), ")\n\n")
-} else {
-  cat("✗ FAILED (p =", round(levene_p, 3), ")\n\n")
-}
-
-# Step 3: Run ANCOVA
-cat("Step 3: Run ANCOVA\n")
-print(summary(ancova_model))
-
-# Step 4: Calculate effect sizes
-cat("\nStep 4: Effect sizes\n")
-print(eta_squared(ancova_model, partial = TRUE))
-
-# Step 5: Post-hoc tests (if significant)
-if (ancova_p < 0.05) {
-  cat("\nStep 5: Post-hoc tests (Method effect is significant)\n")
-  print(pairs(adjusted_means))
-}
-
-cat("\n=== WORKFLOW COMPLETE ===\n")
-```
-
-# Multiple Covariates
-
-ANCOVA can include multiple covariates to further improve precision:
-
-```{r multiple-covariates}
-# Add another covariate: Number of leaves at start
-fertilizer_data$Initial_Leaves <- round(fertilizer_data$Initial_Height / 2 + rnorm(nrow(fertilizer_data), 3, 0.8))
-fertilizer_data$Initial_Leaves[fertilizer_data$Initial_Leaves < 2] <- 2
-
-# ANCOVA with two covariates
-ancova_multi <- aov(Final_Height ~ Initial_Height + Initial_Leaves + Fertilizer, 
-                    data = fertilizer_data)
-summary(ancova_multi)
-
-cat("\nInterpretation:\n")
-cat("This model controls for both initial height AND initial leaf number.\n")
-cat("Both covariates help account for initial plant vigor.\n\n")
-
-# Adjusted means with multiple covariates
-emmeans(ancova_multi, ~ Fertilizer)
-```
-
-**Biological Interpretation:** By controlling for both initial height and leaf number, we account for different aspects of seedling vigor at the start of the experiment, giving us an even more precise estimate of fertilizer effects.
-
-# When NOT to Use ANCOVA
+## When NOT to Use ANCOVA
 
 ANCOVA is **not appropriate** when:
 
@@ -1003,9 +925,9 @@ ANCOVA is **not appropriate** when:
 4. **Covariate has measurement error**
    - Solution: Consider structural equation modeling or reliability correction
 
-# Reporting ANCOVA Results
+## Reporting ANCOVA Results
 
-## Example Write-Up
+## Example Write-Up of the Fertilizer Experiment
 
 > "An analysis of covariance (ANCOVA) was conducted to evaluate the effect of fertilizer treatment (Control, Organic, Synthetic) on final plant height after 8 weeks, while controlling for initial seedling height. The assumption of homogeneity of regression slopes was tested and satisfied (F(2, 39) = 0.87, p = 0.43), indicating that the relationship between initial and final height was similar across all fertilizer treatments. 
 >
@@ -1013,28 +935,79 @@ ANCOVA is **not appropriate** when:
 >
 > Post-hoc pairwise comparisons using the Bonferroni correction revealed that synthetic fertilizer (adjusted M = 31.5 cm, SE = 0.5) resulted in significantly taller plants than both organic fertilizer (adjusted M = 25.8 cm, SE = 0.5, p < 0.001) and the control with no fertilizer (adjusted M = 19.7 cm, SE = 0.5, p < 0.001). Organic fertilizer also produced significantly taller plants than the control (p < 0.001), demonstrating that both fertilizer types enhanced plant growth beyond the baseline."
 
-## Creating a Publication-Ready Table
+ANOVA and ANCOVA are common techniques to determine differences in mean among categorical explanatory variables. The techniques have assumptions that researchers must check before and after running the analysis. 
 
-```{r publication-table}
-library(knitr)
-library(kableExtra)
+## Exercise
 
-# ANCOVA table
-ancova_table <- as.data.frame(summary(ancova_model)[[1]])
-ancova_table$Source <- rownames(ancova_table)
-ancova_table <- ancova_table[, c("Source", "Df", "Sum Sq", "Mean Sq", "F value", "Pr(>F)")]
-colnames(ancova_table) <- c("Source", "df", "SS", "MS", "F", "p")
+**Scenario A:** (For questions 1 and 2) 
+You have collected data on seedling growth under four different light conditions (Full sun, Partial shade, Full shade, and Artificial light). You measured the final height of 10 seedlings per treatment.
 
-# Format p-values
-ancova_table$p <- ifelse(ancova_table$p < 0.001, "< .001", 
-                         sprintf("%.3f", ancova_table$p))
+1. State the null and alternative hypotheses in words.
 
-# Create table
-kable(ancova_table, 
-      caption = "ANCOVA Results: Effect of Fertilizer Treatment on Final Plant Height, Controlling for Initial Seedling Height",
-      digits = 2,
-      align = c("l", "c", "c", "c", "c", "c")) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
-                full_width = FALSE) %>%
-  row_spec(0, bold = TRUE)
+2. Arrange the following steps in the correct order for performing a one-way ANOVA:
+
+A. Conduct post-hoc tests if ANOVA is significant  
+B. Check assumptions (normality, homogeneity of variance)  
+C. State the research question and hypotheses
+D. Calculate and interpret effect size (η²)  
+E. Run the ANOVA and examine the F-statistic and p-value  
+F. Visualize the data (boxplots, means plot)
+G. Report results with appropriate statistics  
+
+**Correct order for question 2:** ___ → ___ → ___ → ___ → ___ → ___ →
+
+3. For each research scenario, determine whether ANOVA or ANCOVA is more appropriate. Explain your reasoning and identify any covariates.
+
+**Scenario B:**
+A researcher compares plant yield across four irrigation methods. The fields have different baseline soil moisture levels (measured before irrigation started) and different initial nutrient levels (also measured beforehand).
+
+- **Best analysis:** ☐ ANOVA ☐ ANCOVA
+- **Reasoning:**
+- **Covariates (if ANCOVA):**
+
+**Scenario C:**
+Testing whether three different pesticides affect insect populations. One week after application, insect counts are recorded. The researcher also measures plant health at that same time point.
+
+- **Best analysis:** ☐ ANOVA ☐ ANCOVA
+- **Can plant health (measured at week 1) be used as a covariate?** ☐ Yes ☐ No
+- **Reasoning:**
+
+4. List three benefits of using a covariate in research studies.
+
+5. Interpreting the outputs of a study 
+
+**Scenario D:** A study compared three fertilizer treatment - Control (no fertilizer), Organic, and Synthetic - on tomato yield (kg), controlling for initial soil nitrogen (ppm).
+
+**ANCOVA Results:**
 ```
+                      Df Sum Sq Mean Sq F value   Pr(>F)
+Soil_Nitrogen          1  842.3   842.3  125.41  < 0.001
+Fertilizer             2  256.8   128.4   19.12  < 0.001
+Residuals             36  241.7     6.7
+```
+
+**Adjusted Means:**
+```
+Fertilizer    Adjusted Mean (kg)    SE
+Control            15.2             0.8
+Organic            21.5             0.7
+Synthetic          24.8             0.8
+```
+
+**Questions:**
+
+5.1) Is soil nitrogen significantly related to yield? What does this tell you about the importance of controlling for it?
+
+5.2) Is there a significant effect of fertilizer type?
+
+5.3) Calculate partial η² for the fertilizer effect: Formula: SS_fertilizer / (SS_fertilizer + SS_residuals)
+
+5.4 The unadjusted means were: 
+- Control = 14.8 kg,
+- Organic = 22.1 kg, and
+- Synthetic = 24.3 kg. 
+Why do the adjusted and unadjusted means differ?
+
+---
+
+## Reference
