@@ -376,21 +376,19 @@ Effect size measures the magnitude of the treatment effect:
 $$\eta^2 = \frac{SSE}{SSTotal}$$
 For our example, the $$\eta^2$$ is `r round(sse/ss_total, digit = 2)` for the fertilizer treatment. This means that 34% of the variance in the outcome can be explained by the treatment. 
 
-## Reporting ANOVA Results
+## Post-Hoc Tests (A Posteriori)
 
 After running the test and checking all the assumptions, the ANOVA test we ran is valid. The conclusion is that not all plant height means are equal. There are the effects of fertilizer treatment on plant growth.
 
-When ANOVA shows a significant F-statistic, we know that **at least one group mean differs** from the others. However, ANOVA doesn't tell us:
+When ANOVA shows a significant F-statistic, we know that **at least one group mean differs** from the others. However, ANOVA does not tell us:
 
 - Which specific groups are different?
 - How many pairwise differences exist?
 - The magnitude of these differences?
 
-The next step is to use post-hoc tests
+The next step is to use a post-hoc test.
 
-## Post-Hoc Tests (A Posteriori)
-
-Tests are conducted **after** finding significant ANOVA. The tests compare all possible pairs or specific subsets of treatment.
+Post-hoc tests are conducted **after** finding significant ANOVA. The tests compare all possible pairs or specific subsets of treatment.
 
 ### Common Post-Hoc Tests
 
@@ -418,9 +416,11 @@ Tukey's HSD compares all possible pairs of means (**All pairwise comparisons** a
 
 - Tukey's HSD works best with **Equal sample sizes** (but it is robust to minor imbalances).
 - The test assumes **Homogeneity of variance**.
-- Tukey's HSD is the most post-hoc test
+- Tukey's HSD is the most common post-hoc test.
 
-```{r tukey-hsd, message=FALSE, warning=FALSE}
+From the fertilizer experiment, the mean of plant height from Fertilizer A did not significantly from that of the control group. Other pair of comparison shows significantly differences (\@ref(tab:tukey-hsd-tab)).
+
+```{r tukey-hsd, message=FALSE, echo = FALSE, results=FALSE, warning=FALSE}
 # Perform Tukey's HSD test
 tukey_results <- TukeyHSD(anova_model, conf.level = 0.95)
 
@@ -436,12 +436,16 @@ colnames(tukey_table) <- c("Comparison", "Mean_Diff", "Lower_CI", "Upper_CI", "p
 tukey_table$Significant <- ifelse(tukey_table$p_adj < 0.05, "***", 
                                   ifelse(tukey_table$p_adj < 0.10, "*", "ns"))
 
-print(tukey_table)
 ```
 
-#### Visualization of Tukey's HSD results
+```{r tukey-hsd-tab, message=FALSE, echo = FALSE, results='as.is', fig.cap= "Tukey's HSD results comparing three treatment pairs", warning=FALSE} 
+kbl(tukey_table, digit = 2, row.names = FALSE) %>%
+kable_styling(bootstrap_options = "striped", full_width = F)
+```
 
-```{r visualize-hsd, message=FALSE, warning=FALSE, fig.height = 5}
+The results are visualized with letters to indicate the significant difference (Figre (\@ref(fig:visualize-hsd))). The treatments that share the same letters are not significantly different from each other.
+
+```{r visualize-hsd, message=FALSE, warning=FALSE, fig.height = 5, fig.cap= Visulizeation of Tukey's HSD results}
 
 if(!require("ggthemes", character.only = TRUE)) {
   install.packages("ggthemes", dependencies = TRUE)}
@@ -477,9 +481,9 @@ ggplot(plant_data, aes(x = Fertilizer, y = Height, fill = Fertilizer)) +
 
 ### Dunnett's Test
 
-Dunnett's Test is used to compare treatments to a control group. The test is used when the researchers are not interested in comparing treatments to each other. It is more powerful than Tukey's HSD for this specific purpose. In our example, Dunnet's test is used to compare fertilizers A and B to "No fertilizer" control.
+Dunnett's Test is used to compare treatments to a control group. The test is used when the researchers are not interested in comparing treatments to each other. It is more powerful than Tukey's HSD for this specific purpose. In our example, Dunnet's test is used to compare fertilizers A and B to "No fertilizer" control. It does NOT compare A vs B. It shows that only Fertilizer B give significant taller plants than the control treatment.
 
-```{r dunnett, message=FALSE, warning=FALSE}
+```{r dunnett, message=FALSE, results='hide', warning=FALSE}
 library(DescTools)
 
 # Dunnett's test (comparing all to No fertilizer control)
@@ -489,12 +493,20 @@ dunnett_results <- DunnettTest(
   control = "No fertilizer"  # Specify control group
 )
 
-print(dunnett_results)
+#print(dunnett_results)
 
-cat("\nInterpretation:\n")
-cat("This test compares Fertilizer A and Fertilizer B to the control (No fertilizer)\n")
-cat("It does NOT compare A vs B\n")
+#cat("\nInterpretation:\n")
+#cat("This test compares Fertilizer A and Fertilizer B to the control (No fertilizer)\n")
+#cat("It does NOT compare A vs B\n")
 ```
+
+```{r dunnett-tab, message=FALSE, echo = FALSE, results='as.is', fig.cap= "Dunnett's results comparing each treatments with the control treatment", warning=FALSE} 
+kbl(dunnett_results$`No fertilizer`, digit = 2, row.names = TRUE) %>%
+kable_styling(bootstrap_options = "striped", full_width = F)
+```
+
+### Reporting ANOVA Results
+add the same style as ANCOVA report. Mar 4
 
 ## What is ANCOVA?
 ANCOVA is a statistical technique that combines ANOVA and regression. It allows us to compare group means (like ANOVA) and control for the effect of continuous variables (covariates).
