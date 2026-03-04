@@ -197,10 +197,6 @@ SSB is also called "among-group variation" or "treatment variation." It measures
 #### The Partition
 
 $$SS{Total} = SSB + SSE$$
-In this fertilizer experiment, 
-- SSB is `r round(ssb, digits = 2)`.
-- SSE is `r round(sse, digits = 2)`.
-- SSTotal is `r round(ssb, digits = 2)` + `r round(sse, digits = 2)`, equal to `r round(ss_total, digits = 2)`.
 
 ```{r calculate-ss, message=FALSE, echo=FALSE, warning=FALSE, results='hide'}
 # Calculate sums of squares manually
@@ -228,6 +224,11 @@ cat("SSB =", round(ssb, digits = 2), "\n")
 cat("SSE =", round(sse, digits = 2), "\n")
 cat("SSB + SSE =", round(ssb + sse, digits = 2), "\n")
 ```
+
+In this fertilizer experiment, 
+- SSB is `r round(ssb, digits = 2)`.
+- SSE is `r round(sse, digits = 2)`.
+- SSTotal is `r round(ssb, digits = 2)` + `r round(sse, digits = 2)`, equal to `r round(ss_total, digits = 2)`.
 
 ### Degrees of Freedom
 
@@ -257,41 +258,53 @@ where:
 
 ### The ANOVA Table
 
-The standard format for presenting ANOVA results:
+The standard format for presenting ANOVA results is in Table (\@ref(tab:anova-tab-temp).
 
-| Source of Variation | SS | df | Mean Square (MS) | F | Critical F |
+| Source of Variation | SS | df | Mean Square (MS) | F | P-value |
 |---------------------|----|----|------------------|---|------------|
 | Treatment (Between) | SSB | k-1 | MSB = SSB/(k-1) | F = MSB/MSE | From F-table |
-| Error (Within) | SSE | k(n-1) | MSE = SSE/[k(n-1)] | - | - |
-| Total | SSTotal | kn-1 | - | - | - |
+| Error (Within) | SSE | k(n-1) | MSE = SSE/[k(n-1)] |  |  |
+| Total | SSTotal | kn-1 |  |  |  |
 
-## Running ANOVA in R
+: (#tab:anova-tab-temp) ANOVA table
 
-******* to do Mar 2 - format the text to the book content not in r code chunk.
-```{r run-anova, message=FALSE, warning=FALSE}
+ANOVA is a hypothesis testing, so p-value is interpreted accordingly. In common practice, the significance level is set at $\alpha$ = 0.05.
+
+- If the P-value $\geq$ 0.05, the null hypothesis is not rejected.
+- If the P-value $<$ 0.05, the null hypothesis is rejected.
+
+```{r run-anova, echo = FALSE, results='hide', message=FALSE, echo=FALSE, warning=FALSE}
+if(!require("gridExtra", character.only = TRUE)) {
+  install.packages("gridExtra", dependencies = TRUE)
+  library("gridExtra", character.only = TRUE)
+}
+
 # Fit the model
 anova_model <- aov(Height ~ Fertilizer, data = plant_data)
 
 # Display ANOVA table
-summary(anova_model)
+#summary(anova_model)
 
 # More detailed output
 anova_results <- anova(anova_model)
 print(anova_results)
 
-# Extract key values
-f_statistic <- anova_results$`F value`[1]
-p_value <- anova_results$`Pr(>F)`[1]
-df_treatment <- anova_results$Df[1]
-df_error <- anova_results$Df[2]
-
-cat("\nF-statistic:", round(f_statistic, 3), "\n")
-cat("p-value:", round(p_value, 4), "\n")
-cat("Degrees of freedom: Treatment =", df_treatment, ", Error =", df_error, "\n")
 ```
 
+Table (\@ref(tab:anova-tab-fertilizer) shows the result of the fertilizer experiment. The P-value $<$ 0.05, the null hypothesis is rejected. There are at least one mean of the plant growth differ from other means.
+
+| Source of Variation | SS | df | Mean Square (MS) | F | P-value |
+|---------------------|----|----|------------------|---|------------|
+| Treatment (Between) | `r round(anova_results$`Sum Sq`[1], digit = 1)` | `r `round(anova_results$`Df`[1], digit = 1)` | `r round(anova_results$`Mean Sq`[1], digit = 1)` | `r round(anova_results$`F value`[1], digit = 1)` | `r round(anova_results$`Pr(>F)`[1], digit = 6) ` |
+| Error (Within) | `r `round(anova_results$`Sum Sq`[2], digit = 1)` | `r round(anova_results$`Df`[2], digit = 1)` | `r round(anova_results$`Mean Sq`[1], digit = 1)` |  |  |
+| Total | `r round(anova_results$`Sum Sq`[1] + anova_results$`Sum Sq`[2] , digit = 1)` | `r anova_results$`Df`[1] + anova_results$`Df`[2]) |  |  |  |
+
+: (#tab:anova-tab-fertilizer) ANOVA table of the fertilizer experiment
+
+Before reporting the results, researchers must check if the assumptions of ANOVA are met.
+
 ## Assumptions of ANOVA
-It is important that before interpreting ANOVA results, these assumptions must be verified:
+It is important that before interpreting ANOVA results, the following assumptions must be verified:
 
 ### Random Sampling
 Data should be collected through random sampling.
@@ -301,12 +314,12 @@ Variances should be equal across groups.
 
 **Check BEFORE running ANOVA:**
 
-There are several tests for homogenerity of variance such as Levene's test below. It is a hypothesis testing with a null hypothesis of equal variances. For visual check, boxplots should have similar spreads (see Figure (\@ref(fig:visualize-group))).
+There are several tests for homogeneity of variance such as Levene's test below. It is a hypothesis testing with a null hypothesis of equal variances. For visual check, boxplots should have similar spreads (see Figure (\@ref(fig:visualize-groups))).
 
-```{r levene-test, message=FALSE, warning=FALSE}
+```{r levene-test, , echo = FALSE, message=FALSE, warning=FALSE, results='hide'}
 # Levene's test for homogeneity of variance
 library(car)
-leveneTest(Height ~ Fertilizer, data = plant_data)
+levene <- leveneTest(Height ~ Fertilizer, data = plant_data)
 
 # Visual check
 #ggplot(plant_data, aes(x = Fertilizer, y = Height)) +
@@ -316,7 +329,13 @@ leveneTest(Height ~ Fertilizer, data = plant_data)
 #  theme_minimal()
 ```
 
-In our case, the result of the Levene's Test (P value  = 0.7) indicates that the null hypothesis is not rejected. The variances among groups are homogenous.
+In our case, the result of the Levene's Test (P-value  = `r round(levene$`Pr(>F)`, digit = 2`) indicates that the null hypothesis is not rejected. The variances among groups are homogeneous (\@ref(tab:levene-tab)).
+
+|  | df | F | P-value |
+|-----|----|---|------------|
+| group |`r levene$Df`|`r round(levene$`F value`, digit = 2)`|`r round(levene$`Pr(>F)`[1], digit = 2)|
+
+: (#tab:levene-tab) `r attr(levene, "heading")`
 
 ### Independence of Errors
 Residuals should be independent of each other.
@@ -326,9 +345,15 @@ Residuals should follow a normal distribution.
 
 **Check AFTER running ANOVA:**
 
-This assumption is checked using visualization and Shapiro-Wilk noremality test.
+```{r shapiro-fertilizer, message=FALSE, warning=FALSE, echo = FALSE}
+# Shapiro-Wilk test
+shapiro <- shapiro.test(residuals)
+```
 
-```{r check-normality, message=FALSE, warning=FALSE}
+This assumption is checked using visualization (Figure (\@ref(fig:check-normality))) and Shapiro-Wilk normality test .
+
+```{r check-normality, message=FALSE, warning=FALSE, echo = FALSE, fig.cap="Q-Q plot (left) and histogram (right) of the residuals of the ANOVA model"}
+
 # Extract residuals
 residuals <- residuals(anova_model)
 
@@ -340,25 +365,16 @@ qqline(residuals, col = "red")
 # Histogram
 hist(residuals, breaks = 10, main = "Histogram of Residuals",
      xlab = "Residuals", col = "lightblue")
-
-# Shapiro-Wilk test
-shapiro.test(residuals)
 ```
 
-The p-value is 0.30; the null hypothesis is not rejected. The Shapiro test indicates that the residuals are normally distributed.
-
-```{r residual-plots, fig.height=8}
-# Comprehensive diagnostic plots
-par(mfrow = c(2, 2))
-plot(anova_model)
-par(mfrow = c(1, 1))
-```
+For the Shapiro test, the P-value is `r shapiro$p.value`; the null hypothesis is not rejected. The Shapiro test indicates that the residuals are normally distributed.
 
 ## Effect Size: Eta-Squared (η²)
 
 Effect size measures the magnitude of the treatment effect:
 
-$$\eta^2 = \frac{SS_{effect}}{SS_{Total}}$$
+$$\eta^2 = \frac{SSE}{SSTotal}$$
+For our example, the $$\eta^2$$ is `r round(sse/ss_total, digit = 2)` for the fertilizer treatment. This means that 34% of the variance in the outcome can be explained by the treatment. 
 
 ## Reporting ANOVA Results
 
@@ -374,14 +390,9 @@ The next step is to use post-hoc tests
 
 ## Post-Hoc Tests (A Posteriori)
 
-- Conducted **after** finding significant ANOVA
-- Exploratory
-- Compare all possible pairs or specific subsets
-- Require stronger error rate control
+Tests are conducted **after** finding significant ANOVA. The tests compare all possible pairs or specific subsets of treatment.
 
 ### Common Post-Hoc Tests
-
-### Overview of Methods
 
 There are many post-hoc tests to choose from (Table \@ref(tab: post-hoc-list)). It is good to keep in mind the features of each test and the purpose of the comparisons. In terms of conservativeness, that the test is conservative means that the method requires stronger evidence to reject the null hypothesis. The method keeps Type I error (false positives) very low, but reducing statistical power to detect real differences.
 
