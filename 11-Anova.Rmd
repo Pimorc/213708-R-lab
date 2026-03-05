@@ -91,7 +91,7 @@ plant_data <- data.frame(
 )
 
 # Display the data
-print(plant_data)
+#print(plant_data)
 
 # Summary statistics
 library(dplyr)
@@ -260,7 +260,7 @@ where:
 
 The standard format for presenting ANOVA results is in Table (\@ref(tab:anova-tab-temp).
 
-| Source of Variation | SS | df | Mean Square (MS) | F | P-value |
+| Source of Variation | Sum Square | df | Mean Square (MS) | F | P-value |
 |---------------------|----|----|------------------|---|------------|
 | Treatment (Between) | SSB | k-1 | MSB = SSB/(k-1) | F = MSB/MSE | From F-table |
 | Error (Within) | SSE | k(n-1) | MSE = SSE/[k(n-1)] |  |  |
@@ -287,13 +287,13 @@ anova_model <- aov(Height ~ Fertilizer, data = plant_data)
 
 # More detailed output
 anova_results <- anova(anova_model)
-print(anova_results)
+#print(anova_results)
 
 ```
 
 Table (\@ref(tab:anova-tab-fertilizer) shows the result of the fertilizer experiment. The P-value $<$ 0.05, the null hypothesis is rejected. There are at least one mean of the plant growth differ from other means.
 
-| Source of Variation | SS | df | Mean Square (MS) | F | P-value |
+| Source of Variation | Sum Square | df | Mean Square (MS) | F | P-value |
 |---------------------|----|----|------------------|---|------------|
 | Treatment (Between) | `r round(anova_results$`Sum Sq`[1], digit = 1)` | `r `round(anova_results$`Df`[1], digit = 1)` | `r round(anova_results$`Mean Sq`[1], digit = 1)` | `r round(anova_results$`F value`[1], digit = 1)` | `r round(anova_results$`Pr(>F)`[1], digit = 6) ` |
 | Error (Within) | `r `round(anova_results$`Sum Sq`[2], digit = 1)` | `r round(anova_results$`Df`[2], digit = 1)` | `r round(anova_results$`Mean Sq`[1], digit = 1)` |  |  |
@@ -303,13 +303,13 @@ Table (\@ref(tab:anova-tab-fertilizer) shows the result of the fertilizer experi
 
 Before reporting the results, researchers must check if the assumptions of ANOVA are met.
 
-## Assumptions of ANOVA
+### Assumptions of ANOVA
 It is important that before interpreting ANOVA results, the following assumptions must be verified:
 
-### Random Sampling
+#### Random Sampling
 Data should be collected through random sampling.
 
-### Homogeneity of Variance (Homoscedasticity)
+#### Homogeneity of Variance (Homoscedasticity)
 Variances should be equal across groups.
 
 **Check BEFORE running ANOVA:**
@@ -337,10 +337,10 @@ In our case, the result of the Levene's Test (P-value  = `r round(levene$`Pr(>F)
 
 : (#tab:levene-tab) `r attr(levene, "heading")`
 
-### Independence of Errors
+#### Independence of Errors
 Residuals should be independent of each other.
 
-### Normality of Residuals
+#### Normality of Residuals
 Residuals should follow a normal distribution.
 
 **Check AFTER running ANOVA:**
@@ -505,12 +505,15 @@ kbl(dunnett_results$`No fertilizer`, digit = 2, row.names = TRUE) %>%
 kable_styling(bootstrap_options = "striped", full_width = F)
 ```
 
-### Reporting ANOVA Results
-add the same style as ANCOVA report. Mar 4
+## Reporting ANOVA Results
+The following paragraph presents the report from ANOVA.
+
+> "An analysis of variance (ANOVA) was conducted to evaluate the effect of fertilizer treatment (Control, Fertilizer A, and B) on final plant height. There was a significant effect of fertilizer treatment on final plant height (F(2, 18) = `r round(anova_results$`F value`[1], P < 0.001, η² = `r round(sse/ss_total, digit = 2)`). 
+>
+> Post-hoc pairwise comparisons using the Tukey's HSD revealed that Fertilizer B resulted in significantly taller plants (Mean = `r summary_plant$Mean[2]` cm, SE = `r summary_plant$SE[2]`) than both Fertilizer A (Mean = `r summary_plant$Mean[1]` cm, SE = `r summary_plant$SE[1]`, p < 0.001) and the control with no fertilizer (Mean = `r summary_plant$Mean[3]` cm, SE = `r summary_plant$SE[3]`, p < 0.001). Fertilizer A did not produced significantly taller plants than the control (P > 0.05). Fertilizer B is recommended to be used for increase plant height."
 
 ## What is ANCOVA?
 ANCOVA is a statistical technique that combines ANOVA and regression. It allows us to compare group means (like ANOVA) and control for the effect of continuous variables (covariates).
-
 
 ### Benefits of ANCOVA
 
@@ -528,7 +531,7 @@ Researchers want to compare three fertilizer treatments (Organic, Synthetic, and
 **Why use ANCOVA here?**
 Even with random assignment, seedlings naturally vary in initial size. By controlling for initial height, we can more accurately assess the effect of fertilizer treatments on growth.
 
-```{r create-data, echo =FALSE, message=FALSE, warning=FALSE}
+```{r create-data, echo =FALSE, message=FALSE, warning=FALSE, results='hide'}
 library(dplyr)
 library(ggplot2)
 
@@ -561,29 +564,59 @@ fertilizer_data <- fertilizer_data %>%
     Final_Height = Initial_Height + Treatment_Effect + rnorm(3 * n_per_group, 0, 2.5)
   )
 
+fertilizer_data$Initial_Height <- round(fertilizer_data$Initial_Height, 1)
+
+fertilizer_data$Final_Height <- round(fertilizer_data$Final_Height, 1)
 # Display first few rows
-cat("Fertilizer Experiment Dataset\n")
-cat("============================\n\n")
-head(fertilizer_data, 12)
+#cat("Fertilizer Experiment Dataset\n")
+#cat("============================\n\n")
+#head(fertilizer_data, 12)
 
 # Summary statistics
-cat("\n\nSummary Statistics by Fertilizer Treatment:\n")
+#cat("\n\nSummary Statistics by Fertilizer Treatment:\n")
 summary_stats <- fertilizer_data %>%
   group_by(Fertilizer) %>%
   summarise(
     n = n(),
-    Initial_Mean = round(mean(Initial_Height), 2),
-    Initial_SD = round(sd(Initial_Height), 2),
-    Final_Mean = round(mean(Final_Height), 2),
+    Initial_Mean = round(mean(Initial_Height), 1),
+    Initial_SD = round(sd(Initial_Height), 1),
+    Final_Mean = round(mean(Final_Height), 1),
     Final_SD = round(sd(Final_Height), 2),
-    Growth = round(Final_Mean - Initial_Mean, 2),
+    Growth = round(Final_Mean - Initial_Mean, 1),
     .groups = 'drop'
   )
 
-print(summary_stats)
+#print(summary_stats)
+```
+
+```{r ancova-data-tab, echo=FALSE, message=FALSE, warning=FALSE}
+### Write the data into a table
+library(knitr)
+library(kableExtra)
+
+fertilizer_data[,-4] %>%
+  kbl(align = "c",
+      col.names = c("Seedling ID", "Fertilizer", "Initial Height (cm)",
+                    "Final Height (cm)"),
+      caption = "Initial and Final height under different fertilizer treatments") %>% 
+  kable_styling(full_width = F) %>%
+  column_spec(1, bold = TRUE)
+
 ```
 
 ### Visualizing the Data
+
+First, let's explore the data before testing. The research should make the summary of the data separated by the factor of interest (Fertilizer) in Table .
+
+```{r summary-data-ancova, echo=FALSE, message=FALSE, warning=FALSE}
+summary_stats %>%
+  kbl(align = "c",
+      col.names = c("Fertilizer type", "n", "Mean initial height (cm)", 
+                    "Initial height SD (cm)", "Mean final height (cm)", "Final height SD (cm)", "Absolute growth (cm)"),
+      caption = "Summary of plant height separated by fertilizer treatments") %>% 
+  kable_styling(full_width = F) %>%
+  column_spec(1, bold = TRUE)
+```
 
 ```{r visualize-data, fig.height=8, echo =FALSE, message=FALSE, warning=FALSE}
 library(patchwork)
@@ -631,48 +664,72 @@ Let's compare what happens when we ignore vs. control for initial seedling heigh
 
 ### Analysis 1: ANOVA (Ignoring Initial Height)
 
-```{r anova-only}
+Table (\@ref(tab:anova-only-tb)) presents the result of ANOVA that did not take into the account of initial height. The conclusion is that at least one mean differs from the others.
+
+```{r anova-only, echo =FALSE, message=FALSE, warning=FALSE}
 # Traditional ANOVA - ignoring initial height
-anova_model <- aov(Final_Height ~ Fertilizer, data = fertilizer_data)
-summary(anova_model)
+anova_model_cov <- aov(Final_Height ~ Fertilizer, data = fertilizer_data)
+summary(anova_model_cov)
 
 # Extract key statistics
-anova_results <- summary(anova_model)
-anova_f <- anova_results[[1]]["Fertilizer", "F value"]
-anova_p <- anova_results[[1]]["Fertilizer", "Pr(>F)"]
+anova_results_cov <- anova(anova_model_cov)
 
-cat("\nANOVA Results (Without Covariate):\n")
-cat("F-statistic:", round(anova_f, 3), "\n")
-cat("p-value:", round(anova_p, 4), "\n")
-cat("\nThis analysis ignores initial seedling size differences.\n")
+#cat("\nANOVA Results (Without Covariate):\n")
+#cat("F-statistic:", round(anova_f, 3), "\n")
+#cat("p-value:", round(anova_p, 4), "\n")
+#cat("\nThis analysis ignores initial seedling size differences.\n")
 ```
+
+```{r anova-only-tab, message=FALSE, echo = FALSE, include=FALSE, fig.cap= "ANOVA results that ignore initial height, warning=FALSE} 
+kbl(anova_results_cov, digit = 2, row.names = TRUE) %>%
+kable_styling(bootstrap_options = "striped", full_width = F)
+```
+
+| Source of Variation | Sum Square | df | Mean Square (MS) | F | P-value |
+|---------------------|----|----|------------------|---|------------|
+| Treatment (Between) | `r round(anova_results_cov$`Sum Sq`[1], digit = 1)` | `r `round(anova_results_cov$`Df`[1], digit = 1)` | `r round(anova_results_cov$`Mean Sq`[1], digit = 1)` | `r round(anova_results_cov$`F value`[1], digit = 1)` | `r round(anova_results_cov$`Pr(>F)`[1], digit = 6) ` |
+| Error (Within) | `r `round(anova_results-cov$`Sum Sq`[2], digit = 1)` | `r round(anova_results_cov$`Df`[2], digit = 1)` | `r round(anova_results_cov$`Mean Sq`[2], digit = 1)` |  |  |
+| Total | `r round(anova_results_cov$`Sum Sq`[1] + anova_results_cov$`Sum Sq`[2] , digit = 1)` | `r anova_results_cov$`Df`[1] + anova_results_cov$`Df`[2]) |  |  |  |
+
+: (#tab:anova-only-tab) ANOVA Results of Fertilizer Experiment (This analysis ignores the effect of initial height)
 
 ### Analysis 2: ANCOVA (Controlling for Initial Height)
 
-```{r ancova}
+Table (\@ref(tab:ancova-tab)) presents the result of ANCOVA that take into the account of initial height. The conclusion is that at least one mean differs from the others. There is also significant effect on initial height on final height of the plants.
+
+```{r ancova, echo =FALSE, message=FALSE, warning=FALSE, results='hide'}
 # ANCOVA with initial height as covariate
 ancova_model <- aov(Final_Height ~ Initial_Height + Fertilizer, data = fertilizer_data)
 summary(ancova_model)
 
 # Extract key statistics
-ancova_results <- summary(ancova_model)
-ancova_f <- ancova_results[[1]]["Fertilizer", "F value"]
-ancova_p <- ancova_results[[1]]["Fertilizer", "Pr(>F)"]
+ancova_results <- anova(ancova_model)
+#ancova_f <- ancova_results[[1]]["Fertilizer", "F value"]
+#ancova_p <- ancova_results[[1]]["Fertilizer", "Pr(>F)"]
 
-cat("\nANCOVA Results (With Covariate):\n")
-cat("F-statistic:", round(ancova_f, 3), "\n")
-cat("p-value:", round(ancova_p, 4), "\n")
+#cat("\nANCOVA Results (With Covariate):\n")
+#cat("F-statistic:", round(ancova_f, 3), "\n")
+#cat("p-value:", round(ancova_p, 4), "\n")
 
 # Effect of covariate
-covariate_f <- ancova_results[[1]]["Initial_Height", "F value"]
-covariate_p <- ancova_results[[1]]["Initial_Height", "Pr(>F)"]
-cat("\nCovariate (Initial Height) Effect:\n")
-cat("F-statistic:", round(covariate_f, 3), "\n")
-cat("p-value:", round(covariate_p, 4), "\n")
-cat("\nThis shows that initial height is a significant predictor of final height.\n")
+#covariate_f <- ancova_results[[1]]["Initial_Height", "F value"]
+#covariate_p <- ancova_results[[1]]["Initial_Height", "Pr(>F)"]
+#cat("\nCovariate (Initial Height) Effect:\n")
+#cat("F-statistic:", round(covariate_f, 3), "\n")
+#cat("p-value:", round(covariate_p, 4), "\n")
+#cat("\nThis shows that initial height is a significant predictor of final height.\n")
 ```
 
-### Comparison Summary
+| Source of Variation | Sum Square | df | Mean Square (MS) | F | P-value |
+|---------------------|----|----|------------------|---|------------|
+| Initial Height | `r round(ancova_results$`Sum Sq`[1], digit = 1)` | `r `round(ancova_results$`Df`[1], digit = 1)` | `r round(ancova_results$`Mean Sq`[1], digit = 1)` | `r round(ancova_results$`F value`[1], digit = 1)` | `r round(anova_results$`Pr(>F)`[1], digit = 6) ` |
+| Treatment (Between Fertilizer) | `r `round(ancova_results$`Sum Sq`[2], digit = 1)` | `r round(ancova_results$`Df`[2], digit = 1)` | `r round(ancova_results$`Mean Sq`[2], digit = 1)` |  |  |
+| Error | `r `round(ancova_results$`Sum Sq`[3], digit = 1)` | `r round(ancova_results$`Df`[3], digit = 1)` | `r round(ancova_results$`Mean Sq`[3], digit = 1)` |  |  |
+| Total | `r round(sum(ancova_results$`Sum Sq`) , digit = 1)` | `r sum(ancova_results$`Df`|  |  |  |
+
+: (#tab:ancova-tab) ANCOVA results of the Fertilizer Treatment
+
+In comparison, ANCOVA increases statistical power.
 
 ```{r comparison}
 comparison <- data.frame(
