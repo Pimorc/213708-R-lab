@@ -1,3 +1,351 @@
+--- 
+title: "213708 Teaching materials"
+subtitle: "Experimental design and environmental data analysis"
+author: "Assistant Professor Dr. Pimonrat Tiansawat"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+
+description: "This is material for lectures."
+---
+
+# Preface {-}
+
+Placeholder
+
+
+
+<!--chapter:end:index.Rmd-->
+
+
+# Scientific methods, role of experimental design and statistics in  ecological and environmental studies {#scientific-methods}
+
+Placeholder
+
+
+## Learning Outcomes
+## Introduction
+## Falsifiability
+## Inductive and Deductive Reasoning
+## Roles of Experimental Design in Ecological and Environmental Studies
+## Roles of Statistics in Ecological and Environmental Studies
+### Sampling Design
+### Data Analysis
+#### Hypothesis Testing
+#### Modeling
+#### Biodiversity Assessment
+#### Meta-analysis
+## Exercises
+## References
+
+<!--chapter:end:01-lesson-1.Rmd-->
+
+
+# Nature of Experimentation and Principles of Experimental Design {#experimentation}
+
+Placeholder
+
+
+## Learning Outcomes
+## Introduction
+## Experimentation
+## Variables
+## Errors in Experiments
+### Random Error
+### Systematic Error
+## Three Principles of Experimental Design
+### Is This a Good Design?
+### Randomization
+#### Purposes of Randomization
+#### How to Randomize Test Subjects in Experimental Design
+### Replication
+#### How Many Replicates Are Enough in an Experiment?
+### Control Group
+## Exercises
+## References
+
+<!--chapter:end:02-lesson2.Rmd-->
+
+
+# Random Variables {#random-variables}
+
+Placeholder
+
+
+## Learning Outcomes
+## Introduction
+## Population, Sample, and Statistical Inference
+## What is a Random Variable?
+## Types of Random Variables
+### Discrete Random Variables
+#### Example of PMF: Rolling a Fair Die
+### Continuous Random Variables
+#### Example of PDF: Height Measurements of Students
+## Expected Values and Variances
+### Expected Value of a Random Variable
+#### Example: Expected Value of Rolling a Die
+### Expected Values of Population vs Sample Mean
+### Example: Thai Government Lottery
+### Variance
+### Variance and Standard Deviation
+## Exercises
+## Summary
+## References
+
+<!--chapter:end:03-lesson3.Rmd-->
+
+
+# Probability distributions {#distributions}
+
+Placeholder
+
+
+## Learning Outcomes
+## Introduction
+## Continuous Probability Distribution
+### Normal Distribution
+#### Properties of Normal Distribution
+#### Examples of Data in Ecology and Environmental Science
+### Continuous Uniform Distribution
+#### Properties of Uniform Distribution
+#### Examples of Data in Ecology and Environmental Science
+### Lognormal Distribution
+#### Properties of Log-Normal Distribution
+#### Examples of Log-Normal Distribution in Ecology and Environmental Science
+## Discrete Probability Distribution
+### Poisson Distribution
+#### Properties of Poisson Distribution
+#### Examples of Poisson Distribution in Ecology and Environmental Science
+### Binomial Distribution
+#### Properties of Binomial Distribution
+#### Examples of Binomial Distribution in Ecology and Environmental Science
+## Exercises
+## References
+
+<!--chapter:end:04-distributions.Rmd-->
+
+
+# Exploratory Data Analysis {#eda}
+
+Placeholder
+
+
+## Learning outcomes
+## Introduction
+## What is exploratory data analysis?
+### An example of steps for exploratory data analysis 
+## Understanding data attributes
+### Types of data attributes
+### Case Study: The Iris Dataset
+## Measures of Location (Central Tendency) {#central-tendency}
+### Mean (Arithmetic Mean)
+### Median
+### Mode
+### Quartiles
+### Choosing the right measure
+## Measures of spread (measures of dispersion) {#spread}
+### Range
+### Variance (σ²)
+### Standard Deviation (σ)
+### Interquartile Range (IQR)
+## Law of Large Numbers & Central Limit Theorem
+## Graphical Methods in EDA {#graphical-eda}
+### Histograms
+### Skewness
+### Kurtosis
+### Box-and-whisker plot (Box plot)
+### Q-Q plots (Quantile-Quantile plots)
+### Scatter plots
+## Correlation and Covariance
+### Covariance
+### Correlation
+## Confidence Intervals (CI)
+## Exploratory analysis findings
+## Exercises
+## References
+
+<!--chapter:end:05-eda.Rmd-->
+
+
+# Design of Experiments
+
+Placeholder
+
+
+## Learning outcomes
+## Introduction
+## Components of Experimental Design
+## Types of Experiments
+### Manipulative experiments
+### Natural experiments (Observational Studies)
+## Principles of experimental design
+### Randomization
+### Replication
+### Control group
+## Defining experimental design elements
+### Experimental units
+### Types of variables
+#### Variable based on roles
+#### Variable based on measurement scales
+### Treatment and design structures
+## Types of Experimental Designs
+### Single-factor designs
+### Multifactor (Factorial) Designs
+## Four classes of experimental and sampling designs
+### Regression designs
+#### Single-factor regression
+#### Multiple regression
+### ANOVA designs
+#### Single factor designs
+##### Completely Randomized Design (CRD)
+##### Randomized Block Design (RBD)
+##### Interaction effect
+##### Nested design
+#### Multiple factor designs
+#### Split plot design
+### Before-After, Control-Impact design (BACI design)
+## Exercises
+## References
+
+<!--chapter:end:06-doe.Rmd-->
+
+
+# Inferential Statistics
+
+Placeholder
+
+
+## Learning outcomes
+## Introduction
+## Terminology
+## Paradigm of inference
+### Frequentist inference or classical statistics
+### Bayesian inference
+## Example of data analyzed in two different ways
+## Analysis in the frequentist way
+### Step 1: Specifying the test statistic
+### Step 2: Specifying the null distribution
+### Step 3: Calculating the tail probability
+### Step 4: Interpret the output
+### Advantages and disadvantages of frequentist analysis
+## Analysis in the Bayesian way
+### Terminology in Bayesian analysis
+### Step 1: Specifying the hypothesis
+### Step 2: Specify parameters as random variables
+### Step 3: Specify the prior probability distribution
+### Step 4: Calculate the likelihood
+### Step 5: Calculate the posterior probability distribution
+### Step 6: Interpret the results
+### Advantages and disadvantages of Bayesian analysis
+## Exercise
+## References
+
+<!--chapter:end:07-inference.Rmd-->
+
+
+# Hypothesis Testing
+
+Placeholder
+
+
+## Learning outcomes
+## Introduction
+## The relationship between scientific and statistical hypotheses
+### What is a scientific Hypothesis and its link to statistical hypothesis?
+### The Role of Statistics in Hypothesis Testing
+## Types of Statistical Hypotheses
+### Null Hypothesis ($H_0$) - Fisher's Approach
+### Alternative Hypothesis ($H_1$ or $H_a$) - Neyman and Pearson Approach
+## P-Value definition and interpretation
+## Errors in Hypothesis Testing
+### Type I Error ($\alpha$ - Alpha Error)
+### Type II Error ($\beta$ - Beta Error)
+## Significance level ($\alpha$: alpha)
+## Statistical power ($1 - \beta$)
+## Power analysis
+## One-tailed vs Two-tailed Tests
+### One-tailed test
+### Two-tailed test
+## Effect Size
+### Types of Effect Size Measures
+#### 1. Correlation family
+#### 2. Difference family
+## Classical tests: single and two-sample problems
+### Some examples of questions of single sample tests
+### Test for normality
+### R example
+### Two sample tests
+## Exercise
+## References
+
+<!--chapter:end:08-hypothesistesting.Rmd-->
+
+
+# Statistical Modeling
+
+Placeholder
+
+
+## Learning outcomes
+## Introduction
+## Models vs hypotheses
+## Choosing the right statistical analysis
+### Model selection based on explanatory variables (independent variables)
+### Model selection based on response variables
+#### Case study example
+## Model selection and validation
+### The principle of parsimony (Occam's razor)
+## Model simplification process
+### The step of model selection (Figure \@ref(fig:fig-model-fitting))
+## Model selection criteria
+### Likelihood Ratio Test (LRT)
+### Akaike Information Criteria (AIC)
+## Model checking and validation
+### Residual analysis
+#### Heteroscedasticity
+#### Non-linear model
+## Model validation
+### Validation using the existing dataset
+### Validation using the new dataset
+## Model predictions and reports
+## Exercise
+## References
+
+<!--chapter:end:09-models.Rmd-->
+
+
+# Regression
+
+Placeholder
+
+
+## Learning outcomes
+## Introduction
+## Different types of regression
+### 1. Linear regression
+### 2. Non-linear regression
+### 3. Generalized linear regression or generalized linear models (GLMs)
+### 4. Other approaches such as nonparametric regression
+## Linear regression
+### Assumptions of linear regression
+### Example: examine the relationship between ground vs aerial based seedling-height survey
+## Non-linear regression
+## Generalized Linear Regression or Generalized Linear Models (GLMs)
+### Understanding Probability and Odds
+### Logistic Regression for Binary Data
+##### Example: bird breeding patterns on islands (@crawley2012)
+### Poisson Regression for Count Data
+#### Example: species richness in the plot (@crawley2012)
+### Model Diagnostics and Overdispersion
+## Exercise: Lesson 10 Regression
+## References
+
+<!--chapter:end:10-regression.Rmd-->
+
 ---
 output:
   html_document: default
@@ -1130,3 +1478,6 @@ Why do the adjusted and unadjusted means differ?
 ---
 
 ## Reference
+
+<!--chapter:end:11-Anova.Rmd-->
+
