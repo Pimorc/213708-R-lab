@@ -68,7 +68,7 @@ For one-way ANOVA with k groups:
 
 ## Example: Plant Growth with Two Fertilizers
 
-Researcher want to compare plant height under three fertilizer treatments (Fertilizer A and B and Control - no fertilizer). The researhcers starts with seedlings with the same sizes.
+Researcher want to compare plant height under three fertilizer treatments (Fertilizer A and B and Control - no fertilizer). The researhcers starts with seedlings with the same sizes (Table \@ref(tab:example-data)).
 
 **Research design**
 
@@ -114,33 +114,32 @@ summary_plant <- plant_data %>%
 
 ```
 
-```{r plant-data-tab, echo=FALSE, message=FALSE, warning=FALSE, tab.cap="The data of fertilizer experiment for ANOVA"}
+
+```{r plant-data-tab, echo=FALSE, message=FALSE, warning=FALSE, tab.cap="The data of fertilizer experiment for ANOVA", results='asis'}
 ### Write the data into a table
 library(knitr)
 library(kableExtra)
 
 plant_data %>%
   kbl(align = "c",
-      col.names = c("Plant ID", "Fertilizer", "Height (cm)")) %>%
-      #caption = "Plant height under different fertilizer treatments")  
+      col.names = c("Plant ID", "Fertilizer", "Height (cm)"),
+      caption = "Plant height under different fertilizer treatments") %>%
   kable_styling(full_width = F) %>%
   column_spec(1, bold = TRUE)
-
-
 ```
 
 ### Visualizing the Data
 
 It is always a good practice to explore the data before testing. The research should make the summary of the data separated by the factor of interest (Fertilizer) in a table (Table \@ref(tab:summary-data)) and/or a boxplot (Figure \@ref(fig:visualize-groups)).
 
-```{r summary-data, echo=FALSE, message=FALSE, warning=FALSE, tab.cap="Summary of experiment data for ANOVA"}
+```{r summary-data, echo=FALSE, message=FALSE, warning=FALSE, tab.cap="Summary of experiment data for ANOVA", results='asis'}
 summary_plant%>%
   kbl(align = "c",
       col.names = c("Fertilizer", "n", "Mean height (cm)", 
                     "SD (cm)", "SE (cm)",
                     "Mininum height (cm)",
-                    "Maximum height (cm)")) %>%
-      #caption = "Summary of plant height separated by fertilizer treatments") %>% 
+                    "Maximum height (cm)"),
+      caption = "Summary of plant height separated by fertilizer treatments") %>% 
   kable_styling(full_width = F) %>%
   column_spec(1, bold = TRUE)
 ```
@@ -264,7 +263,7 @@ where:
 
 ### The ANOVA Table
 
-The standard format for presenting ANOVA results is in Table (\@ref(tab:anova-tab-temp)).
+The standard format for presenting ANOVA results is in Table \@ref(tab:anova-tab-temp).
 
 | Source of Variation | Sum Square | df | Mean Square (MS) | F | P-value |
 |---------------------|----|----|------------------|---|------------|
@@ -343,7 +342,7 @@ levene <- leveneTest(Height ~ Fertilizer, data = plant_data)
 #  theme_minimal()
 ```
 
-In our case, the result of the Levene's Test (P-value  = `r round(levene$"Pr(>F)"[1], digit = 2)`) indicates that the null hypothesis is not rejected. The variances among groups are homogeneous (\@ref(tab:levene-tab)).
+In our case, the result of the Levene's Test (P-value  = `r round(levene$"Pr(>F)"[1], digit = 2)`) indicates that the null hypothesis is not rejected. The variances among groups are homogeneous (Table \@ref(tab:levene-tab)).
 
 |  | df | F | P-value |
 |-----|----|---|------------|
@@ -408,7 +407,7 @@ Post-hoc tests are conducted **after** finding significant ANOVA. The tests comp
 
 ### Common Post-Hoc Tests
 
-There are many post-hoc tests to choose from (Table \@ref(tab:post-hoc-list)). It is good to keep in mind the features of each test and the purpose of the comparisons. In terms of conservativeness, that the test is conservative means that the method requires stronger evidence to reject the null hypothesis. The method keeps Type I error (false positives) very low, but reducing statistical power to detect real differences.
+There are many post-hoc tests to choose from (Table \@ref(tab:post-hoc-test)). It is good to keep in mind the features of each test and the purpose of the comparisons. In terms of conservativeness, that the test is conservative means that the method requires stronger evidence to reject the null hypothesis. The method keeps Type I error (false positives) very low, but reducing statistical power to detect real differences.
 
 | Test | Use When | Conservativeness | Special Features |
 |------|----------|------------------|------------------|
@@ -428,7 +427,7 @@ Let's use the fertilizer experiment with three treatments to demonstrate two of 
 
 ### Tukey's Honestly Significant Difference (HSD)
 
-Tukey's HSD compares all possible pairs of means (**All pairwise comparisons** among groups) using the Studentized Range Distribution.
+Tukey's HSD compares all possible pairs of means (All pairwise comparisons among groups) using the Studentized Range Distribution.
 
 - Tukey's HSD works best with **Equal sample sizes** (but it is robust to minor imbalances).
 - The test assumes **Homogeneity of variance**.
@@ -455,8 +454,9 @@ tukey_table$Significant <- ifelse(tukey_table$p_adj < 0.05, "***",
 ```
 
 
-```{r tukey-hsd-tab, message=FALSE, echo = FALSE, tab.cap= "Tukey's HSD results comparing three treatment pairs", warning=FALSE} 
-kbl(tukey_table, digit = 2, row.names = FALSE) %>%
+```{r tukey-hsd-tab, message=FALSE, echo = FALSE, tab.cap= "Tukey's HSD results comparing three treatment pairs", warning=FALSE, results='asis'} 
+kbl(tukey_table, digit = 2, row.names = FALSE,
+    caption = "Tukey's HSD results comparing three treatment pairs") %>%
 kable_styling(bootstrap_options = "striped", full_width = F)
 ```
 
@@ -517,15 +517,17 @@ dunnett_results <- DunnettTest(
 #cat("It does NOT compare A vs B\n")
 ```
 
-```{r dunnett-tab, message=FALSE, echo = FALSE, tab.cap= "Dunnett's results comparing each treatments with the control treatment", warning=FALSE} 
-kbl(dunnett_results$`No fertilizer`, digit = 2, row.names = TRUE) %>%
+
+```{r dunnett-tab, message=FALSE, echo = FALSE, tab.cap= "Dunnett's results comparing each treatments with the control treatment", warning=FALSE, results='asis'} 
+kbl(dunnett_results$`No fertilizer`, digit = 2, row.names = TRUE,
+    caption = "Dunnett's results comparing each treatments with the control treatment") %>%
 kable_styling(bootstrap_options = "striped", full_width = F)
 ```
 
 ## Reporting ANOVA Results
 The following paragraph presents the written report for ANOVA.
 
-> "An analysis of variance (ANOVA) was conducted to evaluate the effect of fertilizer treatment (Control, Fertilizer A, and B) on final plant height. There was a significant effect of fertilizer treatment on final plant height (F(2, 18) = `r anova_results$"F value"[1]`, P < 0.001, η² = `r round(sse/ss_total, digit = 2)`). 
+> "An analysis of variance (ANOVA) was conducted to evaluate the effect of fertilizer treatment (Control, Fertilizer A, and B) on final plant height. There was a significant effect of fertilizer treatment on final plant height (F(2, 18) = `r round(anova_results$"F value"[1], digit = 2)`, P < 0.001, η² = `r round(sse/ss_total, digit = 2)`). 
 >
 > Post-hoc pairwise comparisons using the Tukey's HSD revealed that Fertilizer B resulted in significantly taller plants (Mean = `r summary_plant$Mean[2]` cm, SE = `r summary_plant$SE[2]`) than both Fertilizer A (Mean = `r summary_plant$Mean[1]` cm, SE = `r summary_plant$SE[1]`, p < 0.001) and the control with no fertilizer (Mean = `r summary_plant$Mean[3]` cm, SE = `r summary_plant$SE[3]`, p < 0.001). Fertilizer A did not produced significantly taller plants than the control (P > 0.05). Fertilizer B is recommended to be used for increase plant height."
 
@@ -538,7 +540,7 @@ Sometimes we cannot randomly assign subjects to groups, or we want to control fo
 
 ## Example: Fertilizer Experiment with Initial Seedling Size
 
-Researchers want to compare three fertilizer treatments (Organic, Synthetic, and Control - no fertilizer) on final plant height (\@ref(tab:ancova-data-tab)). However, seedlings have different initial sizes when the experiment begins, which could confound our results.
+Researchers want to compare three fertilizer treatments (Organic, Synthetic, and Control - no fertilizer) on final plant height (Table \@ref(tab:ancova-data-tab)). However, seedlings have different initial sizes when the experiment begins, which could confound our results.
 
 **Research Design:**
 -   **Independent Variable (Treatment):** Fertilizer type (3 levels)
@@ -606,7 +608,7 @@ summary_stats <- fertilizer_data %>%
 #print(summary_stats)
 ```
 
-```{r ancova-data-tab, echo=FALSE, message=FALSE, warning=FALSE, tab.cap="The data of fertilizer experiment for ANCOVA"}
+```{r ancova-data-tab, echo=FALSE, message=FALSE, warning=FALSE, tab.cap="The data of fertilizer experiment for ANCOVA", results='asis'}
 ### Write the data into a table
 library(knitr)
 library(kableExtra)
@@ -614,8 +616,8 @@ library(kableExtra)
 fertilizer_data[,-4] %>%
   kbl(align = "c",
       col.names = c("Seedling ID", "Fertilizer", "Initial Height (cm)",
-                    "Final Height (cm)")) %>%
-      #caption = "Initial and Final height under different fertilizer treatments") %>% 
+                    "Final Height (cm)"), 
+      caption = "Initial and Final height under different fertilizer treatments") %>% 
   kable_styling(full_width = F) %>%
   column_spec(1, bold = TRUE)
 
@@ -625,12 +627,12 @@ fertilizer_data[,-4] %>%
 
 First, let's explore the data before testing. The research should make the summary of the data separated by the factor of interest (Fertilizer) in Table \@ref(tab:summary-data-ancova). In addition, let's plot some graph showing the relationship between initial and final height of plants (Figure \@ref(fig:visualize-data))
 
-```{r summary-data-ancova, echo=FALSE, message=FALSE, warning=FALSE, tab.cap="Summary of fertilizer experiment data by treatment"}
+```{r summary-data-ancova, echo=FALSE, message=FALSE, warning=FALSE, tab.cap="Summary of fertilizer experiment data by treatment", results='asis'}
 summary_stats %>%
   kbl(align = "c",
       col.names = c("Fertilizer type", "n", "Mean initial height (cm)", 
-                    "Initial height SD (cm)", "Mean final height (cm)", "Final height SD (cm)", "Absolute growth (cm)")) %>%
-      #caption = "Summary of plant height separated by fertilizer treatments") %>% 
+                    "Initial height SD (cm)", "Mean final height (cm)", "Final height SD (cm)", "Absolute growth (cm)"),
+      caption = "Summary of plant height separated by fertilizer treatments") %>% 
   kable_styling(full_width = F) %>%
   column_spec(1, bold = TRUE)
 ```
@@ -702,7 +704,7 @@ anova_results_cov <- anova(anova_model_cov)
 #cat("\nThis analysis ignores initial seedling size differences.\n")
 ```
 
-```{r anova-only-tab, message=FALSE, echo = FALSE, include=FALSE, tab.cap= "ANOVA results that ignore initial height", warning=FALSE} 
+```{r anova-only-tab, message=FALSE, echo = FALSE, include=FALSE, tab.cap= "ANOVA results that ignore initial height", warning=FALSE, results='asis'} 
 kbl(anova_results_cov, digit = 2, row.names = TRUE) %>%
 kable_styling(bootstrap_options = "striped", full_width = F)
 ```
@@ -751,7 +753,7 @@ ancova_results <- anova(ancova_model)
 
 : (\#tab:ancova-tab) ANCOVA results of the Fertilizer Treatment
 
-```{r comparison, echo =FALSE, message=FALSE, warning=FALSE, tab.cap="Comparisons fo F statistics and P-value of ANOVA and ANCOVA", include=FALSE}
+```{r comparison, echo =FALSE, message=FALSE, warning=FALSE, tab.cap="Comparisons fo F statistics and P-value of ANOVA and ANCOVA", include=FALSE, results='asis'}
 comparison <- data.frame(
   Analysis = c("ANOVA", "ANCOVA"),
   F_statistic = c(anova_results$"F value"[1], ancova_results$"F value"[2]),
@@ -874,7 +876,8 @@ ggplot(fertilizer_data, aes(x = Initial_Height, y = Final_Height, color = Fertil
        x = "Initial Seedling Height (cm)",
        y = "Final Plant Height (cm)") +
   theme_classic() +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom",
+        axis.text = element_text(size = 14), axis.title = element_text(size = 14))
 
 # Statistical test for homogeneity of slopes
 # Test interaction between Fertilizer and Initial_Height
@@ -907,19 +910,19 @@ The covariate should not be affected by the treatment. This means:
 - The covariate should not be influenced by group assignment
 
 In our fertilizer example:
--   Initial seedling height was measured **before** fertilizer treatments were applied
--   Random assignment ensures fertilizer type doesn't affect initial height
--   The covariate (initial size) is a pre-existing characteristic
+- Initial seedling height was measured **before** fertilizer treatments were applied
+- Random assignment ensures fertilizer type doesn't affect initial height
+- The covariate (initial size) is a pre-existing characteristic
 
 **Counter-example where this would be violated:**
 If we measured "leaf chlorophyll content" after one week of fertilizer treatment and used it as a covariate, this would be wrong because the fertilizer already influenced chlorophyll levels.
 
 ### Standard ANOVA Assumptions
 
-THe researchers should check for:
--   **Normality of residuals**
--   **Homogeneity of variance**
--   **Independence of observations**
+Researchers also should check for:
+- **Normality of residuals**
+- **Homogeneity of variance**
+- **Independence of observations**
 
 ```{r check-standard-assumptions, include=FALSE, echo=FALSE}
 # Normality check
@@ -959,7 +962,7 @@ par(mfrow = c(1, 1))
 
 ## Post-Hoc Comparisons with ANCOVA and Visualizing Post-Hoc Results
 
-When ANCOVA shows significant group differences, we use a Tukeys's HSD post-hoc test to identify which groups differ (Figure \@ref(fig:postdoc-ancova)).
+When ANCOVA shows significant group differences, we use a Tukeys's HSD post-hoc test to identify which groups differ (Figure \@ref(fig:plot-posthoc)).
 
 ```{r posthoc-ancova, echo=FALSE, results='hide', warning=FALSE, message=FALSE}
 # Pairwise comparisons of adjusted means
@@ -975,9 +978,10 @@ cld(adjusted_means, Letters = letters)
 ```
 
 ```{r plot-posthoc, fig.height=6, fig.cap="Adjusted Means with Post-Hoc Comparisons. Groups with different letters are significantly different.", echo=FALSE, warning=FALSE, message=FALSE}
-if(!require("mulcompView", character.only = TRUE)) {
-  install.packages("mulcompView", dependencies = TRUE)}
-library(multcompView)
+#if(!require("mulcompView", character.only = TRUE)) {
+#  install.packages("mulcompView", dependencies = TRUE, 
+#                   repos = "http://cran.us.r-project.org")}
+#library(multcompView)
 
 # Plot adjusted means with error bars and significance letters
 adj_means_df <- as.data.frame(adjusted_means)
@@ -1016,7 +1020,8 @@ library(effectsize)
 # Calculate effect sizes
 partial_eta <- eta_squared(ancova_model, partial = TRUE)
 
-kbl(eta_squared(ancova_model, partial = TRUE), digit = 2, row.names = FALSE) %>%
+kbl(eta_squared(ancova_model, partial = TRUE), digit = 2, row.names = FALSE,
+    caption = "Partial eta-squared of ANCOVA model of the fertilizer experiment") %>%
 kable_styling(bootstrap_options = "striped", full_width = F)
 
 # Interpretation
@@ -1048,7 +1053,7 @@ ANCOVA is **not appropriate** when:
 
 ## Reporting ANCOVA Results of the Fertilizer Experiment
 
-> "An analysis of covariance (ANCOVA) was conducted to evaluate the effect of fertilizer treatment (Control, Organic, Synthetic) on final plant height after 8 weeks, while controlling for initial seedling height. The assumption of homogeneity of regression slopes was tested and satisfied (F(2, 39) = `r summary(interaction_model)[[1]]["Initial_Height:Fertilizer", "F value"]`, P = `r round(summary(interaction_model)[[1]]["Initial_Height:Fertilizer", "Pr(>F)"], digit = 2)`), indicating that the relationship between initial and final height was similar across all fertilizer treatments. 
+> "An analysis of covariance (ANCOVA) was conducted to evaluate the effect of fertilizer treatment (Control, Organic, Synthetic) on final plant height after 8 weeks, while controlling for initial seedling height. The assumption of homogeneity of regression slopes was tested and satisfied (F(2, 39) = `r round(summary(interaction_model)[[1]]["Initial_Height:Fertilizer", "F value"], digit = 2)`, P = `r round(summary(interaction_model)[[1]]["Initial_Height:Fertilizer", "Pr(>F)"], digit = 2)`), indicating that the relationship between initial and final height was similar across all fertilizer treatments. 
 >
 > The covariate, initial seedling height, was significantly related to final plant height (F(1, 40) = `r round(ancova_results$"F value"[1], digit = 2)`), P < 0.01, partial η² = `r round(partial_eta[1,2], digit = 2)`), demonstrating that larger seedlings at the start of the experiment grew to be larger plants. After controlling for initial seedling height, there was a significant effect of fertilizer treatment on final plant height (F(2, 40) = `r round(ancova_results$"F value"[2], digit = 2)`, P < 0.001, partial η² = `r round(partial_eta[2,2], digit = 2)`). 
 >
