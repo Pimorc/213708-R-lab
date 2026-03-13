@@ -222,7 +222,7 @@ Unlike traditional linear models, GLMs do not require errors to be normally dist
 | Poisson (Count data)                  | Log           | Loglinear regression | Categorical               |
 | Poisson (Count data)                  | Log           | Poisson regression   | Mixed                     |
 
-: (#tab:link-function) Link functions of different types of response variables and explanatory variables
+: (\#tab:link-function) Link functions of different types of response variables and explanatory variables
 
 ### Understanding Probability and Odds
 
