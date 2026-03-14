@@ -1,0 +1,562 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+# Mixed Effects Models
+
+**Duration:** 2-hour lecture
+
+## Learning Outcomes
+
+Students should be able to:
+
+-   Describe the difference between fixed and random effects
+-   Describe replication versus pseudoreplication
+-   Specify and interpret random intercept and random slope models in R
+-   Use the `lme4` package to fit mixed effects models
+-   Validate mixed effects model outputs
+
+## Introduction
+
+In many ecological and biological studies, data are collected from multiple levels of organisation — for example, repeated measurements from the same individual, samples nested within sites, or plants grouped within plots. In these cases, standard linear regression and ANOVA assume that all observations are independent, an assumption that is often violated.
+
+**Mixed effects models** (also called multilevel models or hierarchical models) address this by separating the sources of variation in the data into two types of effects:
+
+-   **Fixed effects**: the explanatory variables of primary interest (e.g., treatment, species)
+-   **Random effects**: grouping variables that account for the non-independence of observations (e.g., individual, site, block)
+
+Recall the general form of a linear regression:
+
+$$y_i = \alpha + \beta x_i + \varepsilon_i$$
+
+The **fixed effects** represent the deterministic part of the model — the effects we want to estimate. The **random effects** and **residual error** together represent the stochastic (random) part.
+
+## Fixed Effects vs. Random Effects
+
+Understanding the conceptual distinction between fixed and random effects is essential before fitting mixed effects models (Table \@ref(tab:effects-table)).
+
+```{r effects-table, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+library(knitr)
+library(kableExtra)
+
+effects_df <- data.frame(
+  Feature = c("Influence on response", "Goal of estimation",
+              "Repeatability", "Variable type"),
+  Fixed = c("Influences the mean", "Estimate the effect directly",
+            "Repeatable levels (can be replicated)", "Categorical or continuous"),
+  Random = c("Influences the variance", "Rarely the main interest; accounts for structure",
+             "Non-repeatable (random sample of levels)", "Categorical only")
+)
+
+kbl(effects_df,
+    col.names = c("Feature", "Fixed Effects", "Random Effects"),
+    caption = "Comparison of fixed and random effects in mixed models") %>%
+  kable_styling(full_width = TRUE, bootstrap_options = "striped") %>%
+  column_spec(1, bold = TRUE)
+```
+
+### Examples of Fixed and Random Effects
+
+Table \@ref(tab:examples-table) gives some common examples from ecology and biology.
+
+```{r examples-table, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+examples_df <- data.frame(
+  Fixed = c("Predation exclusion treatment in tree canopies",
+            "Nutrient addition treatment",
+            "Drug treatment"),
+  Random = c("Tree (the unit receiving the treatment)",
+             "Block within a field",
+             "Individual patient receiving the drug")
+)
+
+kbl(examples_df,
+    col.names = c("Fixed Effects", "Random Effects"),
+    caption = "Examples of fixed and random effects in ecological and biological studies") %>%
+  kable_styling(full_width = TRUE, bootstrap_options = "striped")
+```
+
+## Replication and Pseudoreplication
+
+Before fitting any model, it is important to correctly identify your **sample unit** — the smallest unit that independently received the treatment.
+
+**Pseudoreplication** occurs when observations that are not truly independent are treated as independent replicates. There are two common forms:
+
+**Spatial pseudoreplication** arises when multiple measurements are taken from the same vicinity — for example, measuring several leaves from the same plant, or several plants in the same pot. Each leaf or plant is not an independent replicate; the pot or plant is.
+
+**Temporal pseudoreplication** arises when data are collected from the same sampling unit on successive occasions. Because they share the same history, repeated measurements from the same individual are not independent. These are sometimes called repeated measures.
+
+Mixed effects models provide an elegant solution to both forms of pseudoreplication: the grouping unit (the plant, pot, individual, or site) is included as a **random effect**, which accounts for the correlation among observations within the same group.
+
+## Structure of Random Effects
+
+Random effects can be specified in three ways depending on whether they influence the intercept, the slope, or both (Figure \@ref(fig:random-effects-diagram)).
+
+```{r random-effects-diagram, echo=FALSE, fig.cap="Schematic of three types of random effect structures. Left: random intercepts only (parallel lines); Centre: random slopes only (lines pivot around a common intercept); Right: random intercepts and slopes (lines differ in both position and steepness).", fig.height=4, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(patchwork)
+
+set.seed(42)
+groups <- LETTERS[1:5]
+x_vals <- seq(0, 3, length.out = 30)
+
+# Random intercepts
+df_ri <- do.call(rbind, lapply(groups, function(g) {
+  intercept <- rnorm(1, 5, 1.5)
+  data.frame(x = x_vals, y = intercept + 1.5 * x_vals + rnorm(30, 0, 0.3), group = g)
+}))
+
+# Random slopes
+df_rs <- do.call(rbind, lapply(groups, function(g) {
+  slope <- rnorm(1, 1.5, 0.8)
+  data.frame(x = x_vals, y = 5 + slope * x_vals + rnorm(30, 0, 0.3), group = g)
+}))
+
+# Random intercepts and slopes
+df_ris <- do.call(rbind, lapply(groups, function(g) {
+  intercept <- rnorm(1, 5, 1.5)
+  slope <- rnorm(1, 1.5, 0.8)
+  data.frame(x = x_vals, y = intercept + slope * x_vals + rnorm(30, 0, 0.3), group = g)
+}))
+
+p1 <- ggplot(df_ri, aes(x, y, colour = group)) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.8) +
+  labs(title = "Random Intercepts", x = "Explanatory variable", y = "Response") +
+  theme_bw() + theme(legend.position = "none",
+                     plot.title = element_text(size = 10, face = "bold"))
+
+p2 <- ggplot(df_rs, aes(x, y, colour = group)) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.8) +
+  labs(title = "Random Slopes", x = "Explanatory variable", y = "Response") +
+  theme_bw() + theme(legend.position = "none",
+                     plot.title = element_text(size = 10, face = "bold"))
+
+p3 <- ggplot(df_ris, aes(x, y, colour = group)) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.8) +
+  labs(title = "Random Intercepts & Slopes", x = "Explanatory variable", y = "Response") +
+  theme_bw() + theme(legend.position = "none",
+                     plot.title = element_text(size = 10, face = "bold"))
+
+p1 + p2 + p3
+```
+
+### R Syntax for Random Effects
+
+In R (using the `lme4` package), random effects are specified inside parentheses in the model formula (Table \@ref(tab:syntax-table)).
+
+```{r syntax-table, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+syntax_df <- data.frame(
+  Type = c("Random intercepts only",
+           "Random slopes only (no random intercept)",
+           "Random intercepts and slopes"),
+  Formula = c("`(1 | random)`",
+              "`(0 + fixed | random)`",
+              "`(1 + fixed | random)`"),
+  Meaning = c("Each group gets its own intercept; slopes are shared",
+              "Each group gets its own slope; intercept is shared",
+              "Each group gets its own intercept and its own slope")
+)
+
+kbl(syntax_df,
+    col.names = c("Type", "R syntax", "Interpretation"),
+    caption = "R syntax for specifying random effects in lme4") %>%
+  kable_styling(full_width = TRUE, bootstrap_options = "striped") %>%
+  column_spec(1, bold = TRUE)
+```
+
+## Advantages of Mixed Effects Models
+
+Mixed effects models are more flexible than standard ANOVA because they:
+
+-   Can be used on data that violate some ANOVA assumptions (e.g., independence of observations)
+-   Can handle **unbalanced designs** (unequal sample sizes per group)
+-   Can include many kinds of explanatory variables — continuous and categorical
+-   Properly account for the **hierarchical or nested structure** in ecological data
+-   Can be extended to non-normal response variables using **Generalized Linear Mixed Effects Models (GLMMs)**
+
+## A Conceptual Example: Species Richness on Beaches
+
+Before working through a detailed biological example, it is helpful to understand random intercept and slope models using the classic RIKZ dataset (Zuur et al. 2009), in which species richness of macro-invertebrates was measured at multiple sites within each of nine beaches. Here, NAP (height relative to mean tidal level) is a fixed effect, and Beach is a random effect.
+
+### Random Intercept Model
+
+$$Y_{ij} = \alpha + \beta_1 \cdot \text{NAP}_{ij} + \beta_i \cdot \text{Beach}_i + \varepsilon_{ij}$$
+
+In R: `Richness ~ NAP + (1 | Beach)`
+
+This allows each beach to have its own intercept (baseline richness level), while the slope of NAP is the same for all beaches. The black line in the figure represents the overall fixed effect; coloured lines are per-beach fitted lines.
+
+### Random Intercept and Slope Model
+
+$$Y_{ij} = \alpha + (\beta_1 + s_i) \cdot \text{NAP}_{ij} + \beta_i \cdot \text{Beach}_i + \varepsilon_{ij}$$
+
+In R: `Richness ~ NAP + (1 + NAP | Beach)`
+
+This allows each beach to have both its own intercept and its own slope for NAP, reflecting that the relationship between height and species richness may differ across beaches.
+
+---
+
+## Example: Nursery Propagation Systems and Tree Performance
+
+### Background
+
+Chaiklang et al. (2025) conducted an experiment testing whether growing tropical tree saplings in bottle crates — a simple, low-cost modification to standard polybag nursery practice — improved their performance after planting out on a degraded restoration site in Krabi Province, southern Thailand.
+
+The experiment used five framework tree species (*Saraca indica*, *Sandoricum koetjape*, *Cleistocalyx operculatus*, *Lepisanthes rubiginosa*, and *Garcinia hombroniana*) and compared three nursery production systems:
+
+-   **CON** (control): polybags standing directly on the ground
+-   **COB**: polybags in crates raised on wire benches
+-   **COG**: polybags in crates placed on the ground
+
+Crating was hypothesised to promote **air root-pruning**, stimulating better root development and improving field performance. The experiment used a **randomised complete block design (RCBD)** with three replicates (blocks) per species.
+
+### Why a Mixed Effects Model?
+
+The key analysis question was: *Does treatment (CON, COB, COG) affect sapling growth (e.g., relative height growth rate, RGR-H)?*
+
+However, the data have a hierarchical structure:
+- Multiple saplings were observed per replicate block
+- Species and treatments were crossed
+- The replicate block is not a treatment of interest — it is a nuisance variable capturing spatial variation in the nursery
+
+**Treatment** and **Species** are therefore **fixed effects**; **Replicate** (block location in the nursery) is a **random effect**. The general model structure used by Chaiklang et al. (2025) was:
+
+$$\text{Response} \sim \text{Treatment} + \text{Species} + \text{Treatment} \times \text{Species} + (1 \mid \text{Replicate})$$
+
+### Setting Up the Data
+
+We simulate data closely matching the structure and reported means of Chaiklang et al. (2025) to illustrate the analysis. In practice, researchers would load their own data file.
+
+```{r setup-data, echo=TRUE, message=FALSE, warning=FALSE}
+# Install and load required packages
+if (!require("lme4"))     install.packages("lme4",     dependencies = TRUE)
+if (!require("lmerTest")) install.packages("lmerTest", dependencies = TRUE)
+if (!require("emmeans"))  install.packages("emmeans",  dependencies = TRUE)
+if (!require("ggplot2"))  install.packages("ggplot2",  dependencies = TRUE)
+if (!require("dplyr"))    install.packages("dplyr",    dependencies = TRUE)
+if (!require("knitr"))    install.packages("knitr",    dependencies = TRUE)
+if (!require("kableExtra")) install.packages("kableExtra", dependencies = TRUE)
+
+library(lme4)
+library(lmerTest)
+library(emmeans)
+library(ggplot2)
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+# Simulate data based on Chaiklang et al. (2025) reported means for field RGR-H
+# (relative growth rate of height, % per year) from Table 2 / Fig. 9
+set.seed(213708)
+
+species_names <- c("C.operculatus", "G.hombroniana",
+                   "L.rubiginosa",  "S.indica", "S.koetjape")
+treatments    <- c("CON", "COB", "COG")
+replicates    <- 1:3
+
+# Approximate treatment means (% per year) from Chaiklang et al. Fig. 9
+# Rows = species, Cols = CON, COB, COG
+mean_matrix <- matrix(
+  c(43, 69, 52,   # C. operculatus
+    37, 56, 55,   # G. hombroniana
+    50, 73, 72,   # L. rubiginosa
+    46, 68, 67,   # S. indica
+    39, 55, 54),  # S. koetjape
+  nrow = 5, byrow = TRUE,
+  dimnames = list(species_names, treatments)
+)
+
+# Build the data frame (n = 30 per species per treatment as in Chaiklang et al.)
+n_per_cell <- 10   # 10 per replicate × 3 replicates = 30 per cell
+sigma      <- 8    # within-cell SD (approximate)
+
+chaiklang_data <- do.call(rbind, lapply(species_names, function(sp) {
+  do.call(rbind, lapply(treatments, function(trt) {
+    do.call(rbind, lapply(replicates, function(rep) {
+      mu <- mean_matrix[sp, trt]
+      # Add a small block (replicate) random effect
+      block_effect <- rnorm(1, 0, 3)
+      y  <- rnorm(n_per_cell, mu + block_effect, sigma)
+      data.frame(
+        Species    = sp,
+        Treatment  = trt,
+        Replicate  = factor(paste0("R", rep)),
+        RGR_H      = round(y, 1)
+      )
+    }))
+  }))
+}))
+
+chaiklang_data$Treatment <- factor(chaiklang_data$Treatment,
+                                   levels = c("CON", "COB", "COG"))
+chaiklang_data$Species   <- factor(chaiklang_data$Species,
+                                   levels = species_names)
+
+head(chaiklang_data, 12)
+```
+
+### Visualising the Data
+
+It is always a good practice to explore the data before fitting a model. A boxplot separated by treatment and species reveals the overall patterns (Figure \@ref(fig:chaiklang-boxplot)).
+
+```{r chaiklang-boxplot, fig.height=5, fig.cap="Relative height growth rate (RGR-H, % per year) of five framework tree species under three nursery production systems. CON = polybags on ground (control); COB = crates on wire benches; COG = crates on ground. Points represent individual sapling measurements.", echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(chaiklang_data,
+       aes(x = Treatment, y = RGR_H, fill = Treatment)) +
+  geom_boxplot(alpha = 0.6, outlier.shape = NA) +
+  geom_jitter(width = 0.15, size = 0.8, alpha = 0.4) +
+  facet_wrap(~ Species, nrow = 1) +
+  scale_fill_manual(values = c("CON" = "#4575b4",
+                               "COB" = "#d73027",
+                               "COG" = "#1a9850")) +
+  labs(x = "Treatment",
+       y = "RGR-H (% per year)",
+       fill = "Treatment") +
+  theme_bw() +
+  theme(
+    axis.text.x  = element_text(angle = 45, hjust = 1, size = 9),
+    strip.text   = element_text(face = "italic", size = 8),
+    legend.position = "bottom"
+  )
+```
+
+A summary table of means and standard errors is also useful before modelling (Table \@ref(tab:chaiklang-summary)).
+
+```{r chaiklang-summary, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+summary_ch <- chaiklang_data %>%
+  group_by(Species, Treatment) %>%
+  summarise(
+    n    = n(),
+    Mean = round(mean(RGR_H), 1),
+    SD   = round(sd(RGR_H),   1),
+    SE   = round(SD / sqrt(n), 1),
+    .groups = "drop"
+  )
+
+kbl(summary_ch,
+    col.names = c("Species", "Treatment", "n", "Mean RGR-H (%/yr)",
+                  "SD", "SE"),
+    caption = "Summary statistics for relative height growth rate (RGR-H) by species and treatment") %>%
+  kable_styling(full_width = TRUE, bootstrap_options = "striped") %>%
+  column_spec(1, italic = TRUE)
+```
+
+### Fitting the Mixed Effects Model
+
+Following Chaiklang et al. (2025), we fit a **random intercept model** with `Treatment`, `Species`, and their interaction as fixed effects, and `Replicate` as a random effect. We use the `lmerTest` package which extends `lme4` to provide p-values in the summary table.
+
+```{r fit-model, echo=TRUE, message=FALSE, warning=FALSE}
+# Fit the mixed effects model
+# Fixed effects: Treatment + Species + Treatment:Species interaction
+# Random effect: random intercept for Replicate (block)
+model_ch <- lmer(RGR_H ~ Treatment + Species + Treatment:Species + (1 | Replicate),
+                 data = chaiklang_data,
+                 REML = TRUE)
+
+# Display the summary
+summary(model_ch)
+```
+
+The output shows:
+
+-   **Random effects**: the variance attributed to Replicate (between-block variation) and the residual variance (within-block variation)
+-   **Fixed effects**: estimated coefficients for Treatment, Species, and their interaction, along with standard errors and p-values (from the Satterthwaite approximation in `lmerTest`)
+
+### ANOVA Table for Fixed Effects
+
+```{r anova-table, echo=TRUE, message=FALSE, warning=FALSE, results='asis'}
+anova_ch <- anova(model_ch)
+
+kbl(round(as.data.frame(anova_ch), 3),
+    caption = "ANOVA table (Type III Sums of Squares) for the mixed effects model of RGR-H") %>%
+  kable_styling(full_width = FALSE, bootstrap_options = "striped")
+```
+
+We expect significant effects of Treatment (the crating treatments increasing RGR-H), Species (different species grow at different rates), and their interaction (the effect of crating differs among species), consistent with the results reported by Chaiklang et al. (2025).
+
+### Post-Hoc Comparisons: Treatment Effects within Each Species
+
+Because the Treatment × Species interaction is significant, we compare treatments separately within each species using estimated marginal means (EMMs) with Tukey's HSD correction (Table \@ref(tab:posthoc-table)).
+
+```{r posthoc-table, echo=TRUE, message=FALSE, warning=FALSE, results='asis'}
+# Estimated marginal means for Treatment within each Species
+emm_ch <- emmeans(model_ch, ~ Treatment | Species)
+
+# Pairwise comparisons with Tukey adjustment
+pairs_ch <- pairs(emm_ch, adjust = "tukey")
+
+kbl(as.data.frame(pairs_ch) %>%
+      mutate(across(where(is.numeric), ~ round(., 3))),
+    caption = "Tukey pairwise comparisons of treatment effects on RGR-H within each species") %>%
+  kable_styling(full_width = TRUE, bootstrap_options = "striped") %>%
+  scroll_box(height = "350px")
+```
+
+### Visualising Estimated Marginal Means
+
+Figure \@ref(fig:emm-plot) displays the model-estimated means and 95% confidence intervals for each species-treatment combination.
+
+```{r emm-plot, fig.height=5, fig.cap="Estimated marginal means (±95% CI) for relative height growth rate (RGR-H) of five framework tree species under three nursery production systems from the mixed effects model.", echo=FALSE, message=FALSE, warning=FALSE}
+emm_df <- as.data.frame(emm_ch)
+
+ggplot(emm_df, aes(x = Treatment, y = emmean,
+                   colour = Treatment, group = Treatment)) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), width = 0.2, linewidth = 0.8) +
+  facet_wrap(~ Species, nrow = 1) +
+  scale_colour_manual(values = c("CON" = "#4575b4",
+                                 "COB" = "#d73027",
+                                 "COG" = "#1a9850")) +
+  labs(x = "Treatment",
+       y = "Estimated Mean RGR-H (% per year)",
+       colour = "Treatment") +
+  theme_bw() +
+  theme(
+    axis.text.x  = element_text(angle = 45, hjust = 1),
+    strip.text   = element_text(face = "italic", size = 9),
+    legend.position = "bottom"
+  )
+```
+
+### Model Validation
+
+Before interpreting the model, we must check the residuals. The key assumptions of a linear mixed effects model are:
+
+1.  Residuals are approximately normally distributed
+2.  Residuals have roughly constant variance (homoscedasticity)
+3.  Random effects are normally distributed
+
+```{r model-validation, fig.height=4, fig.cap="Model diagnostics for the mixed effects model: (A) residuals vs. fitted values (checks homoscedasticity); (B) Q-Q plot of residuals (checks normality).", echo=FALSE, message=FALSE, warning=FALSE}
+par(mfrow = c(1, 2))
+
+# Residuals vs fitted
+plot(fitted(model_ch), resid(model_ch),
+     xlab = "Fitted values", ylab = "Residuals",
+     main = "(A) Residuals vs Fitted",
+     pch = 16, col = "steelblue", cex = 0.6)
+abline(h = 0, lty = 2, col = "red")
+
+# Q-Q plot
+qqnorm(resid(model_ch), main = "(B) Q-Q Plot of Residuals",
+       pch = 16, col = "steelblue", cex = 0.6)
+qqline(resid(model_ch), col = "red", lty = 2)
+
+par(mfrow = c(1, 1))
+```
+
+No strong patterns in the residual plot and approximate linearity in the Q-Q plot indicate that the model assumptions are reasonably satisfied.
+
+### Reporting Results
+
+> A linear mixed effects model (lme4; Bates et al. 2015) was used to assess the effects of nursery production system (CON, COB, COG) and species on the relative height growth rate (RGR-H) of five framework tree species after planting out. Treatment and species were included as fixed effects along with their interaction. Replicate (block location in the nursery) was included as a random intercept to account for spatial variability. Significant effects of treatment (F = `r round(anova_ch["Treatment","F value"], 2)`, P < 0.05), species (F = `r round(anova_ch["Species","F value"], 2)`, P < 0.05), and their interaction (F = `r round(anova_ch["Treatment:Species","F value"], 2)`, P < 0.05) were detected. Post-hoc comparisons (Tukey HSD) showed that both crating treatments (COB and COG) significantly increased mean RGR-H compared with the control for most species, consistent with the hypothesis that crating promotes air root-pruning and improves post-planting sapling performance.
+
+---
+
+## Generalised Linear Mixed Effects Models (GLMMs)
+
+When the response variable does not follow a normal distribution, we use a **Generalised Linear Mixed Effects Model (GLMM)** using the `glmer()` function in `lme4`. Common families include:
+
+-   `family = binomial` for proportions or binary data (e.g., survival: alive/dead)
+-   `family = poisson` for count data (e.g., number of insects, seedling counts)
+
+For example, to analyse field **survival** (a binary outcome) from the Chaiklang et al. study:
+
+```{r glmm-example, echo=TRUE, eval=FALSE}
+# Example: GLMM for binary survival data
+# (not run — requires actual survival (0/1) data per sapling)
+model_surv <- glmer(Survival ~ Treatment + Species + Treatment:Species +
+                      (1 | Replicate),
+                    data   = field_data,
+                    family = binomial)
+summary(model_surv)
+```
+
+## Practical Recommendations
+
+When running mixed effects models, keep the following in mind:
+
+-   **Standardise continuous explanatory variables** (use `scale()` in R) if they are on very different scales. This improves model convergence and makes coefficients more comparable.
+-   **Start with a maximal model** (as many fixed effects as justified by your hypotheses) and use model comparison by AIC to simplify if needed. The model with the **lowest AIC** is generally preferred.
+-   **Use REML** (`REML = TRUE`) when comparing models that differ only in their random effects structure. Use **ML** (`REML = FALSE`) when comparing fixed effects via AIC.
+-   **Increase iterations** if a model fails to converge, using the `control` argument in `lmer()`.
+-   Always **validate the model** by checking residual plots before interpreting results.
+
+## R Packages for Mixed Effects Models
+
+Several R packages are available for fitting mixed effects models (Table \@ref(tab:packages-table)).
+
+```{r packages-table, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+pkg_df <- data.frame(
+  Package = c("lme4", "nlme", "lmerTest", "glmmTMB", "brms"),
+  Description = c(
+    "Fit linear and generalised linear mixed effects models. The most widely used package for LMMs and GLMMs.",
+    "Fit and compare linear and nonlinear mixed effects models. Older but offers more control over variance structures.",
+    "Extends lme4 to provide p-values and summary tables for lmer models using the Satterthwaite approximation.",
+    "Generalised linear mixed models using Template Model Builder. Handles a wide range of response distributions.",
+    "Bayesian regression models using Stan. Suitable for complex hierarchical models."
+  ),
+  Reference = c("Bates et al. 2015", "Pinheiro et al. 2018",
+                "Kuznetsova et al. 2017", "Brooks et al. 2017", "Bürkner 2017")
+)
+
+kbl(pkg_df,
+    col.names = c("Package", "Description", "Reference"),
+    caption = "Commonly used R packages for mixed effects models") %>%
+  kable_styling(full_width = TRUE, bootstrap_options = "striped") %>%
+  column_spec(1, bold = TRUE, monospace = TRUE)
+```
+
+---
+
+## Exercise
+
+**Scenario A:** (For questions 1 and 2)
+
+A researcher measures the diameter growth of trees in a reforestation experiment. There are four fertilizer treatments applied to plots. Each plot contains 15 trees that are each measured once. The researcher treats all 60 observations as independent replicates in a one-way ANOVA.
+
+1.  Is the researcher's approach correct? Identify the type of pseudoreplication involved and explain why it matters.
+
+2.  How would you redesign the analysis to correctly account for the data structure? Name the fixed and random effects you would include.
+
+**Scenario B:** (For questions 3–5)
+
+You are re-analysing a subset of the Chaiklang et al. (2025) dataset. The response variable is field relative growth rate of root collar diameter (RGR-RCD, % per year). The study design is as described above (three treatments, five species, three replicate blocks, 10 saplings per replicate per species per treatment).
+
+3.  Write the R model formula for a random intercept mixed effects model for RGR-RCD, with Treatment and Species (and their interaction) as fixed effects and Replicate as a random effect.
+
+4.  After fitting the model, you find the following variance components:
+
+```
+Random effects:
+ Groups    Name        Variance  Std.Dev.
+ Replicate (Intercept)  9.2       3.03
+ Residual              64.1       8.01
+```
+
+What percentage of the total variance is attributable to the replicate blocks? What does this tell you about the importance of including Replicate as a random effect?
+
+5.  The ANOVA table shows a significant Treatment × Species interaction (P < 0.001). Explain in plain language what this means biologically, using the Chaiklang et al. study as context.
+
+**Scenario C:** (Question 6)
+
+6.  For each situation below, decide whether a **fixed** or **random** effect is more appropriate and justify your answer.
+
+| Variable | Fixed or Random? | Justification |
+|----------|-----------------|---------------|
+| Fertilizer treatment (4 specific types tested) | | |
+| Individual tree identity (100 trees sampled) | | |
+| Forest site (3 sites purposely selected as degraded, medium, good) | | |
+| Year of measurement (random sample of 5 years from a 20-year monitoring series) | | |
+
+---
+
+## References
+
+Bates, D., Mächler, M., Bolker, B., Walker, S. (2015). Fitting linear mixed-effects models using lme4. *Journal of Statistical Software*, 67(1), 1–48.
+
+Chaiklang, P., Elliott, S., Chairuangsri, S., Tiansawat, P. (2025). Effects of a low-cost crate-based tree-propagation system on the field performance of framework species when initiating lowland tropical forest restoration. *Trees, Forests and People*, 20, 100862.
+
+Kuznetsova, A., Brockhoff, P. B., Christensen, R. H. B. (2017). lmerTest Package: Tests in linear mixed effects models. *Journal of Statistical Software*, 82(13), 1–26.
+
+Pinheiro, J., Bates, D., DebRoy, S., Sarkar, D., R Core Team (2018). nlme: Linear and Nonlinear Mixed Effects Models. R package version 3.1-137.
+
+Zuur, A. F., Ieno, E. N., Walker, N. J., Saveliev, A. A., Smith, G. M. (2009). *Mixed Effects Models and Extensions in Ecology with R*. Springer, New York.
