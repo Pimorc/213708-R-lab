@@ -1,0 +1,540 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+# Multivariate Analysis and Principal Component Analysis (PCA)
+
+**Duration:** 2-hour lecture
+
+## Learning Outcomes
+
+Students should be able to:
+
+-   Describe common terminology in multivariate analysis
+-   Distinguish between dependence and interdependence techniques
+-   Explain the concept of ordination and dimensionality reduction
+-   Describe how Principal Component Analysis (PCA) works
+-   Interpret PCA outputs including eigenvalues, eigenvectors, and biplots
+-   Perform and interpret PCA in R using real ecological data
+
+## Introduction
+
+In ecology and biology, researchers often collect measurements on many variables simultaneously — such as morphological traits, environmental gradients, or species abundances. Analysing each variable separately can miss important patterns and relationships that exist across variables together. **Multivariate analysis** refers to a family of statistical techniques designed to analyse data sets in which multiple variables are measured on each observation simultaneously.
+
+Multivariate methods allow researchers to:
+
+-   Detect structure and patterns hidden in complex data
+-   Identify natural groupings or categories among observations
+-   Reduce the dimensionality of data while retaining most of the information
+-   Generate hypotheses for further study
+
+A classic example is the Iris dataset (Anderson 1935, published by Fisher 1936), which contains four morphological measurements — petal width, petal length, sepal width, and sepal length — for 150 specimens across three *Iris* species. No single variable cleanly separates the species, but multivariate analysis can reveal the underlying structure effectively.
+
+## Two Main Categories of Multivariate Techniques
+
+Multivariate techniques are broadly classified into two categories based on how variables are treated (Table \@ref(tab:mv-categories)).
+
+**Dependence techniques** assume a distinction between dependent (response) and independent (explanatory) variables. The goal is to explain or predict the dependent variable(s) from the independent variable(s). Examples include:
+
+-   Multiple Analysis of Variance (MANOVA)
+-   Multivariate discriminant analysis
+-   Canonical correlation analysis
+-   Structural equation modelling
+
+**Interdependence techniques** treat all variables simultaneously, with no distinction between dependent and independent variables. The goal is to uncover structure within the data. Examples include:
+
+-   Principal Component Analysis (PCA)
+-   Cluster analysis
+-   Multidimensional scaling
+-   Correspondence analysis
+
+In this chapter, we focus on **interdependence techniques**, particularly PCA.
+
+```{r mv-categories, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+library(knitr)
+library(kableExtra)
+
+mv_table <- data.frame(
+  Feature = c("Variable roles", "Primary goal", "Examples"),
+  Dependence = c("Dependent vs. independent", 
+                 "Explain or predict y from x", 
+                 "MANOVA, Discriminant analysis, Canonical correlation"),
+  Interdependence = c("No distinction", 
+                      "Uncover structure among all variables", 
+                      "PCA, Cluster analysis, Multidimensional scaling")
+)
+
+mv_table %>%
+  kbl(align = "l",
+      col.names = c("Feature", "Dependence", "Interdependence"),
+      caption = "Comparison of dependence and interdependence multivariate techniques") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = TRUE) %>%
+  column_spec(1, bold = TRUE)
+```
+
+## Ordination and Data Reduction
+
+**Ordination** is the process of ordering or arranging sampling units along axes that represent major gradients of variation in the data. Rather than working in a high-dimensional space with many variables, ordination reduces the data to two or three summary axes that capture the most important patterns.
+
+The key benefits of ordination are:
+
+-   **Noise reduction** — minor, random variation is filtered into lower-priority axes
+-   **Redundancy reduction** — correlated variables are combined into composite axes
+-   **Visualisation** — complex multivariate patterns can be plotted in two dimensions
+
+Formally, ordination summarises a dataset containing $n$ variables into a smaller number $p$ of composite (synthetic) variables, where $p < n$. Each composite variable is a linear combination of the original variables.
+
+## What is Principal Component Analysis?
+
+**Principal Component Analysis (PCA)** is one of the most widely used exploratory multivariate techniques. It was introduced by Karl Pearson in 1901 in his paper *"On Lines and Planes of Closest Fit to Systems of Points in Space"* and further developed by Harold Hotelling in the 1930s.
+
+The core idea of PCA is to find a small number of **linear combinations** of the original variables — called **principal components (PCs)** — that capture as much of the variation in the data as possible. Mathematically, if the original data have variables $X_1, X_2, \ldots, X_n$, PCA finds new composite variables:
+
+$$C_1 = a_{11}X_1 + a_{12}X_2 + \cdots + a_{1n}X_n$$
+$$C_2 = a_{21}X_1 + a_{22}X_2 + \cdots + a_{2n}X_n$$
+$$\vdots$$
+
+such that $C_1$ explains the maximum possible variance in the data, $C_2$ explains the maximum remaining variance orthogonal (perpendicular and independent) to $C_1$, and so on.
+
+The coefficients $\{a_{11}, a_{12}, \ldots, a_{1n}\}$ are called **eigenvectors** (or loadings) of the covariance or correlation matrix, and the variance explained by each component is its associated **eigenvalue**.
+
+### When to Use PCA
+
+PCA is appropriate when:
+
+-   You want to reduce many variables to a smaller number of composite variables while retaining most information
+-   Variables have approximately linear relationships with one another
+-   Sample size is adequate: Tabachnick and Fidell (1989) suggested a minimum of 5 observations per variable; Tabachnick and Fidell (1996) recommended at least 100 observations in total. When the correlation structure among variables is weak, a larger sample is needed.
+
+## Key Mathematical Concepts
+
+### Variance-Covariance Matrix
+
+The **variance-covariance matrix** (often called simply the covariance matrix) summarises how each variable varies on its own and co-varies with every other variable. For variables $A$, $B$, and $C$, the matrix has the form shown in Table \@ref(tab:cov-matrix).
+
+The **variance** of variable $A$ is:
+$$\text{Var}(A) = \frac{\sum (A_i - \bar{A})^2}{N}$$
+
+The **covariance** between variables $A$ and $B$ is:
+$$\text{Cov}(A, B) = \frac{\sum (A_i - \bar{A})(B_i - \bar{B})}{N}$$
+
+A positive covariance means the two variables tend to increase together; a negative covariance means one increases as the other decreases.
+
+```{r cov-matrix, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+cov_df <- data.frame(
+  ` ` = c("A", "B", "C"),
+  A = c("Var(A)", "Cov(A,B)", "Cov(A,C)"),
+  B = c("Cov(A,B)", "Var(B)", "Cov(B,C)"),
+  C = c("Cov(A,C)", "Cov(B,C)", "Var(C)")
+)
+
+cov_df %>%
+  kbl(align = "c",
+      col.names = c("", "A", "B", "C"),
+      caption = "Structure of a variance-covariance matrix for three variables A, B, and C") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE) %>%
+  column_spec(1, bold = TRUE)
+```
+
+### Correlation Matrix
+
+The **correlation matrix** standardises the covariances so all values lie between −1 and +1. The correlation between $A$ and $B$ is:
+
+$$\text{corr}(A, B) = \frac{\text{Cov}(A, B)}{sd(A) \cdot sd(B)}$$
+
+where $sd(A)$ and $sd(B)$ are the standard deviations of $A$ and $B$.
+
+### Covariance Matrix vs. Correlation Matrix in PCA
+
+The choice of which matrix to use for PCA has important implications (Table \@ref(tab:matrix-choice)):
+
+-   **Covariance matrix**: use when all variables are measured in the **same units** and you want variables with larger variance to have more influence on the analysis.
+-   **Correlation matrix**: use when variables are measured in **different units**, or when you want all variables to have equal influence. Using the correlation matrix is equivalent to standardising all variables to mean = 0 and SD = 1 before the analysis.
+
+```{r matrix-choice, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+matrix_df <- data.frame(
+  Feature = c("Variable units", "Effect of scale", "Variable influence", "Mean eigenvalue"),
+  Covariance = c("Must be same units", 
+                 "Variables with large variance dominate", 
+                 "Unequal — proportional to variance",
+                 "Not equal to 1.0"),
+  Correlation = c("Can be different units", 
+                  "All variables standardised first", 
+                  "Equal — all variables contribute similarly",
+                  "Equal to 1.0")
+)
+
+matrix_df %>%
+  kbl(align = "l",
+      col.names = c("Feature", "Covariance Matrix", "Correlation Matrix"),
+      caption = "Comparison of using covariance versus correlation matrix in PCA") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = TRUE) %>%
+  column_spec(1, bold = TRUE)
+```
+
+### Orthogonality
+
+A key property of principal components is that they are **orthogonal** — they are perpendicular to one another in multivariate space. This means each principal component captures a completely independent (uncorrelated) dimension of variation. The first PC captures the direction of maximum variance, the second captures the next greatest variance in a direction perpendicular to the first, and so on (Figure \@ref(fig:pca-concept)).
+
+```{r pca-concept, echo=FALSE, fig.cap="Conceptual diagram of the first two principal components (C1 and C2) fitted to a two-dimensional data cloud. C1 runs along the axis of greatest variation; C2 is perpendicular to C1.", fig.height=4.5, fig.width=5, message=FALSE, warning=FALSE}
+
+set.seed(42)
+n <- 60
+x1 <- rnorm(n, 5, 0.5)
+x2 <- 0.7 * x1 + rnorm(n, 0, 0.3)
+
+par(mar = c(4, 4, 2, 2))
+plot(x1, x2, pch = 1, col = "steelblue", cex = 1.2,
+     xlab = "Variable X1", ylab = "Variable X2",
+     xlim = c(3.5, 6.5), ylim = c(2.0, 5.5),
+     main = "")
+
+# Draw PC1 direction (red arrow)
+arrows(4.6, 2.8, 6.0, 4.9, col = "red", lwd = 2.5, length = 0.15)
+text(6.1, 4.8, expression(italic(C[1])), col = "red", cex = 1.1, font = 2)
+
+# Draw PC2 direction (blue arrow)
+arrows(5.5, 4.5, 4.2, 4.1, col = "steelblue4", lwd = 2.5, length = 0.15)
+text(4.0, 4.3, expression(italic(C[2])), col = "steelblue4", cex = 1.1, font = 2)
+```
+
+## Steps in Performing PCA
+
+Following Zakaria Jaadi's step-by-step explanation, PCA proceeds as follows:
+
+1.  **Standardise the continuous variables** — subtract the mean and divide by the standard deviation (if using the correlation matrix).
+
+2.  **Compute the covariance or correlation matrix** — this captures all pairwise relationships between variables.
+
+3.  **Compute eigenvectors and eigenvalues** of the covariance/correlation matrix — eigenvectors define the directions of the new axes (principal components); eigenvalues indicate the amount of variance explained by each axis.
+
+4.  **Create a feature vector** — decide how many principal components to retain based on their eigenvalues and variance explained.
+
+5.  **Recast the data** along the principal component axes — project the original data onto the new axes to obtain PC scores for each observation.
+
+## How Many Principal Components to Retain?
+
+### The Scree Plot
+
+A **scree plot** displays eigenvalues in decreasing order against component number. The analyst looks for an "elbow" — a sharp bend where eigenvalues begin to level off. Components before the elbow are retained; those in the flat tail are discarded as they explain relatively little additional variance (Figure \@ref(fig:screeplot-concept)).
+
+### Kaiser's Rule
+
+**Kaiser's rule** states: retain all principal components with eigenvalues **greater than 1.0** (when using the correlation matrix). An eigenvalue of 1.0 means the component explains as much variance as a single standardised variable — components below this threshold are considered to explain less than their "fair share."
+
+### Cumulative Variance Explained
+
+A complementary criterion is to retain enough components to account for a **cumulative variance of 50–70%** of the total. In ecological studies with complex data, even 50% cumulative variance may be acceptable.
+
+```{r screeplot-concept, echo=FALSE, fig.cap="Example scree plot showing eigenvalues for 12 components. The elbow at component 2 (dashed line) suggests retaining the first two principal components. The horizontal dotted line marks eigenvalue = 1 (Kaiser's rule).", fig.height=4, fig.width=6, message=FALSE, warning=FALSE}
+
+eigenvalues <- c(6.2, 1.3, 0.75, 0.6, 0.5, 0.45, 0.38, 0.3, 0.25, 0.22, 0.18, 0.15)
+components <- 1:12
+
+par(mar = c(4, 4, 2, 2))
+plot(components, eigenvalues, type = "b", pch = 19, col = "darkblue",
+     xlab = "Component Number", ylab = "Eigenvalue",
+     ylim = c(0, 7), xaxt = "n")
+axis(1, at = 1:12)
+abline(v = 2, lty = 2, col = "red", lwd = 1.5)
+abline(h = 1, lty = 3, col = "gray40", lwd = 1.5)
+legend("topright", legend = c("Elbow (retain up to here)", "Kaiser threshold (eigenvalue = 1)"),
+       lty = c(2, 3), col = c("red", "gray40"), bty = "n", cex = 0.85)
+```
+
+## Example: PCA of Seed Morphology Data
+
+To illustrate PCA in practice, we use a dataset of seed morphological measurements from three tropical tree species collected in northern Thailand:
+
+-   *Cinnamomum caudatum* (Lauraceae)
+-   *Erythrina subumbrans* (Fabaceae)
+-   *Garcinia cowa* (Clusiaceae)
+
+Twenty seeds were measured per species ($n = 60$ total). The measured variables are: seed width (mm), seed length (mm), seed thickness (mm), estimated volume (mm³), seed coat thickness (mm), wet weight (g), dry weight (g), and moisture content (%).
+
+### Loading and Exploring the Data
+
+```{r load-data, echo=TRUE, message=FALSE, warning=FALSE}
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+
+# Load data
+seed <- read.csv("seed3spp.csv")
+
+# Create species label
+seed$species <- paste(seed$genus, seed$epithet)
+seed$species <- trimws(seed$species)
+
+# Preview
+head(seed)
+```
+
+```{r summary-seed, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+# Summary statistics by species
+sum_seed <- seed %>%
+  group_by(species) %>%
+  summarise(
+    n = n(),
+    `Width (mm)` = round(mean(width_mm), 2),
+    `Length (mm)` = round(mean(long_mm), 2),
+    `Thickness (mm)` = round(mean(thickness_mm), 2),
+    `Volume (mm³)` = round(mean(volume_mm3), 1),
+    `Coat thick (mm)` = round(mean(coat_thick_mm), 3),
+    `Wet wt (g)` = round(mean(wet_weight_g), 3),
+    `Dry wt (g)` = round(mean(dry_weight_g), 3),
+    `Moisture (%)` = round(mean(moisture_percent), 1),
+    .groups = "drop"
+  )
+
+sum_seed %>%
+  kbl(align = "c",
+      caption = "Mean seed morphological traits for three tropical tree species (n = 20 seeds per species)") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = TRUE) %>%
+  column_spec(1, bold = TRUE, italic = TRUE)
+```
+
+### Visualising the Raw Data
+
+Before running PCA it is always good practice to visualise variation in individual traits across species (Figure \@ref(fig:boxplots-seed)).
+
+```{r boxplots-seed, echo=FALSE, fig.cap="Boxplots of selected seed traits (length, width, volume, and dry weight) by species. Note that Garcinia cowa seeds are substantially larger than the other two species on all traits.", fig.height=6, fig.width=9, message=FALSE, warning=FALSE}
+
+if(!require("ggthemes", character.only = TRUE)) {
+  install.packages("ggthemes", dependencies = TRUE)
+}
+library(ggthemes)
+library(tidyr)
+
+seed_long <- seed %>%
+  select(species, long_mm, width_mm, volume_mm3, dry_weight_g) %>%
+  pivot_longer(cols = -species, names_to = "trait", values_to = "value") %>%
+  mutate(trait = recode(trait,
+    long_mm = "Length (mm)",
+    width_mm = "Width (mm)",
+    volume_mm3 = "Volume (mm³)",
+    dry_weight_g = "Dry weight (g)"
+  ))
+
+ggplot(seed_long, aes(x = species, y = value, fill = species)) +
+  geom_boxplot(alpha = 0.6) +
+  geom_jitter(width = 0.1, size = 1.5, alpha = 0.6) +
+  facet_wrap(~ trait, scales = "free_y") +
+  labs(x = "Species", y = "Value") +
+  theme_bw() +
+  theme(
+    legend.position = "bottom",
+    legend.title = element_blank(),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    strip.text = element_text(size = 11),
+    legend.text = element_text(face = "italic", size = 10)
+  )
+```
+
+### Running PCA
+
+We select the eight continuous morphological variables for PCA. Because the variables are measured in different units and span very different scales (e.g., mm vs. mm³ vs. g), we use the **correlation matrix** (i.e., `scale = TRUE`), which standardises all variables to mean = 0 and SD = 1 before analysis.
+
+```{r run-pca, echo=TRUE, message=FALSE, warning=FALSE}
+# Select numeric trait columns
+pca_vars <- seed %>%
+  select(width_mm, long_mm, thickness_mm, volume_mm3,
+         coat_thick_mm, wet_weight_g, dry_weight_g, moisture_percent)
+
+# Run PCA using the correlation matrix (scale = TRUE)
+pca_result <- prcomp(pca_vars, center = TRUE, scale. = TRUE)
+
+# View summary
+summary(pca_result)
+```
+
+### Eigenvalues and Variance Explained
+
+```{r eigenvalues, echo=FALSE, fig.cap="Scree plot of eigenvalues for the eight principal components from seed morphology PCA. The elbow appears after PC2, and the dashed line shows the Kaiser threshold (eigenvalue = 1).", fig.height=4, fig.width=6, message=FALSE, warning=FALSE}
+
+eigenvalues <- pca_result$sdev^2
+pct_var <- round(eigenvalues / sum(eigenvalues) * 100, 1)
+cum_var <- cumsum(pct_var)
+
+# Scree plot
+par(mar = c(4, 4, 2, 2))
+plot(1:length(eigenvalues), eigenvalues, type = "b", pch = 19,
+     col = "steelblue", xlab = "Principal Component", ylab = "Eigenvalue",
+     xaxt = "n")
+axis(1, at = 1:length(eigenvalues))
+abline(h = 1, lty = 2, col = "red", lwd = 1.5)
+legend("topright", legend = "Kaiser threshold (eigenvalue = 1)",
+       lty = 2, col = "red", bty = "n", cex = 0.9)
+```
+
+```{r variance-table, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+var_table <- data.frame(
+  PC = paste0("PC", 1:length(eigenvalues)),
+  Eigenvalue = round(eigenvalues, 3),
+  `Variance Explained (%)` = pct_var,
+  `Cumulative (%)` = cum_var
+)
+
+var_table %>%
+  kbl(align = "c",
+      col.names = c("Component", "Eigenvalue", "Variance Explained (%)", "Cumulative (%)"),
+      caption = "Eigenvalues and variance explained by each principal component from the seed morphology PCA") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE) %>%
+  row_spec(which(var_table$Eigenvalue >= 1), background = "#e8f4f8") %>%
+  column_spec(1, bold = TRUE)
+```
+
+Based on Kaiser's rule (eigenvalue ≥ 1), **`r sum(eigenvalues >= 1)` principal components** should be retained. These components together explain **`r cum_var[sum(eigenvalues >= 1)]`%** of the total variation in seed morphology.
+
+### Loadings (Eigenvectors)
+
+**Loadings** show the correlation between each original variable and each principal component. Large positive or negative loadings (typically |loading| > 0.5) indicate that a variable is strongly associated with that component and helps to interpret what biological gradient the component represents.
+
+```{r loadings-table, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+loadings_df <- as.data.frame(round(pca_result$rotation[, 1:3], 3))
+loadings_df$Variable <- rownames(loadings_df)
+
+loadings_df <- loadings_df %>%
+  mutate(Variable = recode(Variable,
+    width_mm = "Width (mm)",
+    long_mm = "Length (mm)",
+    thickness_mm = "Thickness (mm)",
+    volume_mm3 = "Volume (mm³)",
+    coat_thick_mm = "Coat thickness (mm)",
+    wet_weight_g = "Wet weight (g)",
+    dry_weight_g = "Dry weight (g)",
+    moisture_percent = "Moisture content (%)"
+  )) %>%
+  select(Variable, PC1, PC2, PC3)
+
+loadings_df %>%
+  kbl(align = "c",
+      col.names = c("Variable", "PC1", "PC2", "PC3"),
+      caption = "PCA loadings for the first three principal components. Values close to ±1 indicate strong association with the component.") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE) %>%
+  column_spec(1, bold = TRUE)
+```
+
+**Interpretation of loadings:**
+
+-   **PC1** has large positive loadings for width, length, thickness, volume, wet weight, and dry weight. This component represents overall **seed size** — seeds scoring high on PC1 are large in all dimensions.
+-   **PC2** has a large positive loading for moisture content and a contrasting loading for dry weight. This component represents a **water content gradient**, distinguishing seeds that retain relatively more or less moisture relative to their dry mass.
+
+### PCA Biplot
+
+A **biplot** simultaneously displays the PC scores of observations (as points) and the loadings of variables (as arrows). Arrows pointing in the same direction indicate positively correlated variables; arrows pointing in opposite directions indicate negatively correlated variables; arrows that are roughly perpendicular are uncorrelated. The length of an arrow is proportional to how well the variable is represented in the reduced PCA space (Figure \@ref(fig:biplot)).
+
+```{r biplot, echo=FALSE, fig.cap="PCA biplot of seed morphological data for three tropical tree species. Points represent individual seeds coloured by species; arrows show variable loadings on PC1 and PC2. The percentage of variance explained by each axis is shown in parentheses.", fig.height=6, fig.width=7, message=FALSE, warning=FALSE}
+
+if(!require("ggrepel", character.only = TRUE)) {
+  install.packages("ggrepel", dependencies = TRUE)
+}
+library(ggrepel)
+
+# PC scores
+scores <- as.data.frame(pca_result$x[, 1:2])
+scores$species <- seed$species
+
+# Loadings scaled for biplot
+load_scale <- 3
+loadings_plot <- as.data.frame(pca_result$rotation[, 1:2] * load_scale)
+loadings_plot$variable <- c("Width", "Length", "Thickness", "Volume",
+                             "Coat thick.", "Wet wt.", "Dry wt.", "Moisture")
+
+# Variance labels
+pct1 <- round(pct_var[1], 1)
+pct2 <- round(pct_var[2], 1)
+
+ggplot() +
+  # Points
+  geom_point(data = scores, aes(x = PC1, y = PC2, colour = species, shape = species),
+             size = 2.5, alpha = 0.8) +
+  # Arrows
+  geom_segment(data = loadings_plot,
+               aes(x = 0, y = 0, xend = PC1, yend = PC2),
+               arrow = arrow(length = unit(0.2, "cm")),
+               colour = "black", linewidth = 0.7) +
+  # Variable labels
+  geom_text_repel(data = loadings_plot,
+                  aes(x = PC1, y = PC2, label = variable),
+                  size = 3.5, colour = "black", fontface = "bold") +
+  # Reference lines
+  geom_hline(yintercept = 0, linetype = "dashed", colour = "grey60") +
+  geom_vline(xintercept = 0, linetype = "dashed", colour = "grey60") +
+  labs(
+    x = paste0("PC1 (", pct1, "% variance explained)"),
+    y = paste0("PC2 (", pct2, "% variance explained)"),
+    colour = "Species", shape = "Species"
+  ) +
+  theme_bw() +
+  theme(
+    legend.position = "bottom",
+    legend.title = element_blank(),
+    legend.text = element_text(face = "italic", size = 10),
+    axis.title = element_text(size = 11)
+  )
+```
+
+**Interpretation of the biplot:**
+
+-   The three species are well separated along **PC1** (the size axis). *Garcinia cowa* seeds (large, heavy) score high on PC1, while *Cinnamomum caudatum* seeds (small, light) score low. *Erythrina subumbrans* is intermediate.
+-   Along **PC2**, *Erythrina subumbrans* tends to score higher, suggesting its seeds have relatively higher moisture content for their dry mass compared with the other two species.
+-   Length, width, thickness, volume, wet weight, and dry weight arrows all point in roughly the same direction, confirming that these size-related traits are strongly positively correlated.
+-   Moisture content points in a distinct direction from dry weight, indicating it is not strongly correlated with dry mass — moisture is a separate axis of variation.
+
+### Reporting PCA Results
+
+> "A principal component analysis was conducted on eight seed morphological traits (width, length, thickness, volume, coat thickness, wet weight, dry weight, and moisture content) for 60 seeds from three tropical tree species, using the correlation matrix. Based on Kaiser's rule (eigenvalue ≥ 1), the first `r sum(eigenvalues >= 1)` principal components were retained, explaining `r cum_var[sum(eigenvalues >= 1)]`% of the total variance. PC1 (explaining `r pct_var[1]`% of variance) had high positive loadings for all size-related traits and is interpreted as a **seed size** axis. PC2 (explaining `r pct_var[2]`% of variance) was strongly loaded by moisture content and is interpreted as a **moisture content** axis. The biplot showed clear separation among the three species, primarily along PC1, with *Garcinia cowa* occupying the high-size end, *Cinnamomum caudatum* the low-size end, and *Erythrina subumbrans* in an intermediate position with relatively higher moisture content."
+
+## Summary of PCA
+
+Table \@ref(tab:pca-summary) summarises the key decision points when performing PCA.
+
+```{r pca-summary, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+sum_df <- data.frame(
+  Step = c("Matrix choice", "Retention criterion 1", "Retention criterion 2", 
+           "Interpreting components", "Visualisation"),
+  Decision = c("Correlation matrix if variables have different units or scales",
+               "Kaiser's rule: retain PCs with eigenvalue > 1",
+               "Retain enough PCs for cumulative variance > 50–70%",
+               "Examine loadings; high |loading| (> 0.5) indicates strong association",
+               "Biplot — simultaneously shows scores and loadings")
+)
+
+sum_df %>%
+  kbl(align = "l",
+      col.names = c("Step", "Guidance"),
+      caption = "Key decision points in PCA") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = TRUE) %>%
+  column_spec(1, bold = TRUE)
+```
+
+## Exercise
+
+**Scenario:** Use the seed morphology dataset (`seed3spp.csv`) to answer the following questions.
+
+1.  Why is the correlation matrix more appropriate than the covariance matrix for this dataset? List the units of at least three variables to justify your answer.
+
+2.  How many principal components would you retain based on (a) Kaiser's rule and (b) the scree plot? Do the two criteria agree?
+
+3.  What biological trait does PC1 represent? Name the three variables with the largest loadings on PC1 and explain what they have in common.
+
+4.  Look at the biplot. Which species is most distinct from the other two? Along which axis (PC1 or PC2) is it most separated, and what does this suggest biologically?
+
+5.  The researcher plans to include a fourth species, *Duabanga grandiflora*, which produces very small, lightweight seeds with high moisture content. Predict where this species would appear on the biplot (high or low PC1? high or low PC2?) and explain your reasoning.
+
+6.  **(Challenge)** Re-run the PCA using only the three variables — length, width, and thickness — without standardising (`scale. = FALSE`). Compare the results with the full analysis using the correlation matrix. What changes and why?
+
+---
+
+## Reference
+
+-   Anderson, E. (1935). The irises of the Gaspé Peninsula. *Bulletin of the American Iris Society*, 59, 2–5.
+-   Fisher, R. A. (1936). The use of multiple measurements in taxonomic problems. *Annals of Eugenics*, 7, 179–188.
+-   Jaadi, Z. Step-by-step explanation of Principal Component Analysis. https://builtin.com/data-science/step-step-explanation-principal-component-analysis
+-   Pearson, K. (1901). On lines and planes of closest fit to systems of points in space. *Philosophical Magazine*, 2(11), 559–572.
+-   Tabachnick, B. G., & Fidell, L. S. (1989). *Using Multivariate Statistics* (2nd ed.). Harper & Row.
+-   Tabachnick, B. G., & Fidell, L. S. (1996). *Using Multivariate Statistics* (3rd ed.). Harper Collins.
