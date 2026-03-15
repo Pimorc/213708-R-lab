@@ -368,7 +368,7 @@ On the other hand, when there is an interaction between block and the treatment 
 knitr::include_graphics("figures/fig6-9inter.png")
 ```
 
-##### Nested design
+##### Nested design {#nested-design-section}
 
 A nested design is a type of experimental design where one factor is contained entirely within the levels of another factor or multiple measurements taken within each experimental unit. This structure is used when experimental units are organized in a hierarchy, and the levels of one factor (the nested factor) are not repeated across the levels of another. For example, if leaves are sampled from different trees, and each leaf only belongs to one tree, then "leaf" is nested within "tree."
 
