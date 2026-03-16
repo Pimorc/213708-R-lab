@@ -117,11 +117,11 @@ Experimental units are divided into subgroups (strata) based on a characteristic
 knitr::include_graphics("figures/2p6.jpg")
 ```
 
-### Replication
+### Replication {#replication}
 
 Replication refers to the repetition of the same experimental conditions multiple times. Replication increases the reliability and credibility of experimental outcomes. In addition, replication ensures that the findings are not due to random chance, variability, or specific conditions of a single experiment.
 
-The concept of an experimental unit is essential to ensure that there is true replication. The experimental unit is the smallest unit of test subjects or materials that treatments are applied independently. For example, in Figure \@ref(fig:fertilizer-design) the smallest unit that a treatment is applied to is a gray planting pot. The experiment only has one replication. There are two ways to solve the replication issue. First, the researcher must separate the three seedlings into each individual pot and apply the treatments to them. Second, the researcher must use multiple pots of three seedlings each for one treatment (Figure \@ref(fig:replicates)).
+The concept of **an experimental unit** is essential to ensure that there is true replication. The experimental unit is the smallest unit of test subjects or materials that treatments are applied independently. For example, in Figure \@ref(fig:fertilizer-design) the smallest unit that a treatment is applied to is a gray planting pot. The experiment only has one replication. There are two ways to solve the replication issue. First, the researcher must separate the three seedlings into each individual pot and apply the treatments to them. Second, the researcher must use multiple pots of three seedlings each for one treatment (Figure \@ref(fig:replicates)).
 
 ```{r replicates, echo=FALSE, fig.cap="An alternative way to have replicates in a fertilizer experiment", out.width="80%"}
 knitr::include_graphics("figures/2p7.jpg")

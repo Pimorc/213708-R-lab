@@ -3,6 +3,7 @@ output:
   html_document: default
   pdf_document: default
 ---
+
 # Mixed Effects Models
 
 **Duration:** 2-hour lecture
@@ -14,7 +15,6 @@ Students should be able to:
 -   Describe the difference between fixed and random effects
 -   Describe replication versus pseudoreplication
 -   Specify and interpret random intercept and random slope models in R
--   Use the `lme4` package to fit mixed effects models
 -   Validate mixed effects model outputs
 
 ## Introduction
@@ -23,20 +23,32 @@ In many ecological and biological studies, data are collected from multiple leve
 
 **Mixed effects models** (also called multilevel models or hierarchical models) address this by separating the sources of variation in the data into two types of effects:
 
--   **Fixed effects**: the explanatory variables of primary interest (e.g., treatment, species)
--   **Random effects**: grouping variables that account for the non-independence of observations (e.g., individual, site, block)
+1.  **Fixed effects**: the explanatory variables of primary interest (e.g., treatment, species)
+2.  **Random effects**: grouping variables that account for the non-independence of observations (e.g., individual, site, block)
 
 Recall the general form of a linear regression:
 
 $$y_i = \alpha + \beta x_i + \varepsilon_i$$
 
-The **fixed effects** represent the deterministic part of the model — the effects we want to estimate. The **random effects** and **residual error** together represent the stochastic (random) part.
+The **fixed effects** represent the deterministic part of the model — the effects we want to estimate. The **random effects** and **residual error** together represent the stochastic (random) part (Figure \@ref(fig:effect-chart)).
+
+```{r effects-chart, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+knitr::include_graphics("figures/12_1.png")
+```
 
 ## Fixed Effects vs. Random Effects
 
 Understanding the conceptual distinction between fixed and random effects is essential before fitting mixed effects models (Table \@ref(tab:effects-table)).
 
 ```{r effects-table, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+if(!require("knitr", character.only = TRUE)) {
+  install.packages("knitr", dependencies = TRUE)}
+if(!require("kableExtra", character.only = TRUE)) {
+  install.packages("kableExtra", dependencies = TRUE)}
+if(!require("ggplot2", character.only = TRUE)) {
+  install.packages("ggplot2", dependencies = TRUE)}
+
+library(ggplot2)
 library(knitr)
 library(kableExtra)
 
@@ -78,13 +90,21 @@ kbl(examples_df,
 
 ## Replication and Pseudoreplication
 
-Before fitting any model, it is important to correctly identify your **sample unit** — the smallest unit that independently received the treatment.
+Before fitting any model, it is important to correctly identify your **experimental unit** or **sample unit** — the smallest unit that independently received the treatment (Lesson 2 \@ref(replication)).
 
 **Pseudoreplication** occurs when observations that are not truly independent are treated as independent replicates. There are two common forms:
 
-**Spatial pseudoreplication** arises when multiple measurements are taken from the same vicinity — for example, measuring several leaves from the same plant, or several plants in the same pot. Each leaf or plant is not an independent replicate; the pot or plant is.
+1. **Spatial pseudoreplication** arises when multiple measurements are taken from the same vicinity — for example, measuring several leaves from the same plant, or several plants in the same pot. Each leaf or plant is not an independent replicate; the pot or plant is.
 
-**Temporal pseudoreplication** arises when data are collected from the same sampling unit on successive occasions. Because they share the same history, repeated measurements from the same individual are not independent. These are sometimes called repeated measures.
+```{r spatial-rep, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+knitr::include_graphics("figures/12_2_spatial_rep.png")
+```
+
+2. **Temporal pseudoreplication** arises when data are collected from the same sampling unit on successive occasions. Because they share the same history, repeated measurements from the same individual are not independent. These are sometimes called repeated measures.
+
+```{r temporal-rep, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+knitr::include_graphics("figures/12_3_temporal_rep.png")
+```
 
 Mixed effects models provide an elegant solution to both forms of pseudoreplication: the grouping unit (the plant, pot, individual, or site) is included as a **random effect**, which accounts for the correlation among observations within the same group.
 
@@ -121,30 +141,33 @@ df_ris <- do.call(rbind, lapply(groups, function(g) {
 
 p1 <- ggplot(df_ri, aes(x, y, colour = group)) +
   geom_smooth(method = "lm", se = FALSE, linewidth = 0.8) +
-  labs(title = "Random Intercepts", x = "Explanatory variable", y = "Response") +
+  labs(title = "A. Random Intercepts", x = "Explanatory variable", y = "Response") +
   theme_bw() + theme(legend.position = "none",
                      plot.title = element_text(size = 10, face = "bold"))
 
 p2 <- ggplot(df_rs, aes(x, y, colour = group)) +
   geom_smooth(method = "lm", se = FALSE, linewidth = 0.8) +
-  labs(title = "Random Slopes", x = "Explanatory variable", y = "Response") +
+  labs(title = "B. Random Slopes", x = "Explanatory variable", y = "Response") +
   theme_bw() + theme(legend.position = "none",
                      plot.title = element_text(size = 10, face = "bold"))
 
 p3 <- ggplot(df_ris, aes(x, y, colour = group)) +
   geom_smooth(method = "lm", se = FALSE, linewidth = 0.8) +
-  labs(title = "Random Intercepts & Slopes", x = "Explanatory variable", y = "Response") +
+  labs(title = "C. Random Intercepts & Slopes", x = "Explanatory variable", y = "Response") +
   theme_bw() + theme(legend.position = "none",
                      plot.title = element_text(size = 10, face = "bold"))
 
 p1 + p2 + p3
 ```
 
-### R Syntax for Random Effects
 
-In R (using the `lme4` package), random effects are specified inside parentheses in the model formula (Table \@ref(tab:syntax-table)).
 
-```{r syntax-table, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+```{r syntax-table, echo=FALSE, message=FALSE, warning=FALSE, results='asis', include=FALSE}
+
+### R Syntax for Random Effects (This section is not in the actual material)
+
+#In R (using the `lme4` package), random #effects are specified inside parentheses in #the model formula (Table #\@ref(tab:syntax-table)).
+
 syntax_df <- data.frame(
   Type = c("Random intercepts only",
            "Random slopes only (no random intercept)",
@@ -171,32 +194,10 @@ Mixed effects models are more flexible than standard ANOVA because they:
 -   Can be used on data that violate some ANOVA assumptions (e.g., independence of observations)
 -   Can handle **unbalanced designs** (unequal sample sizes per group)
 -   Can include many kinds of explanatory variables — continuous and categorical
--   Properly account for the **hierarchical or nested structure** in ecological data
+-   Properly account for the **hierarchical or nested structure** in ecological data (Lesson \@ref(nested-design-section))
 -   Can be extended to non-normal response variables using **Generalized Linear Mixed Effects Models (GLMMs)**
 
-## A Conceptual Example: Species Richness on Beaches
-
-Before working through a detailed biological example, it is helpful to understand random intercept and slope models using the classic RIKZ dataset (Zuur et al. 2009), in which species richness of macro-invertebrates was measured at multiple sites within each of nine beaches. Here, NAP (height relative to mean tidal level) is a fixed effect, and Beach is a random effect.
-
-### Random Intercept Model
-
-$$Y_{ij} = \alpha + \beta_1 \cdot \text{NAP}_{ij} + \beta_i \cdot \text{Beach}_i + \varepsilon_{ij}$$
-
-In R: `Richness ~ NAP + (1 | Beach)`
-
-This allows each beach to have its own intercept (baseline richness level), while the slope of NAP is the same for all beaches. The black line in the figure represents the overall fixed effect; coloured lines are per-beach fitted lines.
-
-### Random Intercept and Slope Model
-
-$$Y_{ij} = \alpha + (\beta_1 + s_i) \cdot \text{NAP}_{ij} + \beta_i \cdot \text{Beach}_i + \varepsilon_{ij}$$
-
-In R: `Richness ~ NAP + (1 + NAP | Beach)`
-
-This allows each beach to have both its own intercept and its own slope for NAP, reflecting that the relationship between height and species richness may differ across beaches.
-
----
-
-## Example: Nursery Propagation Systems and Tree Performance
+## Example: Nursery Propagation Systems and Tree Performance @Chaiklang2025
 
 ### Background
 
@@ -204,9 +205,9 @@ Chaiklang et al. (2025) conducted an experiment testing whether growing tropical
 
 The experiment used five framework tree species (*Saraca indica*, *Sandoricum koetjape*, *Cleistocalyx operculatus*, *Lepisanthes rubiginosa*, and *Garcinia hombroniana*) and compared three nursery production systems:
 
--   **CON** (control): polybags standing directly on the ground
--   **COB**: polybags in crates raised on wire benches
--   **COG**: polybags in crates placed on the ground
+1.  **CON** (control): polybags standing directly on the ground
+2.  **COB**: polybags in crates raised on wire benches
+3.  **COG**: polybags in crates placed on the ground
 
 Crating was hypothesised to promote **air root-pruning**, stimulating better root development and improving field performance. The experiment used a **randomised complete block design (RCBD)** with three replicates (blocks) per species.
 
@@ -217,7 +218,7 @@ The key analysis question was: *Does treatment (CON, COB, COG) affect sapling gr
 However, the data have a hierarchical structure:
 - Multiple saplings were observed per replicate block
 - Species and treatments were crossed
-- The replicate block is not a treatment of interest — it is a nuisance variable capturing spatial variation in the nursery
+- The replicate block is not a treatment of interest. it is a nuisance variable capturing spatial variation in the nursery
 
 **Treatment** and **Species** are therefore **fixed effects**; **Replicate** (block location in the nursery) is a **random effect**. The general model structure used by Chaiklang et al. (2025) was:
 
@@ -447,9 +448,9 @@ No strong patterns in the residual plot and approximate linearity in the Q-Q plo
 
 ### Reporting Results
 
-> A linear mixed effects model (lme4; Bates et al. 2015) was used to assess the effects of nursery production system (CON, COB, COG) and species on the relative height growth rate (RGR-H) of five framework tree species after planting out. Treatment and species were included as fixed effects along with their interaction. Replicate (block location in the nursery) was included as a random intercept to account for spatial variability. Significant effects of treatment (F = `r round(anova_ch["Treatment","F value"], 2)`, P < 0.05), species (F = `r round(anova_ch["Species","F value"], 2)`, P < 0.05), and their interaction (F = `r round(anova_ch["Treatment:Species","F value"], 2)`, P < 0.05) were detected. Post-hoc comparisons (Tukey HSD) showed that both crating treatments (COB and COG) significantly increased mean RGR-H compared with the control for most species, consistent with the hypothesis that crating promotes air root-pruning and improves post-planting sapling performance.
+> A linear mixed effects model (lme4; Bates et al. 2015) was used to assess the effects of nursery production system (CON, COB, COG) and species on the relative height growth rate (RGR-H) of five framework tree species after planting out. Treatment and species were included as fixed effects along with their interaction. Replicate (block location in the nursery) was included as a random intercept to account for spatial variability. Significant effects of treatment (F = `r round(anova_ch["Treatment","F value"], 2)`, P \< 0.05), species (F = `r round(anova_ch["Species","F value"], 2)`, P \< 0.05), and their interaction (F = `r round(anova_ch["Treatment:Species","F value"], 2)`, P \< 0.05) were detected. Post-hoc comparisons (Tukey HSD) showed that both crating treatments (COB and COG) significantly increased mean RGR-H compared with the control for most species, consistent with the hypothesis that crating promotes air root-pruning and improves post-planting sapling performance.
 
----
+------------------------------------------------------------------------
 
 ## Generalised Linear Mixed Effects Models (GLMMs)
 
@@ -505,7 +506,7 @@ kbl(pkg_df,
   column_spec(1, bold = TRUE, monospace = TRUE)
 ```
 
----
+------------------------------------------------------------------------
 
 ## Exercise
 
@@ -525,7 +526,7 @@ You are re-analysing a subset of the Chaiklang et al. (2025) dataset. The respon
 
 4.  After fitting the model, you find the following variance components:
 
-```
+```         
 Random effects:
  Groups    Name        Variance  Std.Dev.
  Replicate (Intercept)  9.2       3.03
@@ -534,20 +535,20 @@ Random effects:
 
 What percentage of the total variance is attributable to the replicate blocks? What does this tell you about the importance of including Replicate as a random effect?
 
-5.  The ANOVA table shows a significant Treatment × Species interaction (P < 0.001). Explain in plain language what this means biologically, using the Chaiklang et al. study as context.
+5.  The ANOVA table shows a significant Treatment × Species interaction (P \< 0.001). Explain in plain language what this means biologically, using the Chaiklang et al. study as context.
 
 **Scenario C:** (Question 6)
 
 6.  For each situation below, decide whether a **fixed** or **random** effect is more appropriate and justify your answer.
 
 | Variable | Fixed or Random? | Justification |
-|----------|-----------------|---------------|
-| Fertilizer treatment (4 specific types tested) | | |
-| Individual tree identity (100 trees sampled) | | |
-| Forest site (3 sites purposely selected as degraded, medium, good) | | |
-| Year of measurement (random sample of 5 years from a 20-year monitoring series) | | |
+|------------------|-----------------------------|-------------------------|
+| Fertilizer treatment (4 specific types tested) |  |  |
+| Individual tree identity (100 trees sampled) |  |  |
+| Forest site (3 sites purposely selected as degraded, medium, good) |  |  |
+| Year of measurement (random sample of 5 years from a 20-year monitoring series) |  |  |
 
----
+------------------------------------------------------------------------
 
 ## References
 
