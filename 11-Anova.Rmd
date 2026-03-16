@@ -525,6 +525,7 @@ kable_styling(bootstrap_options = "striped", full_width = F)
 ```
 
 ## Reporting ANOVA Results
+
 The following paragraph presents the written report for ANOVA.
 
 > "An analysis of variance (ANOVA) was conducted to evaluate the effect of fertilizer treatment (Control, Fertilizer A, and B) on final plant height. There was a significant effect of fertilizer treatment on final plant height (F(2, 18) = `r round(anova_results$"F value"[1], digit = 2)`, P < 0.001, η² = `r round(sse/ss_total, digit = 2)`). 
@@ -1052,6 +1053,8 @@ ANCOVA is **not appropriate** when:
    - Solution: Consider structural equation modeling or reliability correction
 
 ## Reporting ANCOVA Results of the Fertilizer Experiment
+
+The following paragraph presents the written report for ANCOVA.
 
 > "An analysis of covariance (ANCOVA) was conducted to evaluate the effect of fertilizer treatment (Control, Organic, Synthetic) on final plant height after 8 weeks, while controlling for initial seedling height. The assumption of homogeneity of regression slopes was tested and satisfied (F(2, 39) = `r round(summary(interaction_model)[[1]]["Initial_Height:Fertilizer", "F value"], digit = 2)`, P = `r round(summary(interaction_model)[[1]]["Initial_Height:Fertilizer", "Pr(>F)"], digit = 2)`), indicating that the relationship between initial and final height was similar across all fertilizer treatments. 
 >
