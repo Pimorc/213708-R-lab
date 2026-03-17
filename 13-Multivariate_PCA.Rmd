@@ -198,11 +198,11 @@ arrows(5.5, 4.5, 4.2, 4.1, col = "steelblue4", lwd = 2.5, length = 0.15)
 text(4.0, 4.3, expression(italic(C[2])), col = "steelblue4", cex = 1.1, font = 2)
 ```
 
-## Steps in Performing PCA ()
+## Steps in Performing PCA 
 
-Following Zakaria Jaadi's step-by-step explanation, PCA proceeds as follows:
+PCA proceeds as follows [@jaadi2025pca]:
 
-1.  **Standardise the continuous variables** — subtract the mean and divide by the standard deviation (if using the correlation matrix).
+1.  **Standardize the continuous variables** — subtract the mean and divide by the standard deviation (if using the correlation matrix).
 
 2.  **Compute the covariance or correlation matrix** — this captures all pairwise relationships between variables.
 
@@ -239,12 +239,12 @@ axis(1, at = 1:12)
 abline(v = 2, lty = 2, col = "red", lwd = 1.5)
 abline(h = 1, lty = 3, col = "gray40", lwd = 1.5)
 legend("topright", legend = c("Elbow (retain up to here)", "Kaiser threshold (eigenvalue = 1)"),
-       lty = c(2, 3), col = c("red", "gray40"), bty = "n", cex = 0.85)
+       lty = c(2, 3), col = c("red", "gray40"), bty = "n", cex = 1)
 ```
 
 ## Example: PCA of Seed Morphology Data
 
-To illustrate PCA in practice, we use a dataset of seed morphological measurements from three tropical tree species collected in northern Thailand:
+To illustrate PCA in practice, we use a dataset of seed morphological measurements from three tropical tree species collected in northern Thailand ():
 
 -   *Cinnamomum caudatum* (Lauraceae)
 -   *Erythrina subumbrans* (Fabaceae)
@@ -254,21 +254,32 @@ Twenty seeds were measured per species ($n = 60$ total). The measured variables 
 
 ### Loading and Exploring the Data
 
-```{r load-data, echo=TRUE, message=FALSE, warning=FALSE}
+```{r load-data, echo=FALSE, message=FALSE, warning=FALSE}
 library(dplyr)
 library(ggplot2)
 library(knitr)
 library(kableExtra)
 
 # Load data
-seed <- read.csv("seed3spp.csv")
+seed <- read.csv("data/seed3spp.csv")
 
 # Create species label
 seed$species <- paste(seed$genus, seed$epithet)
 seed$species <- trimws(seed$species)
 
 # Preview
-head(seed)
+seed.head <- head(seed)[, -c(1:2)]
+seed.for.table <- seed.head %>%
+  relocate(species)
+
+### Thsi is not done yet
+seed.for.table %>% 
+  kbl(align = "c",
+      col.names = c("Species", "Seed ID", "Width (mm)", "Length (mm)",
+                    "Width (mm)" ,"Width (mm)"),
+      caption = "Plant height under different fertilizer treatments") %>%
+  kable_styling(full_width = F) %>%
+  column_spec(1, bold = TRUE)
 ```
 
 ```{r summary-seed, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
