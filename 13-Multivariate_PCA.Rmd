@@ -3,9 +3,9 @@ output:
   html_document: default
   pdf_document: default
 ---
-# Multivariate Analysis and Principal Component Analysis (PCA)
+# Multivariate Analysis
 
-**Duration:** 2-hour lecture
+**Duration:** 4-hour lecture
 
 ## Learning Outcomes
 
@@ -16,11 +16,10 @@ Students should be able to:
 -   Explain the concept of ordination and dimensionality reduction
 -   Describe how Principal Component Analysis (PCA) works
 -   Interpret PCA outputs including eigenvalues, eigenvectors, and biplots
--   Perform and interpret PCA in R using real ecological data
 
 ## Introduction
 
-In ecology and biology, researchers often collect measurements on many variables simultaneously — such as morphological traits, environmental gradients, or species abundances. Analysing each variable separately can miss important patterns and relationships that exist across variables together. **Multivariate analysis** refers to a family of statistical techniques designed to analyse data sets in which multiple variables are measured on each observation simultaneously.
+In ecology and biology, researchers often collect measurements on many variables simultaneously — such as morphological traits, environmental gradients, or species abundances. Analysing each variable separately can miss important patterns and relationships that exist across variables together. **Multivariate analysis** refers to a family of statistical techniques designed to analyse data sets in which multiple variables are measured on each observation simultaneously [@gotelli2013].
 
 Multivariate methods allow researchers to:
 
@@ -29,7 +28,7 @@ Multivariate methods allow researchers to:
 -   Reduce the dimensionality of data while retaining most of the information
 -   Generate hypotheses for further study
 
-A classic example is the Iris dataset (Anderson 1935, published by Fisher 1936), which contains four morphological measurements — petal width, petal length, sepal width, and sepal length — for 150 specimens across three *Iris* species. No single variable cleanly separates the species, but multivariate analysis can reveal the underlying structure effectively.
+A classic example is the Iris dataset (@Anderson1935, published by @Fisher1936), which contains four morphological measurements — petal width, petal length, sepal width, and sepal length — for 150 specimens across three *Iris* species. No single variable cleanly separates the species, but multivariate analysis can reveal the underlying structure effectively.
 
 ## Two Main Categories of Multivariate Techniques
 
@@ -75,7 +74,7 @@ mv_table %>%
 
 ## Ordination and Data Reduction
 
-**Ordination** is the process of ordering or arranging sampling units along axes that represent major gradients of variation in the data. Rather than working in a high-dimensional space with many variables, ordination reduces the data to two or three summary axes that capture the most important patterns.
+**Ordination** is the process of ordering or arranging sampling units along axes that represent major gradients of variation in the data [@gotelli2013]. Rather than working in a high-dimensional space with many variables, ordination reduces the data to two or three summary axes that capture the most important patterns.
 
 The key benefits of ordination are:
 
@@ -87,7 +86,7 @@ Formally, ordination summarises a dataset containing $n$ variables into a smalle
 
 ## What is Principal Component Analysis?
 
-**Principal Component Analysis (PCA)** is one of the most widely used exploratory multivariate techniques. It was introduced by Karl Pearson in 1901 in his paper *"On Lines and Planes of Closest Fit to Systems of Points in Space"* and further developed by Harold Hotelling in the 1930s.
+**Principal Component Analysis (PCA)** is one of the most widely used exploratory multivariate techniques. It was introduced by Karl Pearson in 1901 [@Pearson1901] in his paper *"On Lines and Planes of Closest Fit to Systems of Points in Space"* and further developed by Harold Hotelling [@Hotelling1933].
 
 The core idea of PCA is to find a small number of **linear combinations** of the original variables — called **principal components (PCs)** — that capture as much of the variation in the data as possible. Mathematically, if the original data have variables $X_1, X_2, \ldots, X_n$, PCA finds new composite variables:
 
@@ -173,7 +172,7 @@ matrix_df %>%
   column_spec(1, bold = TRUE)
 ```
 
-### Orthogonality
+### Orthogonality THIS Need some work.
 
 A key property of principal components is that they are **orthogonal** — they are perpendicular to one another in multivariate space. This means each principal component captures a completely independent (uncorrelated) dimension of variation. The first PC captures the direction of maximum variance, the second captures the next greatest variance in a direction perpendicular to the first, and so on (Figure \@ref(fig:pca-concept)).
 
@@ -199,7 +198,7 @@ arrows(5.5, 4.5, 4.2, 4.1, col = "steelblue4", lwd = 2.5, length = 0.15)
 text(4.0, 4.3, expression(italic(C[2])), col = "steelblue4", cex = 1.1, font = 2)
 ```
 
-## Steps in Performing PCA
+## Steps in Performing PCA ()
 
 Following Zakaria Jaadi's step-by-step explanation, PCA proceeds as follows:
 
