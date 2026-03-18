@@ -6,12 +6,11 @@
 
 Students should be able to:
 
--   Give some examples of types of regression analyses
--   Determine the assumptions of linear regression
--   Identify if data are suitable for regression analysis
--   Determine the steps for doing regression analysis
--   Determine link functions to be used for different data types
--   Identify the problems with fitting generalized linear models and adjust the models
+1.   Give some examples of types of regression analyses
+2.   Identify if data are suitable for regression analysis
+3.   Determine the steps for doing regression analysis
+4.   Determine link functions to be used for different data types
+5.   Identify the problems with fitting generalized linear models and adjust the models
 
 ## Introduction
 

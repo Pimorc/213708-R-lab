@@ -6,9 +6,9 @@
 
 Students should be able to:
 
--   Describe the meaning of P-value
--   Perform classical hypothesis tests
--   Distinguish between null and alternative hypothesis
+1.   Describe the meaning of P-value
+2.   Perform classical hypothesis tests
+3.   Distinguish between null and alternative hypothesis
 
 ## Introduction
 

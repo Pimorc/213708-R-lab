@@ -6,9 +6,9 @@
 
 Students should be able to:
 
-- Identify suitable type of models according to response and explanatory variables
-- Apply the steps of model selection with different datasets
-- Explain model validation
+1.     Identify suitable type of models according to response and explanatory variables
+2.    Apply the steps of model selection with different datasets
+3.    Explain model validation
 
 ## Introduction
 

@@ -11,11 +11,11 @@ output:
 
 Students should be able to:
 
--   Describe common terminology relating to ANOVA
--   Determine steps for performing ANOVA and ANCOVA
--   Identify when to use ANCOVA versus ANOVA
--   Explain the purpose of covariates in experimental design
--   Interpret ANOVA and ANCOVA results and post-hoc tests
+1.   Describe common terminology relating to ANOVA
+2.   Determine steps for performing ANOVA and ANCOVA
+3.   Identify when to use ANCOVA versus ANOVA
+4.   Explain the purpose of covariates in experimental design
+5.   Interpret ANOVA and ANCOVA results and post-hoc tests
 
 ## Introduction
 
