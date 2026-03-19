@@ -588,7 +588,7 @@ A useful way to remember the distinction: PCA asks *"where is the most variation
 
 ## The Logic of LDA
 
-LDA finds linear combinations of predictor variables — called **discriminant functions** — that maximise the ratio of **between-group variance** to **within-group variance**. Intuitively, a good discriminant function spreads the group means far apart while keeping the observations within each group tightly clustered.
+LDA finds linear combinations of predictor variables — called **discriminant functions** — that maximise the ratio of **between-group variance** to **within-group variance**. A good discriminant function spreads the group means far apart while keeping the observations within each group tightly clustered.
 
 For $p$ predictor variables and $g$ groups, the discriminant functions are:
 
@@ -600,14 +600,15 @@ where $b_{k1}, b_{k2}, \ldots, b_{kp}$ are the **discriminant coefficients** (an
 
 LDA decomposes total multivariate variance into two parts:
 
--   **Within-group scatter matrix ($\mathbf{W}$)**: summarises variation of observations around their own group mean. This is "noise" — variance that does not help separate groups.
+-   **Within-group scatter matrix ($\mathbf{W}$)**: summarizes variation of observations around their own group mean. This is "noise" — variance that does not help separate groups.
 -   **Between-group scatter matrix ($\mathbf{B}$)**: summarises how far apart the group means are from the overall mean. This is "signal" — variance that helps separate groups.
 
-LDA finds the axis that maximises $\mathbf{B} / \mathbf{W}$, the ratio of between-group to within-group dispersion. This is solved as an **eigenvalue problem** on the matrix $\mathbf{W}^{-1}\mathbf{B}$: the eigenvectors give the discriminant function coefficients and the eigenvalues indicate how much group separation each function achieves.
+LDA finds the axis that maximizes $\mathbf{B} / \mathbf{W}$, the ratio of between-group to within-group dispersion. This is solved as an **eigenvalue problem** on the matrix $\mathbf{W}^{-1}\mathbf{B}$: the eigenvectors give the discriminant function coefficients and the eigenvalues indicate how much group separation each function achieves.
 
 ### How Many Discriminant Functions?
 
-The maximum number of discriminant functions is $\min(p,\; g-1)$, where $p$ is the number of predictor variables and $g$ is the number of groups. With three species and eight morphological traits, we can extract at most $3 - 1 = 2$ discriminant functions.
+The maximum number of discriminant functions is $\min(p,\; g-1)$, 
+where $p$ is the number of predictor variables and $g$ is the number of groups. With three species and eight morphological traits, we can extract at most $3 - 1 = 2$ discriminant functions.
 
 ### Mahalanobis Distance and Classification
 
@@ -615,9 +616,25 @@ To classify a new observation, LDA computes its **Mahalanobis distance** to each
 
 ## Assumptions of LDA
 
-LDA rests on the following assumptions (Table \@ref(tab:lda-assumptions)):
+LDA has the following assumptions (Table \@ref(tab:lda-assumptions)):
 
 ```{r lda-assumptions, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+
+if(!require("knitr", character.only = TRUE)) {
+  install.packages("knitr", dependencies = TRUE)}
+if(!require("kableExtra", character.only = TRUE)) {
+  install.packages("kableExtra", dependencies = TRUE)}
+if(!require("ggplot2", character.only = TRUE)) {
+  install.packages("ggplot2", dependencies = TRUE)}
+if(!require("dplyr2", character.only = TRUE)) {
+  install.packages("dplyr", dependencies = TRUE)}
+
+
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+library(dplyr)
+
 ass_df <- data.frame(
   Assumption = c("Multivariate normality",
                  "Homogeneity of covariance matrices",
@@ -648,44 +665,44 @@ When the homogeneity of covariance assumption is violated, **Quadratic Discrimin
 
 ## Steps in Performing LDA
 
-1.  **Explore the data** — visualise group separation with boxplots and a PCA or pairs plot.
+1.  **Explore the data** — visualize group separation with boxplots and a PCA or pairs plot.
 2.  **Check assumptions** — normality per group, homogeneity of covariance matrices, multicollinearity.
 3.  **Fit the LDA model** — compute discriminant functions from the training data.
 4.  **Examine discriminant function coefficients** — identify which variables contribute most to group separation.
-5.  **Plot discriminant scores** — visualise group separation in discriminant space.
+5.  **Plot discriminant scores** — visualize group separation in discriminant space.
 6.  **Evaluate classification accuracy** — construct a confusion matrix; perform cross-validation (leave-one-out) to estimate realistic classification rates.
 7.  **Report results** — state the percentage variance explained by each function, classification accuracy, and which variables best discriminated the groups.
 
 ## Example: LDA of Seed Morphology Data
 
-We continue with the seed morphology dataset used in the PCA chapter, comprising eight morphological measurements on 20 seeds each from three tropical tree species: *Cinnamomum caudatum*, *Erythrina subumbrans*, and *Garcinia cowa*. The research question is now explicitly supervised: **can we classify seeds to their correct species based on their morphological measurements, and which traits are most informative for doing so?**
+We continue with the seed morphology dataset used in the PCA example, comprising eight morphological measurements on 20 seeds each from three tropical tree species: *Cinnamomum caudatum*, *Erythrina subumbrans*, and *Garcinia cowa*. The research question is now explicitly supervised: 
+
+1. **Can we classify seeds to their correct species based on their morphological measurements**, and 
+2. **Which traits are most informative for classification?**
 
 ### Loading and Preparing the Data
 
-```{r load-data, echo=TRUE, message=FALSE, warning=FALSE}
+```{r load-data, echo=FALSE, message=FALSE, warning=FALSE}
 library(dplyr)
 library(ggplot2)
 library(knitr)
 library(kableExtra)
 library(MASS)       # for lda()
 
-# Load data
-seed <- read.csv("seed3spp.csv")
-seed$species <- trimws(paste(seed$genus, seed$epithet))
-seed$species  <- factor(seed$species)
+# Load data - data is there already.
 
 # Select trait variables and species label
-seed_traits <- seed %>%
-  select(species, width_mm, long_mm, thickness_mm, volume_mm3,
+seed_traits <- seed %>% 
+  select(species.abb, width_mm, long_mm, thickness_mm, volume_mm3,
          coat_thick_mm, wet_weight_g, dry_weight_g, moisture_percent)
 
 # Quick summary
-table(seed_traits$species)
+table(seed_traits$species.abb)
 ```
 
 ### Step 1: Explore the Data
 
-Before fitting LDA, we visualise how well individual traits separate the three species using boxplots (Figure \@ref(fig:explore-boxplots)) and a pairs plot of selected traits (Figure \@ref(fig:pairs-plot)).
+Before fitting LDA, we visualize how well individual traits separate the three species using boxplots (Figure \@ref(fig:explore-boxplots)) and a pairs plot of selected traits (Figure \@ref(fig:pairs-plot)).
 
 ```{r explore-boxplots, echo=FALSE, fig.cap="Boxplots of all eight seed morphological traits by species. Traits with little overlap between boxes are better candidates for group discrimination.", fig.height=7, fig.width=10, message=FALSE, warning=FALSE}
 library(tidyr)
@@ -1094,7 +1111,7 @@ sum_df <- data.frame(
   Guidance = c("Maximum = min(p, g − 1); often only the first 1–2 are meaningful",
                "Check assumptions — especially homogeneity of covariance matrices",
                "Standardised coefficients / structure matrix — identify key variables",
-               "Discriminant score plot — visualise group separation",
+               "Discriminant score plot — visualize group separation",
                "Confusion matrix — assess classification accuracy",
                "Always use cross-validation (LOOCV) for a realistic accuracy estimate")
 )
