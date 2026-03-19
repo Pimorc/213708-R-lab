@@ -14,9 +14,8 @@ Students should be able to:
 1.    Describe common terminology in multivariate analysis
 2.    Distinguish between dependence and interdependence techniques
 3.   Describe how Principal Component Analysis (PCA) works and interpret PCA outputs including eigenvalues, eigenvectors, and biplots
-4.   Explain the purpose and logic of Linear Discriminant Analysis (LDA)
-5.   Distinguish LDA from PCA and explain when each is appropriate
-6.   List and check the assumptions of LDA
+4.   Distinguish LDA from PCA and explain when each is appropriate
+5.   List and check the assumptions of LDA
 
 ## Introduction
 
@@ -762,20 +761,19 @@ library(ggplot2)
 
 ```
 
-
-
 ### Step 2: Check Assumptions
 
 #### Normality
 
-We test univariate normality of each trait within each species using the Shapiro-Wilk test. A non-significant result (p > 0.05) is consistent with normality.
+We test univariate normality of each trait within each species using the Shapiro-Wilk test. A non-significant result (p > 0.05) is consistent with normality. Here the normalliuty test was satisfied except for two  variables each of *E. subumbrans* and *G. cowa* (Table \@ref(tab:normality-test-lda)).
 
-```{r normality-test, echo=TRUE, message=FALSE, warning=FALSE, results='asis'}
+```{r normality-test-lda, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+library(dplyr)
 traits <- c("width_mm","long_mm","thickness_mm","volume_mm3",
             "coat_thick_mm","wet_weight_g","dry_weight_g","moisture_percent")
 
-norm_results <- lapply(unique(seed_traits$species), function(sp) {
-  sub <- seed_traits %>% filter(species == sp)
+norm_results <- lapply(unique(seed_traits$species.abb), function(sp) {
+  sub <- seed_traits %>% filter(species.abb == sp)
   lapply(traits, function(tr) {
     sw <- shapiro.test(sub[[tr]])
     data.frame(Species = sp, Trait = tr,
@@ -784,11 +782,15 @@ norm_results <- lapply(unique(seed_traits$species), function(sp) {
   }) %>% bind_rows()
 }) %>% bind_rows()
 
+library(kableExtra)
+
 norm_results %>%
   mutate(Result = ifelse(p_value >= 0.05, "Normal", "Non-normal")) %>%
+
   kbl(align = "c",
       col.names = c("Species", "Trait", "W statistic", "p-value", "Decision"),
-      caption = "Shapiro-Wilk normality test for each trait within each species. p > 0.05 is consistent with normality.") %>%
+      caption = "Shapiro-Wilk normality test for each trait within each species. P > 0.05 is consistent with normality.") %>%
+  remove_column(columns = 1) %>%
   kable_styling(bootstrap_options = c("striped", "hover"), full_width = TRUE) %>%
   column_spec(1, italic = TRUE) %>%
   row_spec(which(norm_results$p_value < 0.05), background = "#fff3cd")
@@ -796,22 +798,23 @@ norm_results %>%
 
 #### Homogeneity of Covariance Matrices
 
-Box's M test evaluates whether the covariance matrices are equal across groups. The test is sensitive to departures from normality; a significant result warrants caution but does not necessarily invalidate LDA, especially with balanced group sizes.
-
 ```{r boxm-test, echo=TRUE, message=FALSE, warning=FALSE}
 if(!require("biotools")) install.packages("biotools", dependencies = TRUE)
 library(biotools)
 
 boxm_result <- boxM(
   seed_traits[, traits],
-  seed_traits$species
+  seed_traits$species.abb
 )
 print(boxm_result)
 ```
 
+Box's M test evaluates whether the covariance matrices are equal across groups. The test is sensitive to departures from normality. In our example, the Box's M-test shows that the covariance matrix are not homogenous among species (Chi-sqaure = `r round(boxm_result$statistic, digit = 2)`, P-value < 0.01). The significant result warrants caution but does not necessarily invalidate LDA, especially with balanced group sizes like in the seed example (n = 20).   
+
+
 #### Multicollinearity
 
-We inspect the correlation matrix of the trait variables. Correlations above 0.90 indicate problematic multicollinearity.
+We inspect the correlation matrix of the trait variables. Correlations above 0.90 indicate problematic multicollinearity (Figure \@ref(fig:collinearity)). Some variables here are highly correlated with seed width. To reduce the multicollinearity, we retain three vairbles of width, dry weight and moisture and remove the variables length, volume, seed coat thickness, and wet weight from the lda model. 
 
 ```{r collinearity, echo=FALSE, fig.cap="Correlation matrix of seed morphological traits. Darker blue = strong positive correlation; white = no correlation. Highly correlated pairs (e.g., volume and dry weight) carry redundant information.", fig.height=5, fig.width=6, message=FALSE, warning=FALSE}
 if(!require("corrplot")) install.packages("corrplot", dependencies = TRUE)
@@ -824,7 +827,7 @@ rownames(cor_mat) <- colnames(cor_mat) <- c("Width","Length","Thickness",
 corrplot(cor_mat, method = "color", type = "upper",
          tl.col = "black", tl.srt = 45, tl.cex = 0.85,
          addCoef.col = "black", number.cex = 0.70,
-         col = colorRampPalette(c("white","steelblue","darkblue"))(200))
+         col = colorRampPalette(c("white", "cyan", "#619CFF"))(200))
 ```
 
 ### Step 3: Fit the LDA Model
@@ -832,8 +835,7 @@ corrplot(cor_mat, method = "color", type = "upper",
 ```{r fit-lda, echo=TRUE, message=FALSE, warning=FALSE}
 library(MASS)
 
-lda_model <- lda(species ~ width_mm + long_mm + thickness_mm + volume_mm3 +
-                   coat_thick_mm + wet_weight_g + dry_weight_g + moisture_percent,
+lda_model <- lda(species.abb ~ width_mm + dry_weight_g + moisture_percent,
                  data = seed_traits,
                  prior = rep(1/3, 3))   # equal prior probabilities
 
@@ -850,17 +852,15 @@ raw_coef <- as.data.frame(lda_model$scaling)
 
 # Standardise by multiplying by within-group SD of each variable
 pooled_sd <- seed_traits %>%
-  group_by(species) %>%
+  group_by(species.abb) %>%
   summarise(across(all_of(traits), sd), .groups = "drop") %>%
   summarise(across(all_of(traits), mean)) %>%
   unlist()
 
 std_coef <- sweep(lda_model$scaling, 1, pooled_sd, `*`)
 std_coef_df <- as.data.frame(round(std_coef, 3))
-std_coef_df$Variable <- c("Width (mm)", "Length (mm)", "Thickness (mm)",
-                           "Volume (mm³)", "Coat thickness (mm)",
-                           "Wet weight (g)", "Dry weight (g)", "Moisture (%)")
-std_coef_df <- std_coef_df %>% select(Variable, LD1, LD2)
+std_coef_df$Variable <- c("Width (mm)", "Dry weight (g)", "Moisture (%)")
+std_coef_df <- std_coef_df %>% dplyr::select(Variable, LD1, LD2)
 
 std_coef_df %>%
   kbl(align = "c",
@@ -874,7 +874,7 @@ std_coef_df %>%
 
 Each discriminant function's **eigenvalue** indicates how much between-group separation it achieves relative to within-group scatter. The proportion of variance attributed to each function shows its relative importance (Table \@ref(tab:eigenvalue-table)).
 
-```{r eigenvalue-table, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+```{r eigenvalue-table-lda, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 eig_vals <- lda_model$svd^2
 pct_eig  <- round(eig_vals / sum(eig_vals) * 100, 1)
 
@@ -902,13 +902,14 @@ Figure \@ref(fig:lda-scores) shows the discriminant scores of all 60 seeds on LD
 ```{r lda-scores, echo=FALSE, fig.cap="Scatter plot of discriminant scores on LD1 and LD2 for 60 seeds from three tropical tree species. Points coloured by species; ellipses show 95% confidence regions for each group centroid.", fig.height=5.5, fig.width=7, message=FALSE, warning=FALSE}
 # Predict discriminant scores
 lda_pred   <- predict(lda_model)
-scores_df  <- data.frame(lda_pred$x, species = seed_traits$species)
+scores_df  <- data.frame(lda_pred$x, species = seed_traits$species.abb)
 
 # Group centroids
 centroids <- scores_df %>%
   group_by(species) %>%
   summarise(LD1 = mean(LD1), LD2 = mean(LD2), .groups = "drop")
 
+library(ggplot2)
 ggplot(scores_df, aes(x = LD1, y = LD2, colour = species, fill = species)) +
   stat_ellipse(geom = "polygon", alpha = 0.10, level = 0.95, linewidth = 0.8) +
   geom_point(size = 2.5, alpha = 0.8) +
@@ -956,7 +957,7 @@ The **confusion matrix** cross-tabulates predicted group membership against true
 
 ```{r confusion-matrix, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 pred_class <- lda_pred$class
-conf_mat   <- table(True = seed_traits$species, Predicted = pred_class)
+conf_mat   <- table(True = seed_traits$species.abb, Predicted = pred_class)
 overall_acc <- round(sum(diag(conf_mat)) / sum(conf_mat) * 100, 1)
 
 conf_df <- as.data.frame.matrix(conf_mat)
@@ -978,15 +979,14 @@ conf_df %>%
 Resubstitution accuracy is **optimistic** because the model is evaluated on the same data used to fit it. A more honest estimate of classification performance comes from **leave-one-out cross-validation (LOOCV)**: each observation is removed, the LDA model is refitted on the remaining data, and the removed observation is then classified. This process is repeated for every observation.
 
 ```{r loocv, echo=TRUE, message=FALSE, warning=FALSE}
-lda_cv <- lda(species ~ width_mm + long_mm + thickness_mm + volume_mm3 +
-                coat_thick_mm + wet_weight_g + dry_weight_g + moisture_percent,
+lda_cv <- lda(species.abb ~ width_mm + dry_weight_g + moisture_percent,
               data = seed_traits,
               prior = rep(1/3, 3),
               CV = TRUE)   # CV = TRUE triggers LOOCV
 ```
 
 ```{r loocv-matrix, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
-conf_cv     <- table(True = seed_traits$species, Predicted = lda_cv$class)
+conf_cv     <- table(True = seed_traits$species.abb, Predicted = lda_cv$class)
 cv_acc      <- round(sum(diag(conf_cv)) / sum(conf_cv) * 100, 1)
 
 conf_cv_df <- as.data.frame.matrix(conf_cv)
@@ -1011,7 +1011,7 @@ For each observation, LDA computes the **posterior probability** of belonging to
 
 ```{r posterior-probs, echo=FALSE, fig.cap="Posterior probabilities of group membership for each seed, sorted by species. Stacked bars show the probability assigned to each of the three species. Seeds with mixed-colour bars are classified with lower certainty.", fig.height=5, fig.width=9, message=FALSE, warning=FALSE}
 post_df <- as.data.frame(lda_pred$posterior)
-post_df$true_species <- seed_traits$species
+post_df$true_species <- seed_traits$species.abb
 post_df$id           <- seq_len(nrow(post_df))
 
 # Sort within each species by posterior probability of true class
@@ -1020,6 +1020,8 @@ post_df <- post_df %>%
   arrange(true_species) %>%
   mutate(id = row_number()) %>%
   ungroup()
+
+library(tidyr)
 
 post_long <- post_df %>%
   pivot_longer(cols = -c(true_species, id),
@@ -1048,11 +1050,9 @@ To understand *which variables* drive group separation, we compare the standardi
 ```{r structure-matrix, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 # Compute structure matrix: correlations between variables and discriminant scores
 ld_scores <- as.matrix(lda_pred$x)
-X_scaled  <- scale(as.matrix(seed_traits[, traits]))
+X_scaled  <- scale(as.matrix(seed_traits[, c(2, 8, 9)]))
 struct_mat <- round(cor(X_scaled, ld_scores), 3)
-rownames(struct_mat) <- c("Width (mm)", "Length (mm)", "Thickness (mm)",
-                           "Volume (mm³)", "Coat thickness (mm)",
-                           "Wet weight (g)", "Dry weight (g)", "Moisture (%)")
+rownames(struct_mat) <- c("Width (mm)", "Dry weight (g)", "Moisture (%)")
 
 as.data.frame(struct_mat) %>%
   tibble::rownames_to_column("Variable") %>%
@@ -1067,29 +1067,29 @@ as.data.frame(struct_mat) %>%
 
 **Interpretation:**
 
--   **LD1** is most strongly correlated with overall size traits — volume, wet weight, dry weight, width, and length all have large positive correlations. This function separates the large-seeded *Garcinia cowa* from the other two species.
--   **LD2** is most strongly correlated with moisture content and coat thickness, providing additional separation between *Erythrina subumbrans* and *Cinnamomum caudatum* along a water-relations axis.
+-   **LD1** is most strongly correlated with overall size traits — dry weight, and width - all have large positive correlations. This function separates the large-seeded *Garcinia cowa* from the other two species.
+-   **LD2** is most strongly correlated with moisture content, providing additional separation between *Erythrina subumbrans* and *Cinnamomum caudatum* along a water-relations axis.
 
 ### Classifying a New (Unknown) Seed
 
 A key practical use of LDA is **predicting the species of an unknown specimen**. Suppose a researcher finds a seed in the field with the following measurements:
 
+- Width = 10 mm
+- Dry weight = 0.8 g
+- Moisture content = 25% 
+
 ```{r predict-new, echo=TRUE, message=FALSE, warning=FALSE}
 new_seed <- data.frame(
-  width_mm      = 10.5,
-  long_mm       = 20.1,
-  thickness_mm  = 9.8,
-  volume_mm3    = 900,
-  coat_thick_mm = 0.17,
-  wet_weight_g  = 1.1,
-  dry_weight_g  = 0.82,
-  moisture_percent = 25.5
+  width_mm      = 10,
+  dry_weight_g  = 0.8,
+  moisture_percent = 25
 )
 
 predict(lda_model, newdata = new_seed)
+
 ```
 
-The model assigns the unknown seed to the species with the highest posterior probability. The researcher can use this classification, together with the posterior probability, to judge their confidence in the identification.
+The model assigns the unknown seed to the species with the highest posterior probability. In our case, the LDA model predicts that the seed is likely to be *E. subumbrans* with posterior probability of 0.96. The researcher can use this classification, together with the posterior probability, to judge their confidence in the identification.
 
 ## Reporting LDA Results
 
@@ -1125,27 +1125,25 @@ sum_df %>%
   column_spec(1, bold = TRUE)
 ```
 
+
 ## Exercise
 
-**Scenario:** Use the seed morphology dataset (`seed3spp.csv`) to answer the following questions.
+1.    What is ordination in the context of multivariate analysis? 
 
-1.  Explain in your own words the difference between PCA and LDA. In what situation would you choose LDA over PCA?
+2.    What are the two categories of multivariate analysis techniques? Give two examples each of those types.
 
-2.  What is the maximum number of discriminant functions that can be extracted from this dataset (3 species, 8 variables)? Explain your reasoning.
+3.    Use the seed morphology dataset (Table \@ref(tab:seed-data)) to answer the following questions.
 
-3.  Look at the confusion matrix from resubstitution and from leave-one-out cross-validation.
-    -   Which species is most accurately classified? Which is least accurately classified?
-    -   Why is the cross-validated accuracy generally lower than the resubstitution accuracy?
+  3.1  Why is the correlation matrix more appropriate than the covariance matrix for this dataset? List the units of at least three variables to justify your answer.
+  3.2 What biological trait does PC1 represent? Name the three variables with the largest loadings on PC1 and explain what they have in common.
+  3.3 The researcher plans to include a fourth species, which produces very small, lightweight seeds with high moisture content. Predict where this species would appear on the biplot (high or low PC1? high or low PC2?) and explain your reasoning.
 
-4.  Using the structure matrix (Table \@ref(tab:structure-matrix)), name the **two variables** with the highest absolute correlation with LD1, and explain what biological characteristic of seeds this function represents.
+4.  Explain in your own words the difference between PCA and LDA. In what situation would you choose LDA over PCA?
 
-5.  A researcher measures a newly collected seed with the following traits: width = 8.0 mm, length = 15.5 mm, thickness = 8.2 mm, volume = 560 mm³, coat thickness = 0.16 mm, wet weight = 0.95 g, dry weight = 0.72 g, moisture = 24.2%. Modify the `new_seed` code chunk to classify this seed and report (a) the predicted species and (b) the posterior probabilities for all three species.
+5.  List the assumptions of LDA
 
-6.  The homogeneity of covariance matrices is an important assumption of LDA.
-    -   What test was used to evaluate this assumption in the example?
-    -   If this assumption is violated, what alternative method could be used?
-
-7.  **(Challenge)** Re-run the LDA using only the **three variables** with the highest absolute LD1 coefficients. Compare the cross-validated accuracy with the full eight-variable model. Does reducing the number of variables improve or worsen classification performance? Propose an explanation.
+  5.1   The homogeneity of covariance matrices is an important assumption of LDA. What test was used to evaluate this assumption in the example?
+  5.2   If this assumption is violated, what alternative method could be used?
 
 ---
 
@@ -1159,16 +1157,7 @@ sum_df %>%
 
 
 
-## Exercise
 
-1.    What are the two categories of multivariate analysis techniques? Give two examples each of those types.
-
-2.    Use the seed morphology dataset (Table \@ref(tab:seed-data)) to answer the following questions.
-
-  -   Why is the correlation matrix more appropriate than the covariance matrix for this dataset? List the units of at least three variables to justify your answer.
-  -   What biological trait does PC1 represent? Name the three variables with the largest loadings on PC1 and explain what they have in common.
-
-3.  The researcher plans to include a fourth species, which produces very small, lightweight seeds with high moisture content. Predict where this species would appear on the biplot (high or low PC1? high or low PC2?) and explain your reasoning.
 
 
 
