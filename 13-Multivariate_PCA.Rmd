@@ -1158,10 +1158,3 @@ sum_df %>%
 ---
 
 ## Reference
-
--   Anderson, E. (1935). The irises of the Gaspé Peninsula. *Bulletin of the American Iris Society*, 59, 2–5.
--   Fisher, R. A. (1936). The use of multiple measurements in taxonomic problems. *Annals of Eugenics*, 7, 179–188.
--   Jaadi, Z. Step-by-step explanation of Principal Component Analysis. https://builtin.com/data-science/step-step-explanation-principal-component-analysis
--   Pearson, K. (1901). On lines and planes of closest fit to systems of points in space. *Philosophical Magazine*, 2(11), 559–572.
--   Tabachnick, B. G., & Fidell, L. S. (1989). *Using Multivariate Statistics* (2nd ed.). Harper & Row.
--   Tabachnick, B. G., & Fidell, L. S. (1996). *Using Multivariate Statistics* (3rd ed.). Harper Collins.
