@@ -12,3 +12,8 @@ pre {
 pre code {
   white-space: inherit;
 }
+ol {
+  overflow: hidden; /* Or 'visible' to allow content overflow without bars */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}

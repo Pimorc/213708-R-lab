@@ -138,7 +138,7 @@ cov_df %>%
 
 ### Correlation Matrix
 
-The **correlation matrix** standardises the covariances so all values lie between −1 and +1. The correlation between $A$ and $B$ is:
+The **correlation matrix** standardizes the covariances so all values lie between −1 and +1. The correlation between $A$ and $B$ is:
 
 $$\text{corr}(A, B) = \frac{\text{Cov}(A, B)}{sd(A) \cdot sd(B)}$$
 
@@ -159,7 +159,7 @@ matrix_df <- data.frame(
                  "Unequal — proportional to variance",
                  "Not equal to 1.0"),
   Correlation = c("Can be different units", 
-                  "All variables standardised first", 
+                  "All variables standardized first", 
                   "Equal — all variables contribute similarly",
                   "Equal to 1.0")
 )
@@ -220,7 +220,7 @@ A **scree plot** displays eigenvalues in decreasing order against component numb
 
 ### Kaiser's Rule
 
-**Kaiser's rule** states: retain all principal components with eigenvalues **greater than 1.0** (when using the correlation matrix). An eigenvalue of 1.0 means the component explains as much variance as a single standardised variable — components below this threshold are considered to explain less than their "fair share."
+**Kaiser's rule** states: retain all principal components with eigenvalues **greater than 1.0** (when using the correlation matrix) (Figure \@ref(fig:screeplot-concept)). An eigenvalue of 1.0 means the component explains as much variance as a single standardized variable — components below this threshold are considered to explain less than their "fair share."
 
 ### Cumulative Variance Explained
 
@@ -246,9 +246,9 @@ legend("topright", legend = c("Elbow (retain up to here)", "Kaiser threshold (ei
 
 To illustrate PCA in practice, we use a dataset of seed morphological measurements from three tropical tree species collected in northern Thailand [@doisuthep2022final]:
 
--   *Cinnamomum caudatum* (Lauraceae)
--   *Erythrina subumbrans* (Fabaceae)
--   *Garcinia cowa* (Clusiaceae)
+-   *Neocinnamomum caudatum* (Nees) Merr. (Lauraceae)
+-   *Erythrina subumbrans* (Hassk.) Merr. (Fabaceae)
+-   *Garcinia cowa* Roxb. ex Choisy (Clusiaceae)
 
 Twenty seeds were measured per species ($n = 60$ total). The measured variables are: seed width (mm), seed length (mm), seed thickness (mm), estimated volume (mm³), seed coat thickness (mm), wet weight (g), dry weight (g), and moisture content (%) [Table \@ref(tab:seed-data)].
 
@@ -378,7 +378,7 @@ ggplot(seed_long, aes(x = species.abb, y = value, fill = species.abb)) +
 
 ### Running PCA
 
-We select the eight continuous morphological variables for PCA. Because the variables are measured in different units and span very different scales (e.g., mm vs. mm³ vs. g), we use the **correlation matrix**, which standardises all variables to mean = 0 and SD = 1 before analysis. In R, we use `prcomp` to run PCA.
+We select the eight continuous morphological variables for PCA. Because the variables are measured in different units and span very different scales (e.g., mm vs. mm³ vs. g), we use the **correlation matrix**, which standardizes all variables to mean = 0 and SD = 1 before analysis. In R, we use `prcomp` to run PCA.
 
 ```{r run-pca, echo=FALSE, message=FALSE, warning=FALSE, include = FALSE}
 # Select numeric trait columns
@@ -526,7 +526,7 @@ ggplot() +
 
 **Interpretation of the biplot:**
 
--   The three species are well separated along **PC1** (the size axis). *Garcinia cowa* seeds (large, heavy) score high on PC1, while *Cinnamomum caudatum* seeds (small, light) score low. *Erythrina subumbrans* is intermediate.
+-   The three species are well separated along **PC1** (the size axis). *Garcinia cowa* seeds (large, heavy) score high on PC1, while *Neocinnamomum caudatum* seeds (small, light) score low. *Erythrina subumbrans* is intermediate.
 -   Along **PC2**, *Erythrina subumbrans* tends to score higher, suggesting its seeds have relatively higher moisture content for their dry mass compared with the other two species.
 -   Length, width, thickness, volume, wet weight, and dry weight arrows all point in roughly the same direction, confirming that these size-related traits are strongly positively correlated.
 -   Moisture content points in a distinct direction from dry weight, indicating it is not strongly correlated with dry mass — moisture is a separate axis of variation.
@@ -535,7 +535,7 @@ ggplot() +
 
 The following paragraph presents the written report for PCA.
 
-> "A principal component analysis was conducted on eight seed morphological traits (width, length, thickness, volume, coat thickness, wet weight, dry weight, and moisture content) for 60 seeds from three tropical tree species, using the correlation matrix. Based on Kaiser's rule (eigenvalue ≥ 1), the first `r sum(eigenvalues >= 1)` principal components were retained, explaining `r cum_var[sum(eigenvalues >= 1)]`% of the total variance. PC1 (explaining `r pct_var[1]`% of variance) had high positive loadings for all size-related traits and is interpreted as a **seed size** axis. PC2 (explaining `r pct_var[2]`% of variance) was strongly loaded by moisture content and is interpreted as a **moisture content** axis. The biplot showed clear separation among the three species, primarily along PC1, with *Garcinia cowa* occupying the high-size end, *Cinnamomum caudatum* the low-size end, and *Erythrina subumbrans* in an intermediate position with relatively higher moisture content."
+> "A principal component analysis was conducted on eight seed morphological traits (width, length, thickness, volume, coat thickness, wet weight, dry weight, and moisture content) for 60 seeds from three tropical tree species, using the correlation matrix. Based on Kaiser's rule (eigenvalue ≥ 1), the first `r sum(eigenvalues >= 1)` principal components were retained, explaining `r cum_var[sum(eigenvalues >= 1)]`% of the total variance. PC1 (explaining `r pct_var[1]`% of variance) had high positive loadings for all size-related traits and is interpreted as a **seed size** axis. PC2 (explaining `r pct_var[2]`% of variance) was strongly loaded by moisture content and is interpreted as a **moisture content** axis. The biplot showed clear separation among the three species, primarily along PC1, with *Garcinia cowa* occupying the high-size end, *Neocinnamomum caudatum* the low-size end, and *Erythrina subumbrans* in an intermediate position with relatively higher moisture content."
 
 ## Summary of PCA
 
@@ -697,7 +697,7 @@ When the **homogeneity of covariance** assumption is violated, **Quadratic Discr
 
 ## Example: LDA of Seed Morphology Data
 
-We continue with the seed morphology dataset used in the PCA example, comprising eight morphological measurements on 20 seeds each from three tropical tree species: *Cinnamomum caudatum*, *Erythrina subumbrans*, and *Garcinia cowa*. The research question is now explicitly supervised: 
+We continue with the seed morphology dataset used in the PCA example, comprising eight morphological measurements on 20 seeds each from three tropical tree species: *Neocinnamomum caudatum*, *Erythrina subumbrans*, and *Garcinia cowa*. The research question is now explicitly supervised: 
 
 1. **Can we classify seeds to their correct species based on their morphological measurements**, and 
 2. **Which traits are most informative for classification?**
@@ -707,17 +707,17 @@ We continue with the seed morphology dataset used in the PCA example, comprising
 Before fitting LDA, we visualize how well individual traits separate the three species using boxplots (Figure \@ref(fig:boxplots-seed)). In the boxplots, traits with little overlap between boxes are better candidates for group discrimination. In addition we create a pairs plot of selected traits (Figure \@ref(fig:pairs-plot)).
 
 
-```{r pairs-plot, echo=FALSE, fig.cap="Pairs plot of four selected seed traits coloured by species (($\\circ$) = C. caudatum, $\\ast$ = E. subumbrans, and $\\square$ = G. cowa). Pairs of traits that show good group separation in bivariate scatter are strong discriminators.", fig.height=6, fig.width=7, message=FALSE, warning=FALSE}
+```{r pairs-plot, echo=FALSE, fig.cap="Pairs plot of four selected seed traits coloured by species ($\\circ$ = *E. subumbrans*, $\\\triangle$ = *G. cowa*, and $\\square$ = *N. caudatum*). Pairs of traits that show good group separation in bivariate scatter are strong discriminators.", fig.height=6, fig.width=7, message=FALSE, warning=FALSE}
 species_cols <- c(
-  "C. caudatum"  = "#F8766D",
-  "E. subumbrans" = "#00BA38",
-  "G. cowa"        = "#619CFF"
+  "E. subumbrans" = "#F8766D",
+  "G. cowa"        = "#00BA38",
+  "N. caudatum"  = "#619CFF"
 )
 
 species_shp <- c(
-  "C. caudatum"  = 16,
-  "E. subumbrans" = 8,
-  "G. cowa"        = 15
+  "E. subumbrans" = 16,
+  "G. cowa"        = 17,
+    "N. caudatum"  = 15
 )
 
 #dev.off()
@@ -801,7 +801,7 @@ norm_results %>%
 
 #### Homogeneity of Covariance Matrices
 
-```{r boxm-test, echo=TRUE, message=FALSE, warning=FALSE}
+```{r boxm-test, echo=TRUE, message=FALSE, warning=FALSE, include=FALSE}
 if(!require("biotools")) install.packages("biotools", dependencies = TRUE)
 library(biotools)
 
@@ -833,9 +833,11 @@ corrplot(cor_mat, method = "color", type = "upper",
          col = colorRampPalette(c("white", "cyan", "#619CFF"))(200))
 ```
 
-### Step 3: Fit the LDA Model
+### Step 3: Fit the LDA Model and Obtain Discriminant Function Coefficients
 
-```{r fit-lda, echo=TRUE, message=FALSE, warning=FALSE}
+In `R`, the function `lda` is used to fit the LDA model. After fitting, the output including discriminant function coefficient are obtained.
+
+```{r fit-lda, echo=FALSE, message=FALSE, warning=FALSE, include = FALSE}
 library(MASS)
 
 lda_model <- lda(species.abb ~ width_mm + dry_weight_g + moisture_percent,
@@ -845,15 +847,13 @@ lda_model <- lda(species.abb ~ width_mm + dry_weight_g + moisture_percent,
 print(lda_model)
 ```
 
-### Step 4: Discriminant Function Coefficients
-
-The **standardised discriminant function coefficients** show the relative contribution of each variable to group separation, after accounting for differences in scale (Table \@ref(tab:std-coeffs)). Variables with large absolute standardised coefficients are the most important discriminators.
+The **standardized discriminant function coefficients** show the relative contribution of each variable to group separation, after accounting for differences in scale (Table \@ref(tab:std-coeffs)). Variables with large absolute standardized coefficients are the most important discriminators.
 
 ```{r std-coeffs, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 # Raw coefficients
 raw_coef <- as.data.frame(lda_model$scaling)
 
-# Standardise by multiplying by within-group SD of each variable
+# standardize by multiplying by within-group SD of each variable
 pooled_sd <- seed_traits %>%
   group_by(species.abb) %>%
   summarise(across(all_of(traits), sd), .groups = "drop") %>%
@@ -868,12 +868,12 @@ std_coef_df <- std_coef_df %>% dplyr::select(Variable, LD1, LD2)
 std_coef_df %>%
   kbl(align = "c",
       col.names = c("Variable", "LD1", "LD2"),
-      caption = "Standardised discriminant function coefficients for LD1 and LD2. Larger absolute values indicate greater contribution to group separation.") %>%
+      caption = "standardized discriminant function coefficients for LD1 and LD2. Larger absolute values indicate greater contribution to group separation.") %>%
   kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE) %>%
   column_spec(1, bold = TRUE)
 ```
 
-### Step 5: Proportion of Variance Explained
+### Step 4: Proportion of Variance Explained
 
 Each discriminant function's **eigenvalue** indicates how much between-group separation it achieves relative to within-group scatter. The proportion of variance attributed to each function shows its relative importance (Table \@ref(tab:eigenvalue-table-lda)).
 
@@ -913,7 +913,7 @@ centroids <- scores_df %>%
   summarise(LD1 = mean(LD1), LD2 = mean(LD2), .groups = "drop")
 
 library(ggplot2)
-ggplot(scores_df, aes(x = LD1, y = LD2, colour = species, fill = species)) +
+ggplot(scores_df, aes(x = LD1, y = LD2, colour = species, shape = species, fill = species)) +
   stat_ellipse(geom = "polygon", alpha = 0.10, level = 0.95, linewidth = 0.8) +
   geom_point(size = 2.5, alpha = 0.8) +
   geom_point(data = centroids, aes(x = LD1, y = LD2),
@@ -936,23 +936,30 @@ ggplot(scores_df, aes(x = LD1, y = LD2, colour = species, fill = species)) +
   )
 ```
 
-We can also display the distribution of discriminant scores on LD1 alone — the dominant axis — using density plots (Figure \@ref(fig:lda-density)).
+We can also display the distribution of discriminant scores on LD1 — the dominant axis — using density plots (Figure \@ref(fig:lda-density)).
 
 ```{r lda-density, echo=FALSE, fig.cap="Density plots of discriminant scores on LD1 by species. Non-overlapping distributions indicate good classification on this axis.", fig.height=4, fig.width=7, message=FALSE, warning=FALSE}
+
+if(!require("geomtextpath", character.only = TRUE)) {
+  install.packages("geomtextpath", dependencies = TRUE)
+}
+library(geomtextpath)
+
 ggplot(scores_df, aes(x = LD1, fill = species, colour = species)) +
   geom_density(alpha = 0.35, linewidth = 0.8) +
   geom_rug(alpha = 0.6) +
   labs(x = paste0("LD1 (", pct_eig[1], "% of between-group variance)"),
        y = "Density") +
+  geom_textdensity(aes(label = species), size = 4, vjust = -0.5, fontface = 4) +
   theme_bw() +
   theme(
-    legend.position = "bottom",
+    legend.position = "none",
     legend.title    = element_blank(),
     legend.text     = element_text(face = "italic", size = 10)
   )
 ```
 
-### Step 7: Evaluate Classification Accuracy
+### Step 6: Evaluate Classification Accuracy
 
 #### Confusion Matrix (Resubstitution)
 
@@ -1052,7 +1059,7 @@ ggplot(post_long, aes(x = id, y = Probability, fill = Predicted)) +
 
 ### Interpreting the Discriminant Functions
 
-To understand *which variables* drive group separation, we compare the standardised coefficients from Table \@ref(tab:std-coeffs) and inspect the **structure matrix** (Table \@ref(tab:structure-matrix)), which shows the correlation between each original variable and each discriminant function. The structure matrix is often easier to interpret than the raw or standardised coefficients.
+To understand *which variables* drive group separation, we compare the standardized coefficients from Table \@ref(tab:std-coeffs) and inspect the **structure matrix** (Table \@ref(tab:structure-matrix)), which shows the correlation between each original variable and each discriminant function. The structure matrix is often easier to interpret than the raw or standardized coefficients.
 
 ```{r structure-matrix, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 # Compute structure matrix: correlations between variables and discriminant scores
@@ -1066,7 +1073,7 @@ as.data.frame(struct_mat) %>%
   kbl(align = "c",
       col.names = c("Variable", "LD1", "LD2"),
       caption = "Structure matrix: correlations between each morphological variable and the two discriminant functions. Values above |0.30| are considered meaningful.") %>%
-  kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = TRUE) %>%
   column_spec(1, bold = TRUE) %>%
   row_spec(which(abs(struct_mat[,"LD1"]) >= 0.30 | abs(struct_mat[,"LD2"]) >= 0.30),
            background = "#e8f4f8")
@@ -1075,15 +1082,17 @@ as.data.frame(struct_mat) %>%
 **Interpretation:**
 
 -   **LD1** is most strongly correlated with overall size traits — dry weight, and width - all have large positive correlations. This function separates the large-seeded *Garcinia cowa* from the other two species.
--   **LD2** is most strongly correlated with moisture content, providing additional separation between *Erythrina subumbrans* and *Cinnamomum caudatum* along a water-relations axis.
+-   **LD2** is most strongly correlated with moisture content, providing additional separation between *Erythrina subumbrans* and *Neocinnamomum caudatum* along a water-relations axis.
 
-### Classifying a New (Unknown) Seed
+### Classifying a New Unknown Seed
 
 A key practical use of LDA is **predicting the species of an unknown specimen**. Suppose a researcher finds a seed in the field with the following measurements:
 
 - Width = 10 mm
 - Dry weight = 0.8 g
 - Moisture content = 25% 
+
+Below is the `R` output of the prediction.
 
 ```{r predict-new, echo=FALSE, message=FALSE, warning=FALSE}
 new_seed <- data.frame(
@@ -1102,7 +1111,7 @@ The model assigns the unknown seed to the species with the highest posterior pro
 
 The following paragraph presents the written report for LDA.
 
-> "Linear Discriminant Analysis was performed on eight seed morphological traits (width, length, thickness, volume, coat thickness, wet weight, dry weight, and moisture content) to evaluate the ability to discriminate among three tropical tree species (*Cinnamomum caudatum*, *Erythrina subumbrans*, and *Garcinia cowa*; n = 20 seeds per species). Two discriminant functions were extracted. LD1 accounted for `r pct_eig[1]`% of the between-group variance and was dominated by size-related traits (volume, wet weight, dry weight, and width), effectively separating *Garcinia cowa* (large seeds) from the other two species. LD2 accounted for the remaining `r pct_eig[2]`% and was most strongly associated with moisture content, further separating *Erythrina subumbrans* from *Cinnamomum caudatum*.
+> "Linear Discriminant Analysis was performed on eight seed morphological traits (width, length, thickness, volume, coat thickness, wet weight, dry weight, and moisture content) to evaluate the ability to discriminate among three tropical tree species (*Neocinnamomum caudatum*, *Erythrina subumbrans*, and *Garcinia cowa*; n = 20 seeds per species). Two discriminant functions were extracted. LD1 accounted for `r pct_eig[1]`% of the between-group variance and was dominated by size-related traits (volume, wet weight, dry weight, and width), effectively separating *Garcinia cowa* (large seeds) from the other two species. LD2 accounted for the remaining `r pct_eig[2]`% and was most strongly associated with moisture content, further separating *Erythrina subumbrans* from *Neocinnamomum caudatum*.
 >
 > Resubstitution classification accuracy was `r overall_acc`%. Leave-one-out cross-validation yielded an overall accuracy of `r cv_acc`%, demonstrating that the discriminant functions generalise well to new observations. These results indicate that seed morphology reliably distinguishes the three species in multivariate space."
 
@@ -1120,7 +1129,7 @@ sum_df <- data.frame(
            "Validation"),
   Guidance = c("Maximum = min(p, g − 1); often only the first 1–2 are meaningful",
                "Check assumptions — especially homogeneity of covariance matrices",
-               "Standardised coefficients / structure matrix — identify key variables",
+               "standardized coefficients / structure matrix — identify key variables",
                "Discriminant score plot — visualize group separation",
                "Confusion matrix — assess classification accuracy",
                "Always use cross-validation (LOOCV) for a realistic accuracy estimate")
@@ -1143,8 +1152,10 @@ sum_df %>%
 
 3.    Use the seed morphology dataset (Table \@ref(tab:seed-data)) to answer the following questions.
 
-    3.1  Why is the correlation matrix more appropriate than the covariance matrix for this dataset? List the units of at least three variables to justify your answer.
+    3.1  Why is the correlation matrix more appropriate than the covariance matrix for this dataset?
+    
     3.2 What biological trait does PC1 represent? Name the three variables with the largest loadings on PC1 and explain what they have in common.
+    
     3.3 The researcher plans to include a fourth species, which produces very small, lightweight seeds with high moisture content. Predict where this species would appear on the biplot (high or low PC1? high or low PC2?) and explain your reasoning.
 
 4.  Explain in your own words the difference between PCA and LDA. In what situation would you choose LDA over PCA?
@@ -1152,8 +1163,8 @@ sum_df %>%
 5.  List the assumptions of LDA
 
     5.1   The homogeneity of covariance matrices is an important assumption of LDA. What test was used to evaluate this assumption in the example?
+    
     5.2   If this assumption is violated, what alternative method could be used?
-
 
 ---
 
