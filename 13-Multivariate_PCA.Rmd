@@ -352,8 +352,7 @@ trait_labels <- c(
 )
 
 seed_long <- seed_traits %>%
-  pivot_longer(cols = -species.abb, names_to = "trait", values_to = "value") %>%
-  mutate(trait = recode(trait, !!!trait_labels))
+  pivot_longer(cols = -species.abb, names_to = "trait", values_to = "value")
 
 ggplot(seed_long, aes(x = species.abb, y = value, fill = species.abb)) +
   geom_boxplot(alpha = 0.6, outlier.shape = 21) +
