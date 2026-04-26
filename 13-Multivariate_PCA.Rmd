@@ -771,13 +771,11 @@ We test univariate normality of each trait within each species using the Shapiro
 
 ```{r normality-test-lda, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 library(dplyr)
+library(kableExtra)
 
 traits <- c("width_mm","long_mm","thickness_mm","volume_mm3", "coat_thick_mm","wet_weight_g","dry_weight_g","moisture_percent")
 
-c("Width (mm)", "Length (mm)", "Thickness (mm)", "Volume (mm³)", "Coat thickness (mm)",
-"Wet weight (g)",
-"Dry weight (g)",
-"Moisture content (%)")
+
 
 norm_results <-  lapply(unique(seed_traits$species.abb), function(sp) {
   sub <- seed_traits %>% filter(species.abb == sp)
@@ -788,12 +786,6 @@ norm_results <-  lapply(unique(seed_traits$species.abb), function(sp) {
                p_value = round(sw$p.value, 3))
   }) %>% bind_rows()
 }) %>% bind_rows()
-
-norm_results <- norm_results %>%
-  
-
-
-library(kableExtra)
 
 norm_results %>%
   mutate(Result = ifelse(p_value >= 0.05, "Normal", "Non-normal")) %>%
