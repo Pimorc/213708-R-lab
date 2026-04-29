@@ -430,7 +430,6 @@ var_table %>%
   column_spec(1, bold = TRUE)
 ```
 
-
 We can use the scree plot of eigenvalues to decide how many PC should be retained. Based on Kaiser's rule (eigenvalue ≥ 1), **`r sum(eigenvalues >= 1)` principal components** should be retained. These components together explain **`r cum_var[sum(eigenvalues >= 1)]`%** of the total variation in seed morphology (Figure \@ref(fig:eigenvalues)). 
 
 ### Loadings (Eigenvectors)
@@ -647,7 +646,7 @@ if(!require("kableExtra", character.only = TRUE)) {
   install.packages("kableExtra", dependencies = TRUE)}
 if(!require("ggplot2", character.only = TRUE)) {
   install.packages("ggplot2", dependencies = TRUE)}
-if(!require("dplyr2", character.only = TRUE)) {
+if(!require("dplyr", character.only = TRUE)) {
   install.packages("dplyr", dependencies = TRUE)}
 
 
@@ -775,7 +774,16 @@ library(kableExtra)
 
 traits <- c("width_mm","long_mm","thickness_mm","volume_mm3", "coat_thick_mm","wet_weight_g","dry_weight_g","moisture_percent")
 
-
+trait_labels <- c(
+  width_mm      = "Width (mm)",
+  long_mm       = "Length (mm)",
+  thickness_mm  = "Thickness (mm)",
+  volume_mm3    = "Volume (mm³)",
+  coat_thick_mm = "Coat thickness (mm)",
+  wet_weight_g  = "Wet weight (g)",
+  dry_weight_g  = "Dry weight (g)",
+  moisture_percent = "Moisture (%)"
+)
 
 norm_results <-  lapply(unique(seed_traits$species.abb), function(sp) {
   sub <- seed_traits %>% filter(species.abb == sp)
@@ -813,7 +821,6 @@ print(boxm_result)
 ```
 
 Box's M test evaluates whether the covariance matrices are equal across groups. The test is sensitive to departures from normality. In our example, the Box's M-test shows that the covariance matrix are not homogenous among species (Chi-sqaure = `r round(boxm_result$statistic, digit = 2)`, P-value < 0.01). The significant result warrants caution but does not necessarily invalidate LDA, especially with balanced group sizes like in the seed example (n = 20).   
-
 
 #### Multicollinearity
 
