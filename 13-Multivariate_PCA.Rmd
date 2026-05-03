@@ -1,7 +1,8 @@
 ---
 output:
-  html_document: default
+  word_document: default
   pdf_document: default
+  html_document: default
 ---
 # Multivariate Analysis
 
@@ -766,9 +767,9 @@ library(ggplot2)
 
 #### Normality
 
-We test univariate normality of each trait within each species using the Shapiro-Wilk test. A non-significant result (p > 0.05) is consistent with normality. Here the normalliuty test was satisfied except for two  variables each of *E. subumbrans* and *G. cowa* (Table \@ref(tab:normality-test-lda)).
+We test univariate normality of each trait within each species using the Shapiro-Wilk test. A non-significant result (p > 0.05) is consistent with normality. In our cases, the normalliuty test was satisfied except for two  variables each of *E. subumbrans* and *G. cowa*.
 
-```{r normality-test-lda, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+```{r normality-test-lda, echo=FALSE, message=FALSE, warning=FALSE, results='asis', include = FALSE}
 library(dplyr)
 library(kableExtra)
 
@@ -806,6 +807,7 @@ norm_results %>%
   column_spec(1, italic = TRUE) %>%
   row_spec(which(norm_results$p_value < 0.05), background = "#fff3cd")
 ```
+
 
 #### Homogeneity of Covariance Matrices
 
