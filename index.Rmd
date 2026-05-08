@@ -4,11 +4,11 @@ subtitle: "Experimental design and environmental data analysis"
 author: "Assistant Professor Dr. Pimonrat Tiansawat"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-output: bookdown::pdf_book
+output: bookdown::html_chapter 
 documentclass: book
 bibliography: [book.bib, packages.bib]
-biblio-style: apalike
-link-citations: yes
+biblio-style: "apalike"
+link-citations: true
 
 description: "This is material for lectures."
 ---
@@ -33,6 +33,6 @@ The lessons include :-
 12. Mixed model, and 
 13. Multivariate analyses in ecological and environmental studies.
 
-The illustrations in this teaching material consist of images taken or created by the author, as well as images obtained from other sources, including articles published in academic journals by the author.
+The illustrations in this teaching material consist of images taken or created by the author, as well as images obtained from other sources, including articles published in academic journals by the author. R programming language [@R-base] is used for the examples of analyses and visualization.
 
 The author would like to thank Associate Professor Dr. Jatupol Kampuansai for his comments on the earlier version of the materials and suggestions for improving these materials.
