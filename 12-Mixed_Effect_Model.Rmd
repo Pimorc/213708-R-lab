@@ -1,10 +1,4 @@
----
-output:
-  html_document: default
-  pdf_document: default
----
-
-# Mixed Effects Models
+# Mixed Effects Models {#12mixed-effect}
 
 **Duration:** 2-hour lecture
 
@@ -538,15 +532,3 @@ kbl(pkg_df,
 4. After running a mixed effectd model, what should be checked to ensure the reliability of the model?
 
 ------------------------------------------------------------------------
-
-## References
-
-Bates, D., Mächler, M., Bolker, B., Walker, S. (2015). Fitting linear mixed-effects models using lme4. *Journal of Statistical Software*, 67(1), 1–48.
-
-Chaiklang, P., Elliott, S., Chairuangsri, S., Tiansawat, P. (2025). Effects of a low-cost crate-based tree-propagation system on the field performance of framework species when initiating lowland tropical forest restoration. *Trees, Forests and People*, 20, 100862.
-
-Kuznetsova, A., Brockhoff, P. B., Christensen, R. H. B. (2017). lmerTest Package: Tests in linear mixed effects models. *Journal of Statistical Software*, 82(13), 1–26.
-
-Pinheiro, J., Bates, D., DebRoy, S., Sarkar, D., R Core Team (2018). nlme: Linear and Nonlinear Mixed Effects Models. R package version 3.1-137.
-
-Zuur, A. F., Ieno, E. N., Walker, N. J., Saveliev, A. A., Smith, G. M. (2009). *Mixed Effects Models and Extensions in Ecology with R*. Springer, New York.

@@ -1,4 +1,4 @@
-# Random Variables {#random-variables}
+# Random Variables {#3random-variables}
 
 **Duration:** 2-hour lecture
 
@@ -304,6 +304,17 @@ std_dev <- sd(cat_heights)
 cat("Sample standard deviation:", round(std_dev, 2), "cm\n")
 ```
 
+In this lesson, we learned:
+
+- The relationships among population, sample, and statistical inference
+- The definition and characteristics of random variables
+- The distinction between discrete and continuous random variables
+- How to calculate and interpret expected values
+- How to calculate and interpret variance and standard deviation
+- Practical applications of these concepts through examples
+
+These concepts will be essential as we move forward to more advanced statistical topics in subsequent lesson.
+
 ## Exercises
 
 1. With the following research question, what is the population of interest and what is the sample?
@@ -316,20 +327,4 @@ cat("Sample standard deviation:", round(std_dev, 2), "cm\n")
 
 4. If two populations of the same means have variances of 5 and 10, respectively, which population has the data points that are spread wider from the mean?
 
-## Summary
-
-In this lesson, we learned:
-
-- The relationships among population, sample, and statistical inference
-- The definition and characteristics of random variables
-- The distinction between discrete and continuous random variables
-- How to calculate and interpret expected values
-- How to calculate and interpret variance and standard deviation
-- Practical applications of these concepts through examples
-
-These concepts will be essential as we move forward to more advanced statistical topics in subsequent lesson.
-
-## References
-
-::: {#refs}
-:::
+---

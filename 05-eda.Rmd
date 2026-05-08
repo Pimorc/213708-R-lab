@@ -1,4 +1,4 @@
-# Exploratory Data Analysis {#eda}
+# Exploratory Data Analysis {#5eda}
 
 **Duration:** 2-hour lecture
 
@@ -374,8 +374,4 @@ EDA is a fundamental step in data analysis that ensures a deep understanding of 
 2. What are the different types of data attributes? Give an example of each type and explain how they are used in data analysis.
 3. Why is exploratory data analysis (EDA) important? Describe three key steps in EDA and their purpose.
 
-## References
-
-::: {#refs}
-:::
-
+---

@@ -1,9 +1,4 @@
----
-output:
-  html_document: default
-  pdf_document: default
----
-# Analysis of Variance and Analysis of Covariance
+# Analysis of Variance and Analysis of Covariance {#11anova}
 
 **Duration:** 2-hour lecture
 
@@ -1136,5 +1131,3 @@ Synthetic          24.8             0.8
 Why do the adjusted and unadjusted means differ?
 
 ---
-
-## Reference

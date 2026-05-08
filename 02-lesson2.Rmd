@@ -1,6 +1,6 @@
-# Nature of Experimentation and Principles of Experimental Design {#experimentation}
+# Nature of Experimentation and Principles of Experimental Design {#2experimentation}
 
-**Duration:** 1-hour lecture**
+**Duration:** 1-hour lecture
 
 ## Learning Outcomes
 
@@ -165,7 +165,4 @@ In addition, if there are treatments that change some environmental conditions o
 
 3. In a field experiment, we want to test the effects of weed removal on seedling survival and growth. What would be the treatment and control group of this experiment?
 
-## References
-
-::: {#refs}
-:::
+---

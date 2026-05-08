@@ -1,4 +1,4 @@
-# Statistical Modeling
+# Statistical Modeling {#9models}
 
 **Duration:** 2-hour lecture
 
@@ -327,5 +327,3 @@ In summary, for statistical modeling the types of models to use are chosen based
 3. What is model validation? Explain some techniques to validate a model.
 
 ---
-
-## References

@@ -1,4 +1,4 @@
-# Probability distributions {#distributions}
+# Probability distributions {#4distributions}
 
 **Duration:** 2-hour lecture
 
@@ -297,8 +297,4 @@ Fill in this following table to complete information of probability distribution
 | | | | | |
 | | | | | |
 
-## References
-
-::: {#refs}
-:::
-
+---

@@ -1,4 +1,4 @@
-# Inferential Statistics
+# Inferential Statistics {#7inferential-stat}
 
 **Duration:** 2-hour lecture
 
@@ -183,7 +183,7 @@ where:
 - $P(\text{data}|H)$ is called **likelihood**.
 - $P(H)$ is called **prior distribution**.
 
-The analysis steps [@gotelli2014] are:
+The analysis steps [@gotelli2013] are:
 
 1. Specifying the hypothesis
 2. Specify parameters as random variables
@@ -271,5 +271,3 @@ Fill in this table to describe the similarity and/or differences between the two
 | Others                   |                         |                         |
 
 ---
-
-## References

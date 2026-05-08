@@ -1,4 +1,4 @@
-# Design of Experiments
+# Design of Experiments {#6doe}
 
 **Duration:** 4-hour lecture
 
@@ -590,5 +590,3 @@ knitr::include_graphics("figures/fig6-18exercise.png")
 ```
 
 ---
-
-## References

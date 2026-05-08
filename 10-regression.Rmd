@@ -1,4 +1,4 @@
-# Regression
+# Regression {#10regression}
 
 **Duration:** 4-hour lecture
 
@@ -33,9 +33,9 @@ Where:
 
 ## Different types of regression
 
-There is not a single fixed number of regression types, but statisticians usually group them into several major categories depending on data structure, assumptions, the form of the relationship, and the research question.
+There is not a single fixed number of regression types, but statisticians usually group them into several major categories depending on data structure, assumptions, the form of the relationship, and the research question. In this teaching material, four types of regression are represented.
 
-### 1. Linear regression
+### Linear regression
 
 Linear regression is the simplest and most common approach, where the relationship between explanatory and response variables is assumed to follow a straight line. Some subtypes of linear regression are:
 
@@ -48,15 +48,15 @@ $$Y = a + b_1 X + b_2 X^2 + \varepsilon$$
 -   **Piecewise regression** -- it fits separate linear models to different ranges of data, allowing researchers to capture relationships that change at certain thresholds or breakpoints.
 -   **Robust regression** - This is useful when a dataset contains outliers or influential points. Robust regression reduces the impact of extreme values, producing more reliable estimates in the presence of noisy or imperfect data.
 
-### 2. Non-linear regression
+### Non-linear regression
 
 Non-linear regression is used when the relationship between explanatory and response variables cannot be adequately described by a straight line. Instead of assuming linearity, the model specifies a non-linear function, such as exponential, logarithmic, or logistic forms.
 
-### 3. Generalized linear regression or generalized linear models (GLMs)
+### Generalized linear regression or generalized linear models (GLMs)
 
 This extends the framework of linear regression to situations where the response variable does not follow a normal distribution. GLMs allow for different types of response distributions (e.g., binomial for binary outcomes, Poisson for count data).
 
-### 4. Other approaches such as nonparametric regression
+### Other approaches such as nonparametric regression
 
 The nonparametric regression does not assume a specific functional form. It is flexible but less interpretable.
 
@@ -341,6 +341,4 @@ For the bird breeding example (Figure \@ref(fig:glm-isolation)), a residual devi
 
 6.  What is overdispersion? Why is it a problem when fitting generalized linear models? What to do if you encounter overdispersion?
 
-------------------------------------------------------------------------
-
-## References
+---

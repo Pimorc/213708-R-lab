@@ -1,10 +1,4 @@
----
-output:
-  word_document: default
-  pdf_document: default
-  html_document: default
----
-# Multivariate Analysis
+# Multivariate Analysis {#13mva}
 
 **Duration:** 4-hour lecture
 
@@ -1176,5 +1170,3 @@ sum_df %>%
     5.2   If this assumption is violated, what alternative method could be used?
 
 ---
-
-## Reference

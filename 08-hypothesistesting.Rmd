@@ -1,4 +1,4 @@
-# Hypothesis Testing
+# Hypothesis Testing {#8hypothesis}
 
 **Duration:** 2-hour lecture
 
@@ -359,6 +359,4 @@ Hypothesis testing provides a structured, objective framework for evaluating sci
 | There is no correlation between x and y.                 |                                          |                                                                                                             |
 | Two variances are not equal.                             |                                          |                                                                                                             |
 
-------------------------------------------------------------------------
-
-## References
+---

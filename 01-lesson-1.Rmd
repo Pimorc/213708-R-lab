@@ -1,9 +1,4 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
-# Scientific methods, role of experimental design and statistics in  ecological and environmental studies {#scientific-methods}
+# Scientific methods, role of experimental design and statistics in  ecological and environmental studies {#1scientific-methods}
 
 **Duration:** 1-hour lecture
 
@@ -97,7 +92,4 @@ knitr::include_graphics("figures/1exercise.JPG")
 
 3. In what step of scientific methods (e.g. Figure \@ref(fig:lesson1-exercise)) are the data obtained?
 
-## References
-
-::: {#refs}
-:::
+---
