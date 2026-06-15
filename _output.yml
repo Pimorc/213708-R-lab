@@ -1,5 +1,5 @@
 bookdown::gitbook:
-  css: style.css
+  css: "style.css"
   config:
     toc:
       collapse: subsection
@@ -20,7 +20,7 @@ bookdown::gitbook:
       family: sans
       size: 2
     split_bib: yes
-    split_by: section
+    split_by: chapter
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex
@@ -35,4 +35,13 @@ bookdown::tufte_html_book:
 bookdown::word_document2:
     number_section: true
     fig_caption: true
-
+bookdown::html_document2:
+    toc: true
+    number_sections: true
+    fig_caption: true
+    fontsettings:
+      theme: white
+      family: sans
+      size: 2
+    split_bib: yes
+    split_by: chapter

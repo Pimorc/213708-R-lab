@@ -1,4 +1,5 @@
-book_filename: "bookdown-lecture-notes"
+book_filename: "bookdown-lab-notes"
+output_dir: "_book"
 language:
   ui:
     chapter_name: "Lab "

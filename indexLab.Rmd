@@ -1,0 +1,42 @@
+---
+title: "213708 Teaching materials - Lab instructions"
+subtitle: 'Experimental design and environmental data analysis '
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: book.bib
+biblio-style: apalike
+link-citations: yes
+description: This is material for computer laboratories.
+---
+
+# Preface {-}
+
+These materials are for the computer laboratory sessions of the course "Experimental design and environmental data analysis" (Course code 213708), taught by the author. The materials are designed for graduate students across multiple curricula. The materials are divided into 15 lab sessions (3 hours each), totaling 45 hours.
+
+The lessons include :-
+
+| Course Contents                                                                                             | Number of labs (3 hrs each) | Lab ID     |
+|:------------------------|:----------------------:|------------------------|
+| 1\. Scientific methods, role of experimental design, and statistics in ecological and environmental studies | 2                           | Lab 1 , 2  |
+| 2\. Nature of experimentation and principles of experimental design                                         | 1                           | Lab 3      |
+| 3\. Random variables                                                                                        | 1                           | Lab 4      |
+| 4\. Probability and stochastic distributions                                                                | 1                           | Lab 5      |
+| 5\. Exploratory data analysis                                                                               | 1                           | Lab 6, 7   |
+| 6\. Design of experiments                                                                                   | 1                           | Lab 8      |
+| 7\. Inferential statistics                                                                                  | \-                          | \-         |
+| 8\. Hypothesis testing                                                                                      | \-                          | \-         |
+| 9\. Statistical modeling                                                                                    | 1                           | Lab 9      |
+| 10\. Regression                                                                                             | 2                           | Lab 10, 11 |
+| 11\. Analysis of Variance and Analysis of Covariance                                                        | 1                           | Lab 12     |
+| 12\. Mixed model                                                                                            | 1                           | Lab 13     |
+| 13\. Multivariate analyses in ecological and environmental studies                                          | 2                           | Lab 14, 15 |
+
+The illustrations in this lab material consist of images taken or created by the author, as well as images obtained from other sources, including articles published in academic journals by the author. R programming language [@R-base] is used for the examples of analyses and visualization.
+
+The author would like to thank Associate Professor Dr. Jatupol Kampuansai for his comments on the earlier version of the materials and suggestions for improving these materials. Also, the author thank all students who took this course and gave the author their feedback on the lab sessions.
+
+**Assistant Professor Dr. Pimonrat Tiansawat**
+
+Author
+
+June-2026

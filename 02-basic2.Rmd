@@ -20,9 +20,9 @@ The components of the data frame must be vectors (either numeric, character, or 
 
 Once we collect the data, we should digitize it immediately.
 My suggestion is to input your data in Excel spreadsheets.
-Then we save them in a .txt or .csv before importing them into R.
+Then we save them in a .txt or .csv before importing them into R (Figure \@ref(fig:csv)).
 
-```{r relationship, echo = FALSE, fig.cap = "Save the data as .txt or .csv file", out.width="100%"}
+```{r csv, echo = FALSE, fig.cap = "Save the data as .txt or .csv file", out.width="100%"}
 knitr::include_graphics("figures/Lab 2 data.jpg")
 ```
 

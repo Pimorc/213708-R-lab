@@ -3,7 +3,7 @@ editor_options:
   markdown:
     wrap: sentence
 ---
-
+border
 # Scientific methods, role of experimental design and statistics in ecological and environmental studies (Scientific methods and download R) {#basic1}
 
 **Duration:** 3-hour lab
@@ -104,7 +104,7 @@ Let's type this code using a function called "seq":
 ```{css, echo=FALSE}
 .border-chunk {
   background-color: lightgrey;
-  border: 3px solid black;
+  border: 1px #000;
 }
 ```
 
@@ -117,7 +117,7 @@ R shows Error: unexpected ';' in "seq(1;".
 It says that ";" is not supposed to be in this code.
 The solution is to change to be the right one:
 
-```{r, eval = F}
+```{r, eval = F, class.source = "border-chunk"}
 seq(1, 10)
 ```
 
@@ -126,7 +126,7 @@ seq(1, 10)
 Let R know where you want to R to read files and/or write to.
 To see a current working directory:
 
-```{r, eval = F}
+```{r, eval = F, class.source = "border-chunk"}
 getwd() # current directory
 ```
 
@@ -138,7 +138,7 @@ The simplest data structure is a vector.
 Think about it as a dataset arranged in sequence.
 To create a vector you will use c() function in R:
 
-```{r, eval = F}
+```{r, eval = F, class.source = "border-chunk"}
 x <- c(10, 5, 6, 9, 8, 5)
 x
 ```
@@ -375,4 +375,4 @@ Add your nickname behind your last name.
 
 **End of Lab 1**
 
-------------------------------------------------------------------------
+---

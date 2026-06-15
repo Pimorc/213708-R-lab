@@ -17,3 +17,7 @@ ol {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+.border-chunk {
+  background-color: lightgrey;
+  border: 1px #000;
+}
