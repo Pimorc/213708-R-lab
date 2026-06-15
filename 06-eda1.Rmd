@@ -1,0 +1,263 @@
+---
+title: "Lab Session 6" 
+subtitle: "Exploratory Data Analysis (EDA) Episode 1 (3 hours)"
+author: "Pimonrat Tiansawat"
+date: "Last updated on `r format(Sys.time(), '%d %B, %Y')`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    toc: true
+    toc_depth: 2
+    smooth_scroll: true
+editor_options: 
+  markdown: 
+    wrap: sentence
+---
+# Exploratory Data Analysis (EDA) Episode 1 {#eda1}
+
+**Duration:** 3-hour lab
+
+## Learning Outcomes
+
+Students should be able to:
+
+1.  Demonstrate how to explore data and visualize data
+
+## Introduction
+
+Exploratory data analysis is important and should be done before you deal into deeper analysis of the data.
+This worksheet will guide you how to do EDA of various kinds. Read the text for explanations and input the text in the box into R (copy and paste into R is fine.)
+
+## Data file for this lab
+
+Iris dataset [@Anderson1935]
+
+## Download Additional Packages
+
+R packages are add-ons that provide specific tools for enhancing R functionality. R packages contain code, data, and documentation. We will install some packages and call those packages at the beginning.
+
+```{r message = FALSE, warning=FALSE, eval = FALSE}
+if(!require(ggplot2)){install.packages('ggplot2')}
+if(!require(dplyr)){install.packages('dplyr')}
+if(!require(GGally)){install.packages('GGally')}
+if(!require(plotly)){install.packages('plotly')}
+
+library(ggplot2)
+library(GGally)
+library(dplyr)
+library(plotly)
+```
+
+# Dataset
+
+Today we will use a classic dataset - iris dataset of Edgar Anderson [@Anderson1935] Read more about the data set at <https://en.wikipedia.org/wiki/Iris_flower_data_set>
+
+Since the dataset comes with R already, we use the `data()` function to call the dataset by its name.
+
+```{r eval = FALSE}
+data(iris)
+
+# call the data set -- 150 observations of 5 columns
+iris 
+
+# This function is to see the structure of the data
+str(iris) 
+
+# To see some top rows of the data
+head(iris) 
+```
+
+# Exploring the Data
+
+## Summary and Graphical EDA of One Variable
+
+We will use the R base package for plotting this.
+
+```{r eval = FALSE}
+summary(iris) # Combine all species together
+
+hist(iris$Sepal.Length) ## histogram of sepal length of all species
+
+qqnorm(iris$Sepal.Length) ## qq plot of sepal length
+qqline(iris$Sepal.Length)
+
+boxplot(iris$Sepal.Length) ## box plot of sepal length
+```
+
+**Practice in class:** now you explore other variables of the iris data set in the same way.
+Change the codes accordingly.
+
+## Exploring Variables Separately by Species
+
+What if you want to explore one or more variables separately by species?
+
+Let's do one variable first.
+One way that we can do this is to use the package `dplyr` [@dplyr] to help with this.
+Please try to understand the code before moving on.
+
+```{r eval = FALSE}
+summary.sepal <- iris %>%
+  group_by(Species) %>%
+  summarise(mean = mean(Sepal.Length),
+            sd = sd(Sepal.Length),
+            max = max(Sepal.Length),
+            min = min(Sepal.Length),
+            SE = sd(Sepal.Length)/sqrt(length(Sepal.Length) - 1))
+
+summary.sepal
+```
+
+Now the mean, SD, and SE are for each species. We can extract the values for reporting and for further plotting such as bar graphs.
+
+### Bar Plot with ggplot2
+
+We will use the package `ggplot2` [@ggplot2] for plotting.
+The package produces good-looking graphics.
+The `ggplot2` has its own grammar for graphics.
+The main function is `ggplot()` then we supply a dataset (data = ) and aesthetic mapping (with `aes()`).
+In `aes()`, we supply what to plot for x axis (x = ) and y axis (y = ) and other formats such as specifying different colors for different treatments or species.
+After that, you then add layers like `geom_bar()`, scales, and graph characteristics.
+
+```{r eval = FALSE}
+bar.sepal <- ggplot(data = summary.sepal,
+                    aes(x = Species, y = mean, fill = Species))
+
+bar.sepal +
+  geom_bar(colour = "black", stat="identity") +
+  geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE),
+                width=.2, # Width of the error bars
+                position = position_dodge(.9))
+```
+
+You can adjust the axis, text and color the way you want. Here we will not go into the details of the code to adjust the looks. My suggestion if you would like to do more graphic in R is to go to R Graphics Cookbook [@chang2018r] <https://r-graphics.org/> 
+
+### Box Plot or Box and Whisker Plot
+
+We will move on to other types of plots for EDA.
+Here is an example of a box plot of the sepal length.
+
+```{r eval = FALSE}
+box.sepal <- ggplot(data = iris, aes(x = Species, y = Sepal.Length))
+
+box.sepal +
+  geom_boxplot(aes(fill = Species)) +
+  stat_summary(fun = "mean", geom = "point", shape = 8,
+               position = position_dodge(width = 0.75),
+               size = 2,
+               show.legend = FALSE)
+```
+
+### Histogram
+
+Now, let's plot histograms
+
+```{r eval = FALSE}
+### Histogram
+hist.sepal <- ggplot(data = iris, aes(x = Sepal.Length, fill = Species))
+
+## count on y axis
+hist.sepal +
+  geom_histogram(binwidth = 0.5, alpha = 0.5, position = "identity") 
+
+### plot density instead of count and show means
+hist.sepal +
+  geom_histogram(aes(y = ..density..), binwidth = 0.5, alpha = 0.5, position = "identity") +
+  geom_density(alpha = 0.5) +
+  geom_vline(data = summary.sepal, aes(xintercept = summary.sepal$mean, colour = Species),
+             linetype= "dashed", size = 1)
+```
+
+**Practice:** now you may explore other variables of the iris data set in the same way.
+
+### Bivariate EDA
+
+To test whether there is a correlation between two variables, simply use the function `cor.test`. Here let's start from a correlation test between the sepal length and width of all species combined. Also let's see a scatter plot.
+
+```{r eval = FALSE}
+cor.test(iris$Sepal.Length, iris$Sepal.Width, alternative = "two.sided")
+
+ggplot(iris, aes(Sepal.Length, Sepal.Width)) + geom_point(shape = 1)
+```
+
+From the graphic, what do you think about the correlation? Agree with the cor.test? Now plot another plot with different colors for species. Also, make it easier to see by separating panels.
+
+```{r eval = FALSE}
+ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
+  geom_point(shape = 19)
+
+ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
+  geom_point(shape = 19) + facet_wrap( ~ Species)
+```
+
+### Exploring Multiple Variables at Once
+
+R has tools for exploring multiple variables at once. We will use packages called `plotly` [@plotly] and `GGally` [@ggally].
+
+```{r eval = FALSE}
+## Pearson's correlation coefficient (default)
+cor(iris[,1:4], method = 'pearson') 
+
+## Spearman's rho
+cor(iris[,1:4], method = 'spearman') 
+
+### Now see multiple plots at once with ggpairs
+p <- ggpairs(iris, column = 1:4, title = "correlogram with ggpairs()",
+             ggplot2::aes(colour = Species))
+
+ggplotly(p)
+```
+
+## Exercise
+
+**Submission:** A PDF file containing your answers.
+If you are asked to work in R, your answers must contain **R codes** that you wrote and **the outputs** you get.
+Your codes and outputs can be text and/or screen capture.
+
+**Full score:** 10
+
+**Data for this exercise:** Run the following code.
+
+This is a germination experiment. There are five treatments. For each treatment, three replicates of 25 seeds were sown (column 'sow') and the number of germinated seeds were recorded (column 'germ'). Build the data frame by running the below code. Then follow the instructions.
+
+```{r eval = FALSE}
+eda.data <- data.frame(treatment = factor(c('baseline', 'dry20', 'dry40', 'wet20', 'wet40')),
+                       sow = rep(25, 15),
+                       germ = c(22, 0, 18, 3, 24,
+                                24, 0, 15, 7, 24,
+                                24, 0, 18, 12, 19),
+                       replicate = c(rep(1, 5), rep(2, 5), rep(3, 5)))
+
+eda.data
+```
+
+### Questions/Directions
+
+**1.** In R, draw a histogram of the variable 'germ' and describe in words what the shape of the histogram is.
+
+**2.** In R, draw a boxplot of the variable 'germ' separated by treatments.
+X axis represents treatments and the y axis is the number of germinated seeds.
+
+**3.** Describe in words the effect of treatments on seed germination.
+
+**4.** With the eda.data data frame, use R code to create a new variable (column) called 'percent' to show the percent germination
+
+**5.** Show a summary table of germination percentage including (You may use short names as table headers)
+
+| Treatment | Mean percent germination | Standard deviation of the mean | Standard error of the mean | Maximum percent germination | Minimum percent germination |
+|------------|------------|------------|------------|------------|------------|
+| .... | .... | .... | .... | .... | .... |
+| .... | .... | .... | .... | .... | .... |
+
+### Grading Rubric
+
+| Question | Score 2 | Score 1 | Score 0 |
+|-------------------|------------------|------------------|------------------|
+| 1 | Correct R code and output and describe the histogram | One of R code or output is not included or incorrect and partially correctly describe the histogram | R code and output are not included or incorrect and no description of the histogram |
+| 2 | Correct R code and output | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
+| 3 | Correctly describe the effect using graph as a reference | Partially correctly describe the effect | Incorrectly describe the effect or do not include the answer |
+| 4 | Correct R code and output | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
+| 5 | Correct R code and complete output table | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
+
+**End of Lab 6**
+
+---

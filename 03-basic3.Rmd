@@ -1,0 +1,288 @@
+---
+editor_options: 
+  markdown: 
+    wrap: sentence
+---
+
+# Nature of Experimentation and Principles of Experimental Design (Data types and working with data) {#basic3}
+
+**Duration:** 3-hour lab
+
+## Learning Outcomes
+
+Students should be able to:
+
+1.  Demonstrate how to change data types/structures in R
+2.  Demonstrate an ability to manipulate data frames to reflect a proper experimental design
+
+## Data files for this lab
+
+-   lab2.RData (containing your data frame from the previous lab)
+
+-   infection.txt [Click here to download](https://o365cmu-my.sharepoint.com/:t:/g/personal/pimonrat_t_cmu_ac_th/IQB-_sr_C95ARLNJdJRhRVh9AU6i4_Tab5tHAHzKt2WAhKo?e=4tK81y)
+
+-   tabledata.txt [Click here to download](https://o365cmu-my.sharepoint.com/:t:/g/personal/pimonrat_t_cmu_ac_th/IQA8dUUXG09RRbU3kmIkVyKBAVBv8zemwvnpLvocNx3y8CQ?e=8B2aic)
+
+## Introduction
+
+This worksheet will provide you with an understanding of data types and how to manipulate data frames.
+Read the text for explanations and input the text in the box into R (copy and paste into R is fine.)
+
+## Nature of Experimentation and Data
+
+In experiments, you deal with many types of data.
+Make sure you know what your dependent and independent variables are.
+For example, your treatment (independent variable) may be categorical treatments like types of fertilizers, species of trees, etc.
+In addition, your measurements (dependent variable) may be categorical (such as death or alive, colors, etc.), count (such as number of leaves, number of species, etc.), and/or continuous values (such as weight, length, etc.).
+Once it comes to analyzing your data, you should know the R data types you work with so you will be able to correctly specify your data types in R.
+Here are six data types:
+
+1.  **Integer**: Holds whole numbers (no decimal point), e.g. 3, 65, 99
+2.  **Character**: Holds letters or symbols, e.g. 'a', 'Thailand'
+3.  **Numeric**: Stores decimal or fraction values, e.g. 0.24, 100, 10.345
+4.  **Logical**: Holds true or false values
+5.  **Complex**: The mathematical concept of an imaginary number e.g. 2+6i. We rarely use this type
+6.  **Raw**: ray bytes of data e.g. 62 6f 62 We rarely use this in practice
+
+## Data Structure in R
+
+R has six data structures:
+
+1.  **Vector**: holds one type of data (homogenous). The data can be any of the six types above. Use `c()` function to create a vector
+2.  **List**: holds multiple types of data (heterogenous). Use `list()` function to create a list
+3.  **Matrix**: two-dimensional, homogeneous data structure. A matrix contains a number of rows and columns. Use `matrix()` function to create a matrix
+4.  **Data frame**: two-dimensional, heterogeneous data structure. Each column has the same data type. Use `data.frame()` function to create a data frame or import data from files
+5.  **Array**: three-dimensional, homogeneous data structure. Use `array()` function to create a matrix
+6.  **Factor**: A vector that stores categorical data. Use `factor()` function to create a factor. For example, if you have three treatments -- control, fertilizer a, and fertilizer b, your factor would specify your factor in R as treatment \<- `factor("control", "a", "b")`
+
+**After importing the data into R, make sure that each variable has appropriate data type and/or structure**
+
+## Loading R Workspace and Inspect Data Structures
+
+```{r eval=F}
+load("lab2.RData")
+str(dat.no.na)
+```
+
+### Checking Data Types/Structure of Each Variable of the lab2 data set
+
+| Variable  | Current data type/structure | Appropriate data type/structure |
+|-----------|-----------------------------|---------------------------------|
+| count     |                             |                                 |
+| sample    |                             |                                 |
+| Orobanche |                             |                                 |
+| extract   |                             |                                 |
+| percent   |                             |                                 |
+
+## Changing Data Types/Structure
+
+Orobanche and extract are character data type.
+In practice, they are a factor type.
+In our case, the types of column variable can be changed from the character type to the factor using a function called `as.factor()`
+
+```{r eval=F}
+dat.no.na$Orobanche <- as.factor(dat.no.na$Orobanche)
+dat.no.na$extract <- as.factor(dat.no.na$extract)
+str(dat.no.na)
+```
+
+Now check to see if all variables have appropriate data type/structure.
+
+**After importing the data into R, make sure that each variable has appropriate data type and/or structure**
+
+## Removing Some Columns
+
+```{r eval=F}
+new.dat <- within(dat.no.na, rm(sample)) # 1 build a new data frame named 'new.data'
+new.dat
+```
+
+We have created a new data frame called 'new.dat' which is a subset of the existing data frame 'dat.no.na'.
+
+The other way is to make changes to your existing data frame.
+With this option, your data frame will be completely modified, and you will not be able to undo the changes.
+Here the 2nd column, 'sample' will be removed from the 'dat.no.na' data frame.
+
+```{r eval=F}
+dat.no.na <- dat.no.na[, -2]
+str(dat.no.na)
+```
+
+See Chapter 4 in Crawley 2012 [@crawley2012] (PDF provided in class) for more commands you can do with a data frame and try it in R.
+
+## Ordering Your Data
+
+We use `order()` function to order the rows by a variable.
+
+```{r eval=F}
+## order by the percent
+dat.no.na[order(dat.no.na$percent), ] 
+
+## order first by the extract, then the percent
+dat.no.na[order(dat.no.na$extract, dat.no.na$percent), ] 
+```
+
+## Changing Name of Variable (Column) and Row
+
+We use the `colnames()` function to change a name.
+The code asks to change the name of the 'percent' column to 'final'
+
+```{r eval=F}
+colnames(dat.no.na)[which(names(dat.no.na) == "percent")] <- "final "
+head(dat.no.na)
+```
+
+Changing row names is a bit tricky.
+Remind yourself that each row should have a unique name (no repetition).
+Let's try changing row names to be 'sample' followed by a row number
+
+```{r eval=F}
+rownames(new.dat) <- paste("sample",1:nrow(new.dat))
+new.dat
+```
+
+## Removing a Data Frame
+
+To remove an entire data frame, use `rm()` function.
+
+```{r eval=F}
+rm(new.dat)
+new.dat
+```
+
+When you call 'new.dat' you will get Error: object 'new.data' not found.
+This means that the data frame is already removed.
+
+## Subsetting Data Frame
+
+Sometimes we would like to only make a smaller data frame from an existing one.
+In this example, we only want to use data from only one extract, bean.
+We will start from the original data set, the 'dat' data frame.
+The codes below show two ways to subset the data frame.
+
+```{r eval=F}
+dat.bean <- subset(dat, dat$extract == 'bean') # 1
+str(dat.bean)
+
+dat.bean2 <- dat[which(dat$extract == 'bean'), ] # 2
+
+# Ask if the two are identical
+identical(dat.bean, dat.bean2) 
+
+# Remove unused levels of factors
+dat.bean <- droplevels(dat.bean) 
+```
+
+## Other Types of Data Sets That You May Work With
+
+We may also record data of each individual in each row then we would like to summarize by counting or grouping data.
+We will use cross tabulation to handle this.
+Let's first import the data.
+
+```{r eval=F}
+infection <- read.table('infection.txt', header = T)
+infection
+head(infection)
+str(infection)
+summary(infection)
+```
+
+This is a dataset of individual patients who had or had no diseases.
+Each row has data of each patient.
+We would like to create a data frame containing counts according to variables of interest.
+In R the function `table()` will create a summary table of count.
+
+```{r eval=F}
+# We summarize infected data by gender
+table(infection$infected, infection$sex) 
+
+# add sum of cases
+addmargins(table(infection$infected, infection$sex))
+```
+
+In contrast, we also can create individual case data from cross tabulation data.
+See the example below.
+
+```{r eval=F}
+count.table <- read.table('tabledata.txt', header = T)
+count.table
+```
+
+In this data frame you will see that this is a count dataset.
+You would like to make a new data frame of each individual case, i.e. you count 12 healthy young males and you would like to make each row representing each male.
+At the end, you would like to have 12 rows of healthy young male and 7 rows of healthy old male and so on.
+We will use the `lapply()` function.
+
+```{r eval=F}
+lapply(count.table, function(x) rep(x, count.table$count))
+
+## see what type of this data in R
+class(lapply(count.table, function(x) rep(x, count.table$count))) 
+```
+
+At this point it is not a data frame yet.
+It is a list.
+We will change it to be a data frame by
+
+```{r eval=F}
+expand.tab <- as.data.frame(lapply(count.table, function(x) rep(x, count.table$count)))
+head(expand.tab)
+
+# remove the first column
+expand.tab <- expand.tab[ ,-1]
+head(expand.tab)
+
+# add individual ID to each case
+expand.tab$id <- seq(1, length(expand.tab[, 1]))
+class(expand.tab)
+```
+
+## Exercise
+
+**Submission:** A PDF file containing your answers.
+If you are asked to work in R, your answers must contain **R codes** that you wrote and **the outputs** you get.
+Your codes and outputs can be text and/or screen capture.
+
+**Full score:** 10
+
+**Data for this exercise:** hw3 data.csv [Click here to download](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/IQC7o7YrBKY5Rr97OtI9pzAuAbxfptYkVzSEz6wY2O0dZrQ?e=EFJKEA)
+
+This is a dataset from a seed storage experiment.
+Seeds were collected and stored.
+And then the seeds were sown to evaluate germinability.
+There are four treatments of storing seeds under dry (two levels) vs moist (two levels) conditions and an initial germination (baseline).
+
+### Questions/Directions
+
+**1.** In R, create a data frame in R named 'seed', and then import a file 'hw3 data.csv'.
+Show the structure of the data frame.
+
+**2.** Change the data structure of 'treatment' and 'replicate' to be a factor data structure.
+
+**3.** Subset the data frame to include only dry20, dry40, wet20 and wet40 treatment (omit baseline treatment) and name the new data frame 'seed.treat'.
+Show the structure of the new data.
+
+**4.** From the 'seed.treat' data frame, create a summary table of the count number of germinated vs ungerminated seeds (germ.or.not column) and the treatments (treatment).
+Show the output.
+
+**5.** Answer these questions (no R code needed)
+
+5.1.
+How many seeds were used per treatment?
+
+5.2.
+Which treatment has the most germinated seeds?
+
+### Grading Rubric
+
+| Question | Score 2                         | Score 1                                              | Score 0                                         |
+|-------------------|------------------|------------------|------------------|
+| 1        | Correct R code and output       | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
+| 2        | Correct R code and output       | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
+| 3        | Correct R code and output       | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
+| 4        | Correct R code and output       | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
+| 5        | Correctly answer both questions | One answer is included or correct                    | No answer                                       |
+
+**End of Lab 3**
+
+------------------------------------------------------------------------

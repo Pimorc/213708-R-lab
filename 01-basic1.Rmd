@@ -3,7 +3,7 @@ editor_options:
   markdown:
     wrap: sentence
 ---
-border
+
 # Scientific methods, role of experimental design and statistics in ecological and environmental studies (Scientific methods and download R) {#basic1}
 
 **Duration:** 3-hour lab
@@ -14,6 +14,10 @@ Students should be able to:
 
 1.  Download R programming language and RStudio for scientific data analyses
 2.  Describe what function is and use them in programming
+
+## Data files for this lab
+
+None
 
 ## What is R?
 
@@ -99,14 +103,14 @@ R will show error messages if R does not recognize what is in your codes.
 Don't panic!
 Read the error messages; sometimes R will say what is wrong.
 
-Let's type this code using a function called "seq":
-
 ```{css, echo=FALSE}
 .border-chunk {
   background-color: lightgrey;
-  border: 1px #000;
+  border: 1px #000000;
 }
 ```
+
+Let's type this code using a function called "seq":
 
 ```{r error = TRUE, eval = F, class.source = "border-chunk"}
 # This code will produce an error
@@ -345,23 +349,20 @@ Your codes and outputs can be text and/or screen capture.
 
 **Full score:** 10
 
+**Data for this exercise:** None.
+
 ### Questions/Directions
 
-**1**.
-Given a right triangle with sides x = 5 and y = 13, calculate the length of the hypotenuse
+**1.** Given a right triangle with sides x = 5 and y = 13, calculate the length of the hypotenuse
 
-**2**.
-Generate a sequence of values from -4.8 to -3.43 that is length 8 (show code)
+**2.** Generate a sequence of values from -4.8 to -3.43 that is length 8 (show code)
 
-**3**.
-What is the sum of the exponentials of this sequence?
+**3.** What is the sum of the exponential of this sequence?
 
-**4**.
-Create a character vector and name it as you wish.
+**4.** Create a character vector and name it as you wish.
 The vector consists of 3 elements -- name, last name and month that you were born.
 
-**5**.
-Add your nickname behind your last name.
+**5.** Add your nickname behind your last name.
 
 ### Grading Rubric
 
@@ -375,4 +376,4 @@ Add your nickname behind your last name.
 
 **End of Lab 1**
 
----
+------------------------------------------------------------------------

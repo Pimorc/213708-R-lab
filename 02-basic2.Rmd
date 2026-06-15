@@ -1,4 +1,4 @@
-# Lab 2 Scientific methods, role of experimental design and statistics in ecological and environmental studies (Data import and management {#basic2}
+# Scientific methods, role of experimental design and statistics in ecological and environmental studies (Data import and management) {#basic2}
 
 **Duration:** 3-hour lab
   
@@ -8,6 +8,10 @@ Students should be able to:
 
 1.  Import a data set to the program to prepare for data analysis
 2.  Remove some missing value from the data
+
+## Data files for this lab
+
+None
 
 ## What is a data frame?
 
@@ -209,23 +213,23 @@ Your codes and outputs can be text and/or screen capture.
 
 **Full score:** 10
 
-**Data file:** [Click here to download the file](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/ESyrKa6iihVHkMCVRQUFes4BFLfeRY_Q79fXhTAxy6Wc0A?e=z7ET6c "Click to download the file")
+**Data for this exercise:** example.xlsx [Click here to download the file](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/ESyrKa6iihVHkMCVRQUFes4BFLfeRY_Q79fXhTAxy6Wc0A?e=z7ET6c)
 
 ### Questions/Directions
 
-**1**.  In Excel, open a file ‘example.xlsx’.
-    See if the file is appropriate to be imported to R.
-    Answer in written words: What do you have to change in the data to make the file readable by R.
+**1.**  In Excel, open a file ‘example.xlsx’.
+See if the file is appropriate to be imported to R.
+Answer in written words: What do you have to change in the data to make the file readable by R.
 
-**2**.  In Excel, arrange the data in such a way that it is ready to analyze in R and save as an ‘example.txt’ file.
-    For your answer, show a screen capture of your corrected file.
+**2.**  In Excel, arrange the data in such a way that it is ready to analyze in R and save as an ‘example.txt’ file. 
+For your answer, show a screen capture of your corrected file.
 
-**3**.  In R, create a data frame in R named ‘data’, and then import a file ‘example.txt’.
-    Show the data frame.
+**3.**.  In R, create a data frame in R named ‘data’, and then import a file ‘example.txt’.
+Show the data frame.
 
-**4**.  In R, show the structure of this data frame.
+**4.**  In R, show the structure of this data frame.
 
-**5**.  In R, create a new data frame, called ‘data.new’ (from ‘data’) that does not have any missing value.
+**5.**  In R, create a new data frame, called ‘data.new’ (from ‘data’) that does not have any missing value.
 
 ### Grading Rubric
 

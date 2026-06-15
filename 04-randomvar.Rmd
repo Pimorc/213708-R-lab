@@ -1,0 +1,234 @@
+---
+editor_options: 
+  markdown: 
+    wrap: sentence
+---
+# Random Variables {#lab4randomvar}
+
+**Duration:** 3-hour lab
+
+## Learning Outcomes
+
+Students should be able to:
+
+1. Generate plot of random variables and describe the shape of the distribution
+
+## Data files for this lab
+
+None to download. A data set is generated in the worksheet
+
+## Introduction
+
+This worksheet will provide you with an understanding of random variables and probability distributions.
+We will use a normal distribution in this lab. The workflow of this lab is inspired by the exercise sheet from the class the instructor took when she was in a graduate program [@deitze2009]. The workflow is modified to be more targeting the normal distribution. Read the text for explanations and input the text in the box into R (copy and paste into R is fine.) 
+
+## Normal Distribution
+
+A normal distribution is one of the most important distributions [@navarro2024].
+It is also called Gussian distribution.
+It is described using two parameters, the mean of the distribution $μ$ and the standard deviation of the distribution $σ$.
+
+$$X ∼ Normal(μ, σ)$$
+
+In R, the function for the normal distribution
+
+| Function | Description |
+|----------|-------------|
+| dnorm() | probability density function |
+| pnorm() | cumulative distribution function |
+| qnorm() | calculates the value associated with a specified tail probability, inverse of "p" |
+| rnorm() | simulates random numbers |
+
+## Generating Random Numbers
+
+Let's start with rnorm to generate random number from a normal distribution
+
+```{r eval=F}
+set.seed(123)
+x <- rnorm(100, mean = 0, sd = 1)
+
+## draw a histogram of x
+par(mfrow = c(1, 1))
+hist(x)
+abline(v = mean(x), col = 'purple')
+```
+
+Let's see mean, median and standard deviation of this data
+
+```{r eval=F}
+mean(x)
+median(x)
+sd(x)
+
+# Add mean and median into the plot
+abline(v = mean(x), lty = 2, lwd = 1.5, col = "purple")
+abline(v = median(x), lty = 2, lwd = 1.5, col = 'darkorange')
+```
+
+## Density Plot
+
+Create a density plot.
+See the y axis.
+It is now showing probability.
+
+```{r eval=F}
+hist(x, probability = TRUE, axes = T, xlim = c(-3, 3))
+
+## Add a density line
+lines(density(x), col = "red", lwd = 2)
+
+## Now draw a normal distribution line
+## with mean and SD of x
+x2 <- seq(min(x), max(x), length = 50)
+f <- dnorm(x2, mean = mean(x2), sd = sd(x2))
+
+lines(x2, f, col = "blue", lwd = 2)
+```
+
+## Overlaying Boxplot on Histogram
+
+Let's overlay a boxplot onto a histogram.
+Box plots are a good visualization of the data distribution.
+Pay attention on the shape of the box plot and the histogram.
+
+```{r eval=F}
+hist(x, probability = TRUE, axes = T, xlim = c(-3, 3))
+par(new = TRUE)
+boxplot(x, horizontal = TRUE, axes = FALSE,
+        lwd = 1, col = rgb(0, 1, 1, alpha = 0.15),
+        ylim = c(-3, 3))
+points(mean(x), 1, col = 'purple', pch = '*', cex = 2)
+
+stripchart(x, method = "jitter", pch = 19, cex = 0.5,
+           add = TRUE, col = "blue")
+```
+
+## Effect of Changing Mean and Standard Deviation
+
+Next we will see when we change mean and sd and the effect on the shape of normal distribution.
+Let's start by generating a data frame with a sequence of values
+
+```{r eval=F}
+a = seq(-5, 5, length.out = 100)
+mean(a)
+
+plot(a, dnorm(a), bty = 'n',
+     type = 'l', main = 'When the mean is changed.')
+abline(v = 0) ## add a line to indicate where the mean is
+lines(a, dnorm(a, 2), col = 2) ## changing the mean
+abline(v = 2, col = 2)
+lines(a,dnorm(a, -1), col = 3) ## changing the mean
+abline(v = -1, col = 3)
+
+plot(a, dnorm(a), type = 'l', bty = 'n',
+     main = 'When the SD is changed')
+abline(v = 0) ## add a line to indicate where the mean is
+lines(a,dnorm(a, sd = 2),col = 2) ## changing the sd
+abline(v = 0, col = 2)
+lines(a,dnorm(a, sd = 3),col = 3) ## changing the sd
+abline(v = 0, col = 3)
+
+plot(a, dnorm(a), bty = 'n',
+     type ='l', main = 'When the mean and SD are changed')
+abline(v = 0)
+lines(a, dnorm(a, -2, 1.5), col = 2) ## changing the mean and standard dev
+abline(v = -2, col = 2)
+lines(a, dnorm(a, 1, 2), col = 3) ## changing the mean and standard dev
+abline(v = 1, col = 3)
+```
+
+## Cumulative Density Function (CDF) vs Probability Density Function (PDF)
+
+```{r eval=F}
+par(mfrow = c(2, 1))
+
+plot(a, dnorm(a), type = 'l', bty = 'n',
+     main = 'Probability density function of x',
+     ylim = c(0, 1))
+abline(v = 0)
+
+plot(a, pnorm(a), type = 'l', bty = 'n',
+     main = 'Cumulative density function of x',
+     ylim = c(0, 1))
+abline(v = 0)
+```
+
+## Sample Size and the Shape of the Distribution
+
+Now we will see the histograms of data with different sample sizes and compare to the actual density of the standard normal.
+
+```{r eval=F}
+par(mfrow = c(2, 2))
+n = c(5, 30, 500, 10000)
+for(i in 1:4){
+  hist(rnorm(n[i]), main = n[i],
+       probability = TRUE,
+       breaks = 40, xlab = 'Value')
+  lines(a, dnorm(a), col = 2)
+}
+```
+
+The example above shows that as the number of random draws from a probability distribution increases the histogram of those draws provides a better approximation of the density itself.
+
+Use the code below to determine the mean and standard deviation of random draws of small and large sample sizes.
+Notice that when the sample size increases the sample mean and standard deviation get closer to the true mean of 0 and standard deviation of 1 (mean = 0, sd = 1).
+The standard error gets smaller when the sample size increases.
+
+```{r eval=F}
+b <- rnorm(10)
+mean(b)
+sd(b) ## standard deviation
+sd(b)/sqrt(10) ## standard error
+
+c <- rnorm(10000)
+mean(c)
+sd(c) ## standard deviation
+sd(c)/sqrt(10000) ## standard error
+
+save.image("lab4.RData")
+```
+
+# References
+
+Deitze, M. 2009. Common probability distributions. Exercise worksheet for course IB519, University of Illinois.
+
+Navarro, Danielle. J. 2024. The Normal Distribution. in Learning Statistics with R - A tutorial for Psychology Students and other Beginners. available online [https://stats.libretexts.org/Bookshelves/Applied_Statistics/Learning_Statistics_with_R_-_A_tutorial_for_Psychology_Students_and_other_Beginners_(Navarro)/09%3A_Introduction_to_Probability/9.05%3A_The_Normal_Distribution].
+
+## Exercise
+
+**Submission:** A PDF file containing your answers. If you are asked to work in R, your answers must contain **R codes** that you wrote and **the outputs** you get. Your codes and outputs can be text and/or screen capture.
+
+**Full score:** 10
+
+**Data for this exercise:** Run the following code.
+
+```{r eval=F}
+set.seed(123)
+hw4 <- c(rnorm(300, 1, 2), rnorm(300, 10, 2.5))
+```
+
+## Questions/Directions
+
+**1.** In R, plot a histogram of the hw4 and show the plot.
+
+**2.** Explain in words the shape of the distribution
+
+**3.** Use R to find the mean and standard deviation of this data?
+
+**4.** In R, plot a box plot of the hw4 and show the plot.
+
+**5.** Explain in words what the limitation of the box plot to represent the shape of the distribution
+
+## Grading Rubric
+
+| Question | Score 2 | Score 1 | Score 0 |
+|----------|---------|---------|---------|
+| 1 | Correct R code and output | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
+| 2 | Correctly describe the shape in full sentence | Correctly describe the shape in but not in full sentence | No answer |
+| 3 | Correct R code and outputs | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
+| 4 | Correct R code and output | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
+| 5 | Correctly explain in full sentence | Correctly explain but not in full sentence | No answer |
+
+**End of Lab 4**
+
+---

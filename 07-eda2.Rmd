@@ -1,0 +1,258 @@
+---
+title: "Lab Session 7" 
+subtitle: "Exploratory Data Analysis (EDA) Episode 2 (3 hours)"
+author: "Pimonrat Tiansawat"
+date: "Last updated on `r format(Sys.time(), '%d %B, %Y')`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    toc: true
+    toc_depth: 2
+    smooth_scroll: true
+editor_options: 
+  markdown: 
+    wrap: sentence
+---
+
+# Learning Outcomes
+
+Students should be able to:
+
+1. Demonstrate how to explore data and visualize data
+
+# Introduction
+
+Exploratory data analysis is important and should be done before you deal with deeper analysis of the data.
+This worksheet will use PM 2.5 data of two stations in Chiang Mai to learn more about EDA.
+Read the text for explanations and input the text in the box into R (copy and paste into R is fine.)
+
+**Data file for this lab:** 
+pm25cm18.csv [Click here to download the file](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/EaWmNIS07LBFshwHdgdOsnYBemaxwvLNj5mqc6xDsMYJxA?e=oqZ7jC "Click to download the file") 
+pm25cm23.csv [Click here to download the file](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/EfyuyVVPQn5JmfnCK5oowrQBI3U4cjxgIa14NqM-fC6xHA?e=mY1nKh "Click to download the file")
+
+
+# Download Additional Packages
+
+R packages are add-ons that provide specific tools for enhancing R functionality.
+R packages contain code, data, and documentation.
+We will install some packages and call those packages at the beginning.
+
+```{r eval=F, message=FALSE, warning=FALSE}
+if(!require(ggplot2)){install.packages('ggplot2')}
+if(!require(dplyr)){install.packages('dplyr')}
+if(!require(tidyverse)){install.packages('tidyverse')}
+
+library(ggplot2)
+library(tidyverse)
+```
+
+# Dataset
+
+Today we will use datasets from Air4Thai website: http://www.air4thai.com/webV3/#/History.
+The PM 2.5 dataset of 2018 and 2023 were downloaded and formatted to focus on two stations of Chiang Mai at the Government complex (gov) and at the Yupparaj school (yup).
+PM 2.5 level in µg./m³ was recorded at the station every day.
+There are some missing values in the datasets.
+We will start with two .csv files.
+We will use R to merge them to make a new data frame that contains the data from both years.
+
+```{r eval=F}
+### specify classes of variable
+class <- c("character", "numeric", "numeric")
+
+### input the data
+pm2023 <- read.csv("pm25cm23.csv", colClasses = class, na.strings = 'na')
+pm2023$year <- '2023'
+
+pm2018 <- read.csv("pm25cm18.csv", colClasses = class, na.strings = 'na')
+pm2018$year <- '2018'
+
+### format the date
+pm2023$date <- as.POSIXlt(pm2023$date, format ='%m/%d/%Y') ## local time setup
+pm2023$formatted_date <- format(as.Date(pm2023$date), format = '%m/%d')
+pm2023$month <- format(as.Date(pm2023$date), format = '%m')
+
+pm2018$date <- as.POSIXlt(pm2018$date, format ='%m/%d/%Y') ## local time setup
+pm2018$formatted_date <- format(as.Date(pm2018$date), format = '%m/%d')
+pm2018$month <- format(as.Date(pm2018$date), format = '%m')
+
+### combine the two data frames
+pm.all <- rbind(pm2018, pm2023)
+
+pm.all <- na.omit(pm.all) ## get rid of NA's
+
+head(pm.all)
+```
+
+Now we have three data frames: separate by year and combined year.
+
+# Exploring the Dataset
+
+## 1. Asking Questions About Our Data Set
+
+**Question 1**: Is the level of PM 2.5 different between two locations for both years?
+
+```{r eval=F}
+## Exploratory data analysis
+## Summary of PM 2.5 at each location for two years
+summary.gov <- pm.all %>% group_by(year) %>%
+  summarise(mean = mean(gov),
+            sd = sd(gov),
+            max = max(gov),
+            min = min(gov),
+            SE = sd(gov)/sqrt(length(gov) - 1))
+
+summary.yup <- pm.all %>% group_by(year) %>%
+  summarise(mean = mean(yup),
+            sd = sd(yup),
+            max = max(yup),
+            min = min(yup),
+            SE = sd(yup)/sqrt(length(yup) - 1))
+
+### To see the summary table
+summary.gov
+summary.yup
+```
+
+**Question 2:** Do the levels of PM 2.5 at the two locations vary among months in both years?
+
+```{r eval=F}
+summary.yup.mo <- pm.all %>% group_by(year, month) %>%
+  summarise(mean = mean(yup),
+            sd = sd(yup),
+            max = max(yup),
+            min = min(yup),
+            SE = sd(yup)/sqrt(length(yup) - 1))
+
+summary.gov.mo <- pm.all %>% group_by(year, month) %>%
+  summarise(mean = mean(gov),
+            sd = sd(gov),
+            max = max(gov),
+            min = min(gov),
+            SE = sd(gov)/sqrt(length(gov) - 1))
+
+### To see the summary table
+summary.gov.mo
+summary.yup.mo
+```
+
+Now the mean, SD, and SE are for each year and month.
+We can extract the values for reporting and for further plotting such as bar graphs.
+
+## 2. Visualization
+
+**Question 1**: Is the level of PM 2.5 different between two locations for both years?
+
+We will use the base R and `ggplot2` for plotting.
+You will see the differences from plotting with `ggplot2`.
+The codes below are for adjusting the plotting area.
+
+par(mfrow = c(1, 1), mar = c(4, 4, 2, 1)) ## one plotting panel
+
+par(mfrow = c(2, 1), mar = c(4, 4, 2, 1)) ## split the plotting area into 2 rows
+
+par(mfrow = c(1, 2), mar = c(4, 4, 2, 1)) ## split into two columns
+
+Let's start from the data of the government station using the base R.
+
+```{r eval=F}
+par(mfrow = c(2, 1), mar = c(4, 4, 2, 1)) ## split the plotting area into 2 rows
+
+hist(subset(pm.all, year == "2018")$gov, col = "green")
+hist(subset(pm.all, year == "2023")$gov, col = "orange")
+
+boxplot(gov ~ year, data = pm.all, col = "blue", horizontal = T,
+        main = "Government station")
+boxplot(yup ~ year, data = pm.all, col = "pink", horizontal = T,
+        main = "Yupparaj station")
+```
+
+Now move on to use `ggplot2` for plotting histograms of the data from the government station
+
+```{r eval=F}
+hist.gov <- ggplot(data = pm.all, aes(x = gov, fill = year))
+
+hist.gov +
+  geom_histogram(binwidth = 5, alpha = 0.5, position = "identity", color = 'black') +
+  geom_density(alpha = 0.5) +
+  geom_vline(data = summary.gov, aes(xintercept = mean, colour = year),
+             linetype= "dashed", size = 1) +
+  xlab("PM 2.5 (microgram/ cubic meter)")
+```
+
+**Question 2:** Do the levels of PM 2.5 at the two locations vary among months in both years?
+
+We will use the package `ggplot2` for plotting.
+For this question, bar graphs and line graphs would be appropriate.
+
+```{r eval=F}
+bar.gov <- ggplot(data = summary.gov.mo,
+                  aes(x = month, y = mean, fill = year,
+                      group = year, colour = year))
+
+bar.gov +
+  geom_bar(position = position_dodge(), colour = "black", stat = "identity") +
+  geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE),
+                width = 0.2, position = position_dodge(0.9)) +
+  ylab("PM 2.5 (microgram/ cubic meter)")
+```
+
+Now let's look at a line graph.
+
+```{r eval=F}
+bar.gov +
+  geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE),
+                colour = "black", width = 0.2, position = pd) +
+  geom_line(position = pd, size = 1) +
+  geom_point(position = pd, size = 3) +
+  ylab("PM 2.5 (microgram/ cubic meter)")
+```
+
+You can adjust the axis, text and color the way you want.
+Here we will not go into the details of the code to adjust the looks.
+My suggestion if you would like to do more graphic in R is to go to http://www.cookbook-r.com/Graphs/
+
+# References
+
+- Søren Højsgaard and Ulrich Halekoh (2016). doBy: Groupwise Statistics, LSmeans, Linear Contrasts, Utilities. R package version 4.5-15. https://CRAN.R-project.org/package=doBy
+- H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2009.
+- https://www.R-project.org/
+- http://www-huber.embl.de/users/klaus/Teaching/EDA.pdf
+- http://www.cookbook-r.com/Graphs/Bar_and_line_graphs_(ggplot2)/
+
+---
+
+# Exercise
+
+**Submission:** A PDF file containing your answers. If you are asked to work in R, your answers must contain **R codes** that you wrote and **the outputs** you get. Your codes and outputs can be text and/or screen capture.
+
+**Full score:** 10
+
+**Data file for this exercise:** pm25cm18.csv, pm25cm23.csv (you already downloaded them.)
+
+## Questions/Directions
+
+**1.** In R, plot histogram of the PM 2.5 data from the Yupparaj station
+
+**2.** Describe in words what is different from and/or similar to the data from the government station.
+
+**3.** In R, draw a bar plot of the PM 2.5 data from the Yupparaj station. The plot you draw must have at least one different appearance than the plot above.
+
+**4.** In R, draw a line plot of the PM 2.5 data from the Yupparaj station. The plot you draw must have at least one different appearance than the plot above.
+
+**5.** Describe in words the PM 2.5 variation among months in both years of the Yupparaj station?
+
+---
+
+## Grading Rubric
+
+| Question | Score 2 | Score 1 | Score 0 |
+|----------|---------|---------|---------|
+| 1 | Correct R code and histogram with a proper axis label | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
+| 2 | Correctly describe the differences or similarity | Partially correctly describe the differences or similarity | Incorrectly describe the differences or similarity or do not include the answer |
+| 3 | Correct R code and plot with one property differs from the plot in the practice session | Correct R code and plot but the plot looks the same as the one in the practice session | R code and output are not included or incorrect |
+| 4 | Correct R code and plot with one property differs from the plot in the practice session | Correct R code and plot but the plot looks the same as the one in the practice session | R code and output are not included or incorrect |
+| 5 | Correctly describe the variation | Partially correctly describe the variation | Incorrectly describe the variation or do not include the answer |
+
+---
+
+**End of Lab EDA 2**
