@@ -1,0 +1,352 @@
+# Statistical modeling in R {#models}
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##  Learning outcome: 
+
+Students should be able to
+
+1. demonstrate steps to run models in R
+
+## Data files for this lab
+
+- forest.csv [Click here for a full data set](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/EU5zaH4DmWtImUA94AxVqMkB-DIDKI41VqegoYQCqZtaFQ?e=mLezqJ)
+
+- test.csv [Click here for test data](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/EScjHlLXQaZAlP8znz1SKu8BWgtn6rygn7Ymyrpx0czuqg?e=CBpuDn)
+
+- train.csv [Click here for train data](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/EeoxfjMlWYRIrkCT2vJ5wUgBkGxsR3sZOAjLebeNlOTgWg?e=G4XXCx)
+
+## Introduction
+
+We will use a data set from a research study by @khamyong2018 on Doi Suthep's forest structure for our lab session. We will see the relationship between tree height and diameter.
+
+## Download Additional Packages
+
+We will use `ggplot2` [@ggplot2] and `MLmetrics` [@mlmetrics].
+
+```{r echo = T, eval = FALSE}
+if(!require(MLmetrics)){install.packages("MLmetrics")}
+if(!require(ggplot2)){install.packages("ggplot2")}
+
+library(MLmetrics)
+library(ggplot2)
+```
+
+## The data set
+
+We import the data set of tree height and diameter at breast height (dbh).
+For each tree, we also have the data of the habitat of the tree (forest types and plot). The data contain 6,890 rows of data.
+There are three forest types - dry deciduous, dry evergreen, and mixed deciduous forest. Then we will divide the whole data set into a training and a testing data sets.
+The training data are 70% sampled from the whole data set, while the other 30% of the data is for validation.
+
+```{r echo = T, eval = FALSE}
+### Import data
+tack.new <- read.csv('data/forest.csv', header = T)
+
+### assign right types of data to the variables
+tack.new$community <- as.factor(tack.new$community)
+tack.new$species <- as.factor(tack.new$species)
+tack.new$family <- as.factor(tack.new$species)
+
+###########################################
+### separate into train and test data sets
+set.seed(1234)
+samp.new <- sample(nrow(tack.new), 0.7 * nrow(tack.new))
+#tack.train.new <-tack.new[samp.new, ]
+#tack.test.new <- tack.new[-samp.new, ]
+```
+
+This time I already provide train and test data set for you already.
+So, you will run this following code.
+
+```{r echo = T, eval = FALSE}
+tack.train.new <- read.csv("train.csv", header = T)
+tack.test.new <- read.csv("test.csv", header = T)
+
+tack.train.new$community <- as.factor(tack.train.new$community)
+tack.test.new$community <- as.factor(tack.test.new$community)
+
+###################################################
+### Sort test dataset by dbh 
+### so you can use this to draw predicted line
+###################################################
+tack.test.new <- tack.test.new[order(tack.test.new$dbh), ]
+
+```
+
+## Data visualization
+
+Now, let's visualize the data We will do this in two ways - using R graphic and use ggplot2 package
+
+```{r echo = T, eval = FALSE}
+## use base r graphics
+plot(tack.train.new$dbh, tack.train.new$height,
+     xlab = "Diameter at breast height (cm)",
+     ylab = "Height (m)",
+     pch = as.numeric(tack.train.new$community),
+     col = as.numeric(tack.train.new$community))
+legend('bottomright',
+       legend = c(unique(tack.train.new$community)),
+       pch = as.numeric(c(unique(tack.train.new$community))),
+       col = as.numeric(c(unique(tack.train.new$community)))
+)
+```
+
+Take a look at the plot and compare the look of the plot with the one drawn from the package ggplot2.
+
+```{r echo = T, eval = F, include = FALSE}
+## use ggplot2 package
+library(ggplot2)
+
+plot <- ggplot(tack.train.new, 
+               aes(x = dbh, y = height,
+                   color = community,
+                   shape = community))
+plot + 
+  geom_point() +
+  scale_shape_manual(values = c(3, 20, 6)) +
+  geom_smooth(se = TRUE, fullrange = FALSE,
+              aes(fill = community))
+```
+
+## Modeling steps
+
+Now, let's run four competing models.
+We will evaluate how well each model fit the train data and also validate the models using the test data.
+We use the *set.seed()* function to guarantee that the same random values are produced each time you run the code.
+We start from a log-log model.
+
+```{r echo = T, eval = FALSE}
+##################################################
+### Run competing models
+##################################################
+set.seed(1234)
+
+#### 1 log-log used nls
+loglog <- nls(height ~ exp(a + b* log(dbh)), 
+              data = tack.train.new,
+              start = list(a = 0.5, b = 0.1))
+summary(loglog)
+qqnorm(resid(loglog))
+abline(a = 0, b = 1)
+```
+
+The summary of the model shows the significant parameter estimates of a = 0.62295 and b = 0.663086.
+The qq plot shows the deviation from normal distribution of the model residuals.
+
+Now, let's fit other three models and see model summary and qq plots.
+
+```{r echo = T, eval = FALSE}
+###### 2 hyperbolic tangent
+hyt <- nls((height) ~ a *(1 - exp(-(dbh) * b))/(1 + exp(-(dbh) * b)),
+           data = tack.train.new,
+           start = list(a = 3.8, b = 0.4))
+summary(hyt)
+qqnorm(resid(hyt))
+abline(a = 0, b = 1)
+
+##### 3 weibull
+weibull <- nls((height) ~ a * (1 - exp(-b*(dbh^c))),
+               data = tack.train.new,
+               start = list(a = 3, b = 0.1, c = 1))
+summary(weibull)
+qqnorm(resid(weibull))
+abline(a = 0, b = 1)
+
+#### 4 monomolecular
+mono <- nls((height) ~ a * (1 - exp(b-c*dbh)),
+            data = tack.train.new,
+            start = list(a = 30, b = 0.1, c = 0.1))
+
+summary(mono)
+qqnorm(resid(mono))
+abline(a = 0, b = 1)
+```
+
+## Model predictions
+
+We have all the models.
+Then we use the model parameter estimates to predict the height based on dbh for each model.
+
+```{r echo = T, eval = FALSE}
+################################################
+### prediction of models
+################################################
+### prediction of train data
+### We will use this to evaluate the models
+tack.train.new$pred.loglog <- (predict(loglog, list(dbh =tack.train.new$dbh)))
+tack.train.new$pred.hyt <- (predict(hyt, list(dbh =tack.train.new$dbh)))
+tack.train.new$pred.weibull <- (predict(weibull, list(dbh =tack.train.new$dbh)))
+tack.train.new$pred.mono <- (predict(mono, list(dbh =tack.train.new$dbh)))
+head(tack.train.new)
+
+### prediction of test data
+### We will use this for validate the models
+head(tack.test.new)
+tack.test.new$pred.loglog <- (predict(loglog, list(dbh =tack.test.new$dbh)))
+tack.test.new$pred.hyt <- (predict(hyt, list(dbh =tack.test.new$dbh)))
+tack.test.new$pred.weibull <- (predict(weibull, list(dbh =tack.test.new$dbh)))
+tack.test.new$pred.mono <- (predict(mono, list(dbh =tack.test.new$dbh)))
+```
+
+## Model evaluation
+
+For model evaluation, we will calculate several number and compare them among models.
+The best model will be the one with
+
+-   the *lowest* AIC
+-   the *lowest* normalized RMSE
+-   the *lowest* MSE.
+
+```{r echo = T, eval = FALSE}
+############################################
+## Model evaluation
+## MSE - mean square errors
+## RMSE - normalized square root of MSE
+## and AIC - Akaike's information criteria
+
+AIC(loglog, hyt, weibull, mono)
+
+library(MLmetrics)
+
+MSE.train.all <- c(MSE(tack.train.new$pred.loglog, tack.train.new$height),
+                   MSE(tack.train.new$pred.hyt, tack.train.new$height),
+                   MSE(tack.train.new$pred.weibull, tack.train.new$height),
+                   MSE(tack.train.new$pred.mono, tack.train.new$height))
+MSE.train.all
+
+## Normalized RMSE of train data
+sqrt(MSE.train.all)/mean(tack.train.new$height)
+```
+
+## Model valisation
+
+Now let's use the test data set to validate the prediction of the models.
+We also calculate MAPE which stands for mean absolute percentage error showing how much the prediction deviates from the observed height measurements.
+So, we want the model with *low* MAPE.
+
+```{r echo = T, eval = FALSE}
+############################################
+### Model validation
+### MSE RMSE MAPE of test data
+
+MSE.test.all <- c(MSE(tack.test.new$pred.loglog, tack.test.new$height),
+                  MSE(tack.test.new$pred.hyt, tack.test.new$height),
+                  MSE(tack.test.new$pred.weibull, tack.test.new$height),
+                  MSE(tack.test.new$pred.mono, tack.test.new$height))
+
+MSE.test.all
+## Normalized RMSE of test data
+sqrt(MSE.test.all)/mean(tack.test.new$height)
+
+##### MAPE test data - mean absolute percent errors 
+mape.test.all <- c(MAPE(tack.test.new$pred.loglog, tack.test.new$height),
+                   MAPE(tack.test.new$pred.hyt, tack.test.new$height),
+                   MAPE(tack.test.new$pred.weibull, tack.test.new$height),
+                   MAPE(tack.test.new$pred.mono, tack.test.new$height))
+
+mape.test.all * 100
+```
+
+We got the best fit model which is the monomolecular model with 3 parameters.
+Now, we use the model to see relationship separated by forest types.
+I have run the monomolecular models separately by the forest types and gotten the parameter estimates a, b, c.
+I didn't show the code how to do this.
+
+-   DDF: height = 23.9370 \* (1 - exp(-0.0516 - 0.0318 \* dbh))
+-   DEF:height = 40.5867 \* (1 - exp(-0.0426 - 0.0194 \* dbh))
+-   MDF: height = 21.6263 \* (1 - exp(-0.0038 - 0.0712 \* dbh))
+
+Finally, let's plot a publishable graph.
+
+```{r, echo = T, eval = F}
+library(dplyr)
+### I added a new column with predicted height based on dbh for each tree (depending on the forest types)
+tack.test.new <- 
+  tack.test.new %>%
+  mutate(
+    mono = case_when(
+      community == "DDF" ~ 23.9370 * (1 - exp(-0.0516 - 0.0318 * dbh)),
+      community == "DEF" ~ 40.5867 * (1 - exp(-0.0426 - 0.0194 * dbh)),
+      community == "MDF" ~ 21.6263 * (1 - exp(-0.0038 - 0.0712 * dbh))
+    )
+  )
+```
+
+## Data visualization for reports
+
+Now use this code to plot.
+
+```{r echo = T, , eval = F, warning = F}
+library(ggplot2)
+plot + 
+  geom_point() +
+  geom_line(data = tack.test.new, 
+            aes(y = mono)) +
+  xlab("Diameter at best height (cm)") +
+  ylab("Tree height (m)") +
+  theme_bw() +
+  theme(axis.line = element_line(colour = "black"),
+              panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(),
+              panel.border = element_blank(),
+              panel.background = element_blank(),
+    legend.position = c(0.8, 0.2)) +
+  scale_colour_hue(name = "Forest type",
+                   breaks = c("DDF", "DEF", "MDF"),
+                   labels = c("Dry dipterocarp",
+                              "Dry evergreen",
+                              "Mixed deciduous")) +
+  scale_shape_manual(name = "Forest type",
+                     breaks = c("DDF", "DEF", "MDF"),
+                     values = c(3, 20, 6),
+                     labels = c("Dry dipterocarp",
+                                "Dry evergreen",
+                                "Mixed deciduous"))
+```
+
+------------------------------------------------------------------------
+
+# Exercise
+
+**Submission:** A PDF file containing your answers.
+Your answers must contain **R codes** that you wrote and **the outputs** you get.
+Your codes and outputs can be text and/or screen capture.
+
+**Full score:** 10 Submission:
+
+**Data file for this exercise:** forest.csv
+
+## Questions/directions
+
+**1.** In R, run one more model using the train data set.
+The model equation is ln(H) = a \* DBH\^b.
+Then, show the summary of the model.
+
+```{r echo = T, eval = FALSE}
+power.log <- nls(log(height) ~ a * dbh^b, data = , start = list(a = 0.5, b = 0.1))
+```
+
+**2.** See the AIC of the model
+
+**3.** In words, compare the AIC of the power model and the monomoloecular model above.
+Which model is better?
+
+**4.** Validate the model by create additional column of predicted height based on the power model.
+
+**5.** Calculate the MAPE of the power model and compare with the MAPE of the monomolecular model.
+Which model is preferable?
+
+## Grading rubric
+
+| Question | Score = 2 | Score = 1 | Score = 0 |
+|-------------------|------------------|------------------|------------------|
+| 1 | Run the code and show the summary | Run the code but do not show the summary | R code and output are not included or incorrect |
+| 2 | Correct R code and show the AIC | Partially correct | R code and output are not included or incorrect |
+| 3 | Correctly answer | Partially correct answer | No answer |
+| 4 | Run the code and show the column | Run the code but do not show the column | R code and output are not included or incorrect |
+| 5 | Correct R code and show the MAPE | Partially correct | R code and output are not included or incorrect |
+
+**End of Lab 9**

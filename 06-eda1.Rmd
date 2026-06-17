@@ -1,8 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: sentence
----
 # Exploratory Data Analysis (EDA) Episode 1 {#eda1}
 
 **Duration:** 3-hour lab
@@ -13,14 +8,14 @@ Students should be able to:
 
 1.  Demonstrate how to explore data and visualize data
 
+## Data file for this lab
+
+Iris dataset [@Anderson1935]
+
 ## Introduction
 
 Exploratory data analysis is important and should be done before you deal into deeper analysis of the data.
 This worksheet will guide you how to do EDA of various kinds. Read the text for explanations and input the text in the box into R (copy and paste into R is fine.)
-
-## Data file for this lab
-
-Iris dataset [@Anderson1935]
 
 ## Download Additional Packages
 

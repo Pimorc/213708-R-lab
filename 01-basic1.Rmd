@@ -1,9 +1,3 @@
----
-editor_options:
-  markdown:
-    wrap: sentence
----
-
 # Scientific methods, role of experimental design and statistics in ecological and environmental studies (Scientific methods and download R) {#basic1}
 
 **Duration:** 3-hour lab

@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: sentence
----
-
 # Probability Distributions {#lab5prob}
 
 **Duration:** 3-hour lab

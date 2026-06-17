@@ -1,18 +1,3 @@
----
-title: "Lab Session 8" 
-subtitle: "Design of Experiments"
-author: "Pimonrat Tiansawat"
-date: "Last updated on `r format(Sys.time(), '%d %B, %Y')`"
-output:
-  prettydoc::html_pretty:
-    theme: cayman
-    toc: true
-    toc_depth: 2
-    smooth_scroll: true
-editor_options: 
-  markdown: 
-    wrap: sentence
----
 # Design of Experiments {#doe}
 
 ## Learning Outcomes
@@ -21,14 +6,14 @@ Students should be able to:
 
 1.  Demonstrate how to design an experiment when given research questions and hypotheses
 
-## Introduction
-
-Read the introduction of a research study [@yiamthaisong2024] and identify variables of interest. Then design and experiment to answer the question and test the hypotheses.
-
-**Data files for this lab:** 
+## Data files for this lab
 
 - A research article is provided.
 [Click here to download the file](https://www.tandfonline.com/doi/pdf/10.1080/21580103.2024.2409916)
+
+## Introduction
+
+Read the introduction of a research study [@yiamthaisong2024] and identify variables of interest. Then design and experiment to answer the question and test the hypotheses.
 
 ## Instructions
 
