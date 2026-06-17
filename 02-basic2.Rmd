@@ -1,7 +1,13 @@
+---
+editor_options: 
+  markdown: 
+    wrap: sentence
+---
+
 # Scientific methods, role of experimental design and statistics in ecological and environmental studies (Data import and management) {#basic2}
 
 **Duration:** 3-hour lab
-  
+
 ## Learning Outcomes
 
 Students should be able to:
@@ -11,7 +17,7 @@ Students should be able to:
 
 ## Data files for this lab
 
-None
+-   germination.txt [Click here to download the file](https://o365cmu-my.sharepoint.com/:t:/g/personal/pimonrat_t_cmu_ac_th/EQzNo6jjdE5IkDMjUS7PYlMBr3zp0Fd9cBHh1gthjY1BpQ?e=e0zL5v)
 
 ## What is a data frame?
 
@@ -31,8 +37,6 @@ knitr::include_graphics("figures/Lab 2 data.jpg")
 ```
 
 ## Data Input from files
-
-**Data file:** [Click here to download the file](https://o365cmu-my.sharepoint.com/:t:/g/personal/pimonrat_t_cmu_ac_th/EQzNo6jjdE5IkDMjUS7PYlMBr3zp0Fd9cBHh1gthjY1BpQ?e=e0zL5v "Click to download the file")
 
 The easiest way is to put our data in the form of a data frame before we read the data in R.
 We can use Excel to record the data.
@@ -213,34 +217,37 @@ Your codes and outputs can be text and/or screen capture.
 
 **Full score:** 10
 
-**Data for this exercise:** example.xlsx [Click here to download the file](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/ESyrKa6iihVHkMCVRQUFes4BFLfeRY_Q79fXhTAxy6Wc0A?e=z7ET6c)
+**Data for this exercise:**
+
+-   example.xlsx [Click here to download the file](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/ESyrKa6iihVHkMCVRQUFes4BFLfeRY_Q79fXhTAxy6Wc0A?e=z7ET6c)
 
 ### Questions/Directions
 
-**1.**  In Excel, open a file ‘example.xlsx’.
+**1.** In Excel, open a file 'example.xlsx'.
 See if the file is appropriate to be imported to R.
 Answer in written words: What do you have to change in the data to make the file readable by R.
 
-**2.**  In Excel, arrange the data in such a way that it is ready to analyze in R and save as an ‘example.txt’ file. 
+**2.** In Excel, arrange the data in such a way that it is ready to analyze in R and save as an 'example.txt' file.
 For your answer, show a screen capture of your corrected file.
 
-**3.**.  In R, create a data frame in R named ‘data’, and then import a file ‘example.txt’.
+**3.**.
+In R, create a data frame in R named 'data', and then import a file 'example.txt'.
 Show the data frame.
 
-**4.**  In R, show the structure of this data frame.
+**4.** In R, show the structure of this data frame.
 
-**5.**  In R, create a new data frame, called ‘data.new’ (from ‘data’) that does not have any missing value.
+**5.** In R, create a new data frame, called 'data.new' (from 'data') that does not have any missing value.
 
 ### Grading Rubric
 
-|: Question | Score = 2 | Score = 1 | Score = 0 |
-|-------------------|------------------|------------------|------------------|
-| 1 | Correctly answer the question | Give partially correct answer | No answer |
-| 2 | Correct data file | Give partially correct data file | No answer |
-| 3 | Correct R code and output | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
-| 4 | Correct R code and output | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
-| 5 | Correct R code and output | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
+| : Question | Score = 2                     | Score = 1                                            | Score = 0                                       |
+|------------|-------------------------------|------------------------------------------------------|-------------------------------------------------|
+| 1          | Correctly answer the question | Give partially correct answer                        | No answer                                       |
+| 2          | Correct data file             | Give partially correct data file                     | No answer                                       |
+| 3          | Correct R code and output     | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
+| 4          | Correct R code and output     | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
+| 5          | Correct R code and output     | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
 
 **End of Lab 2**
 
----
+------------------------------------------------------------------------

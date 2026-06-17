@@ -1,14 +1,4 @@
 ---
-title: "Lab Session 6" 
-subtitle: "Exploratory Data Analysis (EDA) Episode 1 (3 hours)"
-author: "Pimonrat Tiansawat"
-date: "Last updated on `r format(Sys.time(), '%d %B, %Y')`"
-output:
-  prettydoc::html_pretty:
-    theme: cayman
-    toc: true
-    toc_depth: 2
-    smooth_scroll: true
 editor_options: 
   markdown: 
     wrap: sentence

@@ -1,0 +1,88 @@
+---
+title: "Lab Session 8" 
+subtitle: "Design of Experiments"
+author: "Pimonrat Tiansawat"
+date: "Last updated on `r format(Sys.time(), '%d %B, %Y')`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    toc: true
+    toc_depth: 2
+    smooth_scroll: true
+editor_options: 
+  markdown: 
+    wrap: sentence
+---
+# Design of Experiments {#doe}
+
+## Learning Outcomes
+
+Students should be able to:
+
+1.  Demonstrate how to design an experiment when given research questions and hypotheses
+
+## Introduction
+
+Read the introduction of a research study [@yiamthaisong2024] and identify variables of interest. Then design and experiment to answer the question and test the hypotheses.
+
+**Data files for this lab:** 
+
+- A research article is provided.
+[Click here to download the file](https://www.tandfonline.com/doi/pdf/10.1080/21580103.2024.2409916)
+
+## Instructions
+
+Today we will do things a bit differently.
+We will practice planning some experiments according to the provided research objectives.
+
+###  Read the article
+
+Read the article from **the abstract to material and method sections**. Make sure you understand the background and objectives of the study. (30 minutes)
+
+###  Summarize the study objective {#sum-ob}
+
+Work in individually or in a group of 2-3 students to identify and fill in this table. You will include the below table for your exercise.
+
+|      | Your answer |
+|------|-------------|
+| Objectives of the study | 1\.         |
+| Research questions      | 2\.         |
+| Hypothesis              | 3\.         |
+
+### Design xperiments {#design-ex}
+
+With the information you have, design experiments to test the hypothesis. Also, identify variables of interest. You will include the table for your exercise.
+
+|      | Your answer |
+|------|-------------------------------------------------------|
+| Independent variable | 4\. |
+| Dependent variable | 5\. |
+| Control group | 6\. |
+| Treatments | 7\. |
+| Measurements | 8\. |
+| Explain briefly in words your experiments and evaluate if you follow the three principles of experimental design. | 9\. |
+
+## Exercise
+
+**Submission:** A PDF file containing your answers.
+If you are asked to work in R, your answers must contain **R codes** that you wrote and **the outputs** you get.
+Your codes and outputs can be text and/or screen capture.
+
+**Full score:** 10
+
+**Data file for this exercise:** Yiamthaisong et al. 2024
+
+### Questions/Directions
+
+**1.** Present your answers from \@ref(sum-ob) and\@ref(design-ex)
+
+### Grading Rubric
+
+| Question | Score = 2 | Score = 1 | Score = 0 |
+|-------------------|------------------|------------------|------------------|
+| 1 - 8 |  | Correct answer | The answer is not included or incorrect |
+| 9 | Appropriate design and identify if the design follows the three principles | Inappropriate design or incorrectly identify if the design follows the three principles | The answers are not included or incorrect |
+
+**End of Lab 8**
+
+---
