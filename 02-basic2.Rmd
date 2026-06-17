@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: sentence
----
-
 # Scientific methods, role of experimental design and statistics in ecological and environmental studies (Data import and management) {#basic2}
 
 **Duration:** 3-hour lab
@@ -241,7 +235,7 @@ Show the data frame.
 ### Grading Rubric
 
 | : Question | Score = 2                     | Score = 1                                            | Score = 0                                       |
-|------------|-------------------------------|------------------------------------------------------|-------------------------------------------------|
+|-------------------|------------------|------------------|------------------|
 | 1          | Correctly answer the question | Give partially correct answer                        | No answer                                       |
 | 2          | Correct data file             | Give partially correct data file                     | No answer                                       |
 | 3          | Correct R code and output     | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
