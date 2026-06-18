@@ -16,8 +16,7 @@ Students should be able to:
 
 ## Introduction
 
-Exploratory data analysis is important and should be done before you deal with deeper analysis of the data.
-This worksheet will use PM 2.5 data of two stations in Chiang Mai to learn more about EDA. Read the text for explanations and input the text in the box into R (copy and paste into R is fine.)
+Exploratory data analysis is important and should be done before you deal with deeper analysis of the data. This worksheet will use PM 2.5 data of two stations in Chiang Mai to learn more about EDA. Read the text for explanations and input the text in the box into R (copy and paste into R is fine.)
 
 ## Download Additional Packages
 

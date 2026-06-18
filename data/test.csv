@@ -1,0 +1,2068 @@
+community,plot,number,species,family,dbh,height,ba
+DEF,10,1360,Garcinia_merguensis,Clusiaceae,0.32,2,0.080424772
+DDF,2,1031,Canarium_subulatum,Burseraceae,0.64,4,0.321699088
+DDF,4,2057,Aporosa_villosa,Phyllanthaceae,0.64,3,0.321699088
+DDF,6,3002,Pavetta_tomentosa,Rubiaceae,0.64,2,0.321699088
+DDF,6,3051,Pavetta_tomentosa,Rubiaceae,0.64,1.6,0.321699088
+DDF,6,3065,Dalbergia_cana,Fabaceae,0.64,1.5,0.321699088
+DDF,6,3096,Melastoma_malabathricum,Melastomataceae,0.64,2.5,0.321699088
+DDF,6,3114,Memecylon_scutellatum,Melastomataceae,0.64,2,0.321699088
+DDF,6,3155,Dalbergia_cana,Fabaceae,0.64,1.8,0.321699088
+DDF,6,3264,Eurya_nitida,Pentaphylacacaeae,0.64,2,0.321699088
+DDF,6,3308,Engelhardia_serrata,Juglandaceae,0.64,1.6,0.321699088
+DDF,6,3359,Ilex_umbellulata,Aquifoliaceae,0.64,1.6,0.321699088
+DDF,6,3418,Vaccinium_sprengelii,Ericaceae,0.64,2,0.321699088
+DEF,9,816,Ixora_cibdela,Rubiaceae,0.64,2,0.321699088
+DEF,10,1020,Castanopsis_acuminatissima,Fagaceae,0.64,1.6,0.321699088
+DEF,10,1075,Castanopsis_acuminatissima,Fagaceae,0.64,2,0.321699088
+DEF,10,1090,Castanopsis_acuminatissima,Fagaceae,0.64,2,0.321699088
+DEF,10,1095,Castanopsis_acuminatissima,Fagaceae,0.64,2,0.321699088
+DEF,10,1127,Castanopsis_acuminatissima,Fagaceae,0.64,2,0.321699088
+DEF,10,1149,Ixora_sp.,Rubiaceae,0.64,1.6,0.321699088
+DEF,10,1159,Semecarpus_cochinchinensis,Anacardiaceae,0.64,2,0.321699088
+DEF,10,1160,Glochidion_sphaerogynum,Phyllanthaceae,0.64,2,0.321699088
+DEF,10,1182,Castanopsis_acuminatissima,Fagaceae,0.64,2,0.321699088
+DEF,10,1193,Garcinia_cowa,Clusiaceae,0.64,2,0.321699088
+DEF,10,1221,Toona_ciliata,Meliaceae,0.64,2,0.321699088
+DEF,10,1243,Garcinia_merguensis,Clusiaceae,0.64,2,0.321699088
+DEF,10,1252,Castanopsis_acuminatissima,Fagaceae,0.64,1.6,0.321699088
+DEF,10,1259,Glochidion_eriocarpum,Phyllanthaceae,0.64,1.6,0.321699088
+DEF,10,1277,Castanopsis_acuminatissima,Fagaceae,0.64,2,0.321699088
+DEF,10,1310,Syzygium_albiflorum,Myrtaceae,0.64,2,0.321699088
+DEF,10,1354,Siphonodon_celastrineus,Celastraceae,0.64,2,0.321699088
+DEF,10,1357,Castanopsis_acuminatissima,Fagaceae,0.64,1.6,0.321699088
+DEF,10,1364,Siphonodon_celastrineus,Celastraceae,0.64,2,0.321699088
+DEF,11,1412,Castanopsis_calathiformis,Fagaceae,0.64,2,0.321699088
+DEF,11,1507,Syzygium_albiflorum,Myrtaceae,0.64,2,0.321699088
+DEF,11,1607,Melodorum_fruticosum,Annonaceae,0.64,1.5,0.321699088
+DEF,12,1855,Olea_salicifolia,Oleaceae,0.64,2,0.321699088
+DEF,12,1992,Cinnamomum_iners,Lauraceae,0.64,1.5,0.321699088
+DEF,12,2091,Wendlandia_tinctoria,Rubiaceae,0.64,2,0.321699088
+DEF,12,2092,Rothmannia_sootepensis,Rubiaceae,0.64,2,0.321699088
+DEF,12,2097,Syzygium_cumini,Myrtaceae,0.64,2,0.321699088
+MDF,16,814,Antidesma_acidum,Phyllanthaceae,0.64,1.6,0.321699088
+DDF,4,2053,Shorea_siamensis,Dipterocarpaceae ,0.8,1.5,0.502654825
+DDF,4,2055,Gluta_usitata,Anacardiaceae,0.8,2.5,0.502654825
+DEF,12,2206,Schima_wallichii,Theaceae,0.8,2,0.502654825
+DDF,2,958,Quercus_kerrii,Fagaceae,0.96,1.8,0.723822947
+DDF,4,2036,Shorea_siamensis,Dipterocarpaceae ,0.96,1.5,0.723822947
+DDF,5,2591,Lithocarpus_polystachyus,Fagaceae,0.96,2,0.723822947
+DDF,5,2664,Wendlandia_tinctoria,Rubiaceae,0.96,1.7,0.723822947
+DDF,5,2685,Glochidion_sphaerogynum,Phyllanthaceae,0.96,2,0.723822947
+DDF,5,2775,Schima_wallichii,Theaceae,0.96,2,0.723822947
+DDF,5,2780,Olea_salicifolia,Oleaceae,0.96,2,0.723822947
+DDF,5,2843,Wendlandia_tinctoria,Rubiaceae,0.96,2,0.723822947
+DDF,5,2846,Olea_salicifolia,Oleaceae,0.96,2,0.723822947
+DDF,5,2852,Anneslea_fragrans,Theaceae,0.96,1.7,0.723822947
+DDF,5,2878,Canarium_subulatum,Burseraceae,0.96,1.8,0.723822947
+DDF,5,2899,Cratoxylum_formosum,Hypericaceae ,0.96,2,0.723822947
+DDF,5,2923,Wendlandia_tinctoria,Rubiaceae,0.96,2,0.723822947
+DDF,6,3000,Castanopsis_acuminatissima,Fagaceae,0.96,2,0.723822947
+DDF,6,3010,Engelhardia_serrata,Juglandaceae,0.96,2,0.723822947
+DDF,6,3017,Rapanea_yunnanensis,Primulaceae,0.96,2,0.723822947
+DDF,6,3108,Vaccinium_sprengelii,Ericaceae,0.96,1.7,0.723822947
+DDF,6,3193,Lithocarpus_polystachyus,Fagaceae,0.96,2,0.723822947
+DDF,6,3210,Helicia_nilagirica,Proteaceae,0.96,2,0.723822947
+DDF,6,3223,Melastoma_malabathricum,Melastomataceae,0.96,2,0.723822947
+DDF,6,3252,Rapanea_yunnanensis,Primulaceae,0.96,2.5,0.723822947
+DDF,6,3257,Lithocarpus_polystachyus,Fagaceae,0.96,2,0.723822947
+DDF,6,3260,Ilex_umbellulata,Aquifoliaceae,0.96,2,0.723822947
+DDF,6,3397,Pavetta_tomentosa,Rubiaceae,0.96,2,0.723822947
+DDF,6,3476,Balakata_baccata,Euphorbiaceae,0.96,2.5,0.723822947
+DEF,7,68,Tarennoidea_wallichii,Rubiaceae,0.96,2,0.723822947
+DEF,7,77,Protium_serratum,Burseraceae,0.96,2,0.723822947
+DEF,7,90,Paranephelium_longifoliolatum,Sapindaceae,0.96,1.5,0.723822947
+DEF,7,201,Mallotus_philippensis,Euphorbiaceae,0.96,1.5,0.723822947
+DEF,7,206,Ixora_cibdela,Rubiaceae,0.96,1.7,0.723822947
+DEF,7,224,Rothmannia_sootepensis,Rubiaceae,0.96,1.5,0.723822947
+DEF,7,233,Elaeocarpus_sphaericus,Elaeocarpaceae,0.96,2,0.723822947
+DEF,7,333,Elaeocarpus_sphaericus,Elaeocarpaceae,0.96,2,0.723822947
+DEF,7,335,Rothmannia_sootepensis,Rubiaceae,0.96,1.5,0.723822947
+DEF,7,381,Elaeocarpus_sphaericus,Elaeocarpaceae,0.96,2,0.723822947
+DEF,7,383,Ixora_cibdela,Rubiaceae,0.96,2,0.723822947
+DEF,8,426,Ixora_cibdela,Rubiaceae,0.96,2,0.723822947
+DEF,8,488,Colona_flagrocarpa,Tiliaceae,0.96,2,0.723822947
+DEF,8,501,Dipterocarpus_turbinatus,Dipterocarpaceae ,0.96,2,0.723822947
+DEF,8,510,Canthium_berberidifolium,Rubiaceae,0.96,1.8,0.723822947
+DEF,8,550,Evodia_roxburghiana,Rutaceae,0.96,2,0.723822947
+DEF,8,552,Styrax_benzoides,Styracaceae,0.96,2,0.723822947
+DEF,9,678,Canthium_berberidifolium,Rubiaceae,0.96,2,0.723822947
+DEF,9,688,Semecarpus_cochinchinensis,Anacardiaceae,0.96,1.7,0.723822947
+DEF,9,703,Dipterocarpus_turbinatus,Dipterocarpaceae ,0.96,1.5,0.723822947
+DEF,9,785,Rothmannia_sootepensis,Rubiaceae,0.96,2,0.723822947
+DEF,9,788,Cinnamomum_iners,Lauraceae,0.96,2,0.723822947
+DEF,9,801,Elaeocarpus_sphaericus,Elaeocarpaceae,0.96,2,0.723822947
+DEF,9,803,Evodia_roxburghiana,Rutaceae,0.96,1.6,0.723822947
+DEF,9,806,Elaeocarpus_sphaericus,Elaeocarpaceae,0.96,2.5,0.723822947
+DEF,9,813,Tarennoidea_wallichii,Rubiaceae,0.96,2,0.723822947
+DEF,9,817,Ixora_cibdela,Rubiaceae,0.96,2,0.723822947
+DEF,9,847,Phoebe_paniculata,Lauraceae,0.96,2,0.723822947
+DEF,9,887,Polyalthia_viridis,Annonaceae,0.96,2,0.723822947
+DEF,9,903,Colona_flagrocarpa,Tiliaceae,0.96,2,0.723822947
+DEF,10,911,Castanopsis_acuminatissima,Fagaceae,0.96,1.8,0.723822947
+DEF,10,927,Castanopsis_acuminatissima,Fagaceae,0.96,2,0.723822947
+DEF,10,930,Phoebe_lanceolata,Lauraceae,0.96,2,0.723822947
+DEF,10,942,Garcinia_cowa,Clusiaceae,0.96,1.6,0.723822947
+DEF,10,945,Castanopsis_argentea,Fagaceae,0.96,2,0.723822947
+DEF,10,963,Castanopsis_argentea,Fagaceae,0.96,2,0.723822947
+DEF,10,966,Carpinus_viminea,Betulaceae ,0.96,2,0.723822947
+DEF,10,971,Garcinia_cowa,Clusiaceae,0.96,1.5,0.723822947
+DEF,10,974,Helicia_nilagirica,Proteaceae,0.96,2,0.723822947
+DEF,10,1004,Castanopsis_acuminatissima,Fagaceae,0.96,1.6,0.723822947
+DEF,10,1012,Cryptocarya_pallens,Lauraceae,0.96,1.7,0.723822947
+DEF,10,1035,Olea_salicifolia,Oleaceae,0.96,1.8,0.723822947
+DEF,10,1057,Litsea_sp.3,Lauraceae,0.96,2,0.723822947
+DEF,10,1061,Castanopsis_acuminatissima,Fagaceae,0.96,1.8,0.723822947
+DEF,10,1072,Garcinia_cowa,Clusiaceae,0.96,1.6,0.723822947
+DEF,10,1085,Olea_salicifolia,Oleaceae,0.96,2,0.723822947
+DEF,10,1110,Phoebe_lanceolata,Lauraceae,0.96,2,0.723822947
+DEF,10,1118,Psychotria_sp.,Rubiaceae,0.96,1.6,0.723822947
+DEF,10,1126,Tarennoidea_wallichii,Rubiaceae,0.96,2,0.723822947
+DEF,10,1129,Psychotria_sp.,Rubiaceae,0.96,1.7,0.723822947
+DEF,10,1152,Olea_salicifolia,Oleaceae,0.96,2.5,0.723822947
+DEF,10,1176,Garcinia_merguensis,Clusiaceae,0.96,1.7,0.723822947
+DEF,10,1180,Eriobotrya_bengalensis,Rosaceae,0.96,2,0.723822947
+DEF,10,1184,Ixora_sp.,Rubiaceae,0.96,2,0.723822947
+DEF,10,1191,Rothmannia_sootepensis,Rubiaceae,0.96,2,0.723822947
+DEF,10,1210,Mallotus_philippensis,Euphorbiaceae,0.96,2,0.723822947
+DEF,10,1229,Nephelium_hypoleucum,Sapindaceae,0.96,2,0.723822947
+DEF,10,1233,Carpinus_viminea,Betulaceae ,0.96,2,0.723822947
+DEF,10,1239,Melodorum_fruticosum,Annonaceae,0.96,2,0.723822947
+DEF,10,1256,Dipterocarpus_turbinatus,Dipterocarpaceae ,0.96,2.5,0.723822947
+DEF,10,1271,Aphanamixis_polystachya,Meliaceae,0.96,2,0.723822947
+DEF,10,1273,Garcinia_merguensis,Clusiaceae,0.96,2,0.723822947
+DEF,10,1309,Artocarpus_gomezianus,Moraceae,0.96,2.5,0.723822947
+DEF,10,1328,Psychotria_sp.,Rubiaceae,0.96,1.6,0.723822947
+DEF,10,1332,Memecylon_celastrinum,Melastomataceae,0.96,3,0.723822947
+DEF,10,1334,Psychotria_sp.,Rubiaceae,0.96,2,0.723822947
+DEF,10,1341,Psychotria_sp.,Rubiaceae,0.96,1.6,0.723822947
+DEF,10,1361,Pittosporopsis_kerrii,Icacinaceae,0.96,2,0.723822947
+DEF,10,1362,Castanopsis_acuminatissima,Fagaceae,0.96,2,0.723822947
+DEF,10,1368,Litsea_sp.3,Lauraceae,0.96,1.6,0.723822947
+DEF,11,1410,Castanopsis_acuminatissima,Fagaceae,0.96,2,0.723822947
+DEF,11,1422,Phoebe_lanceolata,Lauraceae,0.96,2,0.723822947
+DEF,11,1443,Castanopsis_calathiformis,Fagaceae,0.96,2,0.723822947
+DEF,11,1470,Rapanea_yunnanensis,Primulaceae,0.96,2.5,0.723822947
+DEF,11,1471,Turpinia_pomifera,Staphyleaceae,0.96,1.6,0.723822947
+DEF,11,1480,Baccaurea_ramiflora,Phyllanthaceae,0.96,2,0.723822947
+DEF,11,1508,Castanopsis_acuminatissima,Fagaceae,0.96,2,0.723822947
+DEF,11,1523,Garcinia_cowa,Clusiaceae,0.96,2,0.723822947
+DEF,11,1577,Eriobotrya_bengalensis,Rosaceae,0.96,2,0.723822947
+DEF,11,1601,Rapanea_yunnanensis,Primulaceae,0.96,2,0.723822947
+DEF,11,1616,Dipterocarpus_turbinatus,Dipterocarpaceae ,0.96,2,0.723822947
+DEF,11,1622,Garcinia_mckeaniana,Clusiaceae,0.96,2.5,0.723822947
+DEF,11,1664,Syzygium_albiflorum,Myrtaceae,0.96,1.6,0.723822947
+DEF,11,1666,Cryptocarya_pallens,Lauraceae,0.96,1.6,0.723822947
+DEF,11,1693,Garcinia_merguensis,Clusiaceae,0.96,2,0.723822947
+DEF,11,1732,Psychotria_sp.,Rubiaceae,0.96,2,0.723822947
+DEF,11,1782,Castanopsis_acuminatissima,Fagaceae,0.96,2,0.723822947
+DEF,12,1849,Lithocarpus_polystachyus,Fagaceae,0.96,2,0.723822947
+DEF,12,1891,Syzygium_albiflorum,Myrtaceae,0.96,2,0.723822947
+DEF,12,1892,Syzygium_albiflorum,Myrtaceae,0.96,2,0.723822947
+DEF,12,1905,Syzygium_albiflorum,Myrtaceae,0.96,1.5,0.723822947
+DEF,12,1944,Lithocarpus_polystachyus,Fagaceae,0.96,2,0.723822947
+DEF,12,1945,Rothmannia_sootepensis,Rubiaceae,0.96,2,0.723822947
+DEF,12,1965,Rothmannia_sootepensis,Rubiaceae,0.96,2,0.723822947
+DEF,12,1972,Rapanea_yunnanensis,Primulaceae,0.96,2,0.723822947
+DEF,12,1973,Rapanea_yunnanensis,Primulaceae,0.96,2,0.723822947
+DEF,12,1985,Olea_salicifolia,Oleaceae,0.96,3,0.723822947
+DEF,12,2018,Olea_salicifolia,Oleaceae,0.96,2,0.723822947
+DEF,12,2035,Ixora_cibdela,Rubiaceae,0.96,2,0.723822947
+DEF,12,2041,Glochidion_sphaerogynum,Phyllanthaceae,0.96,2.5,0.723822947
+DEF,12,2082,Elaeocarpus_sphaericus,Elaeocarpaceae,0.96,2.5,0.723822947
+DEF,12,2148,Elaeocarpus_sphaericus,Elaeocarpaceae,0.96,2,0.723822947
+DEF,12,2197,Rothmannia_sootepensis,Rubiaceae,0.96,5,0.723822947
+DEF,12,2284,Garcinia_merguensis,Clusiaceae,0.96,2,0.723822947
+DEF,12,2291,Ixora_cibdela,Rubiaceae,0.96,3,0.723822947
+DEF,12,2326,Pittosporopsis_kerrii,Icacinaceae,0.96,3,0.723822947
+MDF,14,344,Antidesma_sp.,Phyllanthaceae,0.96,1.5,0.723822947
+MDF,14,363,Phyllanthus_columnaris,Phyllanthaceae,0.96,4,0.723822947
+MDF,16,715,Xylia_xylocarpa,Fabaceae,0.96,1.6,0.723822947
+DEF,7,361,Colona_flagrocarpa,Tiliaceae,1.11,2,0.967689077
+DEF,9,904,Phoebe_paniculata,Lauraceae,1.11,2,0.967689077
+DEF,10,949,Psychotria_sp.,Rubiaceae,1.11,2,0.967689077
+DEF,12,2108,Rothmannia_sootepensis,Rubiaceae,1.11,2.5,0.967689077
+DEF,12,2209,Ilex_umbellulata,Aquifoliaceae,1.11,2,0.967689077
+MDF,14,381,Vitex_pinnata,Verbenaceae,1.11,1.5,0.967689077
+MDF,15,536,Lagerstroemia_loudonii,Lythraceae,1.11,1.6,0.967689077
+MDF,16,789,Antidesma_acidum,Phyllanthaceae,1.11,2,0.967689077
+DDF,2,664,Buchanania_lanzan,Anacardiaceae,1.27,2,1.266768698
+DDF,2,699,Tristaniopsis_burmanica,Myrtaceae,1.27,1.5,1.266768698
+DDF,2,867,Tristaniopsis_burmanica,Myrtaceae,1.27,2,1.266768698
+DDF,2,990,Tristaniopsis_burmanica,Myrtaceae,1.27,2,1.266768698
+DDF,2,1014,Tristaniopsis_burmanica,Myrtaceae,1.27,2,1.266768698
+DDF,2,1043,Shorea_obtusa,Dipterocarpaceae ,1.27,1.8,1.266768698
+DDF,2,1054,Shorea_obtusa,Dipterocarpaceae ,1.27,2,1.266768698
+DDF,2,1065,Shorea_obtusa,Dipterocarpaceae ,1.27,2,1.266768698
+DDF,2,1217,Tristaniopsis_burmanica,Myrtaceae,1.27,2,1.266768698
+DDF,3,1538,Quercus_kerrii,Fagaceae,1.27,3,1.266768698
+DDF,3,1665,Tristaniopsis_burmanica,Myrtaceae,1.27,2,1.266768698
+DDF,3,1714,Tristaniopsis_burmanica,Myrtaceae,1.27,2.5,1.266768698
+DDF,3,1727,Tristaniopsis_burmanica,Myrtaceae,1.27,3,1.266768698
+DDF,3,1732,Tristaniopsis_burmanica,Myrtaceae,1.27,2.5,1.266768698
+DDF,3,1797,Parinari_anamense,Chrysobalanaceae,1.27,2,1.266768698
+DDF,3,1837,Lithocarpus_polystachyus,Fagaceae,1.27,2.5,1.266768698
+DDF,3,1868,Canarium_subulatum,Burseraceae,1.27,1.7,1.266768698
+DDF,4,2110,Ochna_integerrima,Ochnaceae,1.27,2,1.266768698
+DDF,5,2577,Craibiodendron_stellatum,Ericaceae,1.27,2,1.266768698
+DDF,5,2669,Aporosa_villosa,Phyllanthaceae,1.27,1.6,1.266768698
+DDF,5,2679,Buchanania_lanzan,Anacardiaceae,1.27,1.5,1.266768698
+DDF,5,2714,Wendlandia_tinctoria,Rubiaceae,1.27,2,1.266768698
+DDF,5,2772,Saurauia_roxburghii,Actinidiaceae,1.27,2,1.266768698
+DDF,5,2857,Wendlandia_tinctoria,Rubiaceae,1.27,2,1.266768698
+DDF,5,2932,Wendlandia_tinctoria,Rubiaceae,1.27,2,1.266768698
+DDF,5,2938,Wendlandia_tinctoria,Rubiaceae,1.27,2,1.266768698
+DDF,5,2948,Schima_wallichii,Theaceae,1.27,2,1.266768698
+DDF,5,2956,Garcinia_merguensis,Clusiaceae,1.27,2,1.266768698
+DDF,6,2972,Pavetta_tomentosa,Rubiaceae,1.27,3,1.266768698
+DDF,6,2975,Helicia_nilagirica,Proteaceae,1.27,2,1.266768698
+DDF,6,3026,Engelhardia_serrata,Juglandaceae,1.27,3.5,1.266768698
+DDF,6,3041,Dalbergia_cana,Fabaceae,1.27,2,1.266768698
+DDF,6,3054,Melastoma_malabathricum,Melastomataceae,1.27,2,1.266768698
+DDF,6,3077,Wendlandia_tinctoria,Rubiaceae,1.27,3,1.266768698
+DDF,6,3123,Wendlandia_tinctoria,Rubiaceae,1.27,3,1.266768698
+DDF,6,3184,Lithocarpus_polystachyus,Fagaceae,1.27,2,1.266768698
+DDF,6,3194,Glochidion_sphaerogynum,Phyllanthaceae,1.27,2,1.266768698
+DEF,7,9,Rapanea_yunnanensis,Primulaceae,1.27,3,1.266768698
+DEF,7,43,Engelhardia_serrata,Juglandaceae,1.27,2,1.266768698
+DEF,7,51,Tarennoidea_wallichii,Rubiaceae,1.27,1.5,1.266768698
+DEF,7,79,Tarennoidea_wallichii,Rubiaceae,1.27,1.7,1.266768698
+DEF,7,93,Ostodes_paniculata,Euphorbiaceae,1.27,2,1.266768698
+DEF,7,155,Elaeocarpus_sphaericus,Elaeocarpaceae,1.27,2,1.266768698
+DEF,7,156,Glochidion_sphaerogynum,Phyllanthaceae,1.27,2,1.266768698
+DEF,7,158,Castanopsis_argentea,Fagaceae,1.27,3,1.266768698
+DEF,7,186,Elaeocarpus_sphaericus,Elaeocarpaceae,1.27,2,1.266768698
+DEF,7,194,Cryptocarya_pallens,Lauraceae,1.27,2,1.266768698
+DEF,7,198,Tarennoidea_wallichii,Rubiaceae,1.27,2,1.266768698
+DEF,7,214,Rothmannia_sootepensis,Rubiaceae,1.27,2,1.266768698
+DEF,7,238,Rothmannia_sootepensis,Rubiaceae,1.27,3,1.266768698
+DEF,7,313,Turpinia_pomifera,Staphyleaceae,1.27,3,1.266768698
+DEF,7,321,Rothmannia_sootepensis,Rubiaceae,1.27,2,1.266768698
+DEF,7,339,Castanopsis_argentea,Fagaceae,1.27,2,1.266768698
+DEF,7,340,Colona_flagrocarpa,Tiliaceae,1.27,2,1.266768698
+DEF,7,360,Turpinia_pomifera,Staphyleaceae,1.27,2,1.266768698
+DEF,7,376,Rothmannia_sootepensis,Rubiaceae,1.27,2,1.266768698
+DEF,8,416,Nephelium_hypoleucum,Sapindaceae,1.27,1.8,1.266768698
+DEF,8,512,Colona_elobata,Tiliaceae,1.27,2,1.266768698
+DEF,8,522,Olea_salicifolia,Oleaceae,1.27,2,1.266768698
+DEF,8,524,Antidesma_sp.,Phyllanthaceae,1.27,2,1.266768698
+DEF,8,580,Mallotus_philippensis,Euphorbiaceae,1.27,3,1.266768698
+DEF,8,581,Colona_elobata,Tiliaceae,1.27,3,1.266768698
+DEF,8,599,Lagerstroemia_duperreana,Lythraceae,1.27,3,1.266768698
+DEF,9,617,Ixora_cibdela,Rubiaceae,1.27,2,1.266768698
+DEF,9,631,Lithocarpus_fenestus,Fagaceae,1.27,3,1.266768698
+DEF,9,637,Rapanea_yunnanensis,Primulaceae,1.27,3,1.266768698
+DEF,9,640,Ixora_cibdela,Rubiaceae,1.27,1.6,1.266768698
+DEF,9,664,Elaeocarpus_sphaericus,Elaeocarpaceae,1.27,2,1.266768698
+DEF,9,674,Rothmannia_sootepensis,Rubiaceae,1.27,2,1.266768698
+DEF,9,691,Aphanamixis_polystachya,Meliaceae,1.27,2.5,1.266768698
+DEF,9,745,Castanopsis_calathiformis,Fagaceae,1.27,2,1.266768698
+DEF,9,748,Elaeocarpus_sphaericus,Elaeocarpaceae,1.27,1.8,1.266768698
+DEF,9,752,Elaeocarpus_sphaericus,Elaeocarpaceae,1.27,2,1.266768698
+DEF,9,760,Lithocarpus_polystachyus,Fagaceae,1.27,1.6,1.266768698
+DEF,9,794,Castanopsis_armata,Fagaceae,1.27,2,1.266768698
+DEF,9,833,Ixora_cibdela,Rubiaceae,1.27,2,1.266768698
+DEF,9,860,Elaeocarpus_sphaericus,Elaeocarpaceae,1.27,3,1.266768698
+DEF,10,952,Baccaurea_ramiflora,Phyllanthaceae,1.27,1.6,1.266768698
+DEF,10,965,Lindera_metcalfiana,Lauraceae,1.27,3,1.266768698
+DEF,10,981,Nephelium_hypoleucum,Sapindaceae,1.27,3,1.266768698
+DEF,10,986,Castanopsis_acuminatissima,Fagaceae,1.27,2,1.266768698
+DEF,10,1001,Castanopsis_acuminatissima,Fagaceae,1.27,3,1.266768698
+DEF,10,1034,Phoebe_lanceolata,Lauraceae,1.27,2,1.266768698
+DEF,10,1132,Castanopsis_acuminatissima,Fagaceae,1.27,2,1.266768698
+DEF,10,1133,Psychotria_sp.,Rubiaceae,1.27,1.5,1.266768698
+DEF,10,1143,Castanopsis_argentea,Fagaceae,1.27,3,1.266768698
+DEF,10,1168,Garcinia_cowa,Clusiaceae,1.27,1.8,1.266768698
+DEF,10,1170,Castanopsis_acuminatissima,Fagaceae,1.27,3.5,1.266768698
+DEF,10,1178,Castanopsis_acuminatissima,Fagaceae,1.27,2,1.266768698
+DEF,10,1186,Castanopsis_acuminatissima,Fagaceae,1.27,2.5,1.266768698
+DEF,10,1187,Castanopsis_acuminatissima,Fagaceae,1.27,2.5,1.266768698
+DEF,10,1188,Carpinus_viminea,Betulaceae ,1.27,3,1.266768698
+DEF,10,1195,Castanopsis_acuminatissima,Fagaceae,1.27,3,1.266768698
+DEF,10,1219,Garcinia_merguensis,Clusiaceae,1.27,3,1.266768698
+DEF,10,1240,Pittosporopsis_kerrii,Icacinaceae,1.27,2.5,1.266768698
+DEF,10,1245,Cryptocarya_pallens,Lauraceae,1.27,3,1.266768698
+DEF,10,1262,Castanopsis_acuminatissima,Fagaceae,1.27,3,1.266768698
+DEF,10,1279,Artocarpus_gomezianus,Moraceae,1.27,3,1.266768698
+DEF,10,1280,Eriobotrya_bengalensis,Rosaceae,1.27,2,1.266768698
+DEF,10,1324,Litsea_sp.3,Lauraceae,1.27,2,1.266768698
+DEF,10,1349,Litsea_sp.3,Lauraceae,1.27,2,1.266768698
+DEF,10,1381,Psychotria_sp.,Rubiaceae,1.27,2,1.266768698
+DEF,10,1391,Castanopsis_acuminatissima,Fagaceae,1.27,2.5,1.266768698
+DEF,10,1394,Litsea_sp.3,Lauraceae,1.27,2,1.266768698
+DEF,10,1400,Siphonodon_celastrineus,Celastraceae,1.27,2,1.266768698
+DEF,11,1440,Syzygium_albiflorum,Myrtaceae,1.27,2,1.266768698
+DEF,11,1446,Phoebe_lanceolata,Lauraceae,1.27,2,1.266768698
+DEF,11,1513,Olea_salicifolia,Oleaceae,1.27,2.5,1.266768698
+DEF,11,1563,Rothmannia_sootepensis,Rubiaceae,1.27,2,1.266768698
+DEF,11,1569,Castanopsis_argentea,Fagaceae,1.27,2,1.266768698
+DEF,11,1591,Garcinia_cowa,Clusiaceae,1.27,2,1.266768698
+DEF,11,1613,Nephelium_hypoleucum,Sapindaceae,1.27,3,1.266768698
+DEF,11,1630,Tarennoidea_wallichii,Rubiaceae,1.27,2.5,1.266768698
+DEF,11,1689,Psychotria_sp.,Rubiaceae,1.27,1.8,1.266768698
+DEF,11,1710,Miliusa_lineata,Annonaceae,1.27,2,1.266768698
+DEF,11,1724,Syzygium_albiflorum,Myrtaceae,1.27,2.5,1.266768698
+DEF,11,1728,Psychotria_sp.,Rubiaceae,1.27,3,1.266768698
+DEF,12,1925,Rapanea_yunnanensis,Primulaceae,1.27,2,1.266768698
+DEF,12,1974,Rapanea_yunnanensis,Primulaceae,1.27,2,1.266768698
+DEF,12,2040,Schima_wallichii,Theaceae,1.27,2,1.266768698
+DEF,12,2055,Ixora_cibdela,Rubiaceae,1.27,2,1.266768698
+DEF,12,2084,Engelhardia_serrata,Juglandaceae,1.27,3,1.266768698
+DEF,12,2123,Beilschmiedia_gammieana,Lauraceae,1.27,2,1.266768698
+DEF,12,2178,Gardenia_sootepensis,Rubiaceae,1.27,3.5,1.266768698
+DEF,12,2203,Ilex_umbellulata,Aquifoliaceae,1.27,2,1.266768698
+DEF,12,2243,Aporosa_octandra,Phyllanthaceae,1.27,2,1.266768698
+DEF,12,2255,Clausena_excavata,Rutaceae,1.27,2.5,1.266768698
+DEF,12,2300,Elaeocarpus_sphaericus,Elaeocarpaceae,1.27,2.5,1.266768698
+MDF,13,150,Canarium_subulatum,Burseraceae,1.27,1.7,1.266768698
+MDF,13,155,Antidesma_acidum,Phyllanthaceae,1.27,1.6,1.266768698
+MDF,13,161,Antidesma_acidum,Phyllanthaceae,1.27,2,1.266768698
+MDF,13,162,Lagerstroemia_duperreana,Lythraceae,1.27,2,1.266768698
+MDF,13,164,Canarium_subulatum,Burseraceae,1.27,2,1.266768698
+MDF,13,169,Lagerstroemia_loudonii,Lythraceae,1.27,2,1.266768698
+MDF,14,378,Millettia_kangensis,Fabaceae,1.27,2,1.266768698
+MDF,16,591,Artocarpus_gomezianus,Moraceae,1.27,2,1.266768698
+MDF,16,668,Terminalia_mucronata,Combretaceae,1.27,2.5,1.266768698
+MDF,16,686,Antidesma_acidum,Phyllanthaceae,1.27,2,1.266768698
+MDF,16,688,Dalbergia_cultrata,Fabaceae,1.27,2,1.266768698
+MDF,16,753,Pavetta_tomentosa,Rubiaceae,1.27,2,1.266768698
+DDF,2,1086,Craibiodendron_stellatum,Ericaceae,1.43,1.8,1.606060704
+DDF,4,2156,Dipterocarpus_tuberculatus,Dipterocarpaceae ,1.43,2.5,1.606060704
+DEF,9,891,Cinnamomum_iners,Lauraceae,1.43,2,1.606060704
+DEF,12,2081,Rothmannia_sootepensis,Rubiaceae,1.43,2.5,1.606060704
+MDF,14,342,Phyllanthus_columnaris,Phyllanthaceae,1.43,1.8,1.606060704
+DDF,1,305,Lannea_coromandelica,Anacardiaceae,1.59,2,1.985565097
+DDF,1,309,Catunaregam_spathulifolia,Rubiaceae,1.59,2.5,1.985565097
+DDF,1,340,Garcinia_cowa,Clusiaceae,1.59,2.5,1.985565097
+DDF,2,658,Canarium_subulatum,Burseraceae,1.59,1.5,1.985565097
+DDF,2,693,Tristaniopsis_burmanica,Myrtaceae,1.59,2,1.985565097
+DDF,2,706,Tristaniopsis_burmanica,Myrtaceae,1.59,2.5,1.985565097
+DDF,2,744,Tristaniopsis_burmanica,Myrtaceae,1.59,3,1.985565097
+DDF,2,748,Tristaniopsis_burmanica,Myrtaceae,1.59,3,1.985565097
+DDF,2,760,Tristaniopsis_burmanica,Myrtaceae,1.59,2,1.985565097
+DDF,2,790,Tristaniopsis_burmanica,Myrtaceae,1.59,2,1.985565097
+DDF,2,811,Tristaniopsis_burmanica,Myrtaceae,1.59,3,1.985565097
+DDF,2,878,Shorea_siamensis,Dipterocarpaceae ,1.59,2,1.985565097
+DDF,2,910,Quercus_kerrii,Fagaceae,1.59,3,1.985565097
+DDF,2,918,Craibiodendron_stellatum,Ericaceae,1.59,1.8,1.985565097
+DDF,2,996,Dipterocarpus_obtusifolius,Dipterocarpaceae ,1.59,2,1.985565097
+DDF,2,1079,Buchanania_lanzan,Anacardiaceae,1.59,2,1.985565097
+DDF,2,1119,Craibiodendron_stellatum,Ericaceae,1.59,1.5,1.985565097
+DDF,2,1148,Tristaniopsis_burmanica,Myrtaceae,1.59,2,1.985565097
+DDF,2,1198,Tristaniopsis_burmanica,Myrtaceae,1.59,2.5,1.985565097
+DDF,2,1205,Craibiodendron_stellatum,Ericaceae,1.59,2,1.985565097
+DDF,3,1586,Lithocarpus_polystachyus,Fagaceae,1.59,2,1.985565097
+DDF,3,1695,Dipterocarpus_obtusifolius,Dipterocarpaceae ,1.59,2,1.985565097
+DDF,3,1707,Shorea_siamensis,Dipterocarpaceae ,1.59,2,1.985565097
+DDF,3,1710,Tristaniopsis_burmanica,Myrtaceae,1.59,2.5,1.985565097
+DDF,3,1713,Tristaniopsis_burmanica,Myrtaceae,1.59,2.5,1.985565097
+DDF,3,1716,Tristaniopsis_burmanica,Myrtaceae,1.59,3,1.985565097
+DDF,3,1728,Tristaniopsis_burmanica,Myrtaceae,1.59,2,1.985565097
+DDF,3,1901,Tristaniopsis_burmanica,Myrtaceae,1.59,1.8,1.985565097
+DDF,4,1922,Vitex_peduncularis,Verbenaceae,1.59,1.5,1.985565097
+DDF,5,2587,Tristaniopsis_burmanica,Myrtaceae,1.59,2,1.985565097
+DDF,5,2630,Anneslea_fragrans,Theaceae,1.59,1.6,1.985565097
+DDF,5,2645,Anneslea_fragrans,Theaceae,1.59,3,1.985565097
+DDF,5,2695,Craibiodendron_stellatum,Ericaceae,1.59,2,1.985565097
+DDF,5,2750,Gluta_usitata,Anacardiaceae,1.59,2,1.985565097
+DDF,5,2781,Wendlandia_tinctoria,Rubiaceae,1.59,2.5,1.985565097
+DDF,5,2827,Tristaniopsis_burmanica,Myrtaceae,1.59,3,1.985565097
+DDF,5,2868,Tristaniopsis_burmanica,Myrtaceae,1.59,3,1.985565097
+DDF,5,2882,Aporosa_villosa,Phyllanthaceae,1.59,1.6,1.985565097
+DDF,5,2925,Wendlandia_tinctoria,Rubiaceae,1.59,3,1.985565097
+DDF,5,2962,Ilex_umbellulata,Aquifoliaceae,1.59,3,1.985565097
+DDF,6,2985,Wendlandia_tinctoria,Rubiaceae,1.59,3,1.985565097
+DDF,6,3043,Schima_wallichii,Theaceae,1.59,3,1.985565097
+DDF,6,3044,Anneslea_fragrans,Theaceae,1.59,2,1.985565097
+DDF,6,3078,Shorea_obtusa,Dipterocarpaceae ,1.59,1.6,1.985565097
+DDF,6,3200,Ilex_umbellulata,Aquifoliaceae,1.59,3,1.985565097
+DDF,6,3220,Monosis_volkameriifolia,Asteraceae,1.59,3,1.985565097
+DDF,6,3315,Lithocarpus_lindleyanus,Fagaceae,1.59,2,1.985565097
+DDF,6,3330,Melastoma_malabathricum,Melastomataceae,1.59,3.5,1.985565097
+DDF,6,3350,Vaccinium_sprengelii,Ericaceae,1.59,2.5,1.985565097
+DDF,6,3372,Magnolia_baillonii,Magnoliaceae,1.59,2,1.985565097
+DDF,6,3436,Tristaniopsis_burmanica,Myrtaceae,1.59,3,1.985565097
+DDF,6,3462,Anneslea_fragrans,Theaceae,1.59,2,1.985565097
+DEF,7,12,Elaeocarpus_sphaericus,Elaeocarpaceae,1.59,3,1.985565097
+DEF,7,52,Semecarpus_cochinchinensis,Anacardiaceae,1.59,2,1.985565097
+DEF,7,61,Phoebe_paniculata,Lauraceae,1.59,3.5,1.985565097
+DEF,7,70,Tarennoidea_wallichii,Rubiaceae,1.59,3,1.985565097
+DEF,7,88,Siphonodon_celastrineus,Celastraceae,1.59,1.8,1.985565097
+DEF,7,105,Lithocarpus_fenestus,Fagaceae,1.59,2,1.985565097
+DEF,7,127,Glochidion_sphaerogynum,Phyllanthaceae,1.59,2,1.985565097
+DEF,7,187,Garcinia_merguensis,Clusiaceae,1.59,2,1.985565097
+DEF,7,223,Garcinia_merguensis,Clusiaceae,1.59,3,1.985565097
+DEF,7,232,Olea_salicifolia,Oleaceae,1.59,2,1.985565097
+DEF,7,244,Rothmannia_sootepensis,Rubiaceae,1.59,3,1.985565097
+DEF,7,250,Dipterocarpus_alatus,Dipterocarpaceae ,1.59,2.5,1.985565097
+DEF,7,264,Elaeocarpus_sphaericus,Elaeocarpaceae,1.59,2.5,1.985565097
+DEF,7,271,Ixora_cibdela,Rubiaceae,1.59,2,1.985565097
+DEF,7,293,Canthium_berberidifolium,Rubiaceae,1.59,2,1.985565097
+DEF,7,354,Garcinia_merguensis,Clusiaceae,1.59,2.5,1.985565097
+DEF,8,386,Litsea_sp.2,Lauraceae,1.59,3,1.985565097
+DEF,8,408,Ixora_cibdela,Rubiaceae,1.59,2,1.985565097
+DEF,8,422,Clerodendrum_serratum,Verbenaceae,1.59,2.5,1.985565097
+DEF,8,454,Rothmannia_sootepensis,Rubiaceae,1.59,3,1.985565097
+DEF,8,466,Diospyros_rubra,Ebenaceae,1.59,2.5,1.985565097
+DEF,8,470,Canarium_subulatum,Burseraceae,1.59,2,1.985565097
+DEF,8,535,Lagerstroemia_duperreana,Lythraceae,1.59,3,1.985565097
+DEF,8,560,Rothmannia_sootepensis,Rubiaceae,1.59,3,1.985565097
+DEF,9,625,Ziziphus_oenoplia,Rhamnaceae,1.59,4,1.985565097
+DEF,9,635,Elaeocarpus_sphaericus,Elaeocarpaceae,1.59,3,1.985565097
+DEF,9,662,Castanopsis_calathiformis,Fagaceae,1.59,2,1.985565097
+DEF,9,670,Elaeocarpus_sphaericus,Elaeocarpaceae,1.59,2,1.985565097
+DEF,9,689,Litsea_sp.2,Lauraceae,1.59,3,1.985565097
+DEF,9,696,Xylia_xylocarpa,Fabaceae,1.59,3,1.985565097
+DEF,9,715,Hopea_odorata,Dipterocarpaceae,1.59,2,1.985565097
+DEF,9,728,Ixora_cibdela,Rubiaceae,1.59,2,1.985565097
+DEF,9,747,Elaeocarpus_sphaericus,Elaeocarpaceae,1.59,2.5,1.985565097
+DEF,9,751,Elaeocarpus_sphaericus,Elaeocarpaceae,1.59,2,1.985565097
+DEF,9,834,Turpinia_pomifera,Staphyleaceae,1.59,2,1.985565097
+DEF,10,939,Psychotria_sp.,Rubiaceae,1.59,3,1.985565097
+DEF,10,975,Eriobotrya_bengalensis,Rosaceae,1.59,3.5,1.985565097
+DEF,10,983,Castanopsis_acuminatissima,Fagaceae,1.59,2,1.985565097
+DEF,10,988,Ardisia_colorata,Myrsinaceae,1.59,2,1.985565097
+DEF,10,1026,Castanopsis_acuminatissima,Fagaceae,1.59,4,1.985565097
+DEF,10,1033,Cananga_odorata,Annonaceae,1.59,2,1.985565097
+DEF,10,1044,Olea_salicifolia,Oleaceae,1.59,2,1.985565097
+DEF,10,1059,Castanopsis_acuminatissima,Fagaceae,1.59,3,1.985565097
+DEF,10,1093,Cananga_odorata,Annonaceae,1.59,2,1.985565097
+DEF,10,1094,Cananga_odorata,Annonaceae,1.59,2,1.985565097
+DEF,10,1158,Castanopsis_acuminatissima,Fagaceae,1.59,4,1.985565097
+DEF,10,1215,Eriobotrya_bengalensis,Rosaceae,1.59,4,1.985565097
+DEF,10,1244,Syzygium_albiflorum,Myrtaceae,1.59,3,1.985565097
+DEF,10,1246,Eriobotrya_bengalensis,Rosaceae,1.59,3,1.985565097
+DEF,10,1267,Siphonodon_celastrineus,Celastraceae,1.59,2,1.985565097
+DEF,10,1275,Eriobotrya_bengalensis,Rosaceae,1.59,3,1.985565097
+DEF,10,1307,Ixora_sp.,Rubiaceae,1.59,2.5,1.985565097
+DEF,10,1323,Garcinia_cowa,Clusiaceae,1.59,2,1.985565097
+DEF,10,1350,Garcinia_merguensis,Clusiaceae,1.59,3,1.985565097
+DEF,10,1371,Cananga_odorata,Annonaceae,1.59,3,1.985565097
+DEF,10,1382,Psychotria_sp.,Rubiaceae,1.59,4,1.985565097
+DEF,10,1393,Castanopsis_acuminatissima,Fagaceae,1.59,2.5,1.985565097
+DEF,10,1404,Syzygium_albiflorum,Myrtaceae,1.59,2,1.985565097
+DEF,11,1444,Eriobotrya_bengalensis,Rosaceae,1.59,4,1.985565097
+DEF,11,1493,Evodia_roxburghiana,Rutaceae,1.59,4,1.985565097
+DEF,11,1497,Glochidion_sphaerogynum,Phyllanthaceae,1.59,3,1.985565097
+DEF,11,1499,Adinandra_integerrima,Pentaphylaceae,1.59,3,1.985565097
+DEF,11,1525,Pittosporopsis_kerrii,Icacinaceae,1.59,3,1.985565097
+DEF,11,1549,Eriobotrya_bengalensis,Rosaceae,1.59,3.5,1.985565097
+DEF,11,1550,Litsea_sp.3,Lauraceae,1.59,2.5,1.985565097
+DEF,11,1551,Baccaurea_ramiflora,Phyllanthaceae,1.59,2,1.985565097
+DEF,11,1596,Garcinia_cowa,Clusiaceae,1.59,3,1.985565097
+DEF,11,1638,Glochidion_sphaerogynum,Phyllanthaceae,1.59,4,1.985565097
+DEF,11,1652,Semecarpus_cochinchinensis,Anacardiaceae,1.59,3,1.985565097
+DEF,11,1671,Garcinia_cowa,Clusiaceae,1.59,2,1.985565097
+DEF,11,1684,Beilschmiedia_gammieana,Lauraceae,1.59,2.5,1.985565097
+DEF,11,1718,Aphanamixis_polystachya,Meliaceae,1.59,2,1.985565097
+DEF,11,1726,Tarennoidea_wallichii,Rubiaceae,1.59,3,1.985565097
+DEF,12,2015,Rapanea_yunnanensis,Primulaceae,1.59,2,1.985565097
+DEF,12,2033,Elaeocarpus_sphaericus,Elaeocarpaceae,1.59,3,1.985565097
+DEF,12,2083,Xylia_xylocarpa,Fabaceae,1.59,2,1.985565097
+DEF,12,2090,Dipterocarpus_turbinatus,Dipterocarpaceae ,1.59,2.5,1.985565097
+DEF,12,2113,Rothmannia_sootepensis,Rubiaceae,1.59,4,1.985565097
+DEF,12,2155,Quercus_kingiana,Fagaceae,1.59,3,1.985565097
+DEF,12,2160,Ilex_umbellulata,Aquifoliaceae,1.59,3,1.985565097
+DEF,12,2257,Rothmannia_sootepensis,Rubiaceae,1.59,3,1.985565097
+DEF,12,2292,Clausena_excavata,Rutaceae,1.59,3,1.985565097
+DEF,12,2330,Elaeocarpus_sphaericus,Elaeocarpaceae,1.59,3,1.985565097
+DEF,12,2339,Glochidion_sphaerogynum,Phyllanthaceae,1.59,2.5,1.985565097
+DEF,12,2353,Syzygium_albiflorum,Myrtaceae,1.59,3,1.985565097
+MDF,14,374,Phyllanthus_columnaris,Phyllanthaceae,1.59,4,1.985565097
+MDF,14,375,Millettia_kangensis,Fabaceae,1.59,1.5,1.985565097
+MDF,16,615,Lagerstroemia_duperreana,Lythraceae,1.59,2.5,1.985565097
+MDF,16,622,Antidesma_acidum,Phyllanthaceae,1.59,3,1.985565097
+MDF,16,651,Antidesma_acidum,Phyllanthaceae,1.59,2,1.985565097
+MDF,16,717,Terminalia_mucronata,Combretaceae,1.59,3,1.985565097
+MDF,16,730,Terminalia_mucronata,Combretaceae,1.59,2.5,1.985565097
+MDF,16,736,Antidesma_acidum,Phyllanthaceae,1.59,2,1.985565097
+MDF,16,739,Antidesma_acidum,Phyllanthaceae,1.59,2,1.985565097
+MDF,16,749,Antidesma_acidum,Phyllanthaceae,1.59,2,1.985565097
+MDF,16,823,Antidesma_acidum,Phyllanthaceae,1.59,3,1.985565097
+MDF,18,1024,Antidesma_acidum,Phyllanthaceae,1.59,2,1.985565097
+DDF,5,2604,Tristaniopsis_burmanica,Myrtaceae,1.75,2,2.405281875
+DEF,10,1313,Syzygium_albiflorum,Myrtaceae,1.75,3,2.405281875
+DEF,12,2058,Ixora_cibdela,Rubiaceae,1.75,3,2.405281875
+DEF,12,2297,Viburnum_inopinatum,Adoxaceae,1.75,3,2.405281875
+DDF,1,281,Shorea_obtusa,Dipterocarpaceae ,1.91,2,2.86521104
+DDF,1,283,Gardenia_sootepensis,Rubiaceae,1.91,2,2.86521104
+DDF,1,287,Tristaniopsis_burmanica,Myrtaceae,1.91,3,2.86521104
+DDF,1,296,Buchanania_lanzan,Anacardiaceae,1.91,3,2.86521104
+DDF,1,375,Buchanania_lanzan,Anacardiaceae,1.91,2.5,2.86521104
+DDF,2,695,Tristaniopsis_burmanica,Myrtaceae,1.91,3,2.86521104
+DDF,2,701,Tristaniopsis_burmanica,Myrtaceae,1.91,4,2.86521104
+DDF,2,717,Tristaniopsis_burmanica,Myrtaceae,1.91,3,2.86521104
+DDF,2,772,Tristaniopsis_burmanica,Myrtaceae,1.91,4,2.86521104
+DDF,2,773,Tristaniopsis_burmanica,Myrtaceae,1.91,4,2.86521104
+DDF,2,843,Tristaniopsis_burmanica,Myrtaceae,1.91,2.5,2.86521104
+DDF,2,852,Dipterocarpus_tuberculatus,Dipterocarpaceae ,1.91,1.5,2.86521104
+DDF,2,853,Dipterocarpus_obtusifolius,Dipterocarpaceae ,1.91,2,2.86521104
+DDF,2,857,Tristaniopsis_burmanica,Myrtaceae,1.91,2,2.86521104
+DDF,2,871,Tristaniopsis_burmanica,Myrtaceae,1.91,2.5,2.86521104
+DDF,2,907,Quercus_kerrii,Fagaceae,1.91,3.5,2.86521104
+DDF,2,936,Craibiodendron_stellatum,Ericaceae,1.91,3,2.86521104
+DDF,2,997,Quercus_kerrii,Fagaceae,1.91,2,2.86521104
+DDF,2,1004,Dipterocarpus_obtusifolius,Dipterocarpaceae ,1.91,2.5,2.86521104
+DDF,2,1109,Dipterocarpus_obtusifolius,Dipterocarpaceae ,1.91,2,2.86521104
+DDF,2,1145,Craibiodendron_stellatum,Ericaceae,1.91,2.5,2.86521104
+DDF,2,1166,Tristaniopsis_burmanica,Myrtaceae,1.91,3.5,2.86521104
+DDF,2,1172,Tristaniopsis_burmanica,Myrtaceae,1.91,4,2.86521104
+DDF,2,1190,Tristaniopsis_burmanica,Myrtaceae,1.91,2,2.86521104
+DDF,2,1197,Tristaniopsis_burmanica,Myrtaceae,1.91,2.5,2.86521104
+DDF,2,1204,Tristaniopsis_burmanica,Myrtaceae,1.91,3,2.86521104
+DDF,2,1206,Craibiodendron_stellatum,Ericaceae,1.91,3,2.86521104
+DDF,2,1213,Garcinia_cowa,Clusiaceae,1.91,3,2.86521104
+DDF,3,1595,Gluta_usitata,Anacardiaceae,1.91,2,2.86521104
+DDF,3,1639,Craibiodendron_stellatum,Ericaceae,1.91,2,2.86521104
+DDF,3,1657,Tristaniopsis_burmanica,Myrtaceae,1.91,4,2.86521104
+DDF,3,1677,Quercus_kerrii,Fagaceae,1.91,2,2.86521104
+DDF,3,1715,Tristaniopsis_burmanica,Myrtaceae,1.91,3,2.86521104
+DDF,3,1718,Tristaniopsis_burmanica,Myrtaceae,1.91,2.5,2.86521104
+DDF,3,1724,Tristaniopsis_burmanica,Myrtaceae,1.91,3,2.86521104
+DDF,3,1731,Dipterocarpus_tuberculatus,Dipterocarpaceae ,1.91,3.5,2.86521104
+DDF,3,1745,Ixora_cibdela,Rubiaceae,1.91,4,2.86521104
+DDF,3,1818,Lithocarpus_polystachyus,Fagaceae,1.91,2,2.86521104
+DDF,3,1840,Gluta_usitata,Anacardiaceae,1.91,2,2.86521104
+DDF,3,1866,Tristaniopsis_burmanica,Myrtaceae,1.91,2.5,2.86521104
+DDF,3,1894,Aporosa_villosa,Phyllanthaceae,1.91,2,2.86521104
+DDF,3,1902,Tristaniopsis_burmanica,Myrtaceae,1.91,1.5,2.86521104
+DDF,4,2052,Gluta_usitata,Anacardiaceae,1.91,2.5,2.86521104
+DDF,4,2168,Dipterocarpus_tuberculatus,Dipterocarpaceae ,1.91,2.5,2.86521104
+DDF,4,2351,Quercus_kerrii,Fagaceae,1.91,3,2.86521104
+DDF,4,2526,Shorea_siamensis,Dipterocarpaceae ,1.91,2,2.86521104
+DDF,4,2533,Quercus_kerrii,Fagaceae,1.91,3,2.86521104
+DDF,4,2550,Garcinia_cowa,Clusiaceae,1.91,2,2.86521104
+DDF,5,2631,Anneslea_fragrans,Theaceae,1.91,2,2.86521104
+DDF,5,2653,Aporosa_villosa,Phyllanthaceae,1.91,2,2.86521104
+DDF,5,2805,Pavetta_tomentosa,Rubiaceae,1.91,4.5,2.86521104
+DDF,5,2817,Aporosa_villosa,Phyllanthaceae,1.91,2.5,2.86521104
+DDF,5,2941,Gluta_usitata,Anacardiaceae,1.91,2,2.86521104
+DDF,6,3068,Melastoma_malabathricum,Melastomataceae,1.91,4,2.86521104
+DDF,6,3080,Helicia_nilagirica,Proteaceae,1.91,2,2.86521104
+DDF,6,3095,Phyllanthus_emblica,Phyllanthaceae,1.91,4.5,2.86521104
+DDF,6,3147,Lithocarpus_lindleyanus,Fagaceae,1.91,4,2.86521104
+DDF,6,3148,Helicia_nilagirica,Proteaceae,1.91,3,2.86521104
+DDF,6,3156,Rapanea_yunnanensis,Primulaceae,1.91,4,2.86521104
+DDF,6,3204,Lithocarpus_polystachyus,Fagaceae,1.91,2,2.86521104
+DDF,6,3248,Tristaniopsis_burmanica,Myrtaceae,1.91,4,2.86521104
+DDF,6,3251,Rapanea_yunnanensis,Primulaceae,1.91,3.5,2.86521104
+DDF,6,3273,Styrax_benzoides,Styracaceae,1.91,3.5,2.86521104
+DDF,6,3335,Engelhardia_serrata,Juglandaceae,1.91,3.5,2.86521104
+DDF,6,3352,Vaccinium_sprengelii,Ericaceae,1.91,3,2.86521104
+DDF,6,3384,Lithocarpus_lindleyanus,Fagaceae,1.91,2,2.86521104
+DDF,6,3435,Helicia_nilagirica,Proteaceae,1.91,2,2.86521104
+DDF,6,3461,Wendlandia_tinctoria,Rubiaceae,1.91,3.5,2.86521104
+DEF,7,6,Phoebe_paniculata,Lauraceae,1.91,2,2.86521104
+DEF,7,13,Lithocarpus_fenestus,Fagaceae,1.91,3.5,2.86521104
+DEF,7,27,Rothmannia_sootepensis,Rubiaceae,1.91,4,2.86521104
+DEF,7,82,Mesua_ferrea,Clusiaceae,1.91,2.5,2.86521104
+DEF,7,84,Lithocarpus_fenestus,Fagaceae,1.91,2.5,2.86521104
+DEF,7,89,Siphonodon_celastrineus,Celastraceae,1.91,2,2.86521104
+DEF,7,190,Tarennoidea_wallichii,Rubiaceae,1.91,2.5,2.86521104
+DEF,7,200,Rapanea_yunnanensis,Primulaceae,1.91,3,2.86521104
+DEF,7,207,Adenanthera_pavonina,Fabaceae,1.91,4,2.86521104
+DEF,7,349,Turpinia_pomifera,Staphyleaceae,1.91,3,2.86521104
+DEF,8,425,Colona_flagrocarpa,Tiliaceae,1.91,2,2.86521104
+DEF,8,464,Turpinia_pomifera,Staphyleaceae,1.91,2,2.86521104
+DEF,8,469,Ardisia_colorata,Myrsinaceae,1.91,1.5,2.86521104
+DEF,8,495,Ixora_cibdela,Rubiaceae,1.91,3,2.86521104
+DEF,8,509,Colona_flagrocarpa,Tiliaceae,1.91,2.5,2.86521104
+DEF,9,619,Protium_serratum,Burseraceae,1.91,3.5,2.86521104
+DEF,9,626,Adenanthera_pavonina,Fabaceae,1.91,3,2.86521104
+DEF,9,665,Elaeocarpus_sphaericus,Elaeocarpaceae,1.91,2,2.86521104
+DEF,9,700,Sterculia_pexa,Malvaceae,1.91,3.5,2.86521104
+DEF,9,744,Castanopsis_calathiformis,Fagaceae,1.91,2,2.86521104
+DEF,9,775,Phoebe_paniculata,Lauraceae,1.91,4,2.86521104
+DEF,9,780,Colona_flagrocarpa,Tiliaceae,1.91,3,2.86521104
+DEF,9,783,Rothmannia_sootepensis,Rubiaceae,1.91,3.5,2.86521104
+DEF,9,843,Tarennoidea_wallichii,Rubiaceae,1.91,2.5,2.86521104
+DEF,9,859,Ixora_cibdela,Rubiaceae,1.91,3,2.86521104
+DEF,10,946,Castanopsis_acuminatissima,Fagaceae,1.91,3,2.86521104
+DEF,10,987,Diospyros_glandulosa,Ebenaceae,1.91,3,2.86521104
+DEF,10,1009,Cinnamomum_iners,Lauraceae,1.91,4,2.86521104
+DEF,10,1032,Nephelium_hypoleucum,Sapindaceae,1.91,4,2.86521104
+DEF,10,1036,Castanopsis_acuminatissima,Fagaceae,1.91,3,2.86521104
+DEF,10,1055,Castanopsis_acuminatissima,Fagaceae,1.91,3,2.86521104
+DEF,10,1092,Eriobotrya_bengalensis,Rosaceae,1.91,3,2.86521104
+DEF,10,1155,Cryptocarya_pallens,Lauraceae,1.91,4,2.86521104
+DEF,10,1192,Garcinia_cowa,Clusiaceae,1.91,3,2.86521104
+DEF,10,1305,Cryptocarya_pallens,Lauraceae,1.91,4,2.86521104
+DEF,10,1345,Semecarpus_cochinchinensis,Anacardiaceae,1.91,4,2.86521104
+DEF,11,1416,Siphonodon_celastrineus,Celastraceae,1.91,2.5,2.86521104
+DEF,11,1421,Garcinia_merguensis,Clusiaceae,1.91,3,2.86521104
+DEF,11,1485,Eriobotrya_bengalensis,Rosaceae,1.91,4,2.86521104
+DEF,11,1504,Ardisia_colorata,Myrsinaceae,1.91,3.5,2.86521104
+DEF,11,1552,Eriobotrya_bengalensis,Rosaceae,1.91,4,2.86521104
+DEF,11,1574,Castanopsis_acuminatissima,Fagaceae,1.91,4,2.86521104
+DEF,11,1579,Castanopsis_calathiformis,Fagaceae,1.91,7,2.86521104
+DEF,11,1589,Glochidion_sphaerogynum,Phyllanthaceae,1.91,4,2.86521104
+DEF,11,1595,Siphonodon_celastrineus,Celastraceae,1.91,4,2.86521104
+DEF,11,1637,Litsea_sp.4,Lauraceae,1.91,4,2.86521104
+DEF,11,1646,Syzygium_albiflorum,Myrtaceae,1.91,3,2.86521104
+DEF,11,1656,Garcinia_cowa,Clusiaceae,1.91,5,2.86521104
+DEF,11,1714,Syzygium_albiflorum,Myrtaceae,1.91,4,2.86521104
+DEF,11,1749,Diospyros_glandulosa,Ebenaceae,1.91,5,2.86521104
+DEF,11,1803,Glochidion_sphaerogynum,Phyllanthaceae,1.91,2,2.86521104
+DEF,12,1867,Memecylon_edule,Melastomataceae,1.91,2,2.86521104
+DEF,12,1968,Syzygium_albiflorum,Myrtaceae,1.91,3,2.86521104
+DEF,12,2043,Rothmannia_sootepensis,Rubiaceae,1.91,2.5,2.86521104
+DEF,12,2111,Syzygium_cumini,Myrtaceae,1.91,4,2.86521104
+DEF,12,2115,Quercus_kingiana,Fagaceae,1.91,2,2.86521104
+DEF,12,2320,Syzygium_albiflorum,Myrtaceae,1.91,4,2.86521104
+MDF,14,348,Lagerstroemia_duperreana,Lythraceae,1.91,3,2.86521104
+MDF,14,383,Vitex_pinnata,Verbenaceae,1.91,3,2.86521104
+MDF,15,537,Antidesma_sp.,Phyllanthaceae,1.91,3,2.86521104
+MDF,16,580,Antidesma_acidum,Phyllanthaceae,1.91,2,2.86521104
+MDF,16,623,Antidesma_acidum,Phyllanthaceae,1.91,3.5,2.86521104
+MDF,16,724,Antidesma_acidum,Phyllanthaceae,1.91,3,2.86521104
+MDF,16,742,Antidesma_acidum,Phyllanthaceae,1.91,2,2.86521104
+MDF,16,743,Antidesma_acidum,Phyllanthaceae,1.91,2,2.86521104
+MDF,16,825,Antidesma_acidum,Phyllanthaceae,1.91,2,2.86521104
+MDF,16,869,Antidesma_acidum,Phyllanthaceae,1.91,2,2.86521104
+MDF,16,873,Beilschmiedia_gammieana,Lauraceae,1.91,3,2.86521104
+DEF,7,181,Phoebe_paniculata,Lauraceae,2.07,4,3.36535259
+DEF,12,2093,Engelhardia_serrata,Juglandaceae,2.07,3.5,3.36535259
+MDF,14,357,Millettia_kangensis,Fabaceae,2.07,3.5,3.36535259
+MDF,16,877,Aporosa_villosa,Phyllanthaceae,2.07,3.5,3.36535259
+DDF,1,293,Shorea_obtusa,Dipterocarpaceae ,2.23,2.5,3.905706527
+DDF,1,324,Garcinia_cowa,Clusiaceae,2.23,1.7,3.905706527
+DDF,1,326,Tristaniopsis_burmanica,Myrtaceae,2.23,2.5,3.905706527
+DDF,1,327,Tristaniopsis_burmanica,Myrtaceae,2.23,1.7,3.905706527
+DDF,1,417,Catunaregam_spathulifolia,Rubiaceae,2.23,2.5,3.905706527
+DDF,2,682,Shorea_obtusa,Dipterocarpaceae ,2.23,2,3.905706527
+DDF,2,687,Tristaniopsis_burmanica,Myrtaceae,2.23,4,3.905706527
+DDF,2,690,Aporosa_villosa,Phyllanthaceae,2.23,3,3.905706527
+DDF,2,708,Shorea_obtusa,Dipterocarpaceae ,2.23,2,3.905706527
+DDF,2,715,Gluta_usitata,Anacardiaceae,2.23,2.5,3.905706527
+DDF,2,774,Catunaregam_spathulifolia,Rubiaceae,2.23,2.5,3.905706527
+DDF,2,813,Tristaniopsis_burmanica,Myrtaceae,2.23,3,3.905706527
+DDF,2,827,Shorea_siamensis,Dipterocarpaceae ,2.23,4,3.905706527
+DDF,2,859,Buchanania_lanzan,Anacardiaceae,2.23,2,3.905706527
+DDF,2,863,Tristaniopsis_burmanica,Myrtaceae,2.23,4,3.905706527
+DDF,2,881,Shorea_siamensis,Dipterocarpaceae ,2.23,2,3.905706527
+DDF,2,897,Quercus_kerrii,Fagaceae,2.23,2.5,3.905706527
+DDF,2,898,Craibiodendron_stellatum,Ericaceae,2.23,2.5,3.905706527
+DDF,2,905,Tristaniopsis_burmanica,Myrtaceae,2.23,3,3.905706527
+DDF,2,920,Lithocarpus_polystachyus,Fagaceae,2.23,3.5,3.905706527
+DDF,2,923,Tristaniopsis_burmanica,Myrtaceae,2.23,3,3.905706527
+DDF,2,924,Lithocarpus_polystachyus,Fagaceae,2.23,2,3.905706527
+DDF,2,925,Tristaniopsis_burmanica,Myrtaceae,2.23,2.5,3.905706527
+DDF,2,928,Quercus_kerrii,Fagaceae,2.23,3.5,3.905706527
+DDF,2,971,Dipterocarpus_obtusifolius,Dipterocarpaceae ,2.23,2,3.905706527
+DDF,2,1000,Garcinia_cowa,Clusiaceae,2.23,2.5,3.905706527
+DDF,2,1006,Gluta_usitata,Anacardiaceae,2.23,2.5,3.905706527
+DDF,2,1020,Craibiodendron_stellatum,Ericaceae,2.23,2,3.905706527
+DDF,2,1022,Shorea_siamensis,Dipterocarpaceae ,2.23,3,3.905706527
+DDF,2,1038,Tristaniopsis_burmanica,Myrtaceae,2.23,3,3.905706527
+DDF,2,1074,Shorea_siamensis,Dipterocarpaceae ,2.23,4,3.905706527
+DDF,2,1077,Shorea_siamensis,Dipterocarpaceae ,2.23,4,3.905706527
+DDF,2,1123,Tristaniopsis_burmanica,Myrtaceae,2.23,2,3.905706527
+DDF,2,1165,Tristaniopsis_burmanica,Myrtaceae,2.23,3,3.905706527
+DDF,2,1215,Tristaniopsis_burmanica,Myrtaceae,2.23,3,3.905706527
+DDF,3,1593,Tristaniopsis_burmanica,Myrtaceae,2.23,3,3.905706527
+DDF,3,1613,Craibiodendron_stellatum,Ericaceae,2.23,3,3.905706527
+DDF,3,1621,Buchanania_lanzan,Anacardiaceae,2.23,2,3.905706527
+DDF,3,1637,Craibiodendron_stellatum,Ericaceae,2.23,2,3.905706527
+DDF,3,1669,Quercus_kerrii,Fagaceae,2.23,2.5,3.905706527
+DDF,3,1706,Tristaniopsis_burmanica,Myrtaceae,2.23,4,3.905706527
+DDF,3,1736,Tristaniopsis_burmanica,Myrtaceae,2.23,2,3.905706527
+DDF,3,1747,Aporosa_villosa,Phyllanthaceae,2.23,2,3.905706527
+DDF,3,1749,Dalbergia_oliveri,Fabaceae,2.23,2.5,3.905706527
+DDF,3,1754,Gluta_usitata,Anacardiaceae,2.23,3,3.905706527
+DDF,3,1764,Tristaniopsis_burmanica,Myrtaceae,2.23,4,3.905706527
+DDF,3,1804,Buchanania_lanzan,Anacardiaceae,2.23,2,3.905706527
+DDF,3,1814,Tristaniopsis_burmanica,Myrtaceae,2.23,2,3.905706527
+DDF,3,1817,Lithocarpus_polystachyus,Fagaceae,2.23,2,3.905706527
+DDF,3,1830,Tristaniopsis_burmanica,Myrtaceae,2.23,3,3.905706527
+DDF,3,1864,Tristaniopsis_burmanica,Myrtaceae,2.23,3,3.905706527
+DDF,4,1958,Gluta_usitata,Anacardiaceae,2.23,2,3.905706527
+DDF,4,2384,Buchanania_lanzan,Anacardiaceae,2.23,1.7,3.905706527
+DDF,4,2409,Shorea_siamensis,Dipterocarpaceae ,2.23,2.5,3.905706527
+DDF,4,2438,Craibiodendron_stellatum,Ericaceae,2.23,2.2,3.905706527
+DDF,4,2531,Shorea_siamensis,Dipterocarpaceae ,2.23,2,3.905706527
+DDF,5,2572,Wendlandia_tinctoria,Rubiaceae,2.23,4,3.905706527
+DDF,5,2588,Aporosa_villosa,Phyllanthaceae,2.23,2,3.905706527
+DDF,5,2618,Tristaniopsis_burmanica,Myrtaceae,2.23,3,3.905706527
+DDF,5,2726,Wendlandia_tinctoria,Rubiaceae,2.23,3.5,3.905706527
+DDF,5,2739,Aporosa_villosa,Phyllanthaceae,2.23,2,3.905706527
+DDF,5,2740,Aporosa_villosa,Phyllanthaceae,2.23,2,3.905706527
+DDF,5,2890,Anneslea_fragrans,Theaceae,2.23,3,3.905706527
+DDF,5,2930,Quercus_brandisiana,Fagaceae,2.23,3,3.905706527
+DDF,6,3177,Monosis_volkameriifolia,Asteraceae,2.23,3.5,3.905706527
+DDF,6,3212,Dalbergia_cultrata,Fabaceae,2.23,3,3.905706527
+DDF,6,3234,Lithocarpus_polystachyus,Fagaceae,2.23,3,3.905706527
+DDF,6,3259,Lithocarpus_polystachyus,Fagaceae,2.23,3,3.905706527
+DDF,6,3317,Vaccinium_sprengelii,Ericaceae,2.23,3,3.905706527
+DDF,6,3389,Lithocarpus_lindleyanus,Fagaceae,2.23,3,3.905706527
+DDF,6,3427,Schima_wallichii,Theaceae,2.23,3,3.905706527
+DDF,6,3443,Lithocarpus_lindleyanus,Fagaceae,2.23,2,3.905706527
+DDF,6,3456,Helicia_nilagirica,Proteaceae,2.23,3,3.905706527
+DDF,6,3472,Quercus_brandisiana,Fagaceae,2.23,3,3.905706527
+DEF,7,45,Rothmannia_sootepensis,Rubiaceae,2.23,4,3.905706527
+DEF,7,73,Syzygium_albiflorum,Myrtaceae,2.23,4,3.905706527
+DEF,7,114,Ostodes_paniculata,Euphorbiaceae,2.23,2,3.905706527
+DEF,7,125,Canarium_subulatum,Burseraceae,2.23,4,3.905706527
+DEF,7,142,Adenanthera_pavonina,Fabaceae,2.23,3,3.905706527
+DEF,7,260,Elaeocarpus_sphaericus,Elaeocarpaceae,2.23,2,3.905706527
+DEF,7,285,Dolichandrone_columnaris,Bignoniaceae,2.23,3.5,3.905706527
+DEF,7,368,Ostodes_paniculata,Euphorbiaceae,2.23,2,3.905706527
+DEF,8,427,Flacourtia_jangomas,Salicaceae,2.23,3,3.905706527
+DEF,8,486,Turpinia_pomifera,Staphyleaceae,2.23,3,3.905706527
+DEF,8,527,Canthium_berberidifolium,Rubiaceae,2.23,3,3.905706527
+DEF,8,528,Canthium_berberidifolium,Rubiaceae,2.23,3,3.905706527
+DEF,8,532,Rothmannia_sootepensis,Rubiaceae,2.23,3,3.905706527
+DEF,8,563,Turpinia_pomifera,Staphyleaceae,2.23,3,3.905706527
+DEF,9,628,Castanopsis_calathiformis,Fagaceae,2.23,3,3.905706527
+DEF,9,630,Lithocarpus_fenestus,Fagaceae,2.23,4,3.905706527
+DEF,9,671,Ixora_cibdela,Rubiaceae,2.23,2.5,3.905706527
+DEF,9,743,Castanopsis_calathiformis,Fagaceae,2.23,3,3.905706527
+DEF,9,750,Elaeocarpus_sphaericus,Elaeocarpaceae,2.23,2.5,3.905706527
+DEF,9,799,Phoebe_lanceolata,Lauraceae,2.23,3,3.905706527
+DEF,10,960,Castanopsis_acuminatissima,Fagaceae,2.23,3,3.905706527
+DEF,10,978,Psychotria_sp.,Rubiaceae,2.23,5,3.905706527
+DEF,10,1124,Eriobotrya_bengalensis,Rosaceae,2.23,4,3.905706527
+DEF,10,1154,Castanopsis_acuminatissima,Fagaceae,2.23,5,3.905706527
+DEF,10,1253,Castanopsis_acuminatissima,Fagaceae,2.23,2,3.905706527
+DEF,10,1295,Aphanamixis_polystachya,Meliaceae,2.23,4,3.905706527
+DEF,10,1303,Pittosporopsis_kerrii,Icacinaceae,2.23,4,3.905706527
+DEF,11,1420,Garcinia_merguensis,Clusiaceae,2.23,3,3.905706527
+DEF,11,1426,Castanopsis_acuminatissima,Fagaceae,2.23,4,3.905706527
+DEF,11,1445,Castanopsis_acuminatissima,Fagaceae,2.23,4,3.905706527
+DEF,11,1496,Baccaurea_ramiflora,Phyllanthaceae,2.23,2.5,3.905706527
+DEF,11,1543,Garcinia_cowa,Clusiaceae,2.23,3,3.905706527
+DEF,11,1587,Siphonodon_celastrineus,Celastraceae,2.23,3.5,3.905706527
+DEF,11,1624,Baccaurea_ramiflora,Phyllanthaceae,2.23,4.5,3.905706527
+DEF,11,1634,Cryptocarya_pallens,Lauraceae,2.23,2.5,3.905706527
+DEF,11,1636,Litsea_sp.4,Lauraceae,2.23,2.5,3.905706527
+DEF,11,1737,Cryptocarya_pallens,Lauraceae,2.23,3.5,3.905706527
+DEF,11,1792,Litsea_sp.4,Lauraceae,2.23,4,3.905706527
+DEF,12,1958,Dipterocarpus_turbinatus,Dipterocarpaceae ,2.23,3,3.905706527
+DEF,12,1998,Rothmannia_sootepensis,Rubiaceae,2.23,3,3.905706527
+DEF,12,2005,Rothmannia_sootepensis,Rubiaceae,2.23,4,3.905706527
+DEF,12,2065,Rothmannia_sootepensis,Rubiaceae,2.23,3,3.905706527
+DEF,12,2169,Rothmannia_sootepensis,Rubiaceae,2.23,4.5,3.905706527
+DEF,12,2173,Rothmannia_sootepensis,Rubiaceae,2.23,3.5,3.905706527
+DEF,12,2249,Clausena_excavata,Rutaceae,2.23,4,3.905706527
+DEF,12,2265,Rothmannia_sootepensis,Rubiaceae,2.23,3,3.905706527
+DEF,12,2271,Ixora_cibdela,Rubiaceae,2.23,3,3.905706527
+DEF,12,2295,Viburnum_inopinatum,Adoxaceae,2.23,3,3.905706527
+MDF,16,568,Antidesma_acidum,Phyllanthaceae,2.23,3,3.905706527
+MDF,16,618,Lagerstroemia_duperreana,Lythraceae,2.23,4,3.905706527
+MDF,16,813,Canarium_subulatum,Burseraceae,2.23,3.5,3.905706527
+MDF,18,980,Antidesma_acidum,Phyllanthaceae,2.23,2.5,3.905706527
+MDF,18,987,Antidesma_acidum,Phyllanthaceae,2.23,2,3.905706527
+MDF,18,1026,Lagerstroemia_duperreana,Lythraceae,2.23,4.5,3.905706527
+DEF,12,2231,Rapanea_yunnanensis,Primulaceae,2.39,4,4.486272849
+MDF,16,638,Schleichera_oleosa,Sapindaceae,2.39,3,4.486272849
+DDF,1,256,Aporosa_villosa,Phyllanthaceae,2.55,2.5,5.107051557
+DDF,1,269,Dipterocarpus_obtusifolius,Dipterocarpaceae ,2.55,2,5.107051557
+DDF,1,325,Dipterocarpus_obtusifolius,Dipterocarpaceae ,2.55,3,5.107051557
+DDF,1,358,Gardenia_obtusifolia,Rubiaceae,2.55,2,5.107051557
+DDF,1,372,Shorea_siamensis,Dipterocarpaceae ,2.55,2.5,5.107051557
+DDF,1,431,Catunaregam_spathulifolia,Rubiaceae,2.55,2,5.107051557
+DDF,2,661,Gluta_usitata,Anacardiaceae,2.55,3,5.107051557
+DDF,2,738,Tristaniopsis_burmanica,Myrtaceae,2.55,4,5.107051557
+DDF,2,752,Tristaniopsis_burmanica,Myrtaceae,2.55,5,5.107051557
+DDF,2,778,Tristaniopsis_burmanica,Myrtaceae,2.55,3,5.107051557
+DDF,2,812,Aporosa_villosa,Phyllanthaceae,2.55,2,5.107051557
+DDF,2,839,Tristaniopsis_burmanica,Myrtaceae,2.55,4,5.107051557
+DDF,2,865,Tristaniopsis_burmanica,Myrtaceae,2.55,4,5.107051557
+DDF,2,887,Buchanania_lanzan,Anacardiaceae,2.55,2,5.107051557
+DDF,2,892,Dipterocarpus_tuberculatus,Dipterocarpaceae ,2.55,1.5,5.107051557
+DDF,2,926,Buchanania_lanzan,Anacardiaceae,2.55,2,5.107051557
+DDF,2,940,Gluta_usitata,Anacardiaceae,2.55,2.5,5.107051557
+DDF,2,966,Garcinia_cowa,Clusiaceae,2.55,2.5,5.107051557
+DDF,2,1034,Dipterocarpus_tuberculatus,Dipterocarpaceae ,2.55,1.5,5.107051557
+DDF,2,1068,Craibiodendron_stellatum,Ericaceae,2.55,2,5.107051557
+DDF,2,1110,Tristaniopsis_burmanica,Myrtaceae,2.55,3,5.107051557
+DDF,2,1144,Dipterocarpus_obtusifolius,Dipterocarpaceae ,2.55,3,5.107051557
+DDF,2,1171,Tristaniopsis_burmanica,Myrtaceae,2.55,3.5,5.107051557
+DDF,2,1182,Tristaniopsis_burmanica,Myrtaceae,2.55,3.5,5.107051557
+DDF,2,1202,Tristaniopsis_burmanica,Myrtaceae,2.55,3,5.107051557
+DDF,3,1526,Tristaniopsis_burmanica,Myrtaceae,2.55,3.5,5.107051557
+DDF,3,1555,Tristaniopsis_burmanica,Myrtaceae,2.55,3.5,5.107051557
+DDF,3,1560,Craibiodendron_stellatum,Ericaceae,2.55,2,5.107051557
+DDF,3,1575,Lithocarpus_polystachyus,Fagaceae,2.55,4,5.107051557
+DDF,3,1581,Vitex_peduncularis,Verbenaceae,2.55,2.5,5.107051557
+DDF,3,1640,Buchanania_lanzan,Anacardiaceae,2.55,3,5.107051557
+DDF,3,1664,Dipterocarpus_obtusifolius,Dipterocarpaceae ,2.55,2.5,5.107051557
+DDF,3,1668,Shorea_obtusa,Dipterocarpaceae ,2.55,2.5,5.107051557
+DDF,3,1679,Tristaniopsis_burmanica,Myrtaceae,2.55,3,5.107051557
+DDF,3,1722,Tristaniopsis_burmanica,Myrtaceae,2.55,4,5.107051557
+DDF,3,1785,Craibiodendron_stellatum,Ericaceae,2.55,3,5.107051557
+DDF,3,1802,Catunaregam_spathulifolia,Rubiaceae,2.55,4,5.107051557
+DDF,4,1917,Tristaniopsis_burmanica,Myrtaceae,2.55,3,5.107051557
+DDF,4,1925,Shorea_obtusa,Dipterocarpaceae ,2.55,2,5.107051557
+DDF,4,1967,Dillenia_obovata,Dilleniaceae,2.55,2,5.107051557
+DDF,4,2216,Shorea_siamensis,Dipterocarpaceae ,2.55,2,5.107051557
+DDF,4,2217,Tristaniopsis_burmanica,Myrtaceae,2.55,3,5.107051557
+DDF,5,2672,Aporosa_villosa,Phyllanthaceae,2.55,2.5,5.107051557
+DDF,5,2910,Craibiodendron_stellatum,Ericaceae,2.55,3,5.107051557
+DDF,5,2942,Semecarpus_anacardium,Anacardiaceae,2.55,6,5.107051557
+DDF,6,3067,Dalbergia_cana,Fabaceae,2.55,3,5.107051557
+DDF,6,3079,Lithocarpus_polystachyus,Fagaceae,2.55,4.5,5.107051557
+DDF,6,3098,Shorea_obtusa,Dipterocarpaceae ,2.55,2,5.107051557
+DDF,6,3152,Aporosa_villosa,Phyllanthaceae,2.55,2,5.107051557
+DDF,6,3201,Tristaniopsis_burmanica,Myrtaceae,2.55,3,5.107051557
+DDF,6,3302,Wendlandia_tinctoria,Rubiaceae,2.55,5,5.107051557
+DDF,6,3394,Melastoma_malabathricum,Melastomataceae,2.55,4,5.107051557
+DDF,6,3415,Shorea_roxburghii,Dipterocarpaceae ,2.55,3,5.107051557
+DDF,6,3431,Craibiodendron_stellatum,Ericaceae,2.55,3,5.107051557
+DDF,6,3447,Lithocarpus_lindleyanus,Fagaceae,2.55,3,5.107051557
+DEF,7,36,Cratoxylum_formosum,Hypericaceae ,2.55,2.5,5.107051557
+DEF,7,85,Paranephelium_longifoliolatum,Sapindaceae,2.55,3.5,5.107051557
+DEF,7,176,Olea_salicifolia,Oleaceae,2.55,4,5.107051557
+DEF,7,219,Lithocarpus_fenestus,Fagaceae,2.55,4,5.107051557
+DEF,7,249,Phoebe_paniculata,Lauraceae,2.55,4,5.107051557
+DEF,7,308,Rothmannia_sootepensis,Rubiaceae,2.55,3,5.107051557
+DEF,8,463,Turpinia_pomifera,Staphyleaceae,2.55,3,5.107051557
+DEF,8,485,Castanopsis_armata,Fagaceae,2.55,3,5.107051557
+DEF,8,604,Turpinia_pomifera,Staphyleaceae,2.55,3,5.107051557
+DEF,9,642,Lithocarpus_fenestus,Fagaceae,2.55,2.5,5.107051557
+DEF,9,661,Castanopsis_calathiformis,Fagaceae,2.55,3,5.107051557
+DEF,9,680,Olea_salicifolia,Oleaceae,2.55,2.5,5.107051557
+DEF,9,769,Ixora_cibdela,Rubiaceae,2.55,2,5.107051557
+DEF,9,824,Cryptocarya_pallens,Lauraceae,2.55,3,5.107051557
+DEF,9,849,Phoebe_lanceolata,Lauraceae,2.55,3,5.107051557
+DEF,9,876,Rothmannia_sootepensis,Rubiaceae,2.55,4,5.107051557
+DEF,9,900,Rothmannia_sootepensis,Rubiaceae,2.55,3,5.107051557
+DEF,10,926,Diospyros_glandulosa,Ebenaceae,2.55,5,5.107051557
+DEF,10,1054,Diospyros_glandulosa,Ebenaceae,2.55,5,5.107051557
+DEF,10,1078,Castanopsis_acuminatissima,Fagaceae,2.55,3,5.107051557
+DEF,10,1099,Castanopsis_acuminatissima,Fagaceae,2.55,6,5.107051557
+DEF,10,1167,Castanopsis_diversifolia,Fagaceae,2.55,5,5.107051557
+DEF,10,1242,Pittosporopsis_kerrii,Icacinaceae,2.55,2,5.107051557
+DEF,10,1304,Phoebe_lanceolata,Lauraceae,2.55,6,5.107051557
+DEF,10,1367,Castanopsis_calathiformis,Fagaceae,2.55,5,5.107051557
+DEF,10,1405,Siphonodon_celastrineus,Celastraceae,2.55,3,5.107051557
+DEF,11,1828,Syzygium_albiflorum,Myrtaceae,2.55,2,5.107051557
+DEF,12,1857,Olea_salicifolia,Oleaceae,2.55,3.5,5.107051557
+DEF,12,1911,Rothmannia_sootepensis,Rubiaceae,2.55,3,5.107051557
+DEF,12,1912,Rapanea_yunnanensis,Primulaceae,2.55,3,5.107051557
+DEF,12,1986,Rothmannia_sootepensis,Rubiaceae,2.55,4,5.107051557
+DEF,12,2047,Rothmannia_sootepensis,Rubiaceae,2.55,4,5.107051557
+DEF,12,2052,Rothmannia_sootepensis,Rubiaceae,2.55,5,5.107051557
+DEF,12,2117,Rothmannia_sootepensis,Rubiaceae,2.55,3,5.107051557
+DEF,12,2172,Rothmannia_sootepensis,Rubiaceae,2.55,5,5.107051557
+DEF,12,2205,Garcinia_merguensis,Clusiaceae,2.55,3.5,5.107051557
+DEF,12,2254,Clausena_excavata,Rutaceae,2.55,5,5.107051557
+DEF,12,2263,Lithocarpus_fenestus,Fagaceae,2.55,4,5.107051557
+DEF,12,2285,Memecylon_celastrinum,Melastomataceae,2.55,6,5.107051557
+DEF,12,2321,Aporosa_octandra,Phyllanthaceae,2.55,3,5.107051557
+DEF,12,2323,Rothmannia_sootepensis,Rubiaceae,2.55,5.5,5.107051557
+DEF,12,2327,Rothmannia_sootepensis,Rubiaceae,2.55,3.5,5.107051557
+MDF,14,360,Millingtonia_hortensis,Bignoniaceae,2.55,3,5.107051557
+MDF,16,588,Antidesma_acidum,Phyllanthaceae,2.55,3.5,5.107051557
+MDF,16,625,Antidesma_acidum,Phyllanthaceae,2.55,4,5.107051557
+MDF,16,669,Antidesma_acidum,Phyllanthaceae,2.55,3,5.107051557
+MDF,16,707,Wendlandia_tinctoria,Rubiaceae,2.55,5.5,5.107051557
+MDF,16,709,Dalbergia_cultrata,Fabaceae,2.55,3,5.107051557
+MDF,16,713,Canarium_subulatum,Burseraceae,2.55,3.5,5.107051557
+MDF,16,875,Lagerstroemia_duperreana,Lythraceae,2.55,3.5,5.107051557
+DDF,4,2153,Shorea_obtusa,Dipterocarpaceae ,2.71,2.5,5.768042652
+DEF,8,436,Protium_serratum,Burseraceae,2.71,3.5,5.768042652
+DDF,1,258,Aporosa_villosa,Phyllanthaceae,2.87,3,6.469246132
+DDF,1,279,Tristaniopsis_burmanica,Myrtaceae,2.87,2.5,6.469246132
+DDF,1,299,Catunaregam_spathulifolia,Rubiaceae,2.87,3.5,6.469246132
+DDF,1,311,Lithocarpus_sootepensis,Fagaceae,2.87,3,6.469246132
+DDF,1,337,Garcinia_cowa,Clusiaceae,2.87,3,6.469246132
+DDF,1,371,Quercus_kerrii,Fagaceae,2.87,4,6.469246132
+DDF,1,455,Tristaniopsis_burmanica,Myrtaceae,2.87,4,6.469246132
+DDF,2,662,Shorea_obtusa,Dipterocarpaceae ,2.87,2,6.469246132
+DDF,2,671,Aporosa_villosa,Phyllanthaceae,2.87,3,6.469246132
+DDF,2,709,Quercus_kerrii,Fagaceae,2.87,3,6.469246132
+DDF,2,719,Tristaniopsis_burmanica,Myrtaceae,2.87,3.5,6.469246132
+DDF,2,755,Dipterocarpus_obtusifolius,Dipterocarpaceae ,2.87,2,6.469246132
+DDF,2,763,Tristaniopsis_burmanica,Myrtaceae,2.87,2.5,6.469246132
+DDF,2,764,Tristaniopsis_burmanica,Myrtaceae,2.87,5,6.469246132
+DDF,2,816,Shorea_obtusa,Dipterocarpaceae ,2.87,2.5,6.469246132
+DDF,2,828,Dipterocarpus_tuberculatus,Dipterocarpaceae ,2.87,1.7,6.469246132
+DDF,2,833,Craibiodendron_stellatum,Ericaceae,2.87,4,6.469246132
+DDF,2,861,Buchanania_lanzan,Anacardiaceae,2.87,2.5,6.469246132
+DDF,2,879,Dipterocarpus_tuberculatus,Dipterocarpaceae ,2.87,2.5,6.469246132
+DDF,2,885,Craibiodendron_stellatum,Ericaceae,2.87,2,6.469246132
+DDF,2,886,Shorea_obtusa,Dipterocarpaceae ,2.87,2.5,6.469246132
+DDF,2,927,Anneslea_fragrans,Theaceae,2.87,3,6.469246132
+DDF,2,938,Shorea_obtusa,Dipterocarpaceae ,2.87,3,6.469246132
+DDF,2,991,Craibiodendron_stellatum,Ericaceae,2.87,2,6.469246132
+DDF,2,1023,Dipterocarpus_obtusifolius,Dipterocarpaceae ,2.87,5,6.469246132
+DDF,3,1494,Tristaniopsis_burmanica,Myrtaceae,2.87,4,6.469246132
+DDF,3,1523,Tristaniopsis_burmanica,Myrtaceae,2.87,3.5,6.469246132
+DDF,3,1533,Tristaniopsis_burmanica,Myrtaceae,2.87,1.5,6.469246132
+DDF,3,1551,Tristaniopsis_burmanica,Myrtaceae,2.87,4,6.469246132
+DDF,3,1594,Tristaniopsis_burmanica,Myrtaceae,2.87,4,6.469246132
+DDF,3,1601,Shorea_siamensis,Dipterocarpaceae ,2.87,4.5,6.469246132
+DDF,3,1645,Shorea_siamensis,Dipterocarpaceae ,2.87,3,6.469246132
+DDF,3,1678,Quercus_kerrii,Fagaceae,2.87,4,6.469246132
+DDF,3,1700,Craibiodendron_stellatum,Ericaceae,2.87,1.5,6.469246132
+DDF,3,1779,Bridelia_retusa,Euphorbiaceae,2.87,3,6.469246132
+DDF,3,1828,Shorea_obtusa,Dipterocarpaceae ,2.87,1.8,6.469246132
+DDF,3,1869,Craibiodendron_stellatum,Ericaceae,2.87,3,6.469246132
+DDF,4,1954,Shorea_obtusa,Dipterocarpaceae ,2.87,3.5,6.469246132
+DDF,4,1960,Dipterocarpus_tuberculatus,Dipterocarpaceae ,2.87,6,6.469246132
+DDF,4,1974,Symplocos_racemosa,Symplocaceae,2.87,3,6.469246132
+DDF,4,2146,Shorea_obtusa,Dipterocarpaceae ,2.87,2.5,6.469246132
+DDF,4,2252,Dipterocarpus_tuberculatus,Dipterocarpaceae ,2.87,2,6.469246132
+DDF,4,2358,Shorea_obtusa,Dipterocarpaceae ,2.87,6,6.469246132
+DDF,4,2377,Shorea_siamensis,Dipterocarpaceae ,2.87,3,6.469246132
+DDF,4,2492,Shorea_siamensis,Dipterocarpaceae ,2.87,2,6.469246132
+DDF,5,2684,Quercus_brandisiana,Fagaceae,2.87,3,6.469246132
+DDF,5,2699,Craibiodendron_stellatum,Ericaceae,2.87,3,6.469246132
+DDF,5,2802,Quercus_brandisiana,Fagaceae,2.87,2,6.469246132
+DDF,5,2823,Aporosa_villosa,Phyllanthaceae,2.87,2,6.469246132
+DDF,5,2837,Dipterocarpus_tuberculatus,Dipterocarpaceae ,2.87,3.5,6.469246132
+DDF,5,2861,Wendlandia_tinctoria,Rubiaceae,2.87,4.5,6.469246132
+DDF,6,3086,Dalbergia_cana,Fabaceae,2.87,3,6.469246132
+DDF,6,3094,Shorea_obtusa,Dipterocarpaceae ,2.87,4,6.469246132
+DDF,6,3121,Wendlandia_tinctoria,Rubiaceae,2.87,4,6.469246132
+DDF,6,3280,Dalbergia_cultrata,Fabaceae,2.87,3,6.469246132
+DDF,6,3321,Wendlandia_tinctoria,Rubiaceae,2.87,5,6.469246132
+DDF,6,3378,Wendlandia_tinctoria,Rubiaceae,2.87,5,6.469246132
+DDF,6,3407,Magnolia_baillonii,Magnoliaceae,2.87,4,6.469246132
+DEF,7,18,Elaeocarpus_sphaericus,Elaeocarpaceae,2.87,5,6.469246132
+DEF,7,191,Elaeocarpus_sphaericus,Elaeocarpaceae,2.87,4,6.469246132
+DEF,8,392,Cinnamomum_iners,Lauraceae,2.87,4,6.469246132
+DEF,8,402,Lindera_metcalfiana,Lauraceae,2.87,5,6.469246132
+DEF,8,465,Rothmannia_sootepensis,Rubiaceae,2.87,2.5,6.469246132
+DEF,8,476,Colona_elobata,Tiliaceae,2.87,4,6.469246132
+DEF,8,606,Castanopsis_calathiformis,Fagaceae,2.87,5,6.469246132
+DEF,9,658,Rothmannia_sootepensis,Rubiaceae,2.87,2.5,6.469246132
+DEF,9,840,Lagerstroemia_duperreana,Lythraceae,2.87,3,6.469246132
+DEF,9,878,Rothmannia_sootepensis,Rubiaceae,2.87,4,6.469246132
+DEF,9,886,Rothmannia_sootepensis,Rubiaceae,2.87,3,6.469246132
+DEF,10,954,Lindera_metcalfiana,Lauraceae,2.87,7,6.469246132
+DEF,10,1042,Castanopsis_argentea,Fagaceae,2.87,5,6.469246132
+DEF,10,1058,Castanopsis_acuminatissima,Fagaceae,2.87,7,6.469246132
+DEF,10,1117,Eriobotrya_bengalensis,Rosaceae,2.87,6,6.469246132
+DEF,10,1272,Castanopsis_acuminatissima,Fagaceae,2.87,4,6.469246132
+DEF,10,1363,Castanopsis_acuminatissima,Fagaceae,2.87,6,6.469246132
+DEF,11,1472,Lindera_metcalfiana,Lauraceae,2.87,4,6.469246132
+DEF,11,1526,Cinnamomum_iners,Lauraceae,2.87,5,6.469246132
+DEF,12,1859,Ixora_cibdela,Rubiaceae,2.87,3,6.469246132
+DEF,12,1875,Lithocarpus_polystachyus,Fagaceae,2.87,3,6.469246132
+DEF,12,1918,Engelhardia_serrata,Juglandaceae,2.87,4,6.469246132
+DEF,12,1983,Rothmannia_sootepensis,Rubiaceae,2.87,4,6.469246132
+DEF,12,2120,Garcinia_merguensis,Clusiaceae,2.87,3.5,6.469246132
+DEF,12,2182,Rothmannia_sootepensis,Rubiaceae,2.87,4.5,6.469246132
+MDF,14,347,Lagerstroemia_loudonii,Lythraceae,2.87,4,6.469246132
+MDF,16,575,Antidesma_acidum,Phyllanthaceae,2.87,3.5,6.469246132
+MDF,18,979,Canarium_subulatum,Burseraceae,2.87,5,6.469246132
+DDF,4,2143,Shorea_siamensis,Dipterocarpaceae ,3.03,3,7.210661998
+DEF,9,879,Aporosa_octandra,Phyllanthaceae,3.03,4.5,7.210661998
+MDF,14,396,Lagerstroemia_duperreana,Lythraceae,3.03,4.5,7.210661998
+DDF,1,292,Quercus_kerrii,Fagaceae,3.18,3,7.942260388
+DDF,1,294,Catunaregam_spathulifolia,Rubiaceae,3.18,2,7.942260388
+DDF,1,300,Catunaregam_spathulifolia,Rubiaceae,3.18,2.5,7.942260388
+DDF,1,317,Buchanania_lanzan,Anacardiaceae,3.18,5,7.942260388
+DDF,1,323,Garcinia_cowa,Clusiaceae,3.18,2.5,7.942260388
+DDF,1,352,Shorea_obtusa,Dipterocarpaceae ,3.18,5,7.942260388
+DDF,1,432,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.18,2,7.942260388
+DDF,2,677,Quercus_kerrii,Fagaceae,3.18,3.5,7.942260388
+DDF,2,692,Quercus_kerrii,Fagaceae,3.18,3.5,7.942260388
+DDF,2,696,Tristaniopsis_burmanica,Myrtaceae,3.18,4,7.942260388
+DDF,2,697,Tristaniopsis_burmanica,Myrtaceae,3.18,3.5,7.942260388
+DDF,2,700,Shorea_obtusa,Dipterocarpaceae ,3.18,2,7.942260388
+DDF,2,725,Quercus_kerrii,Fagaceae,3.18,4,7.942260388
+DDF,2,759,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.18,2,7.942260388
+DDF,2,787,Tristaniopsis_burmanica,Myrtaceae,3.18,3,7.942260388
+DDF,2,788,Tristaniopsis_burmanica,Myrtaceae,3.18,4,7.942260388
+DDF,2,825,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.18,1.5,7.942260388
+DDF,2,1046,Shorea_siamensis,Dipterocarpaceae ,3.18,3,7.942260388
+DDF,2,1216,Quercus_kerrii,Fagaceae,3.18,4,7.942260388
+DDF,3,1505,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.18,1.5,7.942260388
+DDF,3,1521,Craibiodendron_stellatum,Ericaceae,3.18,3,7.942260388
+DDF,3,1649,Shorea_obtusa,Dipterocarpaceae ,3.18,3,7.942260388
+DDF,3,1673,Quercus_kerrii,Fagaceae,3.18,3,7.942260388
+DDF,3,1690,Dipterocarpus_obtusifolius,Dipterocarpaceae ,3.18,2,7.942260388
+DDF,3,1692,Buchanania_lanzan,Anacardiaceae,3.18,5,7.942260388
+DDF,3,1787,Dillenia_obovata,Dilleniaceae,3.18,2.5,7.942260388
+DDF,3,1842,Shorea_obtusa,Dipterocarpaceae ,3.18,3,7.942260388
+DDF,3,1849,Shorea_obtusa,Dipterocarpaceae ,3.18,2.5,7.942260388
+DDF,3,1854,Wendlandia_tinctoria,Rubiaceae,3.18,3.5,7.942260388
+DDF,3,1876,Lithocarpus_tenuinervis,Fagaceae,3.18,4,7.942260388
+DDF,3,1891,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.18,2,7.942260388
+DDF,4,1914,Dipterocarpus_obtusifolius,Dipterocarpaceae ,3.18,2,7.942260388
+DDF,4,1964,Buchanania_lanzan,Anacardiaceae,3.18,4,7.942260388
+DDF,4,1998,Gluta_usitata,Anacardiaceae,3.18,3,7.942260388
+DDF,4,2031,Dillenia_obovata,Dilleniaceae,3.18,2,7.942260388
+DDF,4,2063,Shorea_siamensis,Dipterocarpaceae ,3.18,2.5,7.942260388
+DDF,4,2092,Shorea_siamensis,Dipterocarpaceae ,3.18,2.5,7.942260388
+DDF,4,2161,Dipterocarpus_obtusifolius,Dipterocarpaceae ,3.18,2.5,7.942260388
+DDF,4,2210,Shorea_siamensis,Dipterocarpaceae ,3.18,3,7.942260388
+DDF,4,2258,Gluta_usitata,Anacardiaceae,3.18,3.5,7.942260388
+DDF,4,2320,Tristaniopsis_burmanica,Myrtaceae,3.18,3,7.942260388
+DDF,4,2364,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.18,4,7.942260388
+DDF,4,2401,Tristaniopsis_burmanica,Myrtaceae,3.18,4,7.942260388
+DDF,4,2413,Shorea_obtusa,Dipterocarpaceae ,3.18,3,7.942260388
+DDF,4,2468,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.18,1.8,7.942260388
+DDF,4,2503,Garcinia_cowa,Clusiaceae,3.18,2,7.942260388
+DDF,4,2513,Garcinia_cowa,Clusiaceae,3.18,2.5,7.942260388
+DDF,5,2598,Craibiodendron_stellatum,Ericaceae,3.18,3.5,7.942260388
+DDF,5,2649,Aporosa_villosa,Phyllanthaceae,3.18,4,7.942260388
+DDF,5,2723,Vitex_peduncularis,Verbenaceae,3.18,4,7.942260388
+DDF,5,2725,Wendlandia_tinctoria,Rubiaceae,3.18,5,7.942260388
+DDF,5,2770,Aporosa_villosa,Phyllanthaceae,3.18,5,7.942260388
+DDF,5,2782,Aporosa_villosa,Phyllanthaceae,3.18,3,7.942260388
+DDF,5,2804,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.18,1.6,7.942260388
+DDF,5,2874,Vitex_peduncularis,Verbenaceae,3.18,4.5,7.942260388
+DDF,5,2945,Rapanea_yunnanensis,Primulaceae,3.18,5,7.942260388
+DDF,6,3092,Shorea_obtusa,Dipterocarpaceae ,3.18,3,7.942260388
+DDF,6,3122,Lithocarpus_polystachyus,Fagaceae,3.18,5,7.942260388
+DDF,6,3170,Aporosa_villosa,Phyllanthaceae,3.18,3,7.942260388
+DDF,6,3198,Helicia_nilagirica,Proteaceae,3.18,3.5,7.942260388
+DDF,6,3240,Tristaniopsis_burmanica,Myrtaceae,3.18,5,7.942260388
+DDF,6,3286,Wendlandia_tinctoria,Rubiaceae,3.18,5,7.942260388
+DDF,6,3344,Lithocarpus_lindleyanus,Fagaceae,3.18,4,7.942260388
+DDF,6,3390,Schima_wallichii,Theaceae,3.18,4.5,7.942260388
+DDF,6,3465,Wendlandia_tinctoria,Rubiaceae,3.18,3,7.942260388
+DEF,7,97,Cryptocarya_pallens,Lauraceae,3.18,5,7.942260388
+DEF,7,139,Phoebe_lanceolata,Lauraceae,3.18,4,7.942260388
+DEF,7,218,Lithocarpus_fenestus,Fagaceae,3.18,5,7.942260388
+DEF,7,345,Turpinia_pomifera,Staphyleaceae,3.18,3,7.942260388
+DEF,8,409,Styrax_benzoides,Styracaceae,3.18,4,7.942260388
+DEF,8,451,Rothmannia_sootepensis,Rubiaceae,3.18,4,7.942260388
+DEF,9,622,Adenanthera_pavonina,Fabaceae,3.18,5,7.942260388
+DEF,9,656,Styrax_benzoides,Styracaceae,3.18,4,7.942260388
+DEF,9,852,Viburnum_inopinatum,Adoxaceae,3.18,5,7.942260388
+DEF,9,858,Viburnum_inopinatum,Adoxaceae,3.18,5,7.942260388
+DEF,10,925,Castanopsis_acuminatissima,Fagaceae,3.18,4,7.942260388
+DEF,10,980,Artocarpus_sp.,Moraceae,3.18,4,7.942260388
+DEF,10,1139,Adinandra_integerrima,Pentaphylaceae,3.18,5,7.942260388
+DEF,10,1376,Castanopsis_acuminatissima,Fagaceae,3.18,5,7.942260388
+DEF,11,1419,Syzygium_albiflorum,Myrtaceae,3.18,4,7.942260388
+DEF,11,1488,Castanopsis_acuminatissima,Fagaceae,3.18,5,7.942260388
+DEF,11,1573,Baccaurea_ramiflora,Phyllanthaceae,3.18,6,7.942260388
+DEF,11,1758,Litsea_sp.4,Lauraceae,3.18,5,7.942260388
+DEF,11,1769,Baccaurea_ramiflora,Phyllanthaceae,3.18,3,7.942260388
+DEF,11,1832,Rothmannia_sootepensis,Rubiaceae,3.18,3,7.942260388
+DEF,12,1843,Styrax_benzoides,Styracaceae,3.18,4,7.942260388
+DEF,12,2072,Rothmannia_sootepensis,Rubiaceae,3.18,5.5,7.942260388
+DEF,12,2146,Lithocarpus_polystachyus,Fagaceae,3.18,4.5,7.942260388
+DEF,12,2186,Engelhardia_serrata,Juglandaceae,3.18,3.5,7.942260388
+DEF,12,2325,Viburnum_inopinatum,Adoxaceae,3.18,5,7.942260388
+MDF,16,639,Vitex_pinnata,Verbenaceae,3.18,4.5,7.942260388
+MDF,16,684,Pavetta_tomentosa,Rubiaceae,3.18,5,7.942260388
+MDF,18,993,Ziziphus_oenoplia,Rhamnaceae,3.18,7,7.942260388
+MDF,18,1028,Dolichandrone_columnaris,Bignoniaceae,3.18,3,7.942260388
+DDF,4,1962,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.34,2.5,8.761587752
+MDF,15,551,Millettia_kangensis,Fabaceae,3.34,4,8.761587752
+DDF,1,247,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.5,1.6,9.621127502
+DDF,1,260,Craibiodendron_stellatum,Ericaceae,3.5,2.5,9.621127502
+DDF,1,285,Tristaniopsis_burmanica,Myrtaceae,3.5,7,9.621127502
+DDF,1,388,Tristaniopsis_burmanica,Myrtaceae,3.5,6,9.621127502
+DDF,1,401,Gluta_usitata,Anacardiaceae,3.5,3,9.621127502
+DDF,1,412,Dipterocarpus_obtusifolius,Dipterocarpaceae ,3.5,2.5,9.621127502
+DDF,1,428,Dipterocarpus_obtusifolius,Dipterocarpaceae ,3.5,2.5,9.621127502
+DDF,1,452,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.5,3,9.621127502
+DDF,1,461,Catunaregam_spathulifolia,Rubiaceae,3.5,4.5,9.621127502
+DDF,1,464,Dalbergia_dongnaiensis,Fabacese,3.5,4,9.621127502
+DDF,2,691,Aporosa_villosa,Phyllanthaceae,3.5,3.5,9.621127502
+DDF,2,732,Buchanania_lanzan,Anacardiaceae,3.5,4.5,9.621127502
+DDF,2,751,Tristaniopsis_burmanica,Myrtaceae,3.5,5,9.621127502
+DDF,2,779,Tristaniopsis_burmanica,Myrtaceae,3.5,4,9.621127502
+DDF,2,821,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.5,1.7,9.621127502
+DDF,2,834,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.5,2,9.621127502
+DDF,2,835,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.5,1.7,9.621127502
+DDF,2,842,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.5,1.5,9.621127502
+DDF,2,849,Shorea_obtusa,Dipterocarpaceae ,3.5,4,9.621127502
+DDF,2,902,Shorea_obtusa,Dipterocarpaceae ,3.5,2.5,9.621127502
+DDF,2,937,Aporosa_villosa,Phyllanthaceae,3.5,3,9.621127502
+DDF,2,965,Garcinia_cowa,Clusiaceae,3.5,3,9.621127502
+DDF,2,979,Dipterocarpus_obtusifolius,Dipterocarpaceae ,3.5,4,9.621127502
+DDF,2,1024,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.5,2.5,9.621127502
+DDF,2,1033,Tristaniopsis_burmanica,Myrtaceae,3.5,4,9.621127502
+DDF,2,1037,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.5,2,9.621127502
+DDF,2,1051,Shorea_siamensis,Dipterocarpaceae ,3.5,3,9.621127502
+DDF,2,1082,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.5,3.5,9.621127502
+DDF,2,1102,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.5,3,9.621127502
+DDF,2,1113,Garcinia_cowa,Clusiaceae,3.5,3.5,9.621127502
+DDF,2,1118,Dipterocarpus_obtusifolius,Dipterocarpaceae ,3.5,4,9.621127502
+DDF,2,1219,Garcinia_cowa,Clusiaceae,3.5,2.5,9.621127502
+DDF,3,1496,Tristaniopsis_burmanica,Myrtaceae,3.5,4,9.621127502
+DDF,3,1519,Dalbergia_oliveri,Fabaceae,3.5,4,9.621127502
+DDF,3,1528,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.5,2,9.621127502
+DDF,3,1540,Dalbergia_oliveri,Fabaceae,3.5,4,9.621127502
+DDF,3,1562,Quercus_kerrii,Fagaceae,3.5,5,9.621127502
+DDF,3,1569,Aporosa_villosa,Phyllanthaceae,3.5,5.5,9.621127502
+DDF,3,1572,Ixora_cibdela,Rubiaceae,3.5,6,9.621127502
+DDF,3,1578,Tristaniopsis_burmanica,Myrtaceae,3.5,4.5,9.621127502
+DDF,3,1620,Gluta_usitata,Anacardiaceae,3.5,4.5,9.621127502
+DDF,3,1630,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.5,2,9.621127502
+DDF,3,1641,Dipterocarpus_obtusifolius,Dipterocarpaceae ,3.5,3,9.621127502
+DDF,3,1662,Quercus_kerrii,Fagaceae,3.5,4,9.621127502
+DDF,3,1767,Craibiodendron_stellatum,Ericaceae,3.5,4,9.621127502
+DDF,3,1771,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.5,1.5,9.621127502
+DDF,3,1827,Shorea_obtusa,Dipterocarpaceae ,3.5,4,9.621127502
+DDF,3,1831,Tristaniopsis_burmanica,Myrtaceae,3.5,3.5,9.621127502
+DDF,3,1836,Gluta_usitata,Anacardiaceae,3.5,4.5,9.621127502
+DDF,3,1862,Tristaniopsis_burmanica,Myrtaceae,3.5,3,9.621127502
+DDF,3,1875,Craibiodendron_stellatum,Ericaceae,3.5,3,9.621127502
+DDF,4,1934,Gardenia_obtusifolia,Rubiaceae,3.5,2.5,9.621127502
+DDF,4,1987,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.5,2,9.621127502
+DDF,4,1989,Aporosa_villosa,Phyllanthaceae,3.5,1.8,9.621127502
+DDF,4,2001,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.5,2.3,9.621127502
+DDF,4,2072,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.5,2,9.621127502
+DDF,4,2269,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.5,5,9.621127502
+DDF,4,2299,Dalbergia_dongnaiensis,Fabacese,3.5,4,9.621127502
+DDF,4,2483,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.5,2.5,9.621127502
+DDF,4,2506,Shorea_obtusa,Dipterocarpaceae ,3.5,2.5,9.621127502
+DDF,4,2514,Shorea_siamensis,Dipterocarpaceae ,3.5,3,9.621127502
+DDF,5,2628,Shorea_roxburghii,Dipterocarpaceae ,3.5,4.5,9.621127502
+DDF,5,2748,Wendlandia_tinctoria,Rubiaceae,3.5,5,9.621127502
+DDF,5,2774,Wendlandia_tinctoria,Rubiaceae,3.5,5,9.621127502
+DDF,5,2801,Semecarpus_cochinchinensis,Anacardiaceae,3.5,5,9.621127502
+DDF,5,2829,Aporosa_villosa,Phyllanthaceae,3.5,3,9.621127502
+DDF,6,2979,Pavetta_tomentosa,Rubiaceae,3.5,5,9.621127502
+DDF,6,3070,Melastoma_malabathricum,Melastomataceae,3.5,4.5,9.621127502
+DDF,6,3090,Vaccinium_sprengelii,Ericaceae,3.5,1.7,9.621127502
+DDF,6,3116,Lithocarpus_polystachyus,Fagaceae,3.5,5.5,9.621127502
+DDF,6,3139,Pavetta_tomentosa,Rubiaceae,3.5,4,9.621127502
+DDF,6,3146,Lithocarpus_lindleyanus,Fagaceae,3.5,5,9.621127502
+DDF,6,3187,Wendlandia_tinctoria,Rubiaceae,3.5,4,9.621127502
+DDF,6,3419,Lithocarpus_polystachyus,Fagaceae,3.5,4,9.621127502
+DEF,7,170,Lithocarpus_fenestus,Fagaceae,3.5,4,9.621127502
+DEF,7,204,Lithocarpus_fenestus,Fagaceae,3.5,5,9.621127502
+DEF,8,475,Rothmannia_sootepensis,Rubiaceae,3.5,4,9.621127502
+DEF,9,653,Ziziphus_oenoplia,Rhamnaceae,3.5,4,9.621127502
+DEF,9,757,Toona_ciliata,Meliaceae,3.5,4,9.621127502
+DEF,9,820,Ixora_cibdela,Rubiaceae,3.5,3,9.621127502
+DEF,9,899,Glochidion_sphaerogynum,Phyllanthaceae,3.5,5,9.621127502
+DEF,10,933,Castanopsis_acuminatissima,Fagaceae,3.5,6,9.621127502
+DEF,10,1013,Cryptocarya_pallens,Lauraceae,3.5,4,9.621127502
+DEF,10,1051,Castanopsis_acuminatissima,Fagaceae,3.5,6,9.621127502
+DEF,10,1080,Castanopsis_acuminatissima,Fagaceae,3.5,6,9.621127502
+DEF,10,1379,Lindera_metcalfiana,Lauraceae,3.5,7,9.621127502
+DEF,11,1501,Cryptocarya_pallens,Lauraceae,3.5,4.5,9.621127502
+DEF,11,1717,Pittosporopsis_kerrii,Icacinaceae,3.5,6,9.621127502
+DEF,11,1810,Rothmannia_sootepensis,Rubiaceae,3.5,3,9.621127502
+DEF,12,1909,Cratoxylum_formosum,Hypericaceae ,3.5,4,9.621127502
+DEF,12,2048,Rothmannia_sootepensis,Rubiaceae,3.5,4.5,9.621127502
+DEF,12,2105,Pittosporopsis_kerrii,Icacinaceae,3.5,5.5,9.621127502
+DEF,12,2134,Quercus_kingiana,Fagaceae,3.5,5.5,9.621127502
+DEF,12,2340,Viburnum_inopinatum,Adoxaceae,3.5,5.5,9.621127502
+DEF,12,2343,Rothmannia_sootepensis,Rubiaceae,3.5,5,9.621127502
+MDF,15,532,Lagerstroemia_duperreana,Lythraceae,3.5,7,9.621127502
+MDF,16,617,Antidesma_acidum,Phyllanthaceae,3.5,4,9.621127502
+MDF,18,991,Antidesma_acidum,Phyllanthaceae,3.5,4,9.621127502
+DDF,4,1935,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.66,2.5,10.52087964
+DEF,10,947,Castanopsis_acuminatissima,Fagaceae,3.66,5,10.52087964
+DEF,12,2099,Styrax_benzoides,Styracaceae,3.66,6,10.52087964
+DDF,1,261,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.82,2,11.46084416
+DDF,1,262,Dalbergia_dongnaiensis,Fabacese,3.82,3,11.46084416
+DDF,1,289,Tristaniopsis_burmanica,Myrtaceae,3.82,3,11.46084416
+DDF,1,298,Tristaniopsis_burmanica,Myrtaceae,3.82,6,11.46084416
+DDF,1,335,Tristaniopsis_burmanica,Myrtaceae,3.82,5,11.46084416
+DDF,1,408,Dipterocarpus_obtusifolius,Dipterocarpaceae ,3.82,2.5,11.46084416
+DDF,1,423,Aporosa_villosa,Phyllanthaceae,3.82,5,11.46084416
+DDF,1,424,Dipterocarpus_obtusifolius,Dipterocarpaceae ,3.82,2.5,11.46084416
+DDF,1,425,Dipterocarpus_obtusifolius,Dipterocarpaceae ,3.82,5,11.46084416
+DDF,1,436,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.82,2.5,11.46084416
+DDF,1,438,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.82,2,11.46084416
+DDF,2,765,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.82,2.5,11.46084416
+DDF,2,877,Shorea_obtusa,Dipterocarpaceae ,3.82,2,11.46084416
+DDF,2,973,Aporosa_villosa,Phyllanthaceae,3.82,3,11.46084416
+DDF,2,1060,Wendlandia_tinctoria,Rubiaceae,3.82,5,11.46084416
+DDF,2,1132,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.82,2,11.46084416
+DDF,2,1138,Aporosa_villosa,Phyllanthaceae,3.82,4,11.46084416
+DDF,2,1194,Tristaniopsis_burmanica,Myrtaceae,3.82,4.5,11.46084416
+DDF,3,1503,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.82,2,11.46084416
+DDF,3,1507,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.82,2.5,11.46084416
+DDF,3,1544,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.82,2,11.46084416
+DDF,3,1556,Shorea_obtusa,Dipterocarpaceae ,3.82,3.5,11.46084416
+DDF,3,1563,Shorea_obtusa,Dipterocarpaceae ,3.82,3,11.46084416
+DDF,3,1567,Tristaniopsis_burmanica,Myrtaceae,3.82,6,11.46084416
+DDF,3,1583,Tristaniopsis_burmanica,Myrtaceae,3.82,4,11.46084416
+DDF,3,1684,Dipterocarpus_obtusifolius,Dipterocarpaceae ,3.82,4,11.46084416
+DDF,3,1689,Aporosa_villosa,Phyllanthaceae,3.82,3,11.46084416
+DDF,3,1777,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.82,2,11.46084416
+DDF,3,1781,Shorea_obtusa,Dipterocarpaceae ,3.82,5,11.46084416
+DDF,3,1824,Syzygium_cumini,Myrtaceae,3.82,2.5,11.46084416
+DDF,3,1907,Tristaniopsis_burmanica,Myrtaceae,3.82,6,11.46084416
+DDF,4,1909,Dipterocarpus_obtusifolius,Dipterocarpaceae ,3.82,3,11.46084416
+DDF,4,1926,Craibiodendron_stellatum,Ericaceae,3.82,2.5,11.46084416
+DDF,4,1943,Shorea_siamensis,Dipterocarpaceae ,3.82,4.5,11.46084416
+DDF,4,1948,Gluta_usitata,Anacardiaceae,3.82,5,11.46084416
+DDF,4,1999,Shorea_siamensis,Dipterocarpaceae ,3.82,3,11.46084416
+DDF,4,2027,Buchanania_lanzan,Anacardiaceae,3.82,2.5,11.46084416
+DDF,4,2078,Shorea_siamensis,Dipterocarpaceae ,3.82,3.5,11.46084416
+DDF,4,2145,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.82,2,11.46084416
+DDF,4,2256,Garcinia_cowa,Clusiaceae,3.82,3,11.46084416
+DDF,4,2314,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.82,2.5,11.46084416
+DDF,4,2363,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.82,7,11.46084416
+DDF,4,2400,Tristaniopsis_burmanica,Myrtaceae,3.82,4.5,11.46084416
+DDF,4,2423,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.82,2.5,11.46084416
+DDF,4,2450,Shorea_siamensis,Dipterocarpaceae ,3.82,2,11.46084416
+DDF,4,2460,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.82,2,11.46084416
+DDF,4,2463,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.82,2.5,11.46084416
+DDF,4,2466,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.82,2.5,11.46084416
+DDF,4,2504,Garcinia_cowa,Clusiaceae,3.82,2.5,11.46084416
+DDF,4,2539,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.82,3,11.46084416
+DDF,5,2566,Dipterocarpus_tuberculatus,Dipterocarpaceae ,3.82,2,11.46084416
+DDF,5,2656,Aporosa_villosa,Phyllanthaceae,3.82,3.5,11.46084416
+DDF,5,2814,Gluta_usitata,Anacardiaceae,3.82,4.5,11.46084416
+DDF,6,3047,Quercus_brandisiana,Fagaceae,3.82,4,11.46084416
+DDF,6,3346,Pavetta_tomentosa,Rubiaceae,3.82,4,11.46084416
+DEF,7,102,Lithocarpus_fenestus,Fagaceae,3.82,5,11.46084416
+DEF,7,138,Turpinia_pomifera,Staphyleaceae,3.82,4,11.46084416
+DEF,7,254,Canarium_subulatum,Burseraceae,3.82,4,11.46084416
+DEF,8,406,Adenanthera_pavonina,Fabaceae,3.82,4.5,11.46084416
+DEF,8,595,Turpinia_pomifera,Staphyleaceae,3.82,4,11.46084416
+DEF,9,666,Dipterocarpus_turbinatus,Dipterocarpaceae ,3.82,4,11.46084416
+DEF,9,883,Olea_salicifolia,Oleaceae,3.82,5,11.46084416
+DEF,10,973,Artocarpus_sp.,Moraceae,3.82,5,11.46084416
+DEF,10,1196,Castanopsis_acuminatissima,Fagaceae,3.82,5,11.46084416
+DEF,10,1343,Lindera_metcalfiana,Lauraceae,3.82,8,11.46084416
+DEF,11,1713,Nephelium_hypoleucum,Sapindaceae,3.82,7,11.46084416
+DEF,12,1885,Ixora_sp.,Rubiaceae,3.82,4,11.46084416
+DEF,12,1908,Rapanea_yunnanensis,Primulaceae,3.82,4,11.46084416
+DEF,12,1977,Tarennoidea_wallichii,Rubiaceae,3.82,4,11.46084416
+DEF,12,1980,Rothmannia_sootepensis,Rubiaceae,3.82,4,11.46084416
+DEF,12,2064,Rothmannia_sootepensis,Rubiaceae,3.82,5.5,11.46084416
+MDF,14,353,Lagerstroemia_duperreana,Lythraceae,3.82,4.5,11.46084416
+MDF,14,370,Millettia_kangensis,Fabaceae,3.82,5,11.46084416
+MDF,16,650,Lagerstroemia_duperreana,Lythraceae,3.82,5,11.46084416
+DDF,1,290,Gluta_usitata,Anacardiaceae,4.14,3,13.46141036
+DDF,1,363,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.14,3.5,13.46141036
+DDF,1,389,Tristaniopsis_burmanica,Myrtaceae,4.14,3,13.46141036
+DDF,1,391,Buchanania_lanzan,Anacardiaceae,4.14,4.5,13.46141036
+DDF,1,413,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.14,2.5,13.46141036
+DDF,1,418,Dalbergia_oliveri,Fabaceae,4.14,3.5,13.46141036
+DDF,1,427,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.14,1.8,13.46141036
+DDF,2,683,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.14,4,13.46141036
+DDF,2,712,Lithocarpus_polystachyus,Fagaceae,4.14,5,13.46141036
+DDF,2,939,Shorea_obtusa,Dipterocarpaceae ,4.14,2.5,13.46141036
+DDF,2,942,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.14,3,13.46141036
+DDF,2,953,Buchanania_lanzan,Anacardiaceae,4.14,3.5,13.46141036
+DDF,2,975,Buchanania_lanzan,Anacardiaceae,4.14,4,13.46141036
+DDF,2,995,Dipterocarpus_obtusifolius,Dipterocarpaceae ,4.14,4,13.46141036
+DDF,2,1116,Garcinia_cowa,Clusiaceae,4.14,4,13.46141036
+DDF,2,1161,Craibiodendron_stellatum,Ericaceae,4.14,3,13.46141036
+DDF,2,1167,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.14,4,13.46141036
+DDF,2,1168,Dalbergia_oliveri,Fabaceae,4.14,4,13.46141036
+DDF,2,1189,Tristaniopsis_burmanica,Myrtaceae,4.14,5,13.46141036
+DDF,2,1192,Dipterocarpus_obtusifolius,Dipterocarpaceae ,4.14,4,13.46141036
+DDF,3,1520,Tristaniopsis_burmanica,Myrtaceae,4.14,6,13.46141036
+DDF,3,1549,Tristaniopsis_burmanica,Myrtaceae,4.14,4.5,13.46141036
+DDF,3,1559,Shorea_obtusa,Dipterocarpaceae ,4.14,3,13.46141036
+DDF,3,1626,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.14,3,13.46141036
+DDF,3,1652,Dipterocarpus_obtusifolius,Dipterocarpaceae ,4.14,4,13.46141036
+DDF,3,1680,Shorea_obtusa,Dipterocarpaceae ,4.14,1.5,13.46141036
+DDF,3,1683,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.14,3.5,13.46141036
+DDF,3,1786,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.14,3.5,13.46141036
+DDF,3,1879,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.14,3.5,13.46141036
+DDF,4,1959,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.14,2.5,13.46141036
+DDF,4,1983,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.14,2.5,13.46141036
+DDF,4,1984,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.14,2.3,13.46141036
+DDF,4,2082,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.14,2,13.46141036
+DDF,4,2115,Tristaniopsis_burmanica,Myrtaceae,4.14,6,13.46141036
+DDF,4,2118,Gluta_usitata,Anacardiaceae,4.14,4.5,13.46141036
+DDF,4,2169,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.14,8,13.46141036
+DDF,4,2171,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.14,2.5,13.46141036
+DDF,4,2185,Shorea_siamensis,Dipterocarpaceae ,4.14,3,13.46141036
+DDF,4,2389,Buchanania_lanzan,Anacardiaceae,4.14,4,13.46141036
+DDF,4,2498,Gluta_usitata,Anacardiaceae,4.14,4.5,13.46141036
+DDF,5,2556,Gluta_usitata,Anacardiaceae,4.14,4,13.46141036
+DDF,5,2586,Aporosa_villosa,Phyllanthaceae,4.14,2.5,13.46141036
+DDF,5,2758,Wendlandia_tinctoria,Rubiaceae,4.14,5,13.46141036
+DDF,5,2786,Craibiodendron_stellatum,Ericaceae,4.14,3.5,13.46141036
+DDF,6,3222,Castanopsis_diversifolia,Fagaceae,4.14,5,13.46141036
+DDF,6,3254,Wendlandia_tinctoria,Rubiaceae,4.14,5,13.46141036
+DDF,6,3301,Wendlandia_tinctoria,Rubiaceae,4.14,5,13.46141036
+DDF,6,3383,Pavetta_tomentosa,Rubiaceae,4.14,4,13.46141036
+DDF,6,3429,Shorea_obtusa,Dipterocarpaceae ,4.14,2,13.46141036
+DEF,9,708,Lithocarpus_fenestus,Fagaceae,4.14,4,13.46141036
+DEF,9,906,Rothmannia_sootepensis,Rubiaceae,4.14,5.5,13.46141036
+DEF,11,1676,Ixora_sp.,Rubiaceae,4.14,6,13.46141036
+DEF,12,1964,Cratoxylum_formosum,Hypericaceae ,4.14,5,13.46141036
+DEF,12,2044,Elaeocarpus_sphaericus,Elaeocarpaceae,4.14,5,13.46141036
+DEF,12,2150,Castanopsis_armata,Fagaceae,4.14,6,13.46141036
+DEF,12,2273,Rothmannia_sootepensis,Rubiaceae,4.14,5,13.46141036
+MDF,16,705,Wendlandia_tinctoria,Rubiaceae,4.14,4,13.46141036
+DDF,4,2260,Shorea_obtusa,Dipterocarpaceae ,4.3,2,14.52201204
+DDF,5,2943,Glochidion_sphaerogynum,Phyllanthaceae,4.3,6,14.52201204
+DDF,6,3245,Tristaniopsis_burmanica,Myrtaceae,4.3,5,14.52201204
+DEF,7,175,Rapanea_yunnanensis,Primulaceae,4.3,8,14.52201204
+DDF,1,265,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.46,2.5,15.62282611
+DDF,1,288,Tristaniopsis_burmanica,Myrtaceae,4.46,3,15.62282611
+DDF,1,361,Quercus_kerrii,Fagaceae,4.46,3,15.62282611
+DDF,1,370,Canarium_subulatum,Burseraceae,4.46,6,15.62282611
+DDF,1,382,Buchanania_lanzan,Anacardiaceae,4.46,4,15.62282611
+DDF,1,430,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.46,2,15.62282611
+DDF,1,440,Dalbergia_dongnaiensis,Fabacese,4.46,6,15.62282611
+DDF,1,449,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.46,2.5,15.62282611
+DDF,1,451,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.46,2,15.62282611
+DDF,2,666,Aporosa_villosa,Phyllanthaceae,4.46,3,15.62282611
+DDF,2,832,Gluta_usitata,Anacardiaceae,4.46,6,15.62282611
+DDF,2,943,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.46,3.5,15.62282611
+DDF,2,1035,Shorea_siamensis,Dipterocarpaceae ,4.46,5,15.62282611
+DDF,2,1100,Shorea_siamensis,Dipterocarpaceae ,4.46,7,15.62282611
+DDF,2,1107,Dipterocarpus_obtusifolius,Dipterocarpaceae ,4.46,2.5,15.62282611
+DDF,2,1114,Dipterocarpus_obtusifolius,Dipterocarpaceae ,4.46,6,15.62282611
+DDF,2,1152,Garcinia_cowa,Clusiaceae,4.46,3,15.62282611
+DDF,3,1647,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.46,2.5,15.62282611
+DDF,3,1650,Catunaregam_spathulifolia,Rubiaceae,4.46,5,15.62282611
+DDF,3,1783,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.46,3,15.62282611
+DDF,3,1793,Dipterocarpus_obtusifolius,Dipterocarpaceae ,4.46,6,15.62282611
+DDF,3,1796,Craibiodendron_stellatum,Ericaceae,4.46,3,15.62282611
+DDF,4,2087,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.46,2.5,15.62282611
+DDF,4,2152,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.46,3,15.62282611
+DDF,4,2246,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.46,4,15.62282611
+DDF,4,2293,Shorea_siamensis,Dipterocarpaceae ,4.46,4,15.62282611
+DDF,4,2330,Shorea_siamensis,Dipterocarpaceae ,4.46,4,15.62282611
+DDF,4,2335,Shorea_siamensis,Dipterocarpaceae ,4.46,4,15.62282611
+DDF,4,2393,Quercus_kerrii,Fagaceae,4.46,4.5,15.62282611
+DDF,4,2405,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.46,3,15.62282611
+DDF,4,2479,Quercus_kerrii,Fagaceae,4.46,2.5,15.62282611
+DDF,5,2683,Gluta_usitata,Anacardiaceae,4.46,2,15.62282611
+DDF,5,2825,Quercus_brandisiana,Fagaceae,4.46,5,15.62282611
+DDF,6,3298,Wendlandia_tinctoria,Rubiaceae,4.46,5,15.62282611
+DEF,8,565,Diospyros_rubra,Ebenaceae,4.46,5,15.62282611
+DEF,9,768,Castanopsis_calathiformis,Fagaceae,4.46,3,15.62282611
+DEF,9,871,Rapanea_yunnanensis,Primulaceae,4.46,5,15.62282611
+DEF,10,948,Castanopsis_acuminatissima,Fagaceae,4.46,7,15.62282611
+DEF,10,1138,Mallotus_philippensis,Euphorbiaceae,4.46,5,15.62282611
+DEF,11,1442,Pittosporopsis_kerrii,Icacinaceae,4.46,4.5,15.62282611
+DEF,12,1970,Lithocarpus_fenestus,Fagaceae,4.46,5.5,15.62282611
+DEF,12,2024,Castanopsis_acuminatissima,Fagaceae,4.46,6,15.62282611
+DEF,12,2175,Elaeocarpus_sphaericus,Elaeocarpaceae,4.46,7,15.62282611
+DEF,12,2233,Rothmannia_sootepensis,Rubiaceae,4.46,4,15.62282611
+DEF,12,2245,Tarennoidea_wallichii,Rubiaceae,4.46,5,15.62282611
+MDF,16,654,Irvingia_malayana,Irvingiaceae,4.46,6,15.62282611
+DDF,6,3434,Lithocarpus_lindleyanus,Fagaceae,4.62,5,16.76385256
+DDF,1,30,Gluta_usitata,Anacardiaceae,4.78,5,17.9450914
+DDF,1,38,Dalbergia_dongnaiensis,Fabacese,4.78,6,17.9450914
+DDF,1,129,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.78,2.5,17.9450914
+DDF,1,138,Shorea_siamensis,Dipterocarpaceae ,4.78,3.5,17.9450914
+DDF,1,144,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.78,2.5,17.9450914
+DDF,1,189,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.78,3.5,17.9450914
+DDF,1,191,Quercus_kerrii,Fagaceae,4.78,4,17.9450914
+DDF,2,473,Quercus_kerrii,Fagaceae,4.78,4,17.9450914
+DDF,2,492,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.78,3,17.9450914
+DDF,2,565,Dipterocarpus_obtusifolius,Dipterocarpaceae ,4.78,4,17.9450914
+DDF,2,630,Craibiodendron_stellatum,Ericaceae,4.78,4,17.9450914
+DDF,3,1338,Wendlandia_tinctoria,Rubiaceae,4.78,6,17.9450914
+DDF,3,1403,Shorea_obtusa,Dipterocarpaceae ,4.78,4,17.9450914
+DDF,3,1432,Lithocarpus_polystachyus,Fagaceae,4.78,6,17.9450914
+DDF,3,1469,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.78,5,17.9450914
+DDF,4,1996,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.78,2,17.9450914
+DDF,4,1997,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.78,2,17.9450914
+DDF,4,2014,Shorea_obtusa,Dipterocarpaceae ,4.78,2.5,17.9450914
+DDF,4,2018,Craibiodendron_stellatum,Ericaceae,4.78,3.5,17.9450914
+DDF,4,2025,Ziziphus_oenoplia,Rhamnaceae,4.78,4,17.9450914
+DDF,4,2028,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.78,2,17.9450914
+DDF,4,2139,Shorea_siamensis,Dipterocarpaceae ,4.78,5,17.9450914
+DDF,4,2181,Wendlandia_tinctoria,Rubiaceae,4.78,4,17.9450914
+DDF,4,2232,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.78,4,17.9450914
+DDF,4,2235,Shorea_siamensis,Dipterocarpaceae ,4.78,5,17.9450914
+DDF,4,2244,Shorea_siamensis,Dipterocarpaceae ,4.78,4.5,17.9450914
+DDF,4,2264,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.78,4.5,17.9450914
+DDF,4,2311,Garcinia_cowa,Clusiaceae,4.78,3,17.9450914
+DDF,4,2312,Garcinia_cowa,Clusiaceae,4.78,3,17.9450914
+DDF,4,2349,Shorea_siamensis,Dipterocarpaceae ,4.78,3.5,17.9450914
+DDF,4,2440,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.78,3,17.9450914
+DDF,4,2443,Quercus_kerrii,Fagaceae,4.78,4,17.9450914
+DDF,4,2446,Quercus_kerrii,Fagaceae,4.78,4,17.9450914
+DDF,5,2562,Aporosa_villosa,Phyllanthaceae,4.78,4,17.9450914
+DDF,5,2590,Quercus_brandisiana,Fagaceae,4.78,5,17.9450914
+DDF,6,3031,Lithocarpus_lindleyanus,Fagaceae,4.78,5,17.9450914
+DDF,6,3103,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.78,3,17.9450914
+DDF,6,3314,Wendlandia_tinctoria,Rubiaceae,4.78,6,17.9450914
+DEF,9,667,Dipterocarpus_turbinatus,Dipterocarpaceae ,4.78,4,17.9450914
+DEF,10,1083,Diospyros_glandulosa,Ebenaceae,4.78,6,17.9450914
+DEF,10,1212,Castanopsis_acuminatissima,Fagaceae,4.78,5,17.9450914
+DEF,11,1775,Castanopsis_acuminatissima,Fagaceae,4.78,6,17.9450914
+DEF,12,1884,Dipterocarpus_turbinatus,Dipterocarpaceae ,4.78,5,17.9450914
+DEF,12,1976,Syzygium_albiflorum,Myrtaceae,4.78,4,17.9450914
+DEF,12,1997,Rothmannia_sootepensis,Rubiaceae,4.78,4,17.9450914
+DEF,12,2114,Tarennoidea_wallichii,Rubiaceae,4.78,4,17.9450914
+DDF,4,1957,Dipterocarpus_tuberculatus,Dipterocarpaceae ,4.94,3,19.16654262
+DDF,1,68,Shorea_obtusa,Dipterocarpaceae ,5.1,6,20.42820623
+DDF,1,79,Tristaniopsis_burmanica,Myrtaceae,5.1,7,20.42820623
+DDF,1,140,Dipterocarpus_tuberculatus,Dipterocarpaceae ,5.1,3.5,20.42820623
+DDF,1,225,Canarium_subulatum,Burseraceae,5.1,2,20.42820623
+DDF,1,246,Dipterocarpus_tuberculatus,Dipterocarpaceae ,5.1,4,20.42820623
+DDF,2,470,Craibiodendron_stellatum,Ericaceae,5.1,2.5,20.42820623
+DDF,2,519,Dipterocarpus_tuberculatus,Dipterocarpaceae ,5.1,3,20.42820623
+DDF,2,544,Gluta_usitata,Anacardiaceae,5.1,3,20.42820623
+DDF,2,546,Dipterocarpus_tuberculatus,Dipterocarpaceae ,5.1,3,20.42820623
+DDF,2,548,Dipterocarpus_obtusifolius,Dipterocarpaceae ,5.1,5,20.42820623
+DDF,2,617,Dipterocarpus_tuberculatus,Dipterocarpaceae ,5.1,4,20.42820623
+DDF,3,1297,Aporosa_villosa,Phyllanthaceae,5.1,4,20.42820623
+DDF,3,1329,Craibiodendron_stellatum,Ericaceae,5.1,3,20.42820623
+DDF,3,1415,Shorea_siamensis,Dipterocarpaceae ,5.1,5,20.42820623
+DDF,3,1443,Shorea_obtusa,Dipterocarpaceae ,5.1,5.5,20.42820623
+DDF,3,1467,Lithocarpus_tenuinervis,Fagaceae,5.1,6,20.42820623
+DDF,4,2107,Dipterocarpus_tuberculatus,Dipterocarpaceae ,5.1,5,20.42820623
+DDF,4,2147,Dipterocarpus_tuberculatus,Dipterocarpaceae ,5.1,4,20.42820623
+DDF,4,2251,Dipterocarpus_obtusifolius,Dipterocarpaceae ,5.1,5,20.42820623
+DDF,4,2257,Buchanania_lanzan,Anacardiaceae,5.1,4.5,20.42820623
+DDF,4,2396,Dipterocarpus_tuberculatus,Dipterocarpaceae ,5.1,4,20.42820623
+DDF,4,2411,Shorea_obtusa,Dipterocarpaceae ,5.1,5,20.42820623
+DDF,4,2481,Garcinia_cowa,Clusiaceae,5.1,2.5,20.42820623
+DDF,5,2761,Wendlandia_tinctoria,Rubiaceae,5.1,6,20.42820623
+DDF,5,2766,Wendlandia_tinctoria,Rubiaceae,5.1,8,20.42820623
+DDF,5,2788,Gluta_usitata,Anacardiaceae,5.1,5,20.42820623
+DDF,5,2862,Wendlandia_tinctoria,Rubiaceae,5.1,6,20.42820623
+DDF,5,2915,Quercus_brandisiana,Fagaceae,5.1,7,20.42820623
+DDF,5,2950,Shorea_obtusa,Dipterocarpaceae ,5.1,2,20.42820623
+DDF,6,3064,Lithocarpus_polystachyus,Fagaceae,5.1,6.5,20.42820623
+DEF,8,434,Rothmannia_sootepensis,Rubiaceae,5.1,4,20.42820623
+DEF,8,576,Turpinia_pomifera,Staphyleaceae,5.1,6,20.42820623
+DEF,12,1989,Engelhardia_serrata,Juglandaceae,5.1,5,20.42820623
+MDF,15,491,Lagerstroemia_duperreana,Lythraceae,5.1,7,20.42820623
+MDF,16,596,Ziziphus_oenoplia,Rhamnaceae,5.1,8,20.42820623
+DDF,4,2263,Dipterocarpus_tuberculatus,Dipterocarpaceae ,5.25,4,21.64753688
+DEF,12,2329,Viburnum_inopinatum,Adoxaceae,5.25,5.5,21.64753688
+MDF,15,454,Lagerstroemia_duperreana,Lythraceae,5.25,7,21.64753688
+DDF,1,59,Shorea_obtusa,Dipterocarpaceae ,5.41,6,22.98711199
+DDF,1,81,Dipterocarpus_obtusifolius,Dipterocarpaceae ,5.41,5.5,22.98711199
+DDF,1,135,Dalbergia_dongnaiensis,Fabacese,5.41,6,22.98711199
+DDF,1,157,Vitex_peduncularis,Verbenaceae,5.41,6,22.98711199
+DDF,1,197,Canarium_subulatum,Burseraceae,5.41,2.5,22.98711199
+DDF,2,495,Dipterocarpus_tuberculatus,Dipterocarpaceae ,5.41,5,22.98711199
+DDF,2,501,Dipterocarpus_tuberculatus,Dipterocarpaceae ,5.41,5,22.98711199
+DDF,2,579,Garcinia_cowa,Clusiaceae,5.41,4.5,22.98711199
+DDF,2,619,Anneslea_fragrans,Theaceae,5.41,6,22.98711199
+DDF,3,1276,Dipterocarpus_obtusifolius,Dipterocarpaceae ,5.41,5,22.98711199
+DDF,3,1318,Dipterocarpus_tuberculatus,Dipterocarpaceae ,5.41,3,22.98711199
+DDF,3,1322,Gluta_usitata,Anacardiaceae,5.41,6,22.98711199
+DDF,3,1324,Aporosa_villosa,Phyllanthaceae,5.41,4,22.98711199
+DDF,4,2022,Shorea_siamensis,Dipterocarpaceae ,5.41,6,22.98711199
+DDF,4,2077,Dipterocarpus_tuberculatus,Dipterocarpaceae ,5.41,4,22.98711199
+DDF,4,2202,Ochna_integerrima,Ochnaceae,5.41,4.5,22.98711199
+DDF,4,2408,Dipterocarpus_obtusifolius,Dipterocarpaceae ,5.41,3.5,22.98711199
+DDF,6,3128,Syzygium_albiflorum,Myrtaceae,5.41,6,22.98711199
+DDF,6,3285,Wendlandia_tinctoria,Rubiaceae,5.41,5,22.98711199
+DEF,7,117,Turpinia_pomifera,Staphyleaceae,5.41,6,22.98711199
+DEF,7,252,Lithocarpus_fenestus,Fagaceae,5.41,8,22.98711199
+DEF,8,456,Rothmannia_sootepensis,Rubiaceae,5.41,4,22.98711199
+DEF,8,468,Colona_elobata,Tiliaceae,5.41,3,22.98711199
+DEF,8,479,Turpinia_pomifera,Staphyleaceae,5.41,2.5,22.98711199
+DEF,11,1697,Castanopsis_calathiformis,Fagaceae,5.41,4,22.98711199
+DEF,12,2012,Olea_salicifolia,Oleaceae,5.41,5,22.98711199
+DEF,12,2057,Xylia_xylocarpa,Fabaceae,5.41,7,22.98711199
+MDF,14,239,Alangium_salviifolium,Cornaceae,5.41,5.5,22.98711199
+MDF,14,312,Millettia_kangensis,Fabaceae,5.41,4,22.98711199
+MDF,16,603,Diospyros_ehretioides,Ebenaceae,5.41,7,22.98711199
+DDF,1,43,Gluta_usitata,Anacardiaceae,5.73,5,25.78689936
+DDF,1,46,Dipterocarpus_obtusifolius,Dipterocarpaceae ,5.73,6,25.78689936
+DDF,1,52,Dipterocarpus_obtusifolius,Dipterocarpaceae ,5.73,3,25.78689936
+DDF,1,122,Quercus_kerrii,Fagaceae,5.73,5,25.78689936
+DDF,1,134,Shorea_siamensis,Dipterocarpaceae ,5.73,6,25.78689936
+DDF,1,154,Aporosa_villosa,Phyllanthaceae,5.73,7,25.78689936
+DDF,1,234,Catunaregam_spathulifolia,Rubiaceae,5.73,5,25.78689936
+DDF,2,472,Quercus_kerrii,Fagaceae,5.73,5.5,25.78689936
+DDF,2,506,Dipterocarpus_tuberculatus,Dipterocarpaceae ,5.73,4,25.78689936
+DDF,2,520,Dipterocarpus_tuberculatus,Dipterocarpaceae ,5.73,3,25.78689936
+DDF,2,536,Craibiodendron_stellatum,Ericaceae,5.73,3.5,25.78689936
+DDF,2,607,Dipterocarpus_tuberculatus,Dipterocarpaceae ,5.73,5,25.78689936
+DDF,3,1227,Tristaniopsis_burmanica,Myrtaceae,5.73,4,25.78689936
+DDF,3,1325,Lithocarpus_tenuinervis,Fagaceae,5.73,6,25.78689936
+DDF,3,1398,Quercus_kerrii,Fagaceae,5.73,9,25.78689936
+DDF,3,1402,Shorea_obtusa,Dipterocarpaceae ,5.73,5,25.78689936
+DDF,4,2273,Shorea_obtusa,Dipterocarpaceae ,5.73,4,25.78689936
+DDF,5,2578,Aporosa_villosa,Phyllanthaceae,5.73,4,25.78689936
+DDF,5,2816,Wendlandia_tinctoria,Rubiaceae,5.73,6,25.78689936
+DDF,5,2902,Wendlandia_tinctoria,Rubiaceae,5.73,6,25.78689936
+DDF,6,3169,Aporosa_villosa,Phyllanthaceae,5.73,4,25.78689936
+DDF,6,3319,Wendlandia_tinctoria,Rubiaceae,5.73,6,25.78689936
+DEF,7,221,Ixora_sp.,Rubiaceae,5.73,6,25.78689936
+DEF,7,314,Aporosa_octandra,Phyllanthaceae,5.73,5,25.78689936
+DEF,8,518,Canthium_berberidifolium,Rubiaceae,5.73,4,25.78689936
+DEF,9,722,Mallotus_philippensis,Euphorbiaceae,5.73,6,25.78689936
+DEF,9,835,Cratoxylum_formosum,Hypericaceae ,5.73,4,25.78689936
+DEF,11,1701,Ostodes_paniculata,Euphorbiaceae,5.73,8,25.78689936
+DEF,11,1807,Lithocarpus_fenestus,Fagaceae,5.73,6,25.78689936
+DEF,12,1902,Engelhardia_serrata,Juglandaceae,5.73,6,25.78689936
+DEF,12,1922,Rothmannia_sootepensis,Rubiaceae,5.73,4,25.78689936
+MDF,15,513,Lagerstroemia_duperreana,Lythraceae,5.73,8,25.78689936
+MDF,16,761,Shorea_obtusa,Dipterocarpaceae ,5.73,5,25.78689936
+MDF,16,884,Xylia_xylocarpa,Fabaceae,5.73,6,25.78689936
+MDF,17,889,Vitex_peduncularis,Verbenaceae,5.73,7,25.78689936
+DDF,1,63,Shorea_obtusa,Dipterocarpaceae ,6.05,3.5,28.74753628
+DDF,1,160,Dipterocarpus_tuberculatus,Dipterocarpaceae ,6.05,7,28.74753628
+DDF,1,162,Dipterocarpus_tuberculatus,Dipterocarpaceae ,6.05,8,28.74753628
+DDF,1,232,Garcinia_cowa,Clusiaceae,6.05,3.5,28.74753628
+DDF,2,543,Dipterocarpus_obtusifolius,Dipterocarpaceae ,6.05,6,28.74753628
+DDF,2,550,Dipterocarpus_tuberculatus,Dipterocarpaceae ,6.05,5,28.74753628
+DDF,2,555,Buchanania_lanzan,Anacardiaceae,6.05,6,28.74753628
+DDF,2,584,Buchanania_lanzan,Anacardiaceae,6.05,6,28.74753628
+DDF,2,647,Quercus_kerrii,Fagaceae,6.05,6,28.74753628
+DDF,2,656,Dipterocarpus_tuberculatus,Dipterocarpaceae ,6.05,3,28.74753628
+DDF,3,1281,Craibiodendron_stellatum,Ericaceae,6.05,3,28.74753628
+DDF,3,1282,Quercus_kerrii,Fagaceae,6.05,5,28.74753628
+DDF,3,1283,Lithocarpus_polystachyus,Fagaceae,6.05,5,28.74753628
+DDF,3,1382,Dipterocarpus_tuberculatus,Dipterocarpaceae ,6.05,6,28.74753628
+DDF,3,1459,Buchanania_lanzan,Anacardiaceae,6.05,8,28.74753628
+DDF,4,1947,Tristaniopsis_burmanica,Myrtaceae,6.05,10,28.74753628
+DDF,4,2165,Shorea_siamensis,Dipterocarpaceae ,6.05,6,28.74753628
+DDF,5,2659,Wendlandia_tinctoria,Rubiaceae,6.05,6,28.74753628
+DDF,6,3306,Lithocarpus_polystachyus,Fagaceae,6.05,7,28.74753628
+DDF,6,3328,Lithocarpus_polystachyus,Fagaceae,6.05,7,28.74753628
+DDF,6,3408,Lithocarpus_polystachyus,Fagaceae,6.05,6,28.74753628
+DEF,12,2013,Olea_salicifolia,Oleaceae,6.05,5,28.74753628
+DEF,12,2074,Styrax_benzoides,Styracaceae,6.05,8,28.74753628
+MDF,13,102,Xylia_xylocarpa,Fabaceae,6.05,8,28.74753628
+MDF,13,108,Lagerstroemia_loudonii,Lythraceae,6.05,8,28.74753628
+DEF,12,2068,Lithocarpus_fenestus,Fagaceae,6.21,10,30.28817331
+DDF,1,29,Shorea_obtusa,Dipterocarpaceae ,6.37,8,31.86902274
+DDF,1,128,Dipterocarpus_tuberculatus,Dipterocarpaceae ,6.37,5,31.86902274
+DDF,1,198,Dalbergia_oliveri,Fabaceae,6.37,3,31.86902274
+DDF,1,238,Shorea_obtusa,Dipterocarpaceae ,6.37,8,31.86902274
+DDF,2,541,Dipterocarpus_tuberculatus,Dipterocarpaceae ,6.37,5,31.86902274
+DDF,3,1310,Dipterocarpus_tuberculatus,Dipterocarpaceae ,6.37,5,31.86902274
+DDF,3,1361,Aporosa_villosa,Phyllanthaceae,6.37,5,31.86902274
+DDF,3,1408,Quercus_kerrii,Fagaceae,6.37,7,31.86902274
+DDF,3,1430,Dipterocarpus_tuberculatus,Dipterocarpaceae ,6.37,6,31.86902274
+DDF,3,1442,Shorea_obtusa,Dipterocarpaceae ,6.37,4,31.86902274
+DDF,3,1461,Craibiodendron_stellatum,Ericaceae,6.37,5,31.86902274
+DDF,4,2283,Shorea_obtusa,Dipterocarpaceae ,6.37,5,31.86902274
+DDF,4,2390,Shorea_obtusa,Dipterocarpaceae ,6.37,2.5,31.86902274
+DDF,5,2600,Gluta_usitata,Anacardiaceae,6.37,4,31.86902274
+DDF,5,2640,Aporosa_villosa,Phyllanthaceae,6.37,4.5,31.86902274
+DDF,5,2692,Aporosa_villosa,Phyllanthaceae,6.37,4,31.86902274
+DDF,5,2949,Shorea_obtusa,Dipterocarpaceae ,6.37,5,31.86902274
+DDF,6,3221,Shorea_obtusa,Dipterocarpaceae ,6.37,5,31.86902274
+DEF,10,1335,Mallotus_philippensis,Euphorbiaceae,6.37,6,31.86902274
+MDF,14,242,Millettia_kangensis,Fabaceae,6.37,7,31.86902274
+MDF,16,845,Wendlandia_tinctoria,Rubiaceae,6.37,6,31.86902274
+MDF,18,1053,Vitex_pinnata,Verbenaceae,6.37,7,31.86902274
+MDF,13,77,Canarium_subulatum,Burseraceae,6.53,9,33.49008455
+DDF,1,39,Bridelia_retusa,Euphorbiaceae,6.69,8,35.15135874
+DDF,2,534,Craibiodendron_stellatum,Ericaceae,6.69,5,35.15135874
+DDF,2,655,Quercus_kerrii,Fagaceae,6.69,5,35.15135874
+DDF,3,1238,Craibiodendron_stellatum,Ericaceae,6.69,7,35.15135874
+DDF,4,2322,Craibiodendron_stellatum,Ericaceae,6.69,5,35.15135874
+DDF,4,2464,Shorea_siamensis,Dipterocarpaceae ,6.69,5,35.15135874
+DDF,5,2773,Dipterocarpus_tuberculatus,Dipterocarpaceae ,6.69,6,35.15135874
+DEF,7,30,Antidesma_sp.,Phyllanthaceae,6.69,7,35.15135874
+DEF,7,171,Lithocarpus_fenestus,Fagaceae,6.69,5,35.15135874
+DEF,9,672,Castanopsis_armata,Fagaceae,6.69,6,35.15135874
+DEF,12,2232,Rothmannia_sootepensis,Rubiaceae,6.69,5,35.15135874
+MDF,13,130,Tectona_grandis,Lamiaceae,6.69,8,35.15135874
+MDF,14,336,Millingtonia_hortensis,Bignoniaceae,6.69,9,35.15135874
+DDF,1,58,Dipterocarpus_tuberculatus,Dipterocarpaceae ,7.01,3,38.59454429
+DDF,1,101,Shorea_siamensis,Dipterocarpaceae ,7.01,8,38.59454429
+DDF,3,1226,Shorea_obtusa,Dipterocarpaceae ,7.01,6,38.59454429
+DDF,3,1242,Dipterocarpus_obtusifolius,Dipterocarpaceae ,7.01,7,38.59454429
+DDF,3,1289,Dalbergia_oliveri,Fabaceae,7.01,7,38.59454429
+DDF,3,1346,Gluta_usitata,Anacardiaceae,7.01,6,38.59454429
+DDF,3,1429,Dipterocarpus_tuberculatus,Dipterocarpaceae ,7.01,6.5,38.59454429
+DDF,3,1487,Syzygium_cumini,Myrtaceae,7.01,9,38.59454429
+DDF,5,2764,Dipterocarpus_tuberculatus,Dipterocarpaceae ,7.01,6,38.59454429
+DDF,6,3163,Dalbergia_cana,Fabaceae,7.01,7,38.59454429
+DEF,12,1860,Lithocarpus_polystachyus,Fagaceae,7.01,8,38.59454429
+DEF,12,1941,Elaeocarpus_sphaericus,Elaeocarpaceae,7.01,5,38.59454429
+MDF,15,505,Lagerstroemia_duperreana,Lythraceae,7.01,7,38.59454429
+MDF,16,785,Dalbergia_oliveri,Fabaceae,7.01,7,38.59454429
+MDF,15,399,Lagerstroemia_duperreana,Lythraceae,7.17,7,40.37645564
+DDF,1,163,Ochna_integerrima,Ochnaceae,7.32,8,42.08351855
+DDF,2,573,Dipterocarpus_obtusifolius,Dipterocarpaceae ,7.32,7,42.08351855
+DDF,3,1332,Shorea_siamensis,Dipterocarpaceae ,7.32,10,42.08351855
+DDF,3,1333,Gluta_usitata,Anacardiaceae,7.32,6,42.08351855
+DDF,3,1441,Wendlandia_tinctoria,Rubiaceae,7.32,4.5,42.08351855
+DDF,5,2698,Dipterocarpus_tuberculatus,Dipterocarpaceae ,7.32,4,42.08351855
+DDF,5,2765,Wendlandia_tinctoria,Rubiaceae,7.32,7,42.08351855
+DDF,5,2966,Quercus_brandisiana,Fagaceae,7.32,7,42.08351855
+DDF,6,3091,Vaccinium_sprengelii,Ericaceae,7.32,6,42.08351855
+DEF,7,47,Lithocarpus_fenestus,Fagaceae,7.32,8,42.08351855
+DEF,7,290,Phoebe_paniculata,Lauraceae,7.32,8.5,42.08351855
+DEF,11,1570,Garcinia_merguensis,Clusiaceae,7.32,6,42.08351855
+DEF,11,1808,Lithocarpus_fenestus,Fagaceae,7.32,5,42.08351855
+DEF,12,2007,Castanopsis_armata,Fagaceae,7.32,8,42.08351855
+MDF,13,132,Terminalia_mucronata,Combretaceae,7.32,8,42.08351855
+MDF,14,210,Lagerstroemia_duperreana,Lythraceae,7.32,7,42.08351855
+MDF,15,484,Lagerstroemia_duperreana,Lythraceae,7.32,9,42.08351855
+DDF,5,2707,Dipterocarpus_tuberculatus,Dipterocarpaceae ,7.48,7,43.9433414
+DDF,1,155,Aporosa_villosa,Phyllanthaceae,7.64,5,45.84337664
+DDF,2,497,Tristaniopsis_burmanica,Myrtaceae,7.64,8,45.84337664
+DDF,3,1249,Quercus_kerrii,Fagaceae,7.64,6,45.84337664
+DDF,3,1287,Shorea_siamensis,Dipterocarpaceae ,7.64,10,45.84337664
+DDF,4,1913,Dipterocarpus_obtusifolius,Dipterocarpaceae ,7.64,6,45.84337664
+DDF,4,2435,Dipterocarpus_obtusifolius,Dipterocarpaceae ,7.64,4,45.84337664
+DDF,6,3057,Melastoma_malabathricum,Melastomataceae,7.64,9,45.84337664
+DEF,8,603,Hymenodictyon_excelsum,Rubiaceae,7.64,4.5,45.84337664
+DEF,9,616,Vitex_peduncularis,Verbenaceae,7.64,7,45.84337664
+DEF,12,2278,Rothmannia_sootepensis,Rubiaceae,7.64,8,45.84337664
+MDF,15,523,Millettia_kangensis,Fabaceae,7.64,5,45.84337664
+MDF,16,561,Wendlandia_tinctoria,Rubiaceae,7.64,5,45.84337664
+DDF,2,482,Shorea_obtusa,Dipterocarpaceae ,7.96,5,49.76408427
+DDF,2,591,Dipterocarpus_obtusifolius,Dipterocarpaceae ,7.96,7,49.76408427
+DDF,4,2203,Bridelia_retusa,Euphorbiaceae,7.96,5.5,49.76408427
+DDF,6,3110,Lithocarpus_polystachyus,Fagaceae,7.96,8,49.76408427
+MDF,14,248,Lagerstroemia_loudonii,Lythraceae,7.96,12,49.76408427
+MDF,14,306,Vitex_pinnata,Verbenaceae,7.96,10,49.76408427
+MDF,15,525,Lagerstroemia_duperreana,Lythraceae,7.96,8,49.76408427
+DDF,1,12,Dipterocarpus_tuberculatus,Dipterocarpaceae ,8.28,7,53.84564145
+DDF,2,479,Craibiodendron_stellatum,Ericaceae,8.28,4,53.84564145
+DDF,4,2207,Gluta_usitata,Anacardiaceae,8.28,10,53.84564145
+MDF,13,49,Pterocarpus_macrocarpus,Fabaceae,8.28,8,53.84564145
+MDF,16,798,Wendlandia_tinctoria,Rubiaceae,8.28,7,53.84564145
+MDF,17,903,Vitex_peduncularis,Verbenaceae,8.28,6,53.84564145
+MDF,18,1034,Holarrhena_pubescens,Apocynaceae,8.28,6,53.84564145
+DDF,1,2,Shorea_siamensis,Dipterocarpaceae ,8.6,3.5,58.08804816
+DDF,1,83,Shorea_obtusa,Dipterocarpaceae ,8.6,6,58.08804816
+DDF,1,117,Cratoxylum_formosum,Hypericaceae ,8.6,8,58.08804816
+DDF,1,151,Buchanania_lanzan,Anacardiaceae,8.6,7,58.08804816
+DDF,1,202,Dalbergia_dongnaiensis,Fabacese,8.6,10,58.08804816
+DDF,1,228,Dipterocarpus_tuberculatus,Dipterocarpaceae ,8.6,12,58.08804816
+DDF,3,1278,Gluta_usitata,Anacardiaceae,8.6,7.5,58.08804816
+DDF,3,1347,Gluta_usitata,Anacardiaceae,8.6,8,58.08804816
+DDF,3,1384,Lithocarpus_tenuinervis,Fagaceae,8.6,7,58.08804816
+DDF,6,2994,Shorea_obtusa,Dipterocarpaceae ,8.6,7,58.08804816
+DDF,6,3150,Grewia_disperma,Malvaceae,8.6,17,58.08804816
+DEF,12,2223,Cratoxylum_formosum,Hypericaceae ,8.6,4,58.08804816
+MDF,13,20,Engelhardia_spicata,Juglandaceae,8.6,7,58.08804816
+MDF,16,880,Xylia_xylocarpa,Fabaceae,8.6,7,58.08804816
+MDF,18,969,Cratoxylum_formosum,Hypericaceae ,8.6,9,58.08804816
+DDF,1,50,Shorea_siamensis,Dipterocarpaceae ,8.92,7,62.49130443
+DDF,1,78,Buchanania_lanzan,Anacardiaceae,8.92,8,62.49130443
+DDF,1,120,Lophopetalum_duperreanum,Celastraceae,8.92,7,62.49130443
+DDF,1,169,Vitex_peduncularis,Verbenaceae,8.92,8,62.49130443
+DDF,1,186,Buchanania_lanzan,Anacardiaceae,8.92,4,62.49130443
+DDF,2,578,Dipterocarpus_obtusifolius,Dipterocarpaceae ,8.92,5.5,62.49130443
+DDF,2,651,Wendlandia_tinctoria,Rubiaceae,8.92,5,62.49130443
+DDF,3,1284,Quercus_kerrii,Fagaceae,8.92,6,62.49130443
+DDF,4,2204,Shorea_siamensis,Dipterocarpaceae ,8.92,6,62.49130443
+DDF,6,3364,Wendlandia_tinctoria,Rubiaceae,8.92,8,62.49130443
+DEF,11,1762,Garcinia_cowa,Clusiaceae,8.92,5.5,62.49130443
+DDF,1,104,Dipterocarpus_obtusifolius,Dipterocarpaceae ,9.24,8,67.05541024
+DDF,3,1364,Gluta_usitata,Anacardiaceae,9.24,7,67.05541024
+DDF,3,1388,Shorea_obtusa,Dipterocarpaceae ,9.24,8,67.05541024
+DDF,4,1928,Shorea_siamensis,Dipterocarpaceae ,9.24,6,67.05541024
+DDF,4,2089,Shorea_siamensis,Dipterocarpaceae ,9.24,6,67.05541024
+DDF,6,3088,Dalbergia_cana,Fabaceae,9.24,8,67.05541024
+DDF,6,3141,Buchanania_lanzan,Anacardiaceae,9.24,4.5,67.05541024
+DDF,6,3413,Quercus_brandisiana,Fagaceae,9.24,7,67.05541024
+DEF,12,1847,Styrax_benzoides,Styracaceae,9.24,7,67.05541024
+DEF,12,1932,Colona_flagrocarpa,Malvaceae,9.24,10,67.05541024
+MDF,13,64,Lagerstroemia_loudonii,Lythraceae,9.24,15,67.05541024
+MDF,13,118,Vitex_peduncularis,Verbenaceae,9.24,9,67.05541024
+MDF,14,282,Lagerstroemia_undulata,Lythraceae,9.24,13,67.05541024
+MDF,14,316,Tectona_grandis,Lamiaceae,9.24,8,67.05541024
+MDF,15,400,Lagerstroemia_duperreana,Lythraceae,9.24,12,67.05541024
+MDF,15,528,Terminalia_mucronata,Combretaceae,9.24,9,67.05541024
+MDF,16,682,Xylia_xylocarpa,Fabaceae,9.24,13,67.05541024
+MDF,16,808,Pterocarpus_macrocarpus,Fabaceae,9.24,13,67.05541024
+MDF,17,891,Vitex_peduncularis,Verbenaceae,9.24,7,67.05541024
+MDF,18,1005,Walsura_robusta,Meliaceae,9.24,10,67.05541024
+DDF,6,3228,Quercus_brandisiana,Fagaceae,9.39,8,69.2502054
+DDF,4,2012,Shorea_siamensis,Dipterocarpaceae ,9.55,8,71.630276
+DDF,4,2130,Gluta_usitata,Anacardiaceae,9.55,8,71.630276
+DDF,5,2897,Aporosa_villosa,Phyllanthaceae,9.55,6,71.630276
+DEF,8,498,Stereospermum_colais,Bignoniaceae,9.55,9,71.630276
+DEF,12,1880,Lithocarpus_polystachyus,Fagaceae,9.55,8,71.630276
+DEF,12,2086,Ilex_umbellulata,Aquifoliaceae,9.55,10,71.630276
+MDF,13,137,Terminalia_mucronata,Combretaceae,9.55,16,71.630276
+MDF,16,647,Canarium_subulatum,Burseraceae,9.55,11,71.630276
+MDF,17,915,Schleichera_oleosa,Sapindaceae,9.55,9,71.630276
+DDF,1,105,Dalbergia_dongnaiensis,Fabacese,9.87,12,76.51105434
+DDF,3,1349,Wendlandia_tinctoria,Rubiaceae,9.87,6,76.51105434
+DDF,3,1401,Aporosa_villosa,Phyllanthaceae,9.87,6,76.51105434
+DDF,4,2160,Quercus_kerrii,Fagaceae,9.87,8,76.51105434
+DDF,4,2524,Craibiodendron_stellatum,Ericaceae,9.87,6,76.51105434
+DEF,9,711,Lithocarpus_fenestus,Fagaceae,9.87,5,76.51105434
+DEF,10,968,Ostodes_paniculata,Euphorbiaceae,9.87,9,76.51105434
+DEF,11,1580,Baccaurea_ramiflora,Phyllanthaceae,9.87,7,76.51105434
+DEF,12,2246,Cratoxylum_formosum,Hypericaceae ,9.87,8,76.51105434
+MDF,13,115,Terminalia_mucronata,Combretaceae,9.87,9,76.51105434
+MDF,16,779,Shorea_obtusa,Dipterocarpaceae ,9.87,9,76.51105434
+MDF,16,863,Shorea_obtusa,Dipterocarpaceae ,9.87,8,76.51105434
+MDF,16,867,Quercus_kingiana,Fagaceae,9.87,9,76.51105434
+MDF,17,934,Terminalia_alata,Combretaceae,9.87,12,76.51105434
+DDF,6,3023,Helicia_nilagirica,Proteaceae,10.03,8,79.0117621
+DDF,1,143,Canarium_subulatum,Burseraceae,10.19,6,81.55268223
+DDF,3,1482,Lithocarpus_polystachyus,Fagaceae,10.19,9,81.55268223
+DDF,5,2744,Dipterocarpus_tuberculatus,Dipterocarpaceae ,10.19,7,81.55268223
+DDF,5,2791,Quercus_brandisiana,Fagaceae,10.19,8,81.55268223
+DDF,5,2888,Wendlandia_tinctoria,Rubiaceae,10.19,5.5,81.55268223
+DDF,6,3058,Dalbergia_cana,Fabaceae,10.19,8,81.55268223
+DEF,7,259,Mallotus_philippensis,Euphorbiaceae,10.19,9,81.55268223
+DEF,8,597,Lagerstroemia_duperreana,Lythraceae,10.19,10,81.55268223
+DEF,10,1194,Castanopsis_acuminatissima,Fagaceae,10.19,12,81.55268223
+DEF,11,1806,Lithocarpus_fenestus,Fagaceae,10.19,8,81.55268223
+DEF,11,1835,Tarennoidea_wallichii,Rubiaceae,10.19,6,81.55268223
+MDF,13,116,Terminalia_mucronata,Combretaceae,10.19,9,81.55268223
+MDF,14,180,Vitex_pinnata,Verbenaceae,10.19,16,81.55268223
+MDF,14,234,Tectona_grandis,Lamiaceae,10.19,13,81.55268223
+MDF,14,319,Colona_flagrocarpa,Tiliaceae,10.19,9,81.55268223
+MDF,16,768,Shorea_obtusa,Dipterocarpaceae ,10.19,8,81.55268223
+MDF,16,866,Vitex_peduncularis,Verbenaceae,10.35,13,84.13381476
+DDF,1,41,Gluta_usitata,Anacardiaceae,10.51,7,86.75515967
+DDF,1,229,Shorea_obtusa,Dipterocarpaceae ,10.51,10,86.75515967
+DDF,2,600,Quercus_kerrii,Fagaceae,10.51,6,86.75515967
+DDF,4,2094,Shorea_siamensis,Dipterocarpaceae ,10.51,7,86.75515967
+DDF,4,2477,Shorea_siamensis,Dipterocarpaceae ,10.51,12,86.75515967
+DDF,5,2700,Dipterocarpus_tuberculatus,Dipterocarpaceae ,10.51,8,86.75515967
+DDF,5,2811,Aporosa_villosa,Phyllanthaceae,10.51,6,86.75515967
+MDF,13,128,Lagerstroemia_loudonii,Lythraceae,10.51,17,86.75515967
+MDF,15,420,Lagerstroemia_duperreana,Lythraceae,10.51,16,86.75515967
+MDF,16,734,Canarium_subulatum,Burseraceae,10.51,10,86.75515967
+MDF,16,810,Terminalia_mucronata,Combretaceae,10.51,12,86.75515967
+DDF,3,1271,Quercus_kerrii,Fagaceae,10.83,6,92.11848665
+DDF,3,1362,Gluta_usitata,Anacardiaceae,10.83,9,92.11848665
+MDF,13,80,Xylia_xylocarpa,Fabaceae,10.83,15,92.11848665
+MDF,14,177,Tectona_grandis,Lamiaceae,10.83,9,92.11848665
+MDF,16,790,Dalbergia_oliveri,Fabaceae,10.99,12,94.86046871
+DDF,2,498,Tristaniopsis_burmanica,Myrtaceae,11.15,8,97.64266317
+DDF,2,639,Buchanania_lanzan,Anacardiaceae,11.15,7,97.64266317
+DDF,2,643,Shorea_obtusa,Dipterocarpaceae ,11.15,12,97.64266317
+DDF,4,2021,Gluta_usitata,Anacardiaceae,11.15,10,97.64266317
+DDF,5,2847,Aporosa_villosa,Phyllanthaceae,11.15,6,97.64266317
+DDF,5,2939,Shorea_obtusa,Dipterocarpaceae ,11.15,7,97.64266317
+MDF,14,270,Lagerstroemia_duperreana,Lythraceae,11.15,11,97.64266317
+MDF,14,323,Albizia_odoratissima,Fabaceae,11.15,16,97.64266317
+MDF,16,585,Bombax_anceps,Malvaceae,11.15,7,97.64266317
+DDF,2,490,Shorea_obtusa,Dipterocarpaceae ,11.46,8,103.1475974
+DDF,2,653,Terminalia_alata,Combretaceae,11.46,6,103.1475974
+DDF,3,1246,Gluta_usitata,Anacardiaceae,11.46,7,103.1475974
+DDF,3,1405,Shorea_obtusa,Dipterocarpaceae ,11.46,8,103.1475974
+DEF,7,189,Lithocarpus_fenestus,Fagaceae,11.46,15,103.1475974
+DEF,8,591,Lepisanthes_rubiginosa,Sapindaceae,11.46,7,103.1475974
+DEF,11,1820,Wendlandia_tinctoria,Rubiaceae,11.46,5,103.1475974
+MDF,13,10,Dalbergia_cultrata,Fabaceae,11.46,16,103.1475974
+MDF,13,112,Tectona_grandis,Lamiaceae,11.46,13,103.1475974
+MDF,14,225,Lagerstroemia_duperreana,Lythraceae,11.46,9.5,103.1475974
+MDF,15,472,Terminalia_mucronata,Combretaceae,11.46,9,103.1475974
+MDF,16,812,Schleichera_oleosa,Sapindaceae,11.46,8,103.1475974
+MDF,17,961,Bombax_anceps,Malvaceae,11.46,6,103.1475974
+DDF,3,1473,Shorea_obtusa,Dipterocarpaceae ,11.78,8,108.9884465
+DDF,3,1489,Quercus_kerrii,Fagaceae,11.78,10,108.9884465
+DEF,11,1494,Ixora_sp.,Rubiaceae,11.78,12,108.9884465
+MDF,13,109,Pterocarpus_macrocarpus,Fabaceae,11.78,13,108.9884465
+MDF,16,681,Lagerstroemia_undulata,Lythraceae,11.78,13,108.9884465
+MDF,16,727,Shorea_obtusa,Dipterocarpaceae ,11.78,12,108.9884465
+MDF,17,964,Colona_flagrocarpa,Tiliaceae,11.78,8,108.9884465
+DDF,1,1,Dipterocarpus_tuberculatus,Dipterocarpaceae ,12.1,11,114.9901451
+DDF,1,205,Gluta_usitata,Anacardiaceae,12.1,12.5,114.9901451
+DDF,2,557,Gluta_usitata,Anacardiaceae,12.1,11,114.9901451
+DDF,4,2345,Shorea_obtusa,Dipterocarpaceae ,12.1,10,114.9901451
+DDF,4,2538,Gluta_usitata,Anacardiaceae,12.1,11,114.9901451
+DDF,5,2734,Dipterocarpus_tuberculatus,Dipterocarpaceae ,12.1,9,114.9901451
+DEF,12,2104,Lithocarpus_fenestus,Fagaceae,12.1,13,114.9901451
+MDF,14,187,Lagerstroemia_undulata,Lythraceae,12.1,9,114.9901451
+MDF,14,195,Lagerstroemia_duperreana,Lythraceae,12.1,11,114.9901451
+MDF,14,310,Lagerstroemia_duperreana,Lythraceae,12.1,15,114.9901451
+MDF,16,565,Shorea_obtusa,Dipterocarpaceae ,12.1,7,114.9901451
+DDF,2,580,Dipterocarpus_obtusifolius,Dipterocarpaceae ,12.42,8,121.1526933
+DDF,3,1409,Shorea_obtusa,Dipterocarpaceae ,12.42,8,121.1526933
+DDF,5,2552,Aporosa_villosa,Phyllanthaceae,12.42,4,121.1526933
+MDF,14,314,Lagerstroemia_duperreana,Lythraceae,12.42,15,121.1526933
+MDF,16,670,Wendlandia_tinctoria,Rubiaceae,12.42,10,121.1526933
+MDF,16,853,Quercus_kingiana,Fagaceae,12.42,7,121.1526933
+MDF,17,921,Canarium_subulatum,Burseraceae,12.42,12,121.1526933
+MDF,14,204,Canarium_subulatum,Burseraceae,12.58,14,124.2942859
+DDF,1,44,Dipterocarpus_obtusifolius,Dipterocarpaceae ,12.74,10,127.4760909
+DDF,1,111,Gluta_usitata,Anacardiaceae,12.74,13,127.4760909
+DDF,1,180,Dipterocarpus_obtusifolius,Dipterocarpaceae ,12.74,13,127.4760909
+DDF,2,604,Shorea_obtusa,Dipterocarpaceae ,12.74,8,127.4760909
+DEF,10,1018,Castanopsis_acuminatissima,Fagaceae,12.74,13,127.4760909
+MDF,14,174,Lagerstroemia_duperreana,Lythraceae,12.74,11,127.4760909
+MDF,16,796,Quercus_kingiana,Fagaceae,12.74,15,127.4760909
+MDF,16,839,Quercus_kingiana,Fagaceae,12.74,13,127.4760909
+MDF,16,848,Pterocarpus_macrocarpus,Fabaceae,12.74,8,127.4760909
+MDF,13,61,Pterocarpus_macrocarpus,Fabaceae,12.9,14,130.6981084
+DDF,1,107,Vitex_peduncularis,Verbenaceae,13.06,13,133.9603382
+DDF,2,488,Shorea_siamensis,Dipterocarpaceae ,13.06,9,133.9603382
+DDF,2,526,Dipterocarpus_obtusifolius,Dipterocarpaceae ,13.06,10,133.9603382
+DDF,2,528,Dipterocarpus_obtusifolius,Dipterocarpaceae ,13.06,12,133.9603382
+DDF,2,593,Dipterocarpus_obtusifolius,Dipterocarpaceae ,13.06,9,133.9603382
+DDF,4,2034,Gardenia_sootepensis,Rubiaceae,13.06,8,133.9603382
+DDF,4,2074,Shorea_siamensis,Dipterocarpaceae ,13.06,8,133.9603382
+DDF,4,2391,Shorea_siamensis,Dipterocarpaceae ,13.06,9,133.9603382
+DDF,5,2633,Gluta_usitata,Anacardiaceae,13.06,8,133.9603382
+MDF,13,129,Terminalia_mucronata,Combretaceae,13.06,16,133.9603382
+MDF,14,188,Lagerstroemia_undulata,Lythraceae,13.06,13,133.9603382
+MDF,15,487,Lagerstroemia_duperreana,Lythraceae,13.06,10,133.9603382
+DDF,2,522,Quercus_kerrii,Fagaceae,13.38,6,140.605435
+DDF,3,1391,Shorea_siamensis,Dipterocarpaceae ,13.38,12,140.605435
+DDF,3,1447,Shorea_obtusa,Dipterocarpaceae ,13.38,8,140.605435
+MDF,15,406,Alangium_salviifolium,Cornaceae,13.38,12,140.605435
+MDF,15,447,Lagerstroemia_duperreana,Lythraceae,13.38,18,140.605435
+MDF,17,912,Xylia_xylocarpa,Fabaceae,13.38,15,140.605435
+DDF,3,1491,Shorea_obtusa,Dipterocarpaceae ,13.69,8,147.1962607
+MDF,14,273,Millettia_kangensis,Fabaceae,13.69,17,147.1962607
+MDF,16,689,Canarium_subulatum,Burseraceae,13.69,15,147.1962607
+MDF,18,992,Terminalia_mucronata,Combretaceae,13.69,8,147.1962607
+MDF,13,68,Protium_serratum,Burseraceae,13.85,16,150.6570392
+DDF,5,2790,Quercus_brandisiana,Fagaceae,14.01,13,154.1580301
+DDF,6,2970,Wendlandia_tinctoria,Rubiaceae,14.01,9,154.1580301
+DDF,4,2292,Shorea_obtusa,Dipterocarpaceae ,14.33,8,161.2806489
+MDF,13,100,Vitex_peduncularis,Verbenaceae,14.33,12,161.2806489
+MDF,13,124,Bombax_anceps,Malvaceae,14.33,10,161.2806489
+MDF,14,202,Lagerstroemia_duperreana,Lythraceae,14.33,14,161.2806489
+MDF,14,307,Lagerstroemia_duperreana,Lythraceae,14.33,16,161.2806489
+MDF,15,416,Tectona_grandis,Lamiaceae,14.33,14,161.2806489
+DDF,1,5,Dipterocarpus_tuberculatus,Dipterocarpaceae ,14.65,15,168.5641173
+DDF,4,1920,Gluta_usitata,Anacardiaceae,14.65,12,168.5641173
+DDF,4,1949,Shorea_obtusa,Dipterocarpaceae ,14.65,13,168.5641173
+MDF,13,136,Vitex_peduncularis,Verbenaceae,14.65,15,168.5641173
+MDF,15,459,Lagerstroemia_duperreana,Lythraceae,14.65,17,168.5641173
+MDF,16,795,Dalbergia_oliveri,Fabaceae,14.65,15,168.5641173
+MDF,17,919,Eriolaena_candollei,Malvaceae,14.65,10,168.5641173
+MDF,17,941,Croton_roxburghii,Euphorbiaceae,14.65,13,168.5641173
+MDF,17,945,Terminalia_mucronata,Combretaceae,14.65,16,168.5641173
+MDF,15,502,Millettia_kangensis,Fabaceae,14.81,12,172.2661701
+MDF,14,185,Pterocarpus_macrocarpus,Fabaceae,14.97,17,176.0084353
+MDF,15,401,Lagerstroemia_duperreana,Lythraceae,14.97,18,176.0084353
+MDF,15,456,Lagerstroemia_undulata,Lythraceae,14.97,17,176.0084353
+MDF,15,480,Tectona_grandis,Lamiaceae,14.97,13,176.0084353
+MDF,16,838,Wendlandia_tinctoria,Rubiaceae,14.97,12,176.0084353
+MDF,17,908,Walsura_robusta,Meliaceae,14.97,15,176.0084353
+MDF,17,959,Terminalia_mucronata,Combretaceae,14.97,17,176.0084353
+MDF,14,237,Pterocarpus_macrocarpus,Fabaceae,15.13,11,179.7909128
+DDF,2,499,Buchanania_lanzan,Anacardiaceae,15.29,10,183.6136028
+DDF,2,569,Dipterocarpus_obtusifolius,Dipterocarpaceae ,15.29,10,183.6136028
+DEF,12,2180,Rothmannia_sootepensis,Rubiaceae,15.29,20,183.6136028
+MDF,13,89,Terminalia_mucronata,Combretaceae,15.29,16,183.6136028
+MDF,15,455,Terminalia_mucronata,Combretaceae,15.29,18,183.6136028
+MDF,15,482,Tectona_grandis,Lamiaceae,15.29,16,183.6136028
+MDF,16,666,Shorea_obtusa,Dipterocarpaceae ,15.29,10,183.6136028
+DEF,8,530,Turpinia_pomifera,Staphyleaceae,15.61,13,191.3796198
+MDF,15,470,Terminalia_mucronata,Combretaceae,15.61,14,191.3796198
+MDF,15,504,Tectona_grandis,Lamiaceae,15.61,16,191.3796198
+MDF,16,847,Canarium_subulatum,Burseraceae,15.61,10,191.3796198
+DDF,2,485,Gluta_usitata,Anacardiaceae,15.92,8,199.0563371
+DDF,6,3117,Lithocarpus_polystachyus,Fagaceae,15.92,12,199.0563371
+MDF,14,255,Lagerstroemia_duperreana,Lythraceae,15.92,17,199.0563371
+MDF,17,924,Eriolaena_candollei,Malvaceae,15.92,16,199.0563371
+DDF,1,28,Quercus_kerrii,Fagaceae,16.24,12,207.1390267
+DDF,1,49,Dipterocarpus_obtusifolius,Dipterocarpaceae ,16.24,9,207.1390267
+DDF,1,193,Gluta_usitata,Anacardiaceae,16.24,7,207.1390267
+DDF,1,237,Quercus_kerrii,Fagaceae,16.24,12,207.1390267
+DDF,5,2602,Quercus_kerrii,Fagaceae,16.24,2,207.1390267
+MDF,14,222,Lagerstroemia_duperreana,Lythraceae,16.24,14,207.1390267
+MDF,14,300,Tectona_grandis,Lamiaceae,16.24,15,207.1390267
+MDF,16,581,Shorea_obtusa,Dipterocarpaceae ,16.24,7,207.1390267
+MDF,16,854,Quercus_kingiana,Fagaceae,16.24,14,207.1390267
+MDF,17,898,Shorea_siamensis,Dipterocarpaceae ,16.24,12,207.1390267
+MDF,17,909,Walsura_robusta,Meliaceae,16.24,15,207.1390267
+MDF,18,1016,Lagerstroemia_sp.,Lythraceae,16.24,10,207.1390267
+DDF,2,625,Dipterocarpus_obtusifolius,Dipterocarpaceae ,16.56,8,215.3825658
+DDF,4,2365,Shorea_obtusa,Dipterocarpaceae ,16.56,5,215.3825658
+DDF,6,3136,Dipterocarpus_tuberculatus,Dipterocarpaceae ,16.56,9,215.3825658
+DEF,12,2170,Ilex_umbellulata,Aquifoliaceae,16.56,14,215.3825658
+MDF,13,58,Pterocarpus_macrocarpus,Fabaceae,16.56,17,215.3825658
+MDF,15,527,Terminalia_mucronata,Combretaceae,16.56,16,215.3825658
+MDF,17,917,Pterocarpus_macrocarpus,Fabaceae,16.56,14,215.3825658
+MDF,18,1004,Vitex_pinnata,Verbenaceae,16.56,16,215.3825658
+DDF,1,168,Shorea_siamensis,Dipterocarpaceae ,16.88,13,223.7869544
+DDF,4,2327,Shorea_siamensis,Dipterocarpaceae ,16.88,11,223.7869544
+DDF,5,2575,Quercus_brandisiana,Fagaceae,16.88,9,223.7869544
+DDF,5,2921,Quercus_brandisiana,Fagaceae,16.88,9,223.7869544
+DDF,6,3135,Tristaniopsis_burmanica,Myrtaceae,16.88,9,223.7869544
+DEF,12,2349,Lithocarpus_fenestus,Fagaceae,16.88,13,223.7869544
+MDF,13,106,Terminalia_mucronata,Combretaceae,16.88,15,223.7869544
+MDF,14,271,Millettia_kangensis,Fabaceae,16.88,13,223.7869544
+DDF,2,476,Dipterocarpus_obtusifolius,Dipterocarpaceae ,17.2,13,232.3521927
+DDF,4,2392,Dipterocarpus_obtusifolius,Dipterocarpaceae ,17.2,12,232.3521927
+MDF,14,277,Pterocarpus_macrocarpus,Fabaceae,17.2,16,232.3521927
+MDF,14,298,Lagerstroemia_duperreana,Lythraceae,17.2,16,232.3521927
+MDF,15,490,Xylia_xylocarpa,Fabaceae,17.2,19,232.3521927
+MDF,17,897,Shorea_siamensis,Dipterocarpaceae ,17.2,9,232.3521927
+MDF,18,977,Eriolaena_candollei,Malvaceae,17.2,18,232.3521927
+DDF,1,37,Gluta_usitata,Anacardiaceae,17.52,12,241.0782804
+DDF,5,2840,Syzygium_cumini,Myrtaceae,17.52,12,241.0782804
+DDF,6,3042,Lithocarpus_lindleyanus,Fagaceae,17.52,12,241.0782804
+MDF,13,47,Lannea_coromandelica,Anacardiaceae,17.52,17,241.0782804
+MDF,16,665,Canarium_subulatum,Burseraceae,17.52,13,241.0782804
+MDF,16,769,Quercus_kingiana,Fagaceae,17.52,14,241.0782804
+DDF,3,1462,Shorea_obtusa,Dipterocarpaceae ,17.83,8.5,249.6850662
+DDF,5,2621,Shorea_obtusa,Dipterocarpaceae ,17.83,8,249.6850662
+DDF,5,2867,Aporosa_villosa,Phyllanthaceae,17.83,7,249.6850662
+DEF,9,811,Styrax_benzoides,Styracaceae,17.83,8,249.6850662
+DEF,10,1047,Garcinia_merguensis,Clusiaceae,17.83,10,249.6850662
+MDF,14,262,Tectona_grandis,Lamiaceae,17.83,15,249.6850662
+MDF,13,146,Canarium_subulatum,Burseraceae,17.99,16,254.1863401
+DDF,1,192,Shorea_obtusa,Dipterocarpaceae ,18.15,8,258.7278265
+DDF,1,240,Shorea_obtusa,Dipterocarpaceae ,18.15,10,258.7278265
+DDF,3,1250,Shorea_obtusa,Dipterocarpaceae ,18.15,10,258.7278265
+DDF,4,2212,Shorea_siamensis,Dipterocarpaceae ,18.15,12,258.7278265
+DDF,6,3048,Dalbergia_cana,Fabaceae,18.15,12,258.7278265
+DEF,7,140,Syzygium_albiflorum,Myrtaceae,18.15,14,258.7278265
+MDF,14,303,Tectona_grandis,Lamiaceae,18.15,18,258.7278265
+MDF,15,415,Terminalia_mucronata,Combretaceae,18.15,23,258.7278265
+MDF,15,444,Terminalia_mucronata,Combretaceae,18.15,18,258.7278265
+MDF,15,531,Terminalia_mucronata,Combretaceae,18.15,18,258.7278265
+MDF,16,737,Shorea_siamensis,Dipterocarpaceae ,18.15,14,258.7278265
+MDF,17,947,Terminalia_mucronata,Combretaceae,18.15,17,258.7278265
+DEF,12,2342,Ilex_umbellulata,Aquifoliaceae,18.47,14,267.9314363
+MDF,14,253,Lagerstroemia_duperreana,Lythraceae,18.47,18,267.9314363
+DDF,1,86,Dipterocarpus_obtusifolius,Dipterocarpaceae ,18.79,15,277.2958957
+MDF,14,240,Tectona_grandis,Lamiaceae,18.79,16,277.2958957
+MDF,16,641,Shorea_obtusa,Dipterocarpaceae ,18.79,13,277.2958957
+DEF,7,237,Castanopsis_calathiformis,Fagaceae,19.11,14,286.8212046
+DEF,9,856,Syzygium_albiflorum,Myrtaceae,19.11,13,286.8212046
+MDF,15,445,Pterocarpus_macrocarpus,Fabaceae,19.11,20,286.8212046
+MDF,15,522,Millettia_kangensis,Fabaceae,19.11,15,286.8212046
+MDF,16,765,Dalbergia_oliveri,Fabaceae,19.11,15,286.8212046
+DDF,1,176,Dipterocarpus_obtusifolius,Dipterocarpaceae ,19.43,18,296.5073631
+DEF,12,1862,Lithocarpus_fenestus,Fagaceae,19.43,8,296.5073631
+MDF,13,131,Tectona_grandis,Lamiaceae,19.43,23,296.5073631
+MDF,13,144,Tectona_grandis,Lamiaceae,19.43,18,296.5073631
+MDF,14,272,Millettia_kangensis,Fabaceae,19.43,18,296.5073631
+MDF,15,413,Lagerstroemia_duperreana,Lythraceae,19.43,27,296.5073631
+MDF,15,467,Millettia_kangensis,Fabaceae,19.43,14,296.5073631
+MDF,16,826,Quercus_kingiana,Fagaceae,19.43,6,296.5073631
+MDF,13,28,Tectona_grandis,Lamiaceae,19.59,20,301.4107609
+DDF,2,475,Gluta_usitata,Anacardiaceae,19.75,12,306.3543711
+MDF,13,119,Tectona_grandis,Lamiaceae,19.75,14,306.3543711
+MDF,14,218,Lagerstroemia_duperreana,Lythraceae,19.75,14,306.3543711
+MDF,14,304,Albizia_odoratissima,Fabaceae,19.75,17,306.3543711
+DDF,4,2462,Shorea_obtusa,Dipterocarpaceae ,20.06,9,316.0470484
+DEF,11,1451,Ostodes_paniculata,Euphorbiaceae,20.06,10,316.0470484
+MDF,14,287,Tectona_grandis,Lamiaceae,20.06,17,316.0470484
+MDF,14,330,Tectona_grandis,Lamiaceae,20.06,19,316.0470484
+MDF,18,973,Lagerstroemia_sp.,Lythraceae,20.06,18,316.0470484
+MDF,13,5,Pterocarpus_macrocarpus,Fabaceae,20.22,19,321.1087825
+DDF,2,606,Quercus_kerrii,Fagaceae,20.38,12,326.2107289
+MDF,13,76,Pterocarpus_macrocarpus,Fabaceae,20.38,17,326.2107289
+MDF,14,228,Lagerstroemia_duperreana,Lythraceae,20.38,13,326.2107289
+MDF,16,859,Quercus_kingiana,Fagaceae,20.38,13,326.2107289
+MDF,17,932,Terminalia_mucronata,Combretaceae,20.38,15,326.2107289
+DDF,1,65,Quercus_kerrii,Fagaceae,20.7,20,336.535259
+DDF,5,2887,Wendlandia_tinctoria,Rubiaceae,20.7,8,336.535259
+DEF,7,307,Xylia_xylocarpa,Fabaceae,20.7,20,336.535259
+DDF,3,1413,Dipterocarpus_obtusifolius,Dipterocarpaceae ,21.02,12,347.0206387
+DEF,10,1069,Castanopsis_acuminatissima,Fagaceae,21.02,15,347.0206387
+MDF,14,220,Pterocarpus_macrocarpus,Fabaceae,21.02,15,347.0206387
+MDF,14,267,Lagerstroemia_undulata,Lythraceae,21.02,14,347.0206387
+MDF,15,414,Lagerstroemia_duperreana,Lythraceae,21.02,27,347.0206387
+MDF,15,521,Millettia_kangensis,Fabaceae,21.02,14,347.0206387
+MDF,16,857,Quercus_kingiana,Fagaceae,21.02,18,347.0206387
+DDF,5,2623,Quercus_kerrii,Fagaceae,21.34,9,357.6668679
+MDF,13,38,Lannea_coromandelica,Anacardiaceae,21.34,16,357.6668679
+MDF,16,563,Shorea_siamensis,Dipterocarpaceae ,21.34,12,357.6668679
+DDF,1,36,Canarium_subulatum,Burseraceae,21.66,15,368.4739466
+DDF,1,108,Quercus_kerrii,Fagaceae,21.66,12,368.4739466
+DEF,8,579,Beilschmiedia_gammieana,Lauraceae,21.66,14,368.4739466
+MDF,14,192,Lagerstroemia_duperreana,Lythraceae,21.66,11,368.4739466
+MDF,17,930,Xylia_xylocarpa,Fabaceae,21.66,16,368.4739466
+DDF,1,127,Dalbergia_dongnaiensis,Fabacese,21.97,18,379.0966924
+DDF,2,487,Shorea_obtusa,Dipterocarpaceae ,21.97,11,379.0966924
+DDF,3,1326,Dipterocarpus_obtusifolius,Dipterocarpaceae ,21.97,14,379.0966924
+DDF,5,2569,Anneslea_fragrans,Theaceae,21.97,9,379.0966924
+DEF,12,2196,Artocarpus_gomezianus,Moraceae,21.97,15,379.0966924
+MDF,15,403,Pterocarpus_macrocarpus,Fabaceae,21.97,16,379.0966924
+MDF,18,976,Xylia_xylocarpa,Fabaceae,21.97,15,379.0966924
+DDF,4,2129,Shorea_obtusa,Dipterocarpaceae ,22.29,9,390.2204436
+DEF,12,1871,Lithocarpus_fenestus,Fagaceae,22.29,11,390.2204436
+MDF,13,82,Lagerstroemia_loudonii,Lythraceae,22.29,15,390.2204436
+MDF,18,1011,Xylia_xylocarpa,Fabaceae,22.45,17,395.8426378
+DDF,1,96,Shorea_obtusa,Dipterocarpaceae ,22.61,11,401.5050444
+DDF,5,2690,Shorea_obtusa,Dipterocarpaceae ,22.61,10,401.5050444
+DDF,6,3083,Quercus_brandisiana,Fagaceae,22.61,17,401.5050444
+DEF,8,607,Bombax_anceps,Malvaceae,22.61,14,401.5050444
+DDF,2,513,Dipterocarpus_obtusifolius,Dipterocarpaceae ,22.93,9,412.9504948
+DDF,3,1410,Dipterocarpus_obtusifolius,Dipterocarpaceae ,22.93,10,412.9504948
+DDF,3,1486,Gluta_usitata,Anacardiaceae,22.93,12,412.9504948
+MDF,13,39,Pterocarpus_macrocarpus,Fabaceae,22.93,22,412.9504948
+MDF,13,66,Tectona_grandis,Lamiaceae,22.93,20,412.9504948
+MDF,15,425,Chukrasia_tabularis,Meliaceae,22.93,17,412.9504948
+MDF,17,948,Dalbergia_cultrata,Fabaceae,22.93,17,412.9504948
+MDF,18,1050,Pterocarpus_macrocarpus,Fabaceae,22.93,18,412.9504948
+MDF,16,764,Xylia_xylocarpa,Fabaceae,23.09,19,418.7335386
+DDF,2,637,Dipterocarpus_obtusifolius,Dipterocarpaceae ,23.25,14,424.5567947
+MDF,15,518,Tectona_grandis,Lamiaceae,23.25,22,424.5567947
+DDF,2,585,Gluta_usitata,Anacardiaceae,23.57,12,436.3239441
+DDF,3,1464,Dipterocarpus_obtusifolius,Dipterocarpaceae ,23.57,17,436.3239441
+DEF,9,790,Tarennoidea_wallichii,Rubiaceae,23.57,12,436.3239441
+DEF,10,940,Ilex_umbellulata,Aquifoliaceae,23.57,19,436.3239441
+MDF,13,51,Lagerstroemia_loudonii,Lythraceae,23.57,16,436.3239441
+MDF,16,757,Quercus_kingiana,Fagaceae,23.57,15,436.3239441
+DDF,5,2797,Anneslea_fragrans,Theaceae,23.89,12,448.2519431
+DDF,6,3293,Dipterocarpus_tuberculatus,Dipterocarpaceae ,23.89,15,448.2519431
+MDF,16,802,Terminalia_mucronata,Combretaceae,23.89,18,448.2519431
+DEF,9,771,Semecarpus_cochinchinensis,Anacardiaceae,24.2,20,459.9605804
+MDF,15,412,Tectona_grandis,Lamiaceae,24.2,20,459.9605804
+MDF,13,22,Canarium_subulatum,Burseraceae,24.52,18,472.2052519
+MDF,18,1001,Chukrasia_tabularis,Meliaceae,24.52,20,472.2052519
+MDF,18,1013,Terminalia_mucronata,Combretaceae,24.52,19,472.2052519
+DDF,3,1452,Dipterocarpus_obtusifolius,Dipterocarpaceae ,24.84,16,484.610773
+DDF,5,2935,Gluta_usitata,Anacardiaceae,24.84,14,484.610773
+DDF,6,3310,Quercus_brandisiana,Fagaceae,24.84,10,484.610773
+DDF,2,493,Dipterocarpus_obtusifolius,Dipterocarpaceae ,25.48,15,509.9043638
+MDF,14,320,Xylia_xylocarpa,Fabaceae,25.48,18,509.9043638
+MDF,15,479,Tectona_grandis,Lamiaceae,25.48,20,509.9043638
+MDF,16,806,Dalbergia_cultrata,Fabaceae,25.48,17,509.9043638
+MDF,16,809,Colona_flagrocarpa,Tiliaceae,25.48,20,509.9043638
+MDF,18,1057,Canarium_subulatum,Burseraceae,25.48,17,509.9043638
+MDF,13,125,Pterocarpus_macrocarpus,Fabaceae,25.8,18,522.7924335
+MDF,14,224,Millettia_kangensis,Fabaceae,25.96,14,529.2967869
+DDF,4,1921,Dipterocarpus_obtusifolius,Dipterocarpaceae ,26.11,14,535.4311393
+DDF,1,57,Dipterocarpus_obtusifolius,Dipterocarpaceae ,27.07,23,575.5279146
+MDF,18,1015,Cratoxylum_formosum,Hypericaceae ,27.39,20,589.2152055
+MDF,15,520,Terminalia_mucronata,Combretaceae,27.71,22,603.0633459
+MDF,15,422,Cratoxylum_formosum,Hypericaceae ,27.87,27,610.0477347
+DDF,2,533,Dipterocarpus_obtusifolius,Dipterocarpaceae ,28.03,15,617.0723359
+DDF,6,3014,Craibiodendron_stellatum,Ericaceae,28.03,8,617.0723359
+DEF,7,205,Ilex_umbellulata,Aquifoliaceae,28.03,17,617.0723359
+DDF,6,3416,Dalbergia_cultrata,Fabaceae,28.34,22,630.7969332
+DEF,12,1955,Lithocarpus_fenestus,Fagaceae,28.34,15,630.7969332
+MDF,18,1008,Pterocarpus_macrocarpus,Fabaceae,28.34,15,630.7969332
+MDF,18,1020,Canarium_subulatum,Burseraceae,28.34,20,630.7969332
+MDF,18,1022,Terminalia_mucronata,Combretaceae,28.34,22,630.7969332
+MDF,18,1018,Cratoxylum_formosum,Hypericaceae ,28.66,18,645.1225957
+DDF,5,2603,Shorea_obtusa,Dipterocarpaceae ,28.98,12,659.6091077
+MDF,14,172,Bombax_anceps,Malvaceae,29.14,16,666.9126823
+DEF,7,306,Xylia_xylocarpa,Fabaceae,29.3,30,674.2564693
+DEF,10,1380,Ostodes_paniculata,Euphorbiaceae,29.3,25,674.2564693
+DDF,2,595,Dipterocarpus_obtusifolius,Dipterocarpaceae ,29.62,18,689.0646804
+MDF,15,507,Erythrina_subumbrans,Fabaceae,29.62,18,689.0646804
+MDF,17,962,Pterocarpus_macrocarpus,Fabaceae,29.62,20,689.0646804
+DEF,12,2127,Shorea_roxburghii,Dipterocarpaceae ,29.94,16,704.0337411
+DDF,2,481,Dipterocarpus_obtusifolius,Dipterocarpaceae ,30.25,14,718.6884069
+DDF,6,3106,Lithocarpus_polystachyus,Fagaceae,30.25,13,718.6884069
+DDF,3,1460,Parinari_anamense,Chrysobalanaceae,30.57,12,733.9741401
+DEF,11,1654,Garcinia_mckeaniana,Clusiaceae,30.57,18,733.9741401
+DEF,10,1211,Mesua_ferrea,Clusiaceae,31.21,23,765.0281552
+DDF,3,1301,Dipterocarpus_obtusifolius,Dipterocarpaceae ,31.53,15,780.796437
+DDF,1,150,Quercus_kerrii,Fagaceae,31.85,15,796.7255684
+DDF,5,2922,Shorea_obtusa,Dipterocarpaceae ,31.85,18,796.7255684
+DDF,5,2719,Syzygium_cumini,Myrtaceae,32.17,13,812.8155493
+MDF,18,972,Anogeissus_acuminata,Combretaceae,32.17,18,812.8155493
+DDF,4,2371,Gluta_usitata,Anacardiaceae,32.48,10,828.5561066
+DDF,6,2974,Quercus_brandisiana,Fagaceae,32.8,14,844.9627601
+MDF,17,953,Eriolaena_candollei,Malvaceae,33.12,20,861.5302631
+DEF,12,1979,Syzygium_albiflorum,Myrtaceae,34.39,30,928.8684952
+DEF,7,111,Xylia_xylocarpa,Fabaceae,35.03,30,963.7627932
+DEF,10,934,Xanthophyllum_virens,Polygalaceae,35.03,20,963.7627932
+DDF,3,1420,Shorea_siamensis,Dipterocarpaceae ,35.35,20,981.4512164
+DDF,5,2886,Quercus_brandisiana,Fagaceae,35.35,16,981.4512164
+MDF,16,731,Quercus_kerrii,Fagaceae,35.35,18,981.4512164
+DEF,12,2077,Dipterocarpus_turbinatus,Dipterocarpaceae ,35.67,20,999.3004893
+DDF,1,103,Dipterocarpus_obtusifolius,Dipterocarpaceae ,36.62,19,1053.238101
+DEF,8,444,Vitex_peduncularis,Verbenaceae,36.94,18,1071.725745
+DEF,12,2119,Shorea_roxburghii,Dipterocarpaceae ,36.94,23,1071.725745
+MDF,16,719,Shorea_obtusa,Dipterocarpaceae ,37.26,12,1090.374239
+DDF,1,209,Shorea_siamensis,Dipterocarpaceae ,38.22,22,1147.284819
+DEF,11,1411,Mesua_ferrea,Clusiaceae,38.22,18,1147.284819
+DDF,3,1377,Shorea_obtusa,Dipterocarpaceae ,39.17,17,1205.027684
+MDF,16,855,Pterocarpus_macrocarpus,Fabaceae,39.17,21,1205.027684
+DEF,11,1709,Mesua_ferrea,Clusiaceae,39.49,18,1224.797098
+DDF,4,2501,Shorea_siamensis,Dipterocarpaceae ,39.81,12,1244.727362
+DEF,12,2056,Dipterocarpus_turbinatus,Dipterocarpaceae ,44.27,23,1539.24916
+DEF,8,571,Olea_salicifolia,Oleaceae,44.59,18,1561.582114
+DEF,11,1830,Dipterocarpus_turbinatus,Dipterocarpaceae ,50.32,30,1988.708574
+DEF,8,523,Styrax_benzoides,Styracaceae,50.96,15,2039.617455
+DEF,7,380,Engelhardia_spicata,Juglandaceae,52.55,25,2168.878992
+DDF,4,2086,Dipterocarpus_tuberculatus,Dipterocarpaceae ,54.14,17,2302.111659
+DDF,5,2903,Gluta_usitata,Anacardiaceae,54.14,15,2302.111659
+DEF,8,574,Lagerstroemia_duperreana,Lythraceae,54.14,25,2302.111659
+MDF,15,509,Lagerstroemia_duperreana,Lythraceae,54.14,20,2302.111659
+DDF,1,242,Dipterocarpus_obtusifolius,Dipterocarpaceae ,57.64,17,2609.382982
+DEF,11,1559,Mesua_ferrea,Clusiaceae,60.51,25,2875.704038
+DEF,9,682,Schima_wallichii,Theaceae,64.65,25,3282.667835
+DEF,8,391,Mangifera_pentandra,Anacardiaceae,66.24,23,3446.121053
+DEF,12,2003,Dipterocarpus_turbinatus,Dipterocarpaceae ,66.88,28,3513.034463
+MDF,14,235,Pterocarpus_macrocarpus,Fabaceae,73.25,20,4214.102933
+DEF,10,1207,Xanthophyllum_virens,Polygalaceae,78.66,45,4859.56914
+DEF,7,185,Lithocarpus_fenestus,Fagaceae,80.25,25,5058.01326
+DEF,8,520,Schima_wallichii,Theaceae,89.17,32,6244.927699
+DEF,9,789,Dipterocarpus_turbinatus,Dipterocarpaceae ,89.17,35,6244.927699
+DEF,11,1665,Mesua_ferrea,Clusiaceae,90.76,25,6469.621238
+DEF,9,810,Dipterocarpus_turbinatus,Dipterocarpaceae ,116.56,36,10670.60292
+DEF,11,1631,Dipterocarpus_turbinatus,Dipterocarpaceae ,135.35,43,14388.19787
+DEF,9,866,Dipterocarpus_turbinatus,Dipterocarpaceae ,135.67,38,14456.31262
+DEF,9,719,Dipterocarpus_turbinatus,Dipterocarpaceae ,142.36,35,15917.16946
+DEF,11,1460,Dipterocarpus_turbinatus,Dipterocarpaceae ,145.22,75,16563.1428

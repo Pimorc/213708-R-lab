@@ -12,11 +12,11 @@ Students should be able to
 
 ## Data files for this lab
 
-- forest.csv [Click here for a full data set](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/EU5zaH4DmWtImUA94AxVqMkB-DIDKI41VqegoYQCqZtaFQ?e=mLezqJ)
+- forest.csv [Click here to download](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/EU5zaH4DmWtImUA94AxVqMkB-DIDKI41VqegoYQCqZtaFQ?e=mLezqJ)
 
-- test.csv [Click here for test data](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/EScjHlLXQaZAlP8znz1SKu8BWgtn6rygn7Ymyrpx0czuqg?e=CBpuDn)
+- test.csv [Click here to download](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/EScjHlLXQaZAlP8znz1SKu8BWgtn6rygn7Ymyrpx0czuqg?e=CBpuDn)
 
-- train.csv [Click here for train data](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/EeoxfjMlWYRIrkCT2vJ5wUgBkGxsR3sZOAjLebeNlOTgWg?e=G4XXCx)
+- train.csv [Click here to download](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/EeoxfjMlWYRIrkCT2vJ5wUgBkGxsR3sZOAjLebeNlOTgWg?e=G4XXCx)
 
 ## Introduction
 
@@ -37,9 +37,13 @@ library(ggplot2)
 ## The data set
 
 We import the data set of tree height and diameter at breast height (dbh).
-For each tree, we also have the data of the habitat of the tree (forest types and plot). The data contain 6,890 rows of data.
-There are three forest types - dry deciduous, dry evergreen, and mixed deciduous forest. Then we will divide the whole data set into a training and a testing data sets.
-The training data are 70% sampled from the whole data set, while the other 30% of the data is for validation.
+For each tree, we also have the data of the habitat of the tree (forest types and plot). The data contain 6,890 rows of data. There are three forest types 
+
+- dry deciduous, 
+- dry evergreen, and 
+- mixed deciduous forest. 
+
+Then we will divide the whole data set into a training and a testing data sets. The training data are 70% sampled from the whole data set, while the other 30% of the data is for validation.
 
 ```{r echo = T, eval = FALSE}
 ### Import data
@@ -62,8 +66,8 @@ This time I already provide train and test data set for you already.
 So, you will run this following code.
 
 ```{r echo = T, eval = FALSE}
-tack.train.new <- read.csv("train.csv", header = T)
-tack.test.new <- read.csv("test.csv", header = T)
+tack.train.new <- read.csv("data/train.csv", header = T)
+tack.test.new <- read.csv("data/test.csv", header = T)
 
 tack.train.new$community <- as.factor(tack.train.new$community)
 tack.test.new$community <- as.factor(tack.test.new$community)
@@ -113,10 +117,7 @@ plot +
 
 ## Modeling steps
 
-Now, let's run four competing models.
-We will evaluate how well each model fit the train data and also validate the models using the test data.
-We use the *set.seed()* function to guarantee that the same random values are produced each time you run the code.
-We start from a log-log model.
+Now, let's run four competing non-linear models. We will evaluate how well each model fit the train data and also validate the models using the test data. We use the `set.seed()` function to guarantee that the same random values are produced each time you run the code. We start from a log-log model.
 
 ```{r echo = T, eval = FALSE}
 ##################################################
@@ -133,8 +134,7 @@ qqnorm(resid(loglog))
 abline(a = 0, b = 1)
 ```
 
-The summary of the model shows the significant parameter estimates of a = 0.62295 and b = 0.663086.
-The qq plot shows the deviation from normal distribution of the model residuals.
+The summary of the model shows the significant parameter estimates of $a = 0.62295$ and $b = 0.663086$. The qq plot shows the deviation from normal distribution of the model residuals.
 
 Now, let's fit other three models and see model summary and qq plots.
 
@@ -221,7 +221,7 @@ MSE.train.all
 sqrt(MSE.train.all)/mean(tack.train.new$height)
 ```
 
-## Model valisation
+## Model validation
 
 Now let's use the test data set to validate the prediction of the models.
 We also calculate MAPE which stands for mean absolute percentage error showing how much the prediction deviates from the observed height measurements.
@@ -250,10 +250,7 @@ mape.test.all <- c(MAPE(tack.test.new$pred.loglog, tack.test.new$height),
 mape.test.all * 100
 ```
 
-We got the best fit model which is the monomolecular model with 3 parameters.
-Now, we use the model to see relationship separated by forest types.
-I have run the monomolecular models separately by the forest types and gotten the parameter estimates a, b, c.
-I didn't show the code how to do this.
+We got the best fit model which is the monomolecular model with three parameters. Now, we use the model to see relationship separated by forest types. I have run the monomolecular models separately by the forest types and gotten the parameter estimates a, b, c. I will not show the code how to do this.
 
 -   DDF: height = 23.9370 \* (1 - exp(-0.0516 - 0.0318 \* dbh))
 -   DEF:height = 40.5867 \* (1 - exp(-0.0426 - 0.0194 \* dbh))
@@ -307,9 +304,7 @@ plot +
                                 "Mixed deciduous"))
 ```
 
-------------------------------------------------------------------------
-
-# Exercise
+## Exercise
 
 **Submission:** A PDF file containing your answers.
 Your answers must contain **R codes** that you wrote and **the outputs** you get.
@@ -319,7 +314,7 @@ Your codes and outputs can be text and/or screen capture.
 
 **Data file for this exercise:** forest.csv
 
-## Questions/directions
+### Questions/directions
 
 **1.** In R, run one more model using the train data set.
 The model equation is ln(H) = a \* DBH\^b.
@@ -339,7 +334,7 @@ Which model is better?
 **5.** Calculate the MAPE of the power model and compare with the MAPE of the monomolecular model.
 Which model is preferable?
 
-## Grading rubric
+### Grading rubric
 
 | Question | Score = 2 | Score = 1 | Score = 0 |
 |-------------------|------------------|------------------|------------------|
@@ -350,3 +345,5 @@ Which model is preferable?
 | 5 | Correct R code and show the MAPE | Partially correct | R code and output are not included or incorrect |
 
 **End of Lab 9**
+
+---
