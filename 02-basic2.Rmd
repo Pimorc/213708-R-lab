@@ -9,7 +9,7 @@ Students should be able to:
 1.  Import a data set to the program to prepare for data analysis
 2.  Remove some missing value from the data
 
-## Data files for this lab
+## Data Files for This Lab
 
 -   germination.txt [Click here to download the file](https://o365cmu-my.sharepoint.com/:t:/g/personal/pimonrat_t_cmu_ac_th/EQzNo6jjdE5IkDMjUS7PYlMBr3zp0Fd9cBHh1gthjY1BpQ?e=e0zL5v)
 
@@ -243,5 +243,3 @@ Show the data frame.
 | 5          | Correct R code and output     | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
 
 **End of Lab 2**
-
-------------------------------------------------------------------------

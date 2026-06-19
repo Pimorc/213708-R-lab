@@ -8,7 +8,7 @@ Students should be able to:
 
 1. Generate plot of random variables and describe the shape of the distribution
 
-## Data files for this lab
+## Data Files for This Lab
 
 None to download. A data set is generated in the worksheet
 
@@ -183,12 +183,6 @@ sd(c)/sqrt(10000) ## standard error
 save.image("lab4.RData")
 ```
 
-# References
-
-Deitze, M. 2009. Common probability distributions. Exercise worksheet for course IB519, University of Illinois.
-
-Navarro, Danielle. J. 2024. The Normal Distribution. in Learning Statistics with R - A tutorial for Psychology Students and other Beginners. available online [https://stats.libretexts.org/Bookshelves/Applied_Statistics/Learning_Statistics_with_R_-_A_tutorial_for_Psychology_Students_and_other_Beginners_(Navarro)/09%3A_Introduction_to_Probability/9.05%3A_The_Normal_Distribution].
-
 ## Exercise
 
 **Submission:** A PDF file containing your answers. If you are asked to work in R, your answers must contain **R codes** that you wrote and **the outputs** you get. Your codes and outputs can be text and/or screen capture.
@@ -202,7 +196,7 @@ set.seed(123)
 hw4 <- c(rnorm(300, 1, 2), rnorm(300, 10, 2.5))
 ```
 
-## Questions/Directions
+### Questions/Directions
 
 **1.** In R, plot a histogram of the hw4 and show the plot.
 
@@ -214,7 +208,7 @@ hw4 <- c(rnorm(300, 1, 2), rnorm(300, 10, 2.5))
 
 **5.** Explain in words what the limitation of the box plot to represent the shape of the distribution
 
-## Grading Rubric
+### Grading Rubric
 
 | Question | Score 2 | Score 1 | Score 0 |
 |----------|---------|---------|---------|
@@ -225,5 +219,3 @@ hw4 <- c(rnorm(300, 1, 2), rnorm(300, 10, 2.5))
 | 5 | Correctly explain in full sentence | Correctly explain but not in full sentence | No answer |
 
 **End of Lab 4**
-
----

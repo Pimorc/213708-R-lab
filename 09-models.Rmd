@@ -4,13 +4,13 @@
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-##  Learning outcome: 
+##  Learning Outcome: 
 
 Students should be able to
 
 1. demonstrate steps to run models in R
 
-## Data files for this lab
+## Data Files for This Lab
 
 - forest.csv [Click here to download](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/EU5zaH4DmWtImUA94AxVqMkB-DIDKI41VqegoYQCqZtaFQ?e=mLezqJ)
 
@@ -34,7 +34,7 @@ library(MLmetrics)
 library(ggplot2)
 ```
 
-## The data set
+## The Data Set
 
 We import the data set of tree height and diameter at breast height (dbh).
 For each tree, we also have the data of the habitat of the tree (forest types and plot). The data contain 6,890 rows of data. There are three forest types 
@@ -80,7 +80,7 @@ tack.test.new <- tack.test.new[order(tack.test.new$dbh), ]
 
 ```
 
-## Data visualization
+## Data Visualization
 
 Now, let's visualize the data We will do this in two ways - using R graphic and use ggplot2 package
 
@@ -115,7 +115,7 @@ plot +
               aes(fill = community))
 ```
 
-## Modeling steps
+## Modeling Steps
 
 Now, let's run four competing non-linear models. We will evaluate how well each model fit the train data and also validate the models using the test data. We use the `set.seed()` function to guarantee that the same random values are produced each time you run the code. We start from a log-log model.
 
@@ -165,7 +165,7 @@ qqnorm(resid(mono))
 abline(a = 0, b = 1)
 ```
 
-## Model predictions
+## Model Predictions
 
 We have all the models.
 Then we use the model parameter estimates to predict the height based on dbh for each model.
@@ -191,7 +191,7 @@ tack.test.new$pred.weibull <- (predict(weibull, list(dbh =tack.test.new$dbh)))
 tack.test.new$pred.mono <- (predict(mono, list(dbh =tack.test.new$dbh)))
 ```
 
-## Model evaluation
+## Model Evaluation
 
 For model evaluation, we will calculate several number and compare them among models.
 The best model will be the one with
@@ -221,7 +221,7 @@ MSE.train.all
 sqrt(MSE.train.all)/mean(tack.train.new$height)
 ```
 
-## Model validation
+## Model Validation
 
 Now let's use the test data set to validate the prediction of the models.
 We also calculate MAPE which stands for mean absolute percentage error showing how much the prediction deviates from the observed height measurements.
@@ -272,7 +272,7 @@ tack.test.new <-
   )
 ```
 
-## Data visualization for reports
+## Data Visualization for Reports
 
 Now use this code to plot.
 
@@ -345,5 +345,3 @@ Which model is preferable?
 | 5 | Correct R code and show the MAPE | Partially correct | R code and output are not included or incorrect |
 
 **End of Lab 9**
-
----

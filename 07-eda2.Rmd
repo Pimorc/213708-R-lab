@@ -8,7 +8,7 @@ Students should be able to:
 
 1. Demonstrate how to explore data and visualize data
 
-## Data files for this lab
+## Data Files for This Lab
 
 - pm25cm18.csv [Click here to download the file](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/EaWmNIS07LBFshwHdgdOsnYBemaxwvLNj5mqc6xDsMYJxA?e=oqZ7jC)
 
@@ -33,7 +33,7 @@ library(ggplot2)
 library(tidyverse)
 ```
 
-## Dataset
+## The data sets
 
 Today we will use datasets from Air4Thai website [@pcd]: http://www.air4thai.com/webV3/#/History.
 The PM 2.5 dataset of 2018 and 2023 were downloaded and formatted to focus on two stations of Chiang Mai at the Government complex (gov) and at the Yupparaj school (yup). PM 2.5 level in µg./m³ was recorded at the station every day. There are some missing values in the datasets. We will start with two .csv files. We will use R to merge them to make a new data frame that contains the data from both years.
@@ -225,5 +225,3 @@ My suggestion if you would like to do more graphic in R is to go to
 | 5 | Correctly describe the variation | Partially correctly describe the variation | Incorrectly describe the variation or do not include the answer |
 
 **End of Lab 7**
-
----

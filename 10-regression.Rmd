@@ -1,0 +1,277 @@
+# Regression analyses in R {#regression}
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Learning Outcome
+
+Students should be able to
+
+1.  demonstrate steps to run regression models in R
+
+## Data Files for This Lab
+
+-   seed3spp.csv [Click here to download](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/Eb8jMoWnwP9BvJnAaEIfWYkBu-kTlKaWh6tD-Icn579-wA?e=3Te2Up)
+
+## Introduction
+
+We will use a data set from a research study by @yiamthaisong2024 on Doi Suthep's seed morphology for our lab session. We will explore the relationships between seed traits.
+
+## Download Additional Packages
+
+We will use `ggplot2` [@ggplot2], `GGally` [@ggally], and `gvlma` [@gvlma].
+
+We will also download additional packages to use in this lab session.
+
+```{r package installing, echo = T, eval = FALSE}
+if(!require(GGally)){install.packages("GGally")}
+if(!require(ggplot2)){install.packages("ggplot2")}
+if(!require(gvlma)){install.packages("gvlma")}
+
+library(ggplot2)
+library(GGally)
+library(gvlma)
+```
+
+## The Data Set
+
+We import the data set of seed trait data of three tree species from Doi Suthep-Pui national park.
+For each species, we collected trait data from 20 seeds.
+The data contain 60 rows and 11 columns.
+Let's look at the data set and see what trait data we have.
+
+```{r import, echo = T, eval = T, results ='hide'}
+### Import data
+seed <- read.csv("seed3spp.csv", header = T)
+
+### assign right types of data to the variables
+seed$genus <- as.factor(seed$genus)
+seed$epithet <- as.factor(seed$epithet)
+
+### see the data
+seed
+
+summary(seed[,7:11])
+```
+
+## Data Visualization
+
+Now, let's visualize the data and see the correlations among the variables.
+Remember this first step is EDA and we should **always** do EDA before we run further analyses.
+We will plot some graphs using `ggplot2` and `GGally` packages.
+
+```{r explore, echo = T, eval = T, fig.show = "hide"}
+## use GGally package
+library(ggplot2)
+library(GGally)
+
+## use data from column 7:11 - volume to moisture
+ggpairs(seed,          
+        columns = 4:11) # selected columns
+```
+
+We can also plot the graph separately by species to see the differences among species.
+
+```{r explore2, echo = T, eval = T, fig.show = "hide"}
+ggpairs(seed,                 # Data frame
+        columns = 7:11,        # Columns
+        aes(color = genus,  # Color by species 
+            alpha = 0.5))     # Transparency
+```
+
+Let's plot the two variables that we are interested in.
+
+```{r plot, echo = T, eval = T, fig.show = "hide"}
+library(ggplot2)
+plot <- ggplot(seed, 
+               aes(x = volume_mm3,
+                   y = dry_weight_g * 1000,
+                   color = genus,
+                   shape = genus))
+
+plot +
+  geom_point() +
+  xlab("\nSeed volume (cubic millimeter)") +
+  ylab("Seed dry mass (milligram)\n")
+```
+
+## Linear Regression Model
+
+A linear regression model aims to model a dependent variable as a function of one or more independent variable(s) [@regref]. Here, let's run linear regression models between volume (cubic mm) (dependent variable) and dry weight (mg) (independent variable).
+We will evaluate how well each model fit and get the linear equation.
+
+$$Y = β₀ + β₁X + ε $$
+
+-   $Y$ is the seed dry weight
+-   $X$ is the seed volume
+-   $β₀$ is an intercept and
+-   $β₁$ is a slope
+-   $ε$ is an error term
+
+We use the `set.seed()` function to guarantee that the same random values are produced each time you run the code.
+
+```{r reg.model1, echo = T, results = 'hide'}
+##################################################
+### Run a regression model
+### and run a function to get
+### overall p value
+##################################################
+set.seed(1234)
+model <- lm(dry_weight_g * 1000 ~ volume_mm3,
+            data = seed)
+
+summary(model)
+
+overall_p <- function(my_model) {
+    f <- summary(my_model)$fstatistic
+    p <- pf(f[1],f[2],f[3],lower.tail=F)
+    attributes(p) <- NULL
+    return(p)
+}
+```
+
+## Summary of Models
+
+The summary of the model shows the significant parameter estimates of intercept = `r summary(model)$coefficients["(Intercept)", "Estimate"]` and slope = `r summary(model)$coefficients["volume_mm3", "Estimate"]`.
+This means that the linear equation is
+
+`r model$terms[[2]]` = `r summary(model)$coefficients["(Intercept)", "Estimate"]` + `r summary(model)$coefficients["volume_mm3", "Estimate"]` \* (`r model$terms[[3]]`) + ε
+
+Look at the model summary.
+You will see R^2^ = `r summary(model)$r.squared`.
+This means that about `r summary(model)$r.squared * 100` of variance in the dependent variable is predictable from the independent variable (`r model$terms[[3]]`).
+This means the linear model fits the data well.
+
+In addition, the F-statistics indicates whether the model with `r model$terms[[2]]` fit the data better than null model (model without `r model$terms[[3]]`).
+Here we got F = `r summary(model)$fstatistic[["value"]]` and p value = `r overall_p(model)`, meaning the model with `r model$terms[[3]]` is significant.
+
+## Model Evaluation
+
+Now, we will evaluate the model to see if the model met the assumptions.
+
+First, let's check if the residuals are normally distributed with mean of 0.
+
+```{r model.eval1, echo = F, eval = T, results = 'hide', fig.keep = 1}
+
+hist(model$residuals)
+abline(v = mean(model$residuals))
+qqnorm(model$residuals)
+qqline(model$residuals, lwd = 2)
+shapiro.test(model$residuals)
+```
+
+The plot shows the mean of residuals is about 0 but the distribution of the residuals is not quite normal (see the result of Shapiro test; p value = `r shapiro.test(model$residuals)$p.value`).
+
+Second, let's see a set of four diagnostic plots.
+We can check for heteroscedasticity using a fitted value vs residual plot.
+If you notice a speaker phone shape of points, it means heteroscedasticity.
+
+```{r eval.plot, echo = F, eval = T}
+par(mfrow=c(2,2)) 
+plot(model)
+```
+
+See the upper left plot.
+We seems to have a heteroscedasticity issue here.
+
+Also, see the Q-Q residuals plot. The residuals are not quite normally distributed.
+The bottom right plot, Residuals vs Leverage shows the regression is influenced by each data point.
+
+From the plots, some data points (with written number) influence the regression and affect the quality of the regression.
+
+In addition, there is a package that can help you check the assumptions of linear regression. Let's use `gvlma()` function from `gvlma` package.
+
+```{r gvlma, echo = F, eval = F, results = 'asis'}
+library(gvlma)
+gvlma::gvlma(model)
+```
+
+The results of `gvlma` means
+
+-   Global Stat: overall metric indicates whether the model passes or fails.
+    Here, the model failed.
+
+-   Skewness: measuring the distribution.
+    Here, we passed.
+
+-   Kurtosis: measuring the distribution, outliers, influential data.
+    Here, we passed.
+
+-   Link function: whether we mis-specified model.
+    Here, we passed.
+
+-   Heteroscedasticity: looking for equal variance in the residuals.
+    Here, the model failed.
+    The fitted vs residual plot agreed with this.
+
+## Further Investigation
+
+Look at our data closely.
+
+-   What factor do you think might effect the relationship of volume vs dry weight?
+-   Do you think different species will have the same volume and dry weight relationship?
+
+Let's take into account the species in the linear model.
+The regression model with more than one independent variable is call a multiple regression model.
+
+```{r reg.model2, echo = T, results = 'hide'}
+##################################################
+### Run a multiple regression model 
+### (x = volume and species)
+##################################################
+set.seed(1234)
+model2 <- lm(dry_weight_g * 1000 ~ volume_mm3 * genus,
+            data = seed) # with a interaction effect
+
+summary(model2)
+
+final.model <- step(model2) # step for model selection
+
+AIC(model, final.model) # compare AIC of the model
+
+anova(final.model)
+
+```
+
+Look at the output of `anova(final.model)`.
+You will see that the two factors are significant in the model.
+
+```{r summary, echo = F, eval = F, results = 'asis'}
+summary(final.model)
+```
+
+## Exercise
+
+**Submission:** A PDF file containing your answers.
+If you are asked to work in R, your answers must contain **R codes** that you wrote and **the outputs** you get.
+Your codes and outputs can be text and/or screen capture.
+
+**Full score:** 10
+
+**Data for this exercise:** seed3spp.csv (you already downloaded them.)
+
+### Questions/Directions
+
+**1.** Select two other variables that you would like to run a linear regression.
+In R, plot a scatter plot of the two variables.
+
+**2.** In R, run a linear model of the two selected variables, and show the summary of the model.
+
+**3.** In R, evaluate the model and show the output of the evaluation.
+
+**4.** Describe in words, how well the model fit the data.
+
+**5.** Write out the model equation and describe in words what the model means,
+
+### Grading Rubric
+
+| Question | Score = 2                                                    | Score = 1                                                          | Score = 0                                                                               |
+|-------------------|------------------|------------------|------------------|
+| 1        | Correct R code and a plot with proper axis labels            | One of R code or output is not included or incorrect               | R code and output are not included or incorrect                                         |
+| 2        | Correctly run the model and include the summary of the model | One of R code or output is not included or incorrect               | R code and output are not included or incorrect                                         |
+| 3        | Correct R code and the outputs of the model evaluation       | One of R code or output is not included or incorrect               | R code and output are not included or incorrect                                         |
+| 4        | Correctly describe the model evaluation                      | Partially correct description of the model evaluation              | Incorrect description of the model evaluation                                           |
+| 5        | Correctly provide the equation and describe the meaning      | Partially correctly describe the model equation and/or the meaning | Incorrectly describe the model equation and/or the meaning or do not include the answer |
+
+**Eng of Lab 10**

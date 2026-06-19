@@ -369,5 +369,3 @@ The vector consists of 3 elements -- name, last name and month that you were bor
 | 5        | Correct R code and output | One of R code or output is not included or incorrect | R code and output is not included |
 
 **End of Lab 1**
-
-------------------------------------------------------------------------

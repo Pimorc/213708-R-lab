@@ -8,10 +8,9 @@ Students should be able to:
 
 1.  Generate plots of some common distributions and describe the important properties of them
 
-## Data file for this lab
+## Data Files for This Lab
 
-None to download.
-Datasets are generated in the worksheet.
+- None to download. Data sets are generated in the worksheet.
 
 ## Introduction
 
@@ -280,5 +279,3 @@ Why? Give a reference to your answer.
 | 5        | Correct answer and give a reference           | One of the answers is not included or incorrect                                    | Answers are not included or incorrect |
 
 **End of Lab 5**
-
----

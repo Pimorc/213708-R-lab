@@ -9,7 +9,7 @@ Students should be able to:
 1.  Demonstrate how to change data types/structures in R
 2.  Demonstrate an ability to manipulate data frames to reflect a proper experimental design
 
-## Data files for this lab
+## Data Files for This Lab
 
 -   lab2.RData (containing your data frame from the previous lab)
 
@@ -240,5 +240,3 @@ This is a dataset from a seed storage experiment. Seeds were collected and store
 | 5        | Correctly answer both questions | One answer is included or correct                    | No answer                                       |
 
 **End of Lab 3**
-
-------------------------------------------------------------------------

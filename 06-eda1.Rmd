@@ -8,7 +8,7 @@ Students should be able to:
 
 1.  Demonstrate how to explore data and visualize data
 
-## Data file for this lab
+## Data Files for This Lab
 
 Iris dataset [@Anderson1935]
 
@@ -33,7 +33,7 @@ library(dplyr)
 library(plotly)
 ```
 
-# Dataset
+## The data set
 
 Today we will use a classic dataset - iris dataset of Edgar Anderson [@Anderson1935] Read more about the data set at <https://en.wikipedia.org/wiki/Iris_flower_data_set>
 
@@ -52,9 +52,9 @@ str(iris)
 head(iris) 
 ```
 
-# Exploring the Data
+## Exploring the Data
 
-## Summary and Graphical EDA of One Variable
+### Summary and Graphical EDA of One Variable
 
 We will use the R base package for plotting this.
 
@@ -174,7 +174,7 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
   geom_point(shape = 19) + facet_wrap( ~ Species)
 ```
 
-### Exploring Multiple Variables at Once
+## Exploring Multiple Variables at Once
 
 R has tools for exploring multiple variables at once. We will use packages called `plotly` [@plotly] and `GGally` [@ggally].
 
@@ -244,5 +244,3 @@ X axis represents treatments and the y axis is the number of germinated seeds.
 | 5 | Correct R code and complete output table | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
 
 **End of Lab 6**
-
----
