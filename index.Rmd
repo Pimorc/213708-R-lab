@@ -3,8 +3,9 @@ title: "213708 Teaching materials - Lab instructions"
 subtitle: 'Experimental design and environmental data analysis '
 site: bookdown::bookdown_site
 output:
-  html_document:
+  html_document2:
     df_print: paged
+    toc: true
 bibliography: book.bib
 biblio-style: apalike
 link-citations: yes
