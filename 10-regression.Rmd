@@ -1,5 +1,7 @@
 # Regression analyses in R {#regression}
 
+**Duration:** 3-hour lab
+
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```

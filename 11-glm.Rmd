@@ -1,19 +1,6 @@
----
-title: "Lab Session 11" 
-subtitle: "Generalized Linear Regression Models (GLMs) in R"
-author: "Pimonrat Tiansawat"
-date: "Last updated on `r format(Sys.time(), '%d %B, %Y')`"
-output:
-  prettydoc::html_pretty:
-    theme: cayman
-    toc: true
-    toc_depth: 2
-    smooth_scroll: true
-editor_options: 
-  markdown: 
-    wrap: sentence
----
 # Generalized Linear Regression Models (GLMs) in R {#glm}
+
+**Duration:** 3-hour lab
 
 ## Learning outcomes
 

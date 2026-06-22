@@ -1,5 +1,7 @@
 # Design of Experiments {#doe}
 
+**Duration:** 3-hour lab
+
 ## Learning Outcomes
 
 Students should be able to:
