@@ -1,0 +1,405 @@
+# Multivariate Analysis - Principal Component Analysis {#pca}
+
+## Learning outcomes
+
+Students should be able to:
+
+1.  Give some examples of multivariate data analyses.
+2.  Search for journal articles and information on related multivariate statistics and summarize key procedure of the related analyses.
+
+## Data Files for This Lab
+
+-   seed3spp.csv [Click here to download](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/Eb8jMoWnwP9BvJnAaEIfWYkBu-kTlKaWh6tD-Icn579-wA?e=3Te2Up)
+
+## Download additional packages
+
+We will use a number of packages in this lab, including `ggplot2` [@ggplot2] and `GGally` [@ggally], `ggthemes` [@ggthemes], `tidyr`[@tidyr], and `scales` [@scales], `ggrepel` [@ggrepel], and `factoextra` [@factoextra].
+
+```{r setup-mixed, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
+# Install and load required packages
+
+if (!require("ggplot2")){install.packages("ggplot2", dependencies = TRUE)}
+if(!require("GGally", character.only = TRUE)){install.packages("GGally", dependencies = TRUE)}
+if(!require("ggthemes", character.only = TRUE)){install.packages("ggthemes", dependencies = TRUE)}
+if(!require("ggrepel", character.only = TRUE)){install.packages("ggrepel", dependencies = TRUE)}
+if(!require("factoextra", character.only = TRUE)){install.packages("factoextra", dependencies = TRUE)}
+
+library(ggplot2)
+library(GGally)
+library(ggthemes)
+library(tidyr)
+library(scales)
+library(ggrepel)
+library(factoextra)
+```
+
+## Introduction
+
+There are many multivariate data analyses. In this lab, we will focus on Principal component analysis (PCA). We will use a data set from a research study Doi Suthep's seed morphology [@doisuthep2022final] for our lab session.
+
+PCA is one of **interdependence techniques** to reduce many variables to a smaller number of composite variables while retaining most information. For PCA, variables must be continuous and have approximately linear relationships with one another. We have tested a linear relationship in Lab 10 Regression \@ref(regression).
+
+## The data set
+
+There are three studied species:
+
+-   *Neocinnamomum caudatum* (Nees) Merr. (Lauraceae)
+-   *Erythrina subumbrans* (Hassk.) Merr. (Fabaceae)
+-   *Garcinia cowa* Roxb. ex Choisy (Clusiaceae)
+
+For each species 20 seeds were measured ($n = 60$ total). The measured variables are:
+
+-   seed width (mm),
+-   seed length (mm),
+-   seed thickness (mm),
+-   estimated volume (mm³),
+-   seed coat thickness (mm),
+-   wet weight (g),
+-   dry weight (g), and
+-   moisture content (%).
+
+Let's import a data set and specify the appropriate data types.
+```{r importing, echo = TRUE, eval = TRUE, message=FALSE, warning=FALSE, results='hide'}
+#########################
+### Import data sets
+#########################
+seed <- read.csv('seed3spp.csv', header = T)
+
+### assign right types of data to the variables
+seed$genus <- as.factor(seed$genus)
+seed$epithet <- as.factor(seed$epithet)
+
+## set row names for later visualization 
+rownames(seed) <- paste(seed$genus, seed$no) 
+
+head(seed) ### seed few rows
+
+# Create species label
+seed$species <- paste(seed$genus, seed$epithet)
+seed$species <- trimws(seed$species)
+
+seed$species.abb <- paste0(substr(seed$genus, 1, 1),". ",seed$epithet)
+
+seed$species <- as.factor(seed$species)
+seed$species.abb <- as.factor(seed$species.abb)
+
+summary(seed)
+```
+
+Here we have data of seed traits of three tree species. The number of seeds are 20 each. The data contain 60 rows and 11 columns. Let's look at the data set and see what trait data we have and see the correlation between each seed variable.
+
+```{r explore, echo = T, eval = T, fig.show = "hide"}
+## use GGally package
+library(ggplot2)
+library(GGally)
+
+## use data from column 7:11 - volume to moisture
+ggpairs(seed,          
+        columns = 4:11) # selected columns
+```
+
+### Exploring the Data
+
+Let's explore the data set and calculate mean traits for the three species.
+
+```{r summary-seed, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+# Summary statistics by species
+sum_seed <- seed %>%
+  group_by(species.abb) %>%
+  summarise(
+    n = n(),
+    `Width (mm)` = round(mean(width_mm), 1),
+    `Length (mm)` = round(mean(long_mm), 1),
+    `Thickness (mm)` = round(mean(thickness_mm), 1),
+    `Volume (mm³)` = round(mean(volume_mm3), 1),
+    `Coat thick (mm)` = round(mean(coat_thick_mm), 1),
+    `Wet wt (g)` = round(mean(wet_weight_g), 1),
+    `Dry wt (g)` = round(mean(dry_weight_g), 1),
+    `Moisture (%)` = round(mean(moisture_percent), 0),
+    .groups = "drop"
+  )
+
+# Make a nicer table
+sum_seed %>%
+  kbl(align = "c",
+      col.names = c("Species", "n", "Width (mm)", "Length (mm)",
+                    "Thickness (mm³)" ,"Volume (cubic mm)", "Seed coat thickness (mm)", "Wet weight (g)", "Dry weight (g)", "Moisture content (%)"),
+      caption = "Mean seed morphological traits for three tropical tree species (n = 20 seeds per species)") %>%
+  kable_styling(bootstrap_options = "striped", full_width = TRUE, font_size = 12) %>%
+  column_spec(1, bold = FALSE, italic = TRUE)
+```
+
+### Visualizing the Data
+
+Let's create box plots of all traits for each species.
+
+```{r boxplots-seed, echo=TRUE, fig.cap="Boxplots of all eight seed morphological traits by species. Note that Garcinia cowa seeds are substantially larger than the other two species on all traits.", fig.height=7, fig.width=10, message=FALSE, warning=FALSE, fig.align = "center"}
+
+trait_labels <- c(
+  width_mm      = "Width (mm)",
+  long_mm       = "Length (mm)",
+  thickness_mm  = "Thickness (mm)",
+  volume_mm3    = "Volume (mm³)",
+  coat_thick_mm = "Coat thickness (mm)",
+  wet_weight_g  = "Wet weight (g)",
+  dry_weight_g  = "Dry weight (g)",
+  moisture_percent = "Moisture (%)"
+)
+
+seed_long <- seed_traits %>%
+  pivot_longer(cols = -species.abb, names_to = "trait", values_to = "value")
+
+ggplot(seed_long, aes(x = species.abb, y = value, fill = species.abb)) +
+  geom_boxplot(alpha = 0.6, outlier.shape = 21) +
+  geom_jitter(width = 0.12, size = 1.3, alpha = 0.5) +
+  facet_wrap(~ trait, scales = "free_y", ncol = 4) +
+  labs(x = NULL, y = "Value") +
+  scale_x_discrete(guide = guide_axis(n.dodge = 2.5)) +
+  theme_bw() +
+  theme(
+    legend.position = "none",
+    legend.title = element_blank(),
+    #axis.text.x = element_blank(),
+    #axis.ticks.x = element_blank(),
+    strip.text = element_text(size = 14),
+    axis.text.x = element_text(size = 14, face = "italic", 
+                               ),
+    
+    axis.text.y = element_text(size = 14),
+    axis.title = element_text(size = 14))
+    #legend.text = element_text(face = "italic", size = 10)
+```
+
+## Running PCA
+
+We select the eight **continuous morphological variables** for PCA. We use the **correlation matrix**, which standardizes all variables to mean = 0 and SD = 1 before analysis. In `R`, we use `prcomp` to run PCA.
+
+```{r run-pca, echo=TRUE, message=FALSE, warning=FALSE, include = FALSE, fig.align='center', results='hide'}
+# Select numeric trait columns
+pca_vars <- seed %>%
+  dplyr::select(width_mm, long_mm, thickness_mm, volume_mm3,
+         coat_thick_mm, wet_weight_g, dry_weight_g, moisture_percent)
+
+# Run PCA using the correlation matrix (scale = TRUE)
+pca_result <- prcomp(pca_vars, center = TRUE, scale. = TRUE)
+
+# View summary
+summary(pca_result)
+```
+
+#### Eigenvalues and Variance Explained
+
+```{r eigenvalues, echo=TRUE, fig.cap="Scree plot of eigenvalues for the eight principal components from seed morphology PCA. The elbow appears after PC2, and the dashed line shows the Kaiser threshold (eigenvalue = 1).", fig.height=4, fig.width=6, message=FALSE, warning=FALSE, results='hide'}
+
+eigenvalues <- pca_result$sdev^2
+pct_var <- round(eigenvalues / sum(eigenvalues) * 100, 1)
+cum_var <- cumsum(pct_var)
+
+# Scree plot
+par(mar = c(4, 4, 2, 2))
+plot(1:length(eigenvalues), eigenvalues, type = "b", pch = 19,
+     col = "steelblue", xlab = "Principal Component", ylab = "Eigenvalue",
+     xaxt = "n")
+axis(1, at = 1:length(eigenvalues))
+abline(h = 1, lty = 2, col = "red", lwd = 1.5)
+legend("topright", legend = "Kaiser threshold (eigenvalue = 1)",
+       lty = 2, col = "red", bty = "n", cex =1)
+```
+
+The variance explained by each PC is shown below.
+
+```{r variance-table, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
+var_table <- data.frame(
+  PC = paste0("PC", 1:length(eigenvalues)),
+  Eigenvalue = round(eigenvalues, 3),
+  `Variance Explained (%)` = pct_var,
+  `Cumulative (%)` = cum_var
+)
+
+## Make a nicer table
+var_table %>%
+  kbl(align = "c",
+      col.names = c("Component", "Eigenvalue", "Variance Explained (%)", "Cumulative (%)"),
+      caption = "Eigenvalues and variance explained by each principal component from the seed morphology PCA. The PC that has the eigenvalue >= 1 is blue highlighted.") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE) %>%
+  row_spec(which(var_table$Eigenvalue >= 1), background = "#e8f4f8") %>%
+  column_spec(1, bold = TRUE)
+```
+
+The scree plot of eigenvalues can be used to decide how many PC should be retained. Based on Kaiser's rule (eigenvalue ≥ 1), **`r sum(eigenvalues >= 1)` principal components** should be retained. These components together explain **`r cum_var[sum(eigenvalues >= 1)]`%** of the total variation in seed morphology.
+
+#### Loadings (Eigenvectors)
+
+Loadings show the correlation between each original variable and each principal component (PC). Large loadings (typically \|loading\| \> 0.5) indicate that a variable is strongly associated with that PC.
+
+```{r loadings-table, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
+loadings_df <- as.data.frame(round(pca_result$rotation[, 1:3], 3))
+loadings_df$Variable <- rownames(loadings_df)
+
+## See loading
+round(pca_result$rotation[, 1:3], 3)
+
+loadings_df <- loadings_df %>%
+  dplyr::mutate(Variable = 
+      dplyr::recode(as.character(Variable), "width_mm" = "Width (mm)",
+    "long_mm" = "Length (mm)",
+    "thickness_mm" = "Thickness (mm)",
+    "volume_mm3" = "Volume (mm³)",
+    "coat_thick_mm" = "Coat thickness (mm)",
+    "wet_weight_g" = "Wet weight (g)",
+    "dry_weight_g" = "Dry weight (g)",
+    "moisture_percent" = "Moisture content (%)"
+  )) %>%
+  dplyr::select(Variable, PC1, PC2, PC3)
+
+## Make a nicer table
+rownames(loadings_df) <- NULL
+loadings_df %>%
+  kbl(align = "c",
+      col.names = c("Variable", "PC1", "PC2", "PC3"),
+      caption = "PCA loadings for the first three principal components. Values close to ±1 indicate strong association with the component.") %>%
+  kable_styling(bootstrap_options = "striped", full_width = FALSE) %>%
+  column_spec(1, bold = TRUE)
+```
+
+**Interpretation of loadings**
+
+-   **PC1** represents overall **seed size**. PC1 has large positive loadings for width, length, thickness, volume, wet weight, and dry weight. Seeds scoring high on PC1 are large in all dimensions.
+
+### PCA Biplot
+
+A **biplot** displays points for the PC scores of seeds and arrows for the loadings of variables. These are how to interpret the arrow.
+
+-   Arrows pointing in the same direction indicate positively correlated variables.
+-   Arrows pointing in opposite directions indicate negatively correlated variables.
+-   Arrows that are roughly perpendicular are uncorrelated.
+-   The length of an arrow indicates the importance of the variable in the PC.
+
+```{r biplot, echo=FALSE, fig.cap="PCA biplot of seed morphological data for three tropical tree species. Points represent individual seeds coloured by species; arrows show variable loadings on PC1 and PC2. The percentage of variance explained by each axis is shown in parentheses.", fig.height=6, fig.width=7, message=FALSE, warning=FALSE, fig.align='center'}
+
+# PC scores
+scores <- as.data.frame(pca_result$x[, 1:2])
+scores$species <- seed$species
+
+# Loadings scaled for biplot
+load_scale <- 3
+loadings_plot <- as.data.frame(pca_result$rotation[, 1:2] * load_scale)
+loadings_plot$variable <- c("Width", "Length", "Thickness", "Volume",
+                             "Coat thick.", "Wet weight.", "Dry weight.", "Moisture")
+
+# Variance labels
+pct1 <- round(pct_var[1], 1)
+pct2 <- round(pct_var[2], 1)
+
+ggplot() +
+  # Points
+  geom_point(data = scores, aes(x = PC1, y = PC2, colour = species, shape = species),
+             size = 2.5, alpha = 0.8) +
+  # Arrows
+  geom_segment(data = loadings_plot,
+               aes(x = 0, y = 0, xend = PC1, yend = PC2),
+               arrow = arrow(length = unit(0.2, "cm")),
+               colour = "black", linewidth = 0.7) +
+  # Variable labels
+  geom_text_repel(data = loadings_plot,
+                  aes(x = PC1, y = PC2, label = variable),
+                  size = 3.5, colour = "black", fontface = "bold") +
+  # Reference lines
+  geom_hline(yintercept = 0, linetype = "dashed", colour = "grey60") +
+  geom_vline(xintercept = 0, linetype = "dashed", colour = "grey60") +
+  labs(
+    x = paste0("PC1 (", pct1, "% variance explained)"),
+    y = paste0("PC2 (", pct2, "% variance explained)"),
+    colour = "Species", shape = "Species"
+  ) +
+  theme_bw() +
+  theme(
+    legend.position = "bottom",
+    legend.title = element_blank(),
+    legend.text = element_text(face = "italic", size = 10),
+    axis.title = element_text(size = 11)
+  )
+```
+
+Let's try different package to make a better plot and see the contribution of each variable.
+
+```{r better plot1, echo = TRUE, eval = FALSE}
+
+## Display species on the plot
+fviz_pca_biplot(pca_result,
+                label = "var",
+                habillage = seed$genus,
+                addEllipses = TRUE,
+                ellipse.level = 0.95,
+                ggtheme = theme_minimal())
+
+fviz_pca_biplot(pca_result,
+                label = "var",
+                col.ind = "black",
+                col.var = "contrib",
+                gradient.cols = c("blue","green","red"))
+
+## Variable contribution
+
+fviz_contrib(pca_result, 'var', axes = 1, xtickslab.rt = 45)
+
+fviz_contrib(pca_result, 'var', axes = 2, xtickslab.rt = 45)
+
+
+```
+
+**Interpretation of the biplot:**
+
+*The PC scores of seeds (see the points)*
+
+-   Along **PC1** (the size axis), the three species are well separated. *Garcinia cowa*, scoring high on PC1, have large and heavy seeds. *Erythrina subumbrans* has intermediate-sized seeds. *Neocinnamomum caudatum* seeds are small and light.
+-   Along **PC2**, *Erythrina subumbrans* tends to score higher, suggesting the seeds have relatively higher moisture content for their dry mass compared with the other two species. *Garcinia cowa* seeds varied in moisture content in comparison to the other two species.
+
+*The loadings of variables (see the arrows)*
+
+-   Length, width, thickness, volume, wet weight, and dry weight arrows point in roughly the **same** direction, meaning that these traits are strongly positively correlated.
+
+### Reporting PCA Results
+
+The following paragraph presents the written report for PCA.
+
+> "A principal component analysis was conducted on eight seed morphological traits (width, length, thickness, volume, coat thickness, wet weight, dry weight, and moisture content) for 60 seeds from three tropical tree species, using the correlation matrix. Based on Kaiser's rule (eigenvalue ≥ 1), the first `r sum(eigenvalues >= 1)` principal components were retained, explaining `r cum_var[sum(eigenvalues >= 1)]`% of the total variance. PC1 (explaining `r pct_var[1]`% of variance) had high positive loadings for all size-related traits and is interpreted as a **seed size** axis. PC2 (explaining `r pct_var[2]`% of variance) was strongly loaded by seed thickness. The biplot showed clear separation among the three species, primarily along PC1, with *Garcinia cowa* occupying the high-size end, *Neocinnamomum caudatum* the low-size end, and *Erythrina subumbrans* in an intermediate position."
+
+## Exercise
+
+**Submission:** A PDF file containing your answers.
+If you are asked to use R, your answers must contain **R codes** that you wrote and **the outputs** you get. Your codes and outputs can be text and/or screen capture.
+
+**Full score:** 10
+
+**Data for this exercise:** None
+
+### Questions/Directions
+
+**1**.  Find a journal article (of your own interest) that has multivariate data analysis.
+
+**2**.  Identify what research questions the author(s) want to answer.  
+
+**3**.  Identify what the data used in the article are.
+
+**4**.  Identify what models or analyses the author(s) used in the study 
+
+**5**.  Search from external sources about the models/ analyses and summarize in your own words what the advantages and disadvantages of the models/ analyses are.
+
+**6**.  Summarize in your own words what the procedures to run the analyses are.
+
+**7**.  Include the list of references you used.
+
+### Grading Rubric
+
+| Question | Score = 2 | Score = 1 | Score = 0 |
+|------------------|------------------|------------------|------------------|
+| 1 | - | The journal has at least one multivariate data analysis | The journal has NO multivariate data analysis |
+| 2 | - | Correctly identify | Incorrectly identify or the answer is not included |
+| 3 | - | Correctly identify | Incorrectly identify or the answer is not included |
+| 4 | - | Correctly identify | Incorrectly identify or the answer is not included |
+| 5 | Correct summary | Partial correct summary  | Incorrect summary or the answer is not included |
+| 6 | Correct summary | Partial correct summary  | Incorrect summary or the answer is not included |
+| 7 | - | Correct give the reference list | The reference list is not included |
+
+**End of lab 14**

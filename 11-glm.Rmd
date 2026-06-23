@@ -284,8 +284,7 @@ One of our options would be analyze the effect of storage separately by species.
 ## Exercise
 
 **Submission:** A PDF file containing your answers.
-Your answers must contain **R codes** that you wrote and **the outputs** you get.
-Your codes and outputs can be text and/or screen capture.
+If you are asked to use R, your answers must contain **R codes** that you wrote and **the outputs** you get. Your codes and outputs can be text and/or screen capture.
 
 **Full score:** 10 Submission:
 
