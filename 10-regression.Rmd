@@ -61,6 +61,7 @@ summary(seed[,7:11])
 
 Now, let's visualize the data and see the correlations among the variables.
 Remember this first step is EDA and we should **always** do EDA before we run further analyses.
+
 We will plot some graphs using `ggplot2` and `GGally` packages.
 
 ```{r explore, echo = T, eval = T, fig.show = "hide"}
@@ -246,8 +247,7 @@ summary(final.model)
 ## Exercise
 
 **Submission:** A PDF file containing your answers.
-If you are asked to work in R, your answers must contain **R codes** that you wrote and **the outputs** you get.
-Your codes and outputs can be text and/or screen capture.
+If you are asked to use R, your answers must contain **R codes** that you wrote and **the outputs** you get. Your codes and outputs can be text and/or screen capture.
 
 **Full score:** 10
 
