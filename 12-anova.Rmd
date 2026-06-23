@@ -20,7 +20,7 @@ ANOVA is a hypothesis testing technique. We will use an example of plant growth 
 
 ## Download additional packages
 
-We will usse a number of packages in this lab, including `ggplot2` [@ggplot2], `dplyr` [@dplyr], `ggthemes` [@ggthemes], `kableExtra` [@kableextra], `DescTools` [@DescTools], `emmeans` [@emmeans], `multcomp`[@multcomp], and `effectsize` [@effectsize].
+We will use a number of packages in this lab, including `ggplot2` [@ggplot2], `dplyr` [@dplyr], `ggthemes` [@ggthemes], `kableExtra` [@kableextra], `DescTools` [@DescTools], `emmeans` [@emmeans], `multcomp`[@multcomp], and `effectsize` [@effectsize].
 
 ```{r eval = F}
 if(!require(ggplot2)){install.packages("ggplot2")}

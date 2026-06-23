@@ -1,8 +1,19 @@
-# Multivariate Analysis {#13mva}
+# Multivariate Analysis - Principal Component Analysis {#pca}
 
-**Duration:** 4-hour lecture
+## Learning outcomes
 
-## Learning Outcomes
+Students should be able to:
+
+1.  Give some examples of multivariate data analyses.
+2.  Search for journal articles and information on related multivariate statistics and summarize key procedure of the related analyses. 
+
+There are many multivariate data analyses. In this lab, three multivariate ordination techniques are introduced - Principal component analysis, cluster analysis and multidimensional scaling.
+
+## Data files for this lab
+
+- root_data_chaiklang.csv [Click here to download](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/IQBYzegaBvK3R4Rn2HFDuFJnAfvfSC1WqiG5NPABDCzb1vo?e=fNLY3N)
+
+## Introduction
 
 Students should be able to:
 
