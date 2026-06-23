@@ -23,24 +23,24 @@ Here is a list of some common distributions with the R function and the paramete
 
 | Distribution      | R name  | Parameters (arguments in function) |
 |-------------------|---------|------------------------------------|
-| Beta              | beta    | shape1, shape2, ncp                |
-| Binomial          | binom   | size, prob                         |
-| Cauchy            | cauchy  | location, scale                    |
-| Chi-squared       | chisq   | df, ncp                            |
-| Exponential       | exp     | rate                               |
-| F                 | f       | df1, df2, ncp                      |
-| Gamma             | gamma   | shape, scale                       |
-| Geometric         | geom    | prob                               |
-| Hypergeometric    | hyper   | m, n, k                            |
-| Log-normal        | lnorm   | meanlog, sdlog                     |
-| Logistic          | logis   | location, scale                    |
-| Negative binomial | nbinom  | size, prob                         |
-| Normal            | norm    | mean, sd                           |
-| Poisson           | pois    | lambda                             |
-| Student's t       | t       | df, ncp                            |
-| Uniform           | unif    | min, max                           |
-| Weibull           | weibull | shape, scale                       |
-| Wilcoxon          | wilcox  | m, n                               |
+| Beta              | `beta`    | shape1, shape2, ncp                |
+| Binomial          | `binom`   | size, prob                         |
+| Cauchy            | `cauchy`  | location, scale                    |
+| Chi-squared       | `chisq`  | df, ncp                            |
+| Exponential       | `exp`    | rate                               |
+| F                 | `f`       | df1, df2, ncp                      |
+| Gamma             | `gamma`   | shape, scale                       |
+| Geometric         | `geom`    | prob                               |
+| Hypergeometric    | `hyper`   | m, n, k                            |
+| Log-normal        | `lnorm`   | meanlog, sdlog                     |
+| Logistic          | `logis`   | location, scale                    |
+| Negative binomial | `nbinom`  | size, prob                         |
+| Normal            | `norm`    | mean, sd                           |
+| Poisson           | `pois`    | lambda                             |
+| Student's t       | `t`       | df, ncp                            |
+| Uniform           | `unif`   | min, max                           |
+| Weibull           | `weibull` | shape, scale                       |
+| Wilcoxon          | `wilcox`  | m, n                               |
 
 ## Continuous Distribution
 

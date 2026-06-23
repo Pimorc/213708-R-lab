@@ -23,7 +23,7 @@ In this lab, we will learn how to build, compare, and interpret mixed effects mo
 
 ## Download additional packages
 
-We will use a number of packages in this lab, including `ggplot2` [@ggplot2], `dplyr` [@dplyr], `lme4` [@Bates2015], `lmerTest` [@lmerTest2017], `kableExtra` [@kableextra], `emmeans` [@emmeans], `multcomp`[@multcomp], and `effectsize` [@effectsize].
+We will use a number of packages in this lab, including `ggplot2` [@ggplot2], `ggforce` [@ggforce], `dplyr` [@dplyr], `lme4` [@Bates2015], `lmerTest` [@lmerTest2017], `kableExtra` [@kableextra], `emmeans` [@emmeans], `multcomp`[@multcomp], and `effectsize` [@effectsize].
 
 ```{r setup-mixed, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 # Install and load required packages
@@ -31,6 +31,7 @@ if (!require("lme4"))     install.packages("lme4",     dependencies = TRUE)
 if (!require("lmerTest")) install.packages("lmerTest", dependencies = TRUE)
 if (!require("emmeans"))  install.packages("emmeans",  dependencies = TRUE)
 if (!require("ggplot2"))  install.packages("ggplot2",  dependencies = TRUE)
+if (!require("ggforce"))  install.packages("ggforce",  dependencies = TRUE)
 if (!require("dplyr"))    install.packages("dplyr",    dependencies = TRUE)
 if (!require("knitr"))    install.packages("knitr",    dependencies = TRUE)
 if (!require("kableExtra")) install.packages("kableExtra", dependencies = TRUE)
@@ -52,6 +53,7 @@ library(ggpattern)
 library(MuMIn)
 library(sfsmisc)
 library(formatdown)
+library(ggforce)
 ```
 
 ## The Data Set: Nursery Propagation Systems and Tree Performance
@@ -282,7 +284,7 @@ If you are asked to use R, your answers must contain **R codes** that you wrote 
 
 **Full score:** 10 Submission:
 
-**Data for this exercise:** rikz_data.txt. Download using codes below.
+**Data for this exercise:** rikz_data.txt. [Click here to download](https://o365cmu-my.sharepoint.com/:t:/g/personal/pimonrat_t_cmu_ac_th/IQDKYLsFBQh4Rq_y7sa2-H4dAW7qVFcqu8o8DAVpVl_dLdY?e=LSaemZ).
 
 ### Questions/directions
 
@@ -299,38 +301,22 @@ This exercise is modified from the lesson ***Linear mixed-effects models** and *
 
 ```{r exercise-data, eval=FALSE, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 
-if(!require("readr"))install.packages("readr",dependencies = TRUE)
-if(!require("plyr"))install.packages("plyr",dependencies = TRUE)
-
-library(readr)
-library(plyr)
-
-rikz_data <- "https://uoftcoders.github.io/rcourse/data/rikz_data.txt"
-
-download.file(rikz_data, "rikz_data.txt")
-
-rikz_data <- read_delim("rikz_data.txt",
-                        col_names = TRUE,
-                        delim = "\t")
-
-head(rikz_data)
+rikz_data <- read.table("data/rikz_data.txt", header = T)
+rikz_data$Beach <- as.factor(rikz_data$Beach)
+rikz_data$Site <- as.factor(rikz_data$Site)
 
 ## Explore the data
-# Function to find polygons
-find_hull <- function(df) df[chull(df$Richness, df$NAP), ]
-
-# Identify polygons in data
-hulls <- ddply(rikz_data, "Beach", find_hull)
-
 # Plot
+
 ggplot(rikz_data, aes(x = NAP, y = Richness, colour = as.factor(Beach))) +
   geom_point(size = 3) +
   theme_classic() +
   theme(legend.position = "none") +
   scale_colour_brewer(palette="Set1") +
   scale_fill_brewer(palette="Set1") +
-  geom_polygon(data = hulls, aes(fill = as.factor(Beach), alpha = 0.2))
-
+  ggforce::geom_mark_hull (aes(fill = as.factor(Beach), label = as.factor(Beach)),
+             concavity = 2)
+  
 #### See the data separate by beach
 ggplot(rikz_data, aes(x = NAP, y = Richness)) +
   geom_point() +

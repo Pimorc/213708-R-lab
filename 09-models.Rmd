@@ -26,7 +26,7 @@ We will use a data set from a research study by @khamyong2018 on Doi Suthep's fo
 
 ## Download Additional Packages
 
-We will use `ggplot2` [@ggplot2] and `MLmetrics` [@mlmetrics].
+We will use `ggplot2` [@ggplot2], `dplyr` [@dplyr], and `MLmetrics` [@mlmetrics].
 
 ```{r echo = T, eval = FALSE}
 if(!require(MLmetrics)){install.packages("MLmetrics")}
@@ -34,6 +34,7 @@ if(!require(ggplot2)){install.packages("ggplot2")}
 
 library(MLmetrics)
 library(ggplot2)
+library(dplyr)
 ```
 
 ## The Data Set
@@ -261,7 +262,6 @@ We got the best fit model which is the monomolecular model with three parameters
 Finally, let's plot a publishable graph.
 
 ```{r, echo = T, eval = F}
-library(dplyr)
 ### I added a new column with predicted height based on dbh for each tree (depending on the forest types)
 tack.test.new <- 
   tack.test.new %>%

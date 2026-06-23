@@ -23,6 +23,8 @@ if(!require("GGally", character.only = TRUE)){install.packages("GGally", depende
 if(!require("ggthemes", character.only = TRUE)){install.packages("ggthemes", dependencies = TRUE)}
 if(!require("ggrepel", character.only = TRUE)){install.packages("ggrepel", dependencies = TRUE)}
 if(!require("factoextra", character.only = TRUE)){install.packages("factoextra", dependencies = TRUE)}
+if(!require("scales", character.only = TRUE)){install.packages("scales", dependencies = TRUE)}
+if(!require("tidyr", character.only = TRUE)){install.packages("tidyr", dependencies = TRUE)}
 
 library(ggplot2)
 library(GGally)
@@ -39,7 +41,7 @@ There are many multivariate data analyses. In this lab, we will focus on Princip
 
 PCA is one of **interdependence techniques** to reduce many variables to a smaller number of composite variables while retaining most information. For PCA, variables must be continuous and have approximately linear relationships with one another. We have tested a linear relationship in Lab 10 Regression \@ref(regression).
 
-## The data set
+## The Data Set
 
 There are three studied species:
 
@@ -84,16 +86,19 @@ seed$species <- as.factor(seed$species)
 seed$species.abb <- as.factor(seed$species.abb)
 
 summary(seed)
+
+# Select trait variables and species label
+seed_traits <- seed %>% 
+  dplyr::select(species.abb, width_mm, long_mm, thickness_mm, volume_mm3,
+         coat_thick_mm, wet_weight_g, dry_weight_g, moisture_percent)
+
 ```
 
 Here we have data of seed traits of three tree species. The number of seeds are 20 each. The data contain 60 rows and 11 columns. Let's look at the data set and see what trait data we have and see the correlation between each seed variable.
 
 ```{r explore, echo = T, eval = T, fig.show = "hide"}
-## use GGally package
-library(ggplot2)
-library(GGally)
 
-## use data from column 7:11 - volume to moisture
+## use data from column 4:11 - width to moisture
 ggpairs(seed,          
         columns = 4:11) # selected columns
 ```
@@ -131,7 +136,7 @@ sum_seed %>%
 
 ### Visualizing the Data
 
-Let's create box plots of all traits for each species.
+Let's create box plots of eight traits for each species.
 
 ```{r boxplots-seed, echo=TRUE, fig.cap="Boxplots of all eight seed morphological traits by species. Note that Garcinia cowa seeds are substantially larger than the other two species on all traits.", fig.height=7, fig.width=10, message=FALSE, warning=FALSE, fig.align = "center"}
 

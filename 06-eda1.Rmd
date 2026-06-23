@@ -19,7 +19,7 @@ This worksheet will guide you how to do EDA of various kinds. Read the text for 
 
 ## Download Additional Packages
 
-R packages are add-ons that provide specific tools for enhancing R functionality. R packages contain code, data, and documentation. We will install some packages and call those packages at the beginning.
+R packages are add-ons that provide specific tools for enhancing R functionality. R packages contain code, data, and documentation. We will install some packages and call those packages at the beginning. We will use `ggplot2` [@ggplot2], `dplyr` [@dplyr], `GGally` [@ggally], and `plotly` [@plotly].
 
 ```{r message = FALSE, warning=FALSE, eval = FALSE}
 if(!require(ggplot2)){install.packages('ggplot2')}
