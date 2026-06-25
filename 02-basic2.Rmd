@@ -234,7 +234,7 @@ Show the data frame.
 
 ### Grading Rubric
 
-| : Question | Score = 2                     | Score = 1                                            | Score = 0                                       |
+| Question | Score = 2                     | Score = 1                                            | Score = 0                                       |
 |-------------------|------------------|------------------|------------------|
 | 1          | Correctly answer the question | Give partially correct answer                        | No answer                                       |
 | 2          | Correct data file             | Give partially correct data file                     | No answer                                       |

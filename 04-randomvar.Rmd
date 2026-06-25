@@ -6,7 +6,7 @@
 
 Students should be able to:
 
-1. Generate plot of random variables and describe the shape of the distribution
+1. Generate plots of random variables and describe the shape of the distribution
 
 ## Data Files for This Lab
 

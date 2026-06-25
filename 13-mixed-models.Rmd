@@ -27,16 +27,16 @@ We will use a number of packages in this lab, including `ggplot2` [@ggplot2], `g
 
 ```{r setup-mixed, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 # Install and load required packages
-if (!require("lme4"))     install.packages("lme4",     dependencies = TRUE)
-if (!require("lmerTest")) install.packages("lmerTest", dependencies = TRUE)
-if (!require("emmeans"))  install.packages("emmeans",  dependencies = TRUE)
-if (!require("ggplot2"))  install.packages("ggplot2",  dependencies = TRUE)
-if (!require("ggforce"))  install.packages("ggforce",  dependencies = TRUE)
-if (!require("dplyr"))    install.packages("dplyr",    dependencies = TRUE)
-if (!require("knitr"))    install.packages("knitr",    dependencies = TRUE)
-if (!require("kableExtra")) install.packages("kableExtra", dependencies = TRUE)
-if (!require("ggpattern")) install.packages("ggpattern", dependencies = TRUE)
-if(!require("MuMIn")) install.packages("MuMIn", dependencies = TRUE)
+if (!require("lme4")){install.packages("lme4", dependencies = TRUE)}
+if (!require("lmerTest")){install.packages("lmerTest", dependencies = TRUE)}
+if (!require("emmeans")){install.packages("emmeans", dependencies = TRUE)}
+if (!require("ggplot2")){install.packages("ggplot2", dependencies = TRUE)}
+if (!require("ggforce")){install.packages("ggforce", dependencies = TRUE)}
+if (!require("dplyr")){install.packages("dplyr", dependencies = TRUE)}
+if (!require("knitr")){install.packages("knitr", dependencies = TRUE)}
+if (!require("kableExtra")){install.packages("kableExtra", dependencies = TRUE)}
+if (!require("ggpattern")){install.packages("ggpattern", dependencies = TRUE)}
+if(!require("MuMIn")) {install.packages("MuMIn", dependencies = TRUE)}
 if(!require("sfsmisc", character.only = TRUE)) {
   install.packages("sfsmisc", dependencies = TRUE)}
 if(!require("formatdown", character.only = TRUE)) {
@@ -71,8 +71,6 @@ The experiment used five framework tree species (*Saraca indica*, *Sandoricum ko
 The experiment used a **randomised complete block design (RCBD)** with three replicates (blocks) per species. Root length data are used as an example for the mixed model analysis.
 
 ```{r data-mixed, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
-set.seed(213708)
-
 chaiklang_data <- read.csv("data/root_data_chaiklang.csv", header = T)
 chaiklang_data$Treatment <- factor(chaiklang_data$Treatment,
                                    levels = c("CON", "COB", "COG"))
@@ -88,7 +86,7 @@ unique(chaiklang_data$Species)
 
 Let's explore the data set.
 
-```{r chaiklang-boxplot, fig.height=5, fig.cap="Root length (cm) of five framework tree species under three nursery production systems. CON = polybags on ground (control); COB = crates on wire benches; COG = crates on ground. Points represent individual sapling measurements.", echo=FALSE, fig.align='center', message=FALSE, warning=FALSE}
+```{r chaiklang-boxplot, fig.height=5, fig.cap="Root length (cm) of five framework tree species under three nursery production systems. CON = polybags on ground (control); COB = crates on wire benches; COG = crates on ground. Points represent individual sapling measurements.", echo=TRUE, fig.align='center', message=FALSE, warning=FALSE}
 ggplot(chaiklang_data,
        aes(x = Treatment, y = Rootlength, fill = Treatment)) +
   geom_boxplot_pattern(aes(pattern = Treatment), alpha = 0.6, outlier.shape = NA,
@@ -114,7 +112,7 @@ ggplot(chaiklang_data,
 
 Create a summary table of means and standard errors before modelling. 
 
-```{r chaiklang-summary, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+```{r chaiklang-summary, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 summary_ch <- chaiklang_data %>%
   group_by(Species, Treatment) %>%
   summarise(
@@ -155,7 +153,7 @@ mixed_model_IntOnly2 <- lmer(Rootlength ~ Treatment * Species + (1|Replicate),
 
 Then we do a **random slope and intercept model** and compare the two models and make a decision which one fit better according to AIC scores. 
 
-```{r fit-model1, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
+```{r fit-model2, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 mixed_model_IntSlope2 <- lmer(Rootlength ~ Treatment * Species + 
                           (1 + Species|Replicate),
                           data = chaiklang_data, REML = TRUE)
@@ -197,7 +195,7 @@ Before interpreting the model, we must check the residuals. The key assumptions 
 2.  Residuals have roughly constant variance (homoscedasticity)
 3.  Random effects are normally distributed
 
-```{r model-validation, fig.height=4, fig.cap="Model diagnostics for the mixed effects model: (A) residuals vs. fitted values (checks homoscedasticity); (B) Q-Q plot of residuals (checks normality).", fig.align='center', echo=TRUE, message=FALSE, warning=FALSE}
+```{r model-validation, fig.height=4, fig.cap="Model diagnostics for the mixed effects model: (A) residuals vs. fitted values (checks homoscedasticity); (B) Q-Q plot of residuals (checks normality).", fig.align='center', echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 # split the plotting area
 par(mfrow = c(1, 2))
 
@@ -220,7 +218,7 @@ No strong patterns in the residual plot; however, there are some outliers. Also,
 
 ## ANOVA Table for Fixed Effects
 
-```{r anova-table-mixed, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+```{r anova-table-mixed, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 
 anova_final <- anova(model_final)
 
@@ -237,7 +235,7 @@ kbl(round(as.data.frame(anova_ch), 2),
 
 Let's compare the treatments effects on root length, separately by species using estimated marginal means (EMMs) with Tukey's HSD correction (See @Chaiklang2025).
 
-```{r posthoc-table-mixed, echo=TRUE, message=FALSE, warning=FALSE, include = FALSE}
+```{r posthoc-table-mixed, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 # Estimated marginal means for Treatment within each Species
 emm_ch <- emmeans(model_final, ~ Treatment | Species)
 
@@ -247,7 +245,7 @@ pairs_ch <- pairs(emm_ch, adjust = "tukey")
 
 ## Visualising Estimated Marginal Means
 
-```{r emm-plot, fig.height=5, fig.cap="Estimated marginal means (±95% CI) for relative height growth rate (RGR-H) of five framework tree species under three nursery production systems from the mixed effects model.", echo=TRUE, message=FALSE, warning=FALSE, include = FALSE}
+```{r emm-plot, fig.height=5, fig.cap="Estimated marginal means (±95% CI) for relative height growth rate (RGR-H) of five framework tree species under three nursery production systems from the mixed effects model.", echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 
 # I didn't use this in the lesson content. This might be useful for practical session
 emm_df <- as.data.frame(emm_ch)
@@ -297,7 +295,7 @@ The data set includes:
 4. Exposure: Index composed of the surf zone, slope, grain size, and depth of anaerobic layer
 5. Site: 5 sites nested in the beaches
 
-This exercise is modified from the lesson ***Linear mixed-effects models** and **Model selection** by James S. Santangelo [@santangelo1, @santangelo2]
+This exercise is modified from the lesson **Linear mixed-effects models** [@santangelo1] and **Model selection** [@santangelo2].
 
 ```{r exercise-data, eval=FALSE, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 

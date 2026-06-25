@@ -94,7 +94,7 @@ summary_plant <- plant_data %>%
 
 Let's start by exploring. First, let's make a summary table of the height data separated by fertilizer treatments and a box plot.
 
-```{r summary-data, echo=TRUE, message=FALSE, warning=FALSE, tab.cap="Summary of experiment data for ANOVA", results='asis'}
+```{r summary-data, echo=TRUE, message=FALSE, warning=FALSE, tab.cap="Summary of experiment data for ANOVA", results='hide'}
 summary_plant%>%
   kbl(align = "c",
       col.names = c("Fertilizer", "n", "Mean height (inch)", 
@@ -277,7 +277,7 @@ tukey_table$Sign. <- ifelse(tukey_table$p_adj < 0.05, "***",
 
 Let's organize the results to make it easy to read.
 
-```{r tukey-hsd-tab, message=FALSE, echo = TRUE, tab.cap= "Tukey's HSD results comparing three treatment pairs", warning=FALSE, results='asis'} 
+```{r tukey-hsd-tab, message=FALSE, echo = TRUE, tab.cap= "Tukey's HSD results comparing three treatment pairs", warning=FALSE, results='hide'} 
 kbl(tukey_table, digit = 2, row.names = FALSE,
     caption = "Tukey's HSD results comparing three treatment pairs") %>%
 kable_styling(bootstrap_options = "striped", full_width = F)
@@ -406,7 +406,7 @@ summary_stats ## see the summary
 
 First, let's explore the data before testing. 
 
-```{r summary-data-ancova, echo=TRUE, message=FALSE, warning=FALSE, tab.cap="Summary of fertilizer experiment data by treatment", results='asis'}
+```{r summary-data-ancova, echo=TRUE, message=FALSE, warning=FALSE, tab.cap="Summary of fertilizer experiment data by treatment", results='hide'}
 summary_stats %>%
   kbl(align = "c",
       col.names = c("Fertilizer type", "n", "Mean initial height (cm)", 
@@ -641,7 +641,7 @@ cld(adjusted_means, Letters = letters)
 
 Then, let's visualize the results.
 
-```{r plot-posthoc, fig.height=6, fig.cap="Adjusted Means with Post-Hoc Comparisons. Groups with different letters are significantly different.", echo=true, warning=FALSE, message=FALSE}
+```{r plot-posthoc, fig.height=6, fig.cap="Adjusted Means with Post-Hoc Comparisons. Groups with different letters are significantly different.", echo=TRUE, warning=FALSE, message=FALSE}
 
 # Plot adjusted means with error bars and significance letters
 adj_means_df <- as.data.frame(adjusted_means)
@@ -674,7 +674,7 @@ Small: $η²  = 0.01$
 Medium: $η² = 0.06$
 Large: $η²  = 0.14$
 
-```{r effect-size-ancova, tab.cap="Partial eta-squared of ANCOVA model of the fertilizer experiment", echo =TRUE, warning=FALSE, message=FALSE, results='asis'}
+```{r effect-size-ancova, tab.cap="Partial eta-squared of ANCOVA model of the fertilizer experiment", echo =TRUE, warning=FALSE, message=FALSE, results='hide'}
 library(effectsize)
 
 # Calculate effect sizes

@@ -16,20 +16,27 @@ Students should be able to:
 
 We will use a number of packages in this lab, including `dplyr` [@dplyr], `ggplot2` [@ggplot2] and `GGally` [@ggally], `kableExtra` [@kableextra], `ggthemes` [@ggthemes], `tidyr`[@tidyr], and `scales` [@scales], `ggrepel` [@ggrepel], `biotools` [@biotools], and `corrplot` [@corrplot2024].
 
-```{r setup-mixed, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
+```{r package-download15, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 # Install and load required packages
 
 if (!require("ggplot2")){install.packages("ggplot2", dependencies = TRUE)}
-if(!require("GGally", character.only = TRUE)){install.packages("GGally", dependencies = TRUE)}
-if(!require("ggthemes", character.only = TRUE)){install.packages("ggthemes", dependencies = TRUE)}
-if(!require("ggrepel", character.only = TRUE)){install.packages("ggrepel", dependencies = TRUE)}
-if(!require("biotools")) install.packages("biotools", dependencies = TRUE)
-
-if(!require("corrplot")) install.packages("corrplot", dependencies = TRUE)
-if(!require("kableExtra")) install.packages("kableExtra", dependencies = TRUE)
-if(!require("dplyr")) install.packages("dplyr", dependencies = TRUE)
-if(!require("scales", character.only = TRUE)){install.packages("scales", dependencies = TRUE)}
-if(!require("tidyr", character.only = TRUE)){install.packages("tidyr", dependencies = TRUE)}
+if(!require("GGally", character.only = TRUE))
+  {install.packages("GGally", dependencies = TRUE)}
+if(!require("ggthemes", character.only = TRUE))
+  {install.packages("ggthemes", dependencies = TRUE)}
+if(!require("ggrepel", character.only = TRUE))
+  {install.packages("ggrepel", dependencies = TRUE)}
+if(!require("biotools"))
+  {install.packages("biotools", dependencies = TRUE)}
+if(!require("corrplot"))
+  {install.packages("corrplot", dependencies = TRUE)}
+if(!require("kableExtra"))
+  {install.packages("kableExtra", dependencies = TRUE)}
+if(!require("dplyr")){install.packages("dplyr", dependencies = TRUE)}
+if(!require("scales", character.only = TRUE))
+  {install.packages("scales", dependencies = TRUE)}
+if(!require("tidyr", character.only = TRUE))
+  {install.packages("tidyr", dependencies = TRUE)}
 
 library(ggplot2)
 library(GGally)
@@ -69,7 +76,7 @@ For each species 20 seeds were measured ($n = 60$ total). The measured variables
 7. dry weight (g), and
 8. moisture content (%).
 
-```{r importing, echo = TRUE, eval = TRUE, message=FALSE, warning=FALSE, results='hide'}
+```{r importing2, echo = TRUE, eval = TRUE, message=FALSE, warning=FALSE, results='hide'}
 #########################
 ### Import data sets
 #########################
@@ -114,7 +121,7 @@ Here we have data of seed traits of three tree species. The number of seeds are 
 
 Let's create box plots separated by traits.
 
-```{r boxplots-seed, echo=TRUE, fig.cap="Boxplots of all eight seed morphological traits by species. Note that Garcinia cowa seeds are substantially larger than the other two species on all traits.", fig.height=7, fig.width=10, message=FALSE, warning=FALSE, fig.align = "center", results ='hide'}
+```{r boxplots-seed2, echo=TRUE, fig.cap="Boxplots of all eight seed morphological traits by species. Note that Garcinia cowa seeds are substantially larger than the other two species on all traits.", eval = F, results ='hide'}
 
 trait_labels <- c(
   width_mm      = "Width (mm)",
@@ -150,7 +157,7 @@ ggplot(seed_long, aes(x = species.abb, y = value, fill = species.abb)) +
 
 Let's create a pairs plot of selected traits.
 
-```{r pairs-plot, echo=TRUE, fig.cap="Pairs plot of four selected seed traits coloured by species ($\\circ$ = *E. subumbrans*, $\\\triangle$ = *G. cowa*, and $\\square$ = *N. caudatum*). Pairs of traits that show good group separation in bivariate scatter are strong discriminators.", fig.height=6, fig.width=7, message=FALSE, warning=FALSE, fig.align='center', results='hide'}
+```{r pairs-plot2, echo=TRUE, fig.cap="Pairs plot of four selected seed traits coloured by species ($\\circ$ = *E. subumbrans*, $\\triangle$ = *G. cowa*, and $\\square$ = *N. caudatum*). Pairs of traits that show good group separation in bivariate scatter are strong discriminators.", fig.height=6, fig.width=7, message=FALSE, warning=FALSE, fig.align='center', results='hide'}
 species_cols <- c(
   "E. subumbrans" = "#F8766D",
   "G. cowa"        = "#00BA38",
@@ -209,9 +216,11 @@ norm_results %>%
 
   kbl(align = "c",
       col.names = c("Species", "Trait", "W statistic", "p-value", "Decision"),
-      caption = "Shapiro-Wilk normality test for each trait within each species. P > 0.05 is consistent with normality.") %>%
+      caption = "Shapiro-Wilk normality test for each trait 
+      within each species. P > 0.05 is consistent with normality.") %>%
   remove_column(columns = 1) %>%
-  kable_styling(bootstrap_options = c("striped", "hover"), full_width = TRUE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = TRUE) %>%
   column_spec(1, italic = TRUE) %>%
   row_spec(which(norm_results$p_value < 0.05), background = "#fff3cd")
 ```
@@ -309,7 +318,7 @@ LD1 explains **`r pct_eig[1]`%** of the between-group variance and LD2 explains 
 
 ### Step 6: Plot Discriminant Scores
 
-```{r lda-scores, echo=TRUE, fig.cap="Scatter plot of discriminant scores on LD1 and LD2 for 60 seeds from three tropical tree species. Points coloured by species; ellipses show 95% confidence regions for each group centroid.", fig.height=5.5, fig.width=7, message=FALSE, warning=FALSE, fig.align='center', results='hide'}
+```{r lda-scores, echo=TRUE, fig.cap="Scatter plot of discriminant scores on LD1 and LD2 for 60 seeds from three tropical tree species. Points coloured by species; ellipses show 95% confidence regions for each group centroid.",eval = F, results='hide'}
 # Predict discriminant scores
 lda_pred   <- predict(lda_model)
 scores_df  <- data.frame(lda_pred$x, species = seed_traits$species.abb)

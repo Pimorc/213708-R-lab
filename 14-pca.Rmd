@@ -15,13 +15,14 @@ Students should be able to:
 
 We will use a number of packages in this lab, including `ggplot2` [@ggplot2] and `GGally` [@ggally], `ggthemes` [@ggthemes], `tidyr`[@tidyr], and `scales` [@scales], `ggrepel` [@ggrepel], and `factoextra` [@factoextra].
 
-```{r setup-mixed, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
+```{r setup14, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 # Install and load required packages
 
 if (!require("ggplot2")){install.packages("ggplot2", dependencies = TRUE)}
 if(!require("GGally", character.only = TRUE)){install.packages("GGally", dependencies = TRUE)}
 if(!require("ggthemes", character.only = TRUE)){install.packages("ggthemes", dependencies = TRUE)}
 if(!require("ggrepel", character.only = TRUE)){install.packages("ggrepel", dependencies = TRUE)}
+if (!require("kableExtra")) install.packages("kableExtra", dependencies = TRUE)
 if(!require("factoextra", character.only = TRUE)){install.packages("factoextra", dependencies = TRUE)}
 if(!require("scales", character.only = TRUE)){install.packages("scales", dependencies = TRUE)}
 if(!require("tidyr", character.only = TRUE)){install.packages("tidyr", dependencies = TRUE)}
@@ -33,13 +34,14 @@ library(tidyr)
 library(scales)
 library(ggrepel)
 library(factoextra)
+library(kableExtra)
 ```
 
 ## Introduction
 
 There are many multivariate data analyses. In this lab, we will focus on Principal component analysis (PCA). We will use a data set from a research study Doi Suthep's seed morphology [@doisuthep2022final] for our lab session.
 
-PCA is one of **interdependence techniques** to reduce many variables to a smaller number of composite variables while retaining most information. For PCA, variables must be continuous and have approximately linear relationships with one another. We have tested a linear relationship in Lab 10 Regression \@ref(regression).
+PCA is one of **interdependence techniques** to reduce many variables to a smaller number of composite variables while retaining most information. For PCA, variables must be continuous and have approximately linear relationships with one another. We have tested a linear relationship in the Regression Lab \@ref(regression).
 
 ## The Data Set
 
@@ -65,7 +67,7 @@ Let's import a data set and specify the appropriate data types.
 #########################
 ### Import data sets
 #########################
-seed <- read.csv('seed3spp.csv', header = T)
+seed <- read.csv('data/seed3spp.csv', header = T)
 
 ### assign right types of data to the variables
 seed$genus <- as.factor(seed$genus)
@@ -96,7 +98,7 @@ seed_traits <- seed %>%
 
 Here we have data of seed traits of three tree species. The number of seeds are 20 each. The data contain 60 rows and 11 columns. Let's look at the data set and see what trait data we have and see the correlation between each seed variable.
 
-```{r explore, echo = T, eval = T, fig.show = "hide"}
+```{r explore-pca, echo = T, eval = T, results = "hide"}
 
 ## use data from column 4:11 - width to moisture
 ggpairs(seed,          
@@ -107,7 +109,7 @@ ggpairs(seed,
 
 Let's explore the data set and calculate mean traits for the three species.
 
-```{r summary-seed, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+```{r summary-seed, echo=T, message=FALSE, warning=FALSE, results='asis'}
 # Summary statistics by species
 sum_seed <- seed %>%
   group_by(species.abb) %>%
@@ -138,7 +140,7 @@ sum_seed %>%
 
 Let's create box plots of eight traits for each species.
 
-```{r boxplots-seed, echo=TRUE, fig.cap="Boxplots of all eight seed morphological traits by species. Note that Garcinia cowa seeds are substantially larger than the other two species on all traits.", fig.height=7, fig.width=10, message=FALSE, warning=FALSE, fig.align = "center"}
+```{r boxplots-seed, echo=TRUE, fig.cap="Boxplots of all eight seed morphological traits by species. Note that Garcinia cowa seeds are substantially larger than the other two species on all traits.", message=FALSE, warning=FALSE, fig.align = "center", results='hide'}
 
 trait_labels <- c(
   width_mm      = "Width (mm)",
@@ -164,22 +166,19 @@ ggplot(seed_long, aes(x = species.abb, y = value, fill = species.abb)) +
   theme(
     legend.position = "none",
     legend.title = element_blank(),
-    #axis.text.x = element_blank(),
-    #axis.ticks.x = element_blank(),
     strip.text = element_text(size = 14),
     axis.text.x = element_text(size = 14, face = "italic", 
                                ),
     
     axis.text.y = element_text(size = 14),
     axis.title = element_text(size = 14))
-    #legend.text = element_text(face = "italic", size = 10)
 ```
 
 ## Running PCA
 
 We select the eight **continuous morphological variables** for PCA. We use the **correlation matrix**, which standardizes all variables to mean = 0 and SD = 1 before analysis. In `R`, we use `prcomp` to run PCA.
 
-```{r run-pca, echo=TRUE, message=FALSE, warning=FALSE, include = FALSE, fig.align='center', results='hide'}
+```{r run-pca, echo=TRUE, message=FALSE, warning=FALSE, fig.align='center', results='hide'}
 # Select numeric trait columns
 pca_vars <- seed %>%
   dplyr::select(width_mm, long_mm, thickness_mm, volume_mm3,
@@ -194,7 +193,7 @@ summary(pca_result)
 
 #### Eigenvalues and Variance Explained
 
-```{r eigenvalues, echo=TRUE, fig.cap="Scree plot of eigenvalues for the eight principal components from seed morphology PCA. The elbow appears after PC2, and the dashed line shows the Kaiser threshold (eigenvalue = 1).", fig.height=4, fig.width=6, message=FALSE, warning=FALSE, results='hide'}
+```{r eigenvalues, echo=TRUE, fig.cap="Scree plot of eigenvalues for the eight principal components from seed morphology PCA. The elbow appears after PC2, and the dashed line shows the Kaiser threshold (eigenvalue = 1).", message=FALSE, warning=FALSE, results='hide'}
 
 eigenvalues <- pca_result$sdev^2
 pct_var <- round(eigenvalues / sum(eigenvalues) * 100, 1)
@@ -224,9 +223,13 @@ var_table <- data.frame(
 ## Make a nicer table
 var_table %>%
   kbl(align = "c",
-      col.names = c("Component", "Eigenvalue", "Variance Explained (%)", "Cumulative (%)"),
-      caption = "Eigenvalues and variance explained by each principal component from the seed morphology PCA. The PC that has the eigenvalue >= 1 is blue highlighted.") %>%
-  kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE) %>%
+      col.names = c("Component", "Eigenvalue", 
+                    "Variance Explained (%)", "Cumulative (%)"),
+      caption = "Eigenvalues and variance explained by each principal 
+      component from the seed morphology PCA. 
+      The PC that has the eigenvalue >= 1 is blue highlighted.") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), 
+                full_width = FALSE) %>%
   row_spec(which(var_table$Eigenvalue >= 1), background = "#e8f4f8") %>%
   column_spec(1, bold = TRUE)
 ```

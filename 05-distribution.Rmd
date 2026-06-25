@@ -15,7 +15,7 @@ Students should be able to:
 ## Introduction
 
 This worksheet will guide you to learn two each of continuous and categorical probability distributions.
-The workflow of this lab is inspired by the exercise sheet from the class the instructor took when she was in a graduate program [@deitze2009].
+The workflow of this lab is inspired by the exercise sheet from the class the instructor took when she was in a graduate program [@ib519].
 Read the text for explanations and input the text in the box into R (copy and paste into R is fine.)
 
 In R, there are a lot of probability distributions by default.

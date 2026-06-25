@@ -2,10 +2,6 @@
 
 **Duration:** 3-hour lab
 
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ## Learning Outcome
 
 Students should be able to
@@ -45,7 +41,7 @@ Let's look at the data set and see what trait data we have.
 
 ```{r import, echo = T, eval = T, results ='hide'}
 ### Import data
-seed <- read.csv("seed3spp.csv", header = T)
+seed <- read.csv("data/seed3spp.csv", header = T)
 
 ### assign right types of data to the variables
 seed$genus <- as.factor(seed$genus)
@@ -64,7 +60,7 @@ Remember this first step is EDA and we should **always** do EDA before we run fu
 
 We will plot some graphs using `ggplot2` and `GGally` packages.
 
-```{r explore, echo = T, eval = T, fig.show = "hide"}
+```{r explore, echo = T, eval = T, results='hide'}
 ## use GGally package
 library(ggplot2)
 library(GGally)
@@ -76,7 +72,7 @@ ggpairs(seed,
 
 We can also plot the graph separately by species to see the differences among species.
 
-```{r explore2, echo = T, eval = T, fig.show = "hide"}
+```{r explore2, echo = T, eval = T, results='hide'}
 ggpairs(seed,                 # Data frame
         columns = 7:11,        # Columns
         aes(color = genus,  # Color by species 
@@ -85,7 +81,7 @@ ggpairs(seed,                 # Data frame
 
 Let's plot the two variables that we are interested in.
 
-```{r plot, echo = T, eval = T, fig.show = "hide"}
+```{r plot, echo = T, eval = T, results='hide'}
 library(ggplot2)
 plot <- ggplot(seed, 
                aes(x = volume_mm3,
@@ -139,15 +135,15 @@ overall_p <- function(my_model) {
 The summary of the model shows the significant parameter estimates of intercept = `r summary(model)$coefficients["(Intercept)", "Estimate"]` and slope = `r summary(model)$coefficients["volume_mm3", "Estimate"]`.
 This means that the linear equation is
 
-`r model$terms[[2]]` = `r summary(model)$coefficients["(Intercept)", "Estimate"]` + `r summary(model)$coefficients["volume_mm3", "Estimate"]` \* (`r model$terms[[3]]`) + ε
+Dry weight * 1000 g = `r round(summary(model)$coefficients["(Intercept)", "Estimate"], digit = 2)` + `r round(summary(model)$coefficients["volume_mm3", "Estimate"], digit = 2)` \* (`r model$terms[[3]]`) + ε
 
 Look at the model summary.
-You will see R^2^ = `r summary(model)$r.squared`.
-This means that about `r summary(model)$r.squared * 100` of variance in the dependent variable is predictable from the independent variable (`r model$terms[[3]]`).
+You will see $R^2^$ = `r round(summary(model)$r.squared, digit = 3)`.
+This means that about `r round(summary(model)$r.squared, digit = 3) * 100` of variance in the dependent variable is predictable from the independent variable (`r model$terms[[3]]`).
 This means the linear model fits the data well.
 
-In addition, the F-statistics indicates whether the model with `r model$terms[[2]]` fit the data better than null model (model without `r model$terms[[3]]`).
-Here we got F = `r summary(model)$fstatistic[["value"]]` and p value = `r overall_p(model)`, meaning the model with `r model$terms[[3]]` is significant.
+In addition, the F-statistics indicates whether the model with (dry weight * 1000 g) fit the data better than null model (model without `r model$terms[[3]]`).
+Here we got F = `r round(summary(model)$fstatistic[["value"]], digit = 2)` and p value = `r overall_p(model)`, meaning the model with `r model$terms[[3]]` is significant.
 
 ## Model Evaluation
 
@@ -164,7 +160,7 @@ qqline(model$residuals, lwd = 2)
 shapiro.test(model$residuals)
 ```
 
-The plot shows the mean of residuals is about 0 but the distribution of the residuals is not quite normal (see the result of Shapiro test; p value = `r shapiro.test(model$residuals)$p.value`).
+The plot shows the mean of residuals is about 0 but the distribution of the residuals is not quite normal (see the result of Shapiro test; p value = `r round(shapiro.test(model$residuals)$p.value, digit = 3)`).
 
 Second, let's see a set of four diagnostic plots.
 We can check for heteroscedasticity using a fitted value vs residual plot.
