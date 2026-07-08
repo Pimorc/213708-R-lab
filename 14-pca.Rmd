@@ -98,7 +98,7 @@ seed_traits <- seed %>%
 
 Here we have data of seed traits of three tree species. The number of seeds are 20 each. The data contain 60 rows and 11 columns. Let's look at the data set and see what trait data we have and see the correlation between each seed variable.
 
-```{r explore-pca, echo = T, eval = T, results = "hide"}
+```{r explore-pca, echo = T, eval = F, results = "hide"}
 
 ## use data from column 4:11 - width to moisture
 ggpairs(seed,          
@@ -193,7 +193,9 @@ summary(pca_result)
 
 #### Eigenvalues and Variance Explained
 
-```{r eigenvalues, echo=TRUE, fig.cap="Scree plot of eigenvalues for the eight principal components from seed morphology PCA. The elbow appears after PC2, and the dashed line shows the Kaiser threshold (eigenvalue = 1).", message=FALSE, warning=FALSE, results='hide'}
+The variance explained by each PC is shown below.
+
+```{r eigenvalues, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 
 eigenvalues <- pca_result$sdev^2
 pct_var <- round(eigenvalues / sum(eigenvalues) * 100, 1)
@@ -210,9 +212,7 @@ legend("topright", legend = "Kaiser threshold (eigenvalue = 1)",
        lty = 2, col = "red", bty = "n", cex =1)
 ```
 
-The variance explained by each PC is shown below.
-
-```{r variance-table, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
+```{r variance-table, echo=T, message=FALSE, warning=FALSE, results='hide'}
 var_table <- data.frame(
   PC = paste0("PC", 1:length(eigenvalues)),
   Eigenvalue = round(eigenvalues, 3),
@@ -265,7 +265,9 @@ rownames(loadings_df) <- NULL
 loadings_df %>%
   kbl(align = "c",
       col.names = c("Variable", "PC1", "PC2", "PC3"),
-      caption = "PCA loadings for the first three principal components. Values close to ±1 indicate strong association with the component.") %>%
+      caption = "PCA loadings for the first 
+      three principal components. Values close to ±1 
+      indicate strong association with the component.") %>%
   kable_styling(bootstrap_options = "striped", full_width = FALSE) %>%
   column_spec(1, bold = TRUE)
 ```
