@@ -95,6 +95,7 @@ summary_plant <- plant_data %>%
 Let's start by exploring. First, let's make a summary table of the height data separated by fertilizer treatments and a box plot.
 
 ```{r summary-data, echo=TRUE, message=FALSE, warning=FALSE, tab.cap="Summary of experiment data for ANOVA", results='hide'}
+library(kableExtra)
 summary_plant%>%
   kbl(align = "c",
       col.names = c("Fertilizer", "n", "Mean height (inch)", 
@@ -102,8 +103,8 @@ summary_plant%>%
                     "Mininum height (inch)",
                     "Maximum height (inch)"),
       caption = "Summary of plant height separated by fertilizer treatments") %>% 
-  kable_styling(full_width = F) %>%
-  column_spec(1, bold = TRUE)
+  kable_styling(full_width = F)
+#  column_spec(1, bold = TRUE)
 ```
 
 Now let's create a box plot.
