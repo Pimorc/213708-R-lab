@@ -4,7 +4,7 @@ subtitle: 'Experimental design and environmental data analysis '
 author: "Pimonrat Tiansawat (Chiang Mai University)"
 date: "`r format(Sys.Date(), '%B, %Y')`"
 site: bookdown::bookdown_site
-output: gitbook
+output: bookdown::gitbook
 bibliography: book.bib
 biblio-style: apalike
 link-citations: yes
