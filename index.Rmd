@@ -4,14 +4,12 @@ subtitle: 'Experimental design and environmental data analysis '
 author: "Pimonrat Tiansawat (Chiang Mai University)"
 date: "`r format(Sys.Date(), '%B, %Y')`"
 site: bookdown::bookdown_site
-output:
-  html_document2:
-    df_print: paged
-    toc: true
+output: gitbook
 bibliography: book.bib
 biblio-style: apalike
 link-citations: yes
-description: This is material for computer lab sessions.
+github-repo: Pimorc/213708-R-lab
+description: "This is material for computer lab sessions."
 documentclass: book
 ---
 
