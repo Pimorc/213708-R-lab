@@ -60,7 +60,7 @@ Remember this first step is EDA and we should **always** do EDA before we run fu
 
 We will plot some graphs using `ggplot2` and `GGally` packages.
 
-```{r explore, echo = T, eval = T, results='hide'}
+```{r explore, echo = T, eval = F, results='hide'}
 ## use GGally package
 library(ggplot2)
 library(GGally)
@@ -72,7 +72,7 @@ ggpairs(seed,
 
 We can also plot the graph separately by species to see the differences among species.
 
-```{r explore2, echo = T, eval = T, results='hide'}
+```{r explore2, echo = T, eval = F, results='hide'}
 ggpairs(seed,                 # Data frame
         columns = 7:11,        # Columns
         aes(color = genus,  # Color by species 
@@ -81,7 +81,7 @@ ggpairs(seed,                 # Data frame
 
 Let's plot the two variables that we are interested in.
 
-```{r plot, echo = T, eval = T, results='hide'}
+```{r plot, echo = T, eval = F, results='hide'}
 library(ggplot2)
 plot <- ggplot(seed, 
                aes(x = volume_mm3,
