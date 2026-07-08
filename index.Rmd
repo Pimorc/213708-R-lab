@@ -5,6 +5,7 @@ author: "Pimonrat Tiansawat (Chiang Mai University)"
 date: "`r format(Sys.Date(), '%B, %Y')`"
 site: bookdown::bookdown_site
 output: gitbook
+    highlight: tango
 bibliography: book.bib
 biblio-style: apalike
 link-citations: yes
