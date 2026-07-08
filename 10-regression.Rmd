@@ -22,7 +22,7 @@ We will use `ggplot2` [@ggplot2], `GGally` [@ggally], and `gvlma` [@gvlma].
 
 We will also download additional packages to use in this lab session.
 
-```{r package installing, echo = T, eval = T}
+```{r package installing, echo = T, eval = F}
 if(!require(GGally)){install.packages("GGally")}
 if(!require(ggplot2)){install.packages("ggplot2")}
 if(!require(gvlma)){install.packages("gvlma")}
