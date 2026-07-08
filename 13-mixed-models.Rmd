@@ -226,7 +226,7 @@ anova_final
 
 ## Make a nicer look table
 
-kbl(round(as.data.frame(anova_ch), 2),
+kbl(round(as.data.frame(anova_final), 2),
     caption = "ANOVA table (Type III Sums of Squares) for the mixed effects model of root length") %>%
   kable_styling(full_width = FALSE, bootstrap_options = "striped",font_size = 13)
 ```
@@ -237,10 +237,10 @@ Let's compare the treatments effects on root length, separately by species using
 
 ```{r posthoc-table-mixed, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 # Estimated marginal means for Treatment within each Species
-emm_ch <- emmeans(model_final, ~ Treatment | Species)
+emm_final <- emmeans(model_final, ~ Treatment | Species)
 
 # Pairwise comparisons with Tukey adjustment
-pairs_ch <- pairs(emm_ch, adjust = "tukey")
+pairs_final <- pairs(emm_final, adjust = "tukey")
 ```
 
 ## Visualising Estimated Marginal Means
@@ -248,7 +248,7 @@ pairs_ch <- pairs(emm_ch, adjust = "tukey")
 ```{r emm-plot, fig.height=5, fig.cap="Estimated marginal means (±95% CI) for relative height growth rate (RGR-H) of five framework tree species under three nursery production systems from the mixed effects model.", echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 
 # I didn't use this in the lesson content. This might be useful for practical session
-emm_df <- as.data.frame(emm_ch)
+emm_df <- as.data.frame(emm_final)
 
 ggplot(emm_df, aes(x = Treatment, y = emmean,
                    colour = Treatment, group = Treatment)) +
