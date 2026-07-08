@@ -1,4 +1,4 @@
-bookdown::gitbook:
+bookdown:: gitbook
   css: "style.css"
   config:
     toc:
@@ -15,24 +15,6 @@ bookdown::gitbook:
       # options to control/tune search engine behavior (for
       # fuse.js, refer to https://fusejs.io/api/options.html)
       options: null
-    fontsettings:
-      theme: white
-      family: sans
-      size: 2
-    split_bib: yes
-    split_by: chapter
-bookdown::epub_book: default
-bookdown::bs4_book: default
-bookdown::tufte_html_book:
-    toc: true
-    css: toc.css
-bookdown::word_document2:
-    number_section: true
-    fig_caption: true
-bookdown::html_document2:
-    toc: true
-    number_sections: true
-    fig_caption: true
     fontsettings:
       theme: white
       family: sans
