@@ -110,7 +110,7 @@ summary_plant%>%
 Now let's create a box plot.
 
 ```{r visualize-groups, fig.height=5, message=FALSE, warning=FALSE, echo=TRUE, fig.cap="Boxplot shows plant height under different treatments"}
-
+library(ggplot2)
 # Boxplot
 ggplot(plant_data, aes(x = Fertilizer, y = Height, fill = Fertilizer)) +
   geom_boxplot(alpha = 0.6) +
