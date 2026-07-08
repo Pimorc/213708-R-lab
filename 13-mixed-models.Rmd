@@ -207,9 +207,9 @@ plot(fitted(model_final), resid(model_final),
 abline(h = 0, lty = 2, col = "red")
 
 # Q-Q plot
-qqnorm(resid(model_ch), main = "(B) Q-Q Plot of Residuals",
+qqnorm(resid(model_final), main = "(B) Q-Q Plot of Residuals",
        pch = 16, col = "steelblue", cex = 0.6)
-qqline(resid(model_ch), col = "red", lty = 2)
+qqline(resid(model_final), col = "red", lty = 2)
 
 par(mfrow = c(1, 1))
 ```
