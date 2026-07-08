@@ -1,6 +1,8 @@
 ---
 title: "213708 Teaching materials - Lab instructions"
 subtitle: 'Experimental design and environmental data analysis '
+author: "Pimonrat Tiansawat (Chiang Mai University)"
+date: "`r format(Sys.time(), %B, %Y')`"
 site: bookdown::bookdown_site
 output:
   html_document2:
@@ -38,9 +40,3 @@ The lessons include:-
 The illustrations in this lab material consist of images taken or created by the author, as well as images obtained from other sources, including articles published in academic journals by the author. R programming language [@R-base] is used for the examples of analyses and visualization. RStudio [@rstudio] is used as a coding environment. An R packages `bookdown` [@R-bookdown] is used for typesetting the lecture and lab materials.
 
 The author would like to thank Associate Professor Dr. Jatupol Kampuansai for his comments on the earlier version of the materials and suggestions for improving these materials. Also, the author thank all students who took this course and gave the author their feedback on the lab sessions.
-
-**Assistant Professor Dr. Pimonrat Tiansawat**
-
-Author
-
-July-2026

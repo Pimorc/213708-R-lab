@@ -15,7 +15,7 @@ None to download. A data set is generated in the worksheet
 ## Introduction
 
 This worksheet will provide you with an understanding of random variables and probability distributions.
-We will use a normal distribution in this lab. The workflow of this lab is inspired by the exercise sheet from the class the instructor took when she was in a graduate program [@deitze2009]. The workflow is modified to be more targeting the normal distribution. Read the text for explanations and input the text in the box into R (copy and paste into R is fine.) 
+We will use a normal distribution in this lab. The workflow of this lab is inspired by the exercise sheet from the class the instructor took when she was in a graduate program [@ib519]. The workflow is modified to be more targeting the normal distribution. Read the text for explanations and input the text in the box into R (copy and paste into R is fine.) 
 
 ## Normal Distribution
 
