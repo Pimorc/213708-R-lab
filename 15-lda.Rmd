@@ -184,22 +184,11 @@ pairs(oma=c(2,2,2,1),
 
 #### Normality
 
-Let's use a Shapiro-Wilk test to test the mnormality of each trait. In our cases, the normallity test was satisfied except for two variables each of *E. subumbrans* and *G. cowa*.
+Let's use a Shapiro-Wilk test to test the mnormality of each trait. In our cases, the normallity test was satisfied except for two variables each of *E. subumbrans* and *G. cowa*. See the rows with the $P value < 0.05$.
 
 ```{r normality-test-lda, echo=TRUE, message=FALSE, warning=FALSE, results='hide', results='hide'}
 
 traits <- c("width_mm","long_mm","thickness_mm","volume_mm3", "coat_thick_mm","wet_weight_g","dry_weight_g","moisture_percent")
-
-trait_labels <- c(
-  width_mm      = "Width (mm)",
-  long_mm       = "Length (mm)",
-  thickness_mm  = "Thickness (mm)",
-  volume_mm3    = "Volume (mm³)",
-  coat_thick_mm = "Coat thickness (mm)",
-  wet_weight_g  = "Wet weight (g)",
-  dry_weight_g  = "Dry weight (g)",
-  moisture_percent = "Moisture (%)"
-)
 
 norm_results <-  lapply(unique(seed_traits$species.abb), function(sp) {
   sub <- seed_traits %>% filter(species.abb == sp)
@@ -211,18 +200,7 @@ norm_results <-  lapply(unique(seed_traits$species.abb), function(sp) {
   }) %>% bind_rows()
 }) %>% bind_rows()
 
-norm_results %>%
-  mutate(Result = ifelse(p_value >= 0.05, "Normal", "Non-normal")) %>%
-
-  kbl(align = "c",
-      col.names = c("Species", "Trait", "W statistic", "p-value", "Decision"),
-      caption = "Shapiro-Wilk normality test for each trait 
-      within each species. P > 0.05 is consistent with normality.") %>%
-  remove_column(columns = 1) %>%
-  kable_styling(bootstrap_options = c("striped", "hover"),
-                full_width = TRUE) %>%
-  column_spec(1, italic = TRUE) %>%
-  row_spec(which(norm_results$p_value < 0.05), background = "#fff3cd")
+norm_results
 ```
 
 #### Homogeneity of Covariance Matrices
@@ -328,7 +306,7 @@ scores_df  <- data.frame(lda_pred$x, species = seed_traits$species.abb)
 
 Now let's plot the discriminant score
 
-```{r lda-scores, echo=TRUE, fig.cap="Scatter plot of discriminant scores on LD1 and LD2 for 60 seeds from three tropical tree species. Points coloured by species; ellipses show 95% confidence regions for each group centroid.",eval = T, results='hide'}
+```{r lda-scores, echo=TRUE, fig.cap="Scatter plot of discriminant scores on LD1 and LD2 for 60 seeds from three tropical tree species. Points coloured by species; ellipses show 95% confidence regions for each group centroid.",eval = F, results='hide'}
 
 # Group centroids
 centroids <- scores_df %>%

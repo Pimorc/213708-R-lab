@@ -86,7 +86,7 @@ unique(chaiklang_data$Species)
 
 Let's explore the data set.
 
-```{r chaiklang-boxplot, fig.height=5, fig.cap="Root length (cm) of five framework tree species under three nursery production systems. CON = polybags on ground (control); COB = crates on wire benches; COG = crates on ground. Points represent individual sapling measurements.", echo=TRUE, fig.align='center', message=FALSE, warning=FALSE}
+```{r chaiklang-boxplot, fig.height=5, fig.cap="Root length (cm) of five framework tree species under three nursery production systems. CON = polybags on ground (control); COB = crates on wire benches; COG = crates on ground. Points represent individual sapling measurements.", echo=TRUE, fig.align='center', message=FALSE, warning=FALSE, eval=FALSE}
 ggplot(chaiklang_data,
        aes(x = Treatment, y = Rootlength, fill = Treatment)) +
   geom_boxplot_pattern(aes(pattern = Treatment), alpha = 0.6, outlier.shape = NA,
