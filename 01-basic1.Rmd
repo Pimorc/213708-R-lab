@@ -1,5 +1,9 @@
 # Scientific methods, role of experimental design and statistics in ecological and environmental studies (Scientific methods and download R) {#basic1}
 
+*Pimonrat Tiansawat (Chiang Mai University)*
+
+Updated: `r format(Sys.Date(), '%B, %Y')`
+
 **Duration:** 3-hour lab
 
 ## Learning Outcomes
@@ -15,19 +19,13 @@ None
 
 ## What is R?
 
-R is software for statistical computing and graphics [@R-base].
-R is free to use and when you use it in your publications, simply cite the software:
+R is software for statistical computing and graphics [@R-base]. R is free to use and when you use it in your publications, simply cite the software:
 
-> R Core Team (Year).
-> R: A Language and Environment for Statistical Computing.
-> R Foundation for Statistical Computing, Vienna, Austria.
-> (<https://www.R-project.org/>).
+> R Core Team (Year). R: A Language and Environment for Statistical Computing. R Foundation for Statistical Computing, Vienna, Austria. (<https://www.R-project.org/>).
 
 ## Role of R in Scientific Methods
 
-Data from experiments are valuable and needed to be analyzed to gain useful information for making scientifically sound decision and communicate the findings (Figure \@ref(fig:relationship)).
-The R programming language is a powerful tool for cleaning, visualizing, and analyzing data.
-There are many tools to do so, but the R programming language is free, flexible, and able to make beautiful figures for publication.
+Data from experiments are valuable and needed to be analyzed to gain useful information for making scientifically sound decision and communicate the findings (Figure \@ref(fig:relationship)). The R programming language is a powerful tool for cleaning, visualizing, and analyzing data. There are many tools to do so, but the R programming language is free, flexible, and able to make beautiful figures for publication.
 
 ```{r relationship, echo = FALSE, fig.cap = "The relationship between scientific methods, data collection and analyses. R programming is a powerful tool for data processing and analyzing.", out.width="100%", fig.align='center'}
 knitr::include_graphics("figures/Lab 1.png")
@@ -68,10 +66,7 @@ Open RStudio and you will see 4 windows:
 
 ## Functions in R
 
-A function is a block of code that performs some tasks (Figure \@ref(fig:functions)).
-For data analyses, you write several functions that work together.
-In R, functions include built-in functions and user-defined functions.
-To write a function, you include this following:
+A function is a block of code that performs some tasks (Figure \@ref(fig:functions)). For data analyses, you write several functions that work together. In R, functions include built-in functions and user-defined functions. To write a function, you include this following:
 
 1.  Write the name of the function
 2.  Place a pair of parentheses after the name
@@ -91,10 +86,7 @@ To run you may do one of these options:
 
 ## Syntax and Error Messages in R
 
-Syntax refers to the structure of code and the rules defining the correct combinations of symbols and words in a programming language.
-Syntax errors occur when code is written in a way that violates these rules, making it unrecognizable to the compiler or interpreter.
-R will show error messages if R does not recognize what is in your codes.
-Don't panic!
+Syntax refers to the structure of code and the rules defining the correct combinations of symbols and words in a programming language. Syntax errors occur when code is written in a way that violates these rules, making it unrecognizable to the compiler or interpreter. R will show error messages if R does not recognize what is in your codes. Don't panic!
 
 Read the error messages; sometimes R will say what is wrong.
 
@@ -112,9 +104,7 @@ Let's type this code using a function called "seq":
 seq(1; 10)
 ```
 
-R shows Error: unexpected ';' in "seq(1;".
-It says that ";" is not supposed to be in this code.
-The solution is to change to be the right one:
+R shows Error: unexpected ';' in "seq(1;". It says that ";" is not supposed to be in this code. The solution is to change to be the right one:
 
 ```{r, eval = F, class.source = "border-chunk"}
 seq(1, 10)
@@ -122,8 +112,7 @@ seq(1, 10)
 
 ## Set Working Directory
 
-Let R know where you want to R to read files and/or write to.
-To see a current working directory:
+Let R know where you want to R to read files and/or write to. To see a current working directory:
 
 ```{r, eval = F, class.source = "border-chunk"}
 getwd() # current directory
@@ -133,17 +122,14 @@ getwd() # current directory
 
 ## Simple Manipulation: Numbers and Vectors
 
-The simplest data structure is a vector.
-Think about it as a dataset arranged in sequence.
-To create a vector you will use c() function in R:
+The simplest data structure is a vector. Think about it as a dataset arranged in sequence. To create a vector you will use c() function in R:
 
 ```{r, eval = F, class.source = "border-chunk"}
 x <- c(8, 6, 7, 3, 10, 15)
 x
 ```
 
-"\<-" is an assignment operator.
-This code means you create a vector named "x" and assign six members which are 10, 5, 6, 9, 8, 5.
+"\<-" is an assignment operator. This code means you create a vector named "x" and assign six members which are 10, 5, 6, 9, 8, 5.
 
 Let's do:
 
@@ -151,9 +137,7 @@ Let's do:
 100 * x
 ```
 
-You will see in the Console that R prints out a vector of 6 members which are multiplied by 10.
-The new vector is not in Environment.
-Why?
+You will see in the Console that R prints out a vector of 6 members which are multiplied by 10. The new vector is not in Environment. Why?
 
 Now try:
 
@@ -227,9 +211,7 @@ mean(A)
 var(A)
 ```
 
-**Note:** Using capital letters such as A and lowercase function R alternately will require greater caution.
-I recommend using all lowercase letters in script writing.
-However, it depends on personal preference.
+**Note:** Using capital letters such as A and lowercase function R alternately will require greater caution. I recommend using all lowercase letters in script writing. However, it depends on personal preference.
 
 Let's see more:
 
@@ -257,8 +239,7 @@ rep(a, each = length(a))
 
 ## Tip: The example() Function
 
-Each of the help entries comes with examples.
-One really nice feature of R is that the example() function will actually run those examples for you.
+Each of the help entries comes with examples. One really nice feature of R is that the example() function will actually run those examples for you.
 
 ```{r, eval = F}
 example(seq)
@@ -266,10 +247,7 @@ example(seq)
 
 ## Character Vector
 
-This is a common data type for names.
-Writing character will have to use "...".
-You can use either of '...' or "...".
-To create a character vector, you will use the function c() or you may use paste():
+This is a common data type for names. Writing character will have to use "...". You can use either of '...' or "...". To create a character vector, you will use the function c() or you may use paste():
 
 ```{r, eval = F}
 ### Character vector
@@ -284,11 +262,7 @@ str(char_vector) # see structure of an R object
 
 ## Logical Vector
 
-We can work with logical data.
-The logical vector elements can be TRUE or T, FALSE or F, and NA (for not available or missing data).
-I suggest typing TRUE, FALSE to avoid confusion.
-Logical operator used with logical vector are \<, \<=, \>, \>=, == (exact equality) and !=
-(for inequality):
+We can work with logical data. The logical vector elements can be TRUE or T, FALSE or F, and NA (for not available or missing data). I suggest typing TRUE, FALSE to avoid confusion. Logical operator used with logical vector are \<, \<=, \>, \>=, == (exact equality) and != (for inequality):
 
 ```{r, eval = F}
 a
@@ -301,9 +275,7 @@ str(a.new) # see structure of an R object
 
 ## Factors
 
-Factor is a special type of vector that shows categorical data.
-Most of the factors are used to make different models.
-For example, we have treatment with low, med, high level, with 2 repetitions each:
+Factor is a special type of vector that shows categorical data. Most of the factors are used to make different models. For example, we have treatment with low, med, high level, with 2 repetitions each:
 
 ```{r, eval = F}
 treatment <- c('med', 'low', 'high', 'low', 'med', 'high') # create character vector
@@ -321,8 +293,7 @@ trt.inor
 
 ## Adding and Deleting Vector Elements
 
-Vector elements can be deleted.
-Try creating a new vector from the original vector and then browse to the new vector created:
+Vector elements can be deleted. Try creating a new vector from the original vector and then browse to the new vector created:
 
 ```{r, eval = F}
 d <- c(888, 5, 120, 13)
@@ -338,9 +309,7 @@ d2
 
 ## Exercise
 
-**Submission:** A PDF file containing your answers.
-Your answers must contain **R codes** that you wrote and **the outputs** you get.
-Your codes and outputs can be text and/or screen capture.
+**Submission:** A PDF file containing your answers. Your answers must contain **R codes** that you wrote and **the outputs** you get. Your codes and outputs can be text and/or screen capture.
 
 **Full score:** 10
 
@@ -354,8 +323,7 @@ Your codes and outputs can be text and/or screen capture.
 
 **3.** What is the sum of the exponential of this sequence?
 
-**4.** Create a character vector and name it as you wish.
-The vector consists of 3 elements -- name, last name and month that you were born.
+**4.** Create a character vector and name it as you wish. The vector consists of 3 elements -- name, last name and month that you were born.
 
 **5.** Add your nickname behind your last name.
 

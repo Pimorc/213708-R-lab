@@ -1,5 +1,9 @@
 # Nature of Experimentation and Principles of Experimental Design (Data types and working with data) {#basic3}
 
+*Pimonrat Tiansawat (Chiang Mai University)*
+
+Updated: `r format(Sys.Date(), '%B, %Y')`
+
 **Duration:** 3-hour lab
 
 ## Learning Outcomes

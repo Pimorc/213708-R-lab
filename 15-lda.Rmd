@@ -1,5 +1,11 @@
 # Multivariate Analysis - Linear Discriminant Analysis {#lda}
 
+*Pimonrat Tiansawat (Chiang Mai University)*
+
+Updated: `r format(Sys.Date(), '%B, %Y')`
+
+**Duration:** 3-hour lab
+
 ## Learning outcomes
 
 Students should be able to:

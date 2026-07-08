@@ -1,17 +1,21 @@
 # Generalized Linear Regression Models (GLMs) in R {#glm}
 
+*Pimonrat Tiansawat (Chiang Mai University)*
+
+Updated: `r format(Sys.Date(), '%B, %Y')`
+
 **Duration:** 3-hour lab
 
 ## Learning outcomes
 
 Students should be able to
 
-1.    demonstrate steps to run GLMs in R
-2.    Interpret the results of the models    
+1.  demonstrate steps to run GLMs in R
+2.  Interpret the results of the models
 
 ## Data files for this lab
 
-- germination_data.csv [Click here to download](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/Edl3RIHvtItIl1gxzwBgOIABaHL9VsQ9ZAzDsssOSgO4Ww?e=Exbr5k)
+-   germination_data.csv [Click here to download](https://o365cmu-my.sharepoint.com/:x:/g/personal/pimonrat_t_cmu_ac_th/Edl3RIHvtItIl1gxzwBgOIABaHL9VsQ9ZAzDsssOSgO4Ww?e=Exbr5k)
 
 ## Introduction
 
@@ -68,7 +72,7 @@ germination$class <- as.factor(germination$class)
 
 Let's plot some graphs
 
-``` {r eval = F}
+```{r eval = F}
 library(ggplot2)
 library(dplyr)
 
@@ -162,7 +166,7 @@ ggplot(summary_stats.group, aes(x = treatment.group2, y = mean_germ_percent,
 
 We can also visual based on treatment groups - dry vs wet storage.
 
-``` {r eval = F}
+```{r eval = F}
 # Compare among baseline germination, and germination after dry and wet storages
 
 ggplot(data, aes(x = treatment.group2, y = germination_percent, fill = class)) +
@@ -223,12 +227,13 @@ ggplot(summary_stats, aes(x = treatment.group2, y = mean_germ_percent,
 
 **From the graphs**
 
-The seeds of *Litsea* lost its germinability after dry storage, while the germination of *Strychnos*'s seeds is still high after dry storage. *Litsea*'s seed cannot be dried and stored in the freezer. Storing seeds in the cold conditions seems to reduced the seed germination of *Strychnos*.  
+The seeds of *Litsea* lost its germinability after dry storage, while the germination of *Strychnos*'s seeds is still high after dry storage. *Litsea*'s seed cannot be dried and stored in the freezer. Storing seeds in the cold conditions seems to reduced the seed germination of *Strychnos*.
 
 ## Modeling Steps [@crawley2012]
 
 ```{r eval=F}
-y <- cbind(germinated, sow-germinated) # Create new vector of successful & unsuccessful germination
+y <- cbind(germinated, sow-germinated) 
+# Create new vector of successful & unsuccessful germination
 
 y
 
@@ -268,8 +273,7 @@ anova(model, model2, test = "Chisq")
 
 Let's see the summary
 
-Now we use quasi binomial. We do not need to see the residual deviance anymore.
-The two models are significantly different. We cannot remove the interaction term.
+Now we use quasi binomial. We do not need to see the residual deviance anymore. The two models are significantly different. We cannot remove the interaction term.
 
 ```{r eval=F}
 summary(model)
@@ -283,8 +287,7 @@ One of our options would be analyze the effect of storage separately by species.
 
 ## Exercise
 
-**Submission:** A PDF file containing your answers.
-If you are asked to use R, your answers must contain **R codes** that you wrote and **the outputs** you get. Your codes and outputs can be text and/or screen capture.
+**Submission:** A PDF file containing your answers. If you are asked to use R, your answers must contain **R codes** that you wrote and **the outputs** you get. Your codes and outputs can be text and/or screen capture.
 
 **Full score:** 10 Submission:
 
@@ -304,12 +307,12 @@ If you are asked to use R, your answers must contain **R codes** that you wrote 
 
 ### Grading rubric
 
-| Question | Score = 2 | Score = 1 | Score = 0 |
+| Question | Score = 2                                     | Score = 1                                         | Score = 0                                           |
 |-------------------|------------------|------------------|------------------|
-| 1 | Correct R codes and show the data frame | Incorrect R codes or incorrect data frame | R code and data frame are not included or incorrect |
-| 2 | Correct R code and show the model | Partially correct R code and show the model| R code and output are not included or incorrect |
-| 3 | Correct R code and show the model | Partially correct R code and show the model| R code and output are not included or incorrect |
-| 4 | Run the code and show the graph | Run the code but R code or the graph is not shown | R code and output are not included or incorrect |
-| 5 | Correct interpretation and answer 2 questions | Partially correct | Incorrect interpretation and/or do not answer |
+| 1        | Correct R codes and show the data frame       | Incorrect R codes or incorrect data frame         | R code and data frame are not included or incorrect |
+| 2        | Correct R code and show the model             | Partially correct R code and show the model       | R code and output are not included or incorrect     |
+| 3        | Correct R code and show the model             | Partially correct R code and show the model       | R code and output are not included or incorrect     |
+| 4        | Run the code and show the graph               | Run the code but R code or the graph is not shown | R code and output are not included or incorrect     |
+| 5        | Correct interpretation and answer 2 questions | Partially correct                                 | Incorrect interpretation and/or do not answer       |
 
 **End of Lab 11**

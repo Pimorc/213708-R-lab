@@ -1,5 +1,9 @@
 # Exploratory Data Analysis (EDA) Episode 2 {#eda2}
 
+*Pimonrat Tiansawat (Chiang Mai University)*
+
+Updated: `r format(Sys.Date(), '%B, %Y')`
+
 **Duration:** 3-hour lab
 
 ## Learning Outcomes

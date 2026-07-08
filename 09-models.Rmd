@@ -1,5 +1,9 @@
 # Statistical modeling in R {#models}
 
+*Pimonrat Tiansawat (Chiang Mai University)*
+
+Updated: `r format(Sys.Date(), '%B, %Y')`
+
 **Duration:** 3-hour lab
 
 ```{r setup, include = FALSE}

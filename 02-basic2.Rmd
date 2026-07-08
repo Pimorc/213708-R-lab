@@ -1,5 +1,9 @@
 # Scientific methods, role of experimental design and statistics in ecological and environmental studies (Data import and management) {#basic2}
 
+*Pimonrat Tiansawat (Chiang Mai University)*
+
+Updated: `r format(Sys.Date(), '%B, %Y')`
+
 **Duration:** 3-hour lab
 
 ## Learning Outcomes

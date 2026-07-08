@@ -5,12 +5,12 @@ author: "Pimonrat Tiansawat (Chiang Mai University)"
 date: "`r format(Sys.Date(), '%B, %Y')`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
+documentclass: book
 bibliography: book.bib
 biblio-style: apalike
 link-citations: yes
 github-repo: Pimorc/213708-R-lab
 description: "This is material for computer lab sessions."
-documentclass: book
 ---
 
 # Preface {-}
