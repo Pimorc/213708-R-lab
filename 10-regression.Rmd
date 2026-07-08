@@ -138,7 +138,7 @@ This means that the linear equation is
 Dry weight * 1000 g = `r round(summary(model)$coefficients["(Intercept)", "Estimate"], digit = 2)` + `r round(summary(model)$coefficients["volume_mm3", "Estimate"], digit = 2)` \* (`r model$terms[[3]]`) + ε
 
 Look at the model summary.
-You will see $R^2^$ = `r round(summary(model)$r.squared, digit = 3)`.
+You will see $R-squared$ = `r round(summary(model)$r.squared, digit = 3)`.
 This means that about `r round(summary(model)$r.squared, digit = 3) * 100` of variance in the dependent variable is predictable from the independent variable (`r model$terms[[3]]`).
 This means the linear model fits the data well.
 
