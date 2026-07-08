@@ -9,15 +9,15 @@ output:
 bibliography: book.bib
 biblio-style: apalike
 link-citations: yes
-description: This is material for computer laboratories.
+description: This is material for computer lab sessions.
 documentclass: book
 ---
 
 # Preface {-}
 
-These materials are for the computer laboratory sessions of the course "Experimental design and environmental data analysis" (Course code 213708), taught by the author. The materials are designed for graduate students across multiple curricula. The materials are divided into 15 lab sessions (3 hours each), totaling 45 hours.
+These materials are for the computer laboratory sessions of the course "Experimental design and environmental data analysis" (Course code 213708), taught by the author. All analyses and visualization are done in R programming language [@R-base] and RStudio [@rstudio] is used as a graphical interface for R. The materials are designed for graduate students across multiple curricula. The materials are divided into 15 lab sessions (3 hours each), totaling 45 hours.
 
-The lessons include :-
+The lessons include:-
 
 | Course Contents                                                                                             | Number of labs (3 hrs each) | Lab ID     |
 |:------------------------|:----------------------:|------------------------|
@@ -43,4 +43,4 @@ The author would like to thank Associate Professor Dr. Jatupol Kampuansai for hi
 
 Author
 
-June-2026
+July-2026
