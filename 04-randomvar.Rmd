@@ -20,7 +20,7 @@ We will use a normal distribution in this lab. The workflow of this lab is inspi
 ## Normal Distribution
 
 A normal distribution is one of the most important distributions [@navarro2024].
-It is also called Gussian distribution.
+It is also called Gaussian distribution.
 It is described using two parameters, the mean of the distribution $μ$ and the standard deviation of the distribution $σ$.
 
 $$X ∼ Normal(μ, σ)$$
