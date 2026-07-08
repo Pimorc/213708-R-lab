@@ -318,10 +318,17 @@ LD1 explains **`r pct_eig[1]`%** of the between-group variance and LD2 explains 
 
 ### Step 6: Plot Discriminant Scores
 
-```{r lda-scores, echo=TRUE, fig.cap="Scatter plot of discriminant scores on LD1 and LD2 for 60 seeds from three tropical tree species. Points coloured by species; ellipses show 95% confidence regions for each group centroid.",eval = F, results='hide'}
+Let's get model prediction.
+
+```{r lda-pred, echo=TRUE, eval = T, results='hide', message=FALSE, warning=FALSE}
 # Predict discriminant scores
 lda_pred   <- predict(lda_model)
 scores_df  <- data.frame(lda_pred$x, species = seed_traits$species.abb)
+```
+
+Now let's plot the discriminant score
+
+```{r lda-scores, echo=TRUE, fig.cap="Scatter plot of discriminant scores on LD1 and LD2 for 60 seeds from three tropical tree species. Points coloured by species; ellipses show 95% confidence regions for each group centroid.",eval = T, results='hide'}
 
 # Group centroids
 centroids <- scores_df %>%
