@@ -188,11 +188,11 @@ levene
 
 What does the Levene's test show? Equal variance among group? The answer is *yes*.
 
-The Levene's test is a hypothesis testing, so p-value is interpreted accordingly. In common practice, the significance level is set at $\alpha$ = 0.05. The P-value shown in the test is 0.70. We cannot reject the null hypothesis of equal variances.
+Levene's test is a hypothesis test, so the p-value is interpreted accordingly. In common practice, the significance level is set at $\alpha$ = 0.05. The P-value shown in the test is 0.70. We cannot reject the null hypothesis of equal variances.
 
 Now we will run the ANOVA test.
 
-```{r run-anova, echo = TRUE, results='hide', message=FALSE, echo=FALSE, warning=FALSE}
+```{r run-anova, echo = TRUE, results='hide', message=FALSE, warning=FALSE}
 
 # Fit the model
 anova_model <- aov(Height ~ Fertilizer, data = plant_data)
