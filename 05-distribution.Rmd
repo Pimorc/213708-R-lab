@@ -10,7 +10,7 @@ Updated: `r format(Sys.Date(), '%B, %Y')`
 
 Students should be able to:
 
-1.  Generate plots of some common distributions and describe the important properties of them
+1.  Generate plots of some common distributions and describe their important properties
 
 ## Data Files for This Lab
 
@@ -18,12 +18,12 @@ Students should be able to:
 
 ## Introduction
 
-This worksheet will guide you to learn two each of continuous and categorical probability distributions.
-The workflow of this lab is inspired by the exercise sheet from the class the instructor took when she was in a graduate program [@ib519].
-Read the text for explanations and input the text in the box into R (copy and paste into R is fine.)
+This worksheet will guide you in learning two of each of the continuous and categorical probability distributions.
+The workflow in this lab is inspired by the lesson the instructor took in a graduate program [@ib519].
+Read the text for explanations and enter the code into R (copy and paste into `R` is fine).
 
-In R, there are a lot of probability distributions by default.
-Here is a list of some common distributions with the R function and the parameters of each of the distributions.
+`R` contains many probability distributions by default.
+Here is a list of common distributions with R function names and parameters, characterizing the distributions.
 
 | Distribution      | R name  | Parameters (arguments in function) |
 |-------------------|---------|------------------------------------|
@@ -50,9 +50,9 @@ Here is a list of some common distributions with the R function and the paramete
 
 ### Uniform Distribution
 
-Two bounding parameters are maximum and minimum numbers [@mathworks].
+Two bounding parameters are the maximum and minimum numbers [@mathworks].
 Out of this bound, the probability is 0.
-Run the codes to learn about how the shape of the distribution changes with changing the maximum and minimum numbers.
+Run the code to learn how the shape of the distribution changes as the maximum and minimum numbers are changed.
 
 ```{r eval=F}
 x <- seq(-5, 5, by = 0.1)
@@ -100,7 +100,11 @@ lines(y, dlnorm(y, 2), col ='blue')
 abline(v = 0, col = 1, lty = 2)
 abline(v = 1, col = 'red', lty = 2)
 abline(v = 2, col = 'blue',lty = 2)
+```
 
+Let's plot on a log scale and change the variance.
+
+```{r eval=F}
 ## on a log scale = take log of original data
 plot(y, dlnorm(y, 0),type = 'l',
      log = 'x',main = "Plot in log scale")
@@ -121,10 +125,14 @@ lines(y, dlnorm(y, 2, 1), col = 'brown')
 lines(y, dlnorm(y, 2, 2), col = 'green')
 lines(y, dlnorm(y, 2, 4), col = 'magenta')
 abline(v = exp(2), col = 1, lty = 2)
+```
 
+Create 250 random numbers from a log-normal distribution with `meanlog = 2`, `sdlog = 1`.
+
+```{r eval=F}
 ## random sample
 # draw 250 random numbers from
-# a log normal distribution with
+# a log-normal distribution with
 # meanlog = 2, sdlog = 1
 par(mfrow = c(1, 1))
 hist(rlnorm(250, 2, 1), breaks = 30,
@@ -137,7 +145,7 @@ abline(v = 2, col = "purple", lty = 2)
 
 ### Binomial Distribution
 
-The binomial arises naturally as the counts of the number of successes given a probability, $p$, and a sample size, $n$ [@mathworks2].
+The binomial arises naturally as the count of successes given a probability, $p$, and a sample size, $n$ [@mathworks2].
 
 ```{r eval=F}
 a <- seq(0, 20)
@@ -150,22 +158,28 @@ plot(a, dbinom(a, size[1], 0.5), type = 'o',
      xlim = c(0, 20), lwd = 1.5)
 
 for(i in 2:3){
-  lines(a,dbinom(a, size[i], 0.5), type ='o', col = i,
-        lwd = 1.5)
+  lines(a,dbinom(a, size[i], 0.5), type ='o', 
+     col = i, lwd = 1.5)
 }
 
-legend("topright",legend = c("1","5","20", "mean = np"), col = c(1:3, "black"),
-       lty = c(1, 1, 1, 2), lwd = 1.5)
+legend("topright", legend = c("1","5","20", "mean = np"), 
+     col = c(1:3, "black"),
+     lty = c(1, 1, 1, 2), lwd = 1.5)
 
 for(i in 1:3){
   abline(v = 0.5 * size[i], col = i, lty = 2, lwd = 1.5)
   text((0.5 * size[i]) + 0.6, 0.4,
        label = 0.5 * size[i], col = i)
 }
+```
 
+Let's vary the probability of success.
+
+```{r eval=F}
 ## vary probability
 p <- c(0.1, 0.5, 0.8)
-plot(a, dbinom(a, 10, p[1]), type='o', main = "Different probabilities (size = 10)",
+plot(a, dbinom(a, 10, p[1]), type='o', 
+     main = "Different probabilities (size = 10)",
      col = 1, lwd = 1.5)
 
 for(i in 2:3){
@@ -173,30 +187,35 @@ for(i in 2:3){
         lwd = 1.5 ,type = 'o')
 }
 
-legend("topright", legend = c("0.1","0.5","0.8", "mean = np"), col = c(1:3, 1),
-       lty = c(1, 1, 1, 2), lwd = 1.5)
+legend("topright", col = c(1:3, 1),
+     legend = c("0.1","0.5","0.8", "mean = np"),
+     lty = c(1, 1, 1, 2), lwd = 1.5)
 
 for(i in 1:3){
   abline(v = p[i] * 10, col = i, lty = 2, lwd = 1.5)
   text((p[i] * 10) + 0.5, 0.35,
        label = p[i] * 10, col = i)
 }
+```
 
-## random draws from a binomial distribution
+We draw 100 times from the binomial distribution with parameters trial = 10, prob. of success = 0.5
+
+```{r eval=F}
 par(mfrow = c(1, 1))
-## we draw 100 times from the binomial distribution
-## with parameter trial = 10, prob. of success
-## = 0.5
-hist(rbinom(100, 10, 0.5) + 0.0001, ## small amount added because
-     probability = TRUE, ## of way R calculates breaks
-     breaks = 0: 11, main = "Random draws from binomial")
-lines(a, dbinom(a, 10, 0.5), type = 's',col = 2, lwd = 2)
+## small amount added because 
+## it is the way R calculates breaks
+hist(rbinom(100, 10, 0.5) + 0.0001, 
+     probability = TRUE, 
+     breaks = 0: 11, 
+     main = "Random draws from binomial")
+lines(a, dbinom(a, 10, 0.5), 
+     type = 's',col = 2, lwd = 2)
 ```
 
 ### Poisson Distribution
 
 The Poisson distribution is common for count data (integer).
-The events occur in a fixed amount of time or the number of discoveries in a fixed space.
+The events occur within a fixed amount of time or the number of discoveries in a fixed space.
 There is one parameter, rate (lambda: $λ$).
 
 ```{r eval=F}
@@ -208,8 +227,9 @@ plot(b, dpois(b, 1),type ='o',
 lines(b,dpois(b, 2),type ='o', col = 2, lwd = 1.5)
 lines(b,dpois(b, 3),type ='o', col = 3, lwd = 1.5)
 
-legend("topright", legend = c("1","2","3", "mean = lambda"), col = c(1:3,1),
-       lwd = 1.5, lty = c(1, 1, 1, 2))
+legend("topright", col = c(1:3,1),
+     legend = c("1","2","3", "mean = lambda"), 
+     lwd = 1.5, lty = c(1, 1, 1, 2))
 
 for(i in 1:3){
   abline(v = i, col = i, lty = 2, lwd = 1.5)
@@ -220,22 +240,24 @@ for(i in 1:3){
 
 ## Comparison of Some Distributions
 
-Now we will see three different distributions, normal, Poisson and binomial distribution, with the same mean.
-Notice the similarity of the shape of distribution
+Now we will see three different distributions, normal, Poisson, and binomial distributions, with the same mean.
+Notice the similarity in the shape of the distributions.
 
 ```{r eval=F}
 b <- 10:90
 
 ## all distributions with the same mean at 50
-plot(b, dpois(b, 50), type = 's', ylim = c(0, 0.08),
-     lwd = 1.5, main = "Comparison of distributions")
-lines(b + 0.5, dnorm(b, 50, sqrt(50)), col = 2,
-      lwd = 1.5)
-lines(b, dbinom(b, 100, 0.5), col = 3, type ='s',
-      lwd = 1.5)
+plot(b, dpois(b, 50), type = 's', 
+     ylim = c(0, 0.08), lwd = 1.5, 
+     main = "Comparison of distributions")
+lines(b + 0.5, dnorm(b, 50, sqrt(50)),
+     col = 2, lwd = 1.5)
+lines(b, dbinom(b, 100, 0.5), col = 3,
+     type ='s', lwd = 1.5)
 
-legend("topright",legend=c("Poisson", "Normal", "Binomial"),
-       col = 1:3, lty = 1, lwd = 1.5)
+legend("topright",
+     legend=c("Poisson", "Normal", "Binomial"),
+     col = 1:3, lty = 1, lwd = 1.5)
 
 plot(b, dbinom(b, 100, 0.5),type = 's',
      lwd = 1.5)
@@ -244,15 +266,15 @@ lines(b + 0.5,dnorm(b, 50, sqrt(25)), col = 2,
 lines(b, dpois(b, 50),col = 3,type = 's',
       lwd = 1.5)
 
-legend("topright",legend = c("Poisson", "Normal", "Binomial"),
-       col = 1:3, lty = 1, lwd = 1.5)
+legend("topright",
+     legend = c("Poisson", 
+               "Normal", "Binomial"),
+     col = 1:3, lty = 1, lwd = 1.5)
 ```
 
 ## Exercise
 
-**Submission:** A PDF file containing your answers.
-If you are asked to work in R, your answers must contain **R codes** that you wrote and **the outputs** you get.
-Your codes and outputs can be text and/or screen capture.
+**Submission:** A PDF file containing your answers. If you are asked to work in R, your answers must contain **R code ** that you wrote and **the outputs** you get. Your code and outputs can be text and/or screen capture.
 
 **Full score:** 10
 
@@ -260,25 +282,25 @@ Your codes and outputs can be text and/or screen capture.
 
 ### Questions/Directions
 
-**1.** Give 1 example of a data with the log-normal distribution and give a reference to your answer
+**1.** Give 1 example of a data set with the log-normal distribution and give a reference for your answer
 
-**2.** For the binomial distribution plot, explain in words what happens to the shape of the distribution when $np$ (mean) gets large?
+**2.** For the binomial distribution plot, explain in words what happens to the shape of the distribution when $np$ (mean) gets large.
 
-**3.** For the Poisson distribution plot, explain in words what happens to the shape of the distribution when a lambda gets large?
+**3.** For the Poisson distribution plot, explain in words what happens to the shape of the distribution when the lambda parameter gets large.
 
 **4.** Would the normal distribution (continuous) be a good approximation to the Poisson distribution (discrete)?
-Why? Give a reference to your answer.
+Why? Give a reference for your answer.
 
 **5.** Would the normal distribution (continuous) be a good approximation to the binomial distribution (discrete)?
-Why? Give a reference to your answer.
+Why? Give a reference for your answer.
 
 ### Grading Rubric
 
 | Question | Score 2                                       | Score 1                                                                            | Score 0                               |
 |-------------------|------------------|------------------|------------------|
 | 1        | Correct answer and give a reference           | One of the answers is not included or incorrect                                    | Answers are not included or incorrect |
-| 2        | Correctly describe the shape in full sentence | Correctly describe the shape in but not in full sentence or partial correct answer | Incorrect answer or no answer         |
-| 3        | Correctly describe the shape in full sentence | Correctly describe the shape in but not in full sentence or partial correct answer | Incorrect answer or no answer         |
+| 2        | Correctly describe the shape in a full sentence | Correctly describe the shape but not in a full sentence or partial correct answer | Incorrect answer or no answer         |
+| 3        | Correctly describe the shape in a full sentence | Correctly describe the shape but not in a full sentence or partial correct answer | Incorrect answer or no answer         |
 | 4        | Correct answer and give a reference           | One of the answers is not included or incorrect                                    | Answers are not included or incorrect |
 | 5        | Correct answer and give a reference           | One of the answers is not included or incorrect                                    | Answers are not included or incorrect |
 
