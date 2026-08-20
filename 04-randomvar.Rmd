@@ -18,18 +18,19 @@ None to download. A data set is generated in the worksheet
 
 ## Introduction
 
-This worksheet will provide you with an understanding of random variables and probability distributions.
-We will use a normal distribution in this lab. The workflow of this lab is inspired by the exercise sheet from the class the instructor took when she was in a graduate program [@ib519]. The workflow is modified to be more targeting the normal distribution. Read the text for explanations and input the text in the box into R (copy and paste into R is fine.) 
+This worksheet will introduce you to random variables and probability distributions.
+We will use a normal distribution in this lab. The workflow in this lab is inspired by a lesson the instructor took in a graduate program [@ib519]. 
+The workflow is modified to be more targeted at the normal distribution. Read the text for explanations and enter the code into R (copy and paste into R is fine) 
 
 ## Normal Distribution
 
 A normal distribution is one of the most important distributions [@navarro2024].
-It is also called Gaussian distribution.
-It is described using two parameters, the mean of the distribution $μ$ and the standard deviation of the distribution $σ$.
+It is also called the Gaussian distribution.
+It is described by two parameters: the mean of the distribution, $μ$, and the standard deviation, $σ$.
 
 $$X ∼ Normal(μ, σ)$$
 
-In R, the function for the normal distribution
+In R, the functions for the normal distribution are:
 
 | Function | Description |
 |----------|-------------|
@@ -40,7 +41,7 @@ In R, the function for the normal distribution
 
 ## Generating Random Numbers
 
-Let's start with rnorm to generate random number from a normal distribution
+Let's start with rnorm to generate random numbers from a normal distribution
 
 ```{r eval=F}
 set.seed(123)
@@ -52,7 +53,7 @@ hist(x)
 abline(v = mean(x), col = 'purple')
 ```
 
-Let's see mean, median and standard deviation of this data
+Let's see the mean, median, and standard deviation of this data
 
 ```{r eval=F}
 mean(x)
@@ -60,18 +61,21 @@ median(x)
 sd(x)
 
 # Add mean and median into the plot
-abline(v = mean(x), lty = 2, lwd = 1.5, col = "purple")
-abline(v = median(x), lty = 2, lwd = 1.5, col = 'darkorange')
+abline(v = mean(x), lty = 2,
+        lwd = 1.5, col = "purple")
+abline(v = median(x), lty = 2,
+        lwd = 1.5, col = 'darkorange')
 ```
 
 ## Density Plot
 
 Create a density plot.
-See the y axis.
+See the y-axis.
 It is now showing probability.
 
 ```{r eval=F}
-hist(x, probability = TRUE, axes = T, xlim = c(-3, 3))
+hist(x, probability = TRUE,
+        axes = T, xlim = c(-3, 3))
 
 ## Add a density line
 lines(density(x), col = "red", lwd = 2)
@@ -87,11 +91,12 @@ lines(x2, f, col = "blue", lwd = 2)
 ## Overlaying Boxplot on Histogram
 
 Let's overlay a boxplot onto a histogram.
-Box plots are a good visualization of the data distribution.
-Pay attention on the shape of the box plot and the histogram.
+Box plots are a good data visualization.
+Pay attention to the shape of the box plot and the histogram.
 
 ```{r eval=F}
-hist(x, probability = TRUE, axes = T, xlim = c(-3, 3))
+hist(x, probability = TRUE,
+        axes = T, xlim = c(-3, 3))
 par(new = TRUE)
 boxplot(x, horizontal = TRUE, axes = FALSE,
         lwd = 1, col = rgb(0, 1, 1, alpha = 0.15),
@@ -104,7 +109,7 @@ stripchart(x, method = "jitter", pch = 19, cex = 0.5,
 
 ## Effect of Changing Mean and Standard Deviation
 
-Next we will see when we change mean and sd and the effect on the shape of normal distribution.
+Next, we will see the effect of changing the mean and SD on the shape of the normal distribution.
 Let's start by generating a data frame with a sequence of values
 
 ```{r eval=F}
@@ -113,26 +118,35 @@ mean(a)
 
 plot(a, dnorm(a), bty = 'n',
      type = 'l', main = 'When the mean is changed.')
-abline(v = 0) ## add a line to indicate where the mean is
-lines(a, dnorm(a, 2), col = 2) ## changing the mean
+## add a line to indicate where the mean is
+abline(v = 0) 
+## changing the mean
+lines(a, dnorm(a, 2), col = 2) 
 abline(v = 2, col = 2)
-lines(a,dnorm(a, -1), col = 3) ## changing the mean
+## changing the mean
+lines(a,dnorm(a, -1), col = 3)
 abline(v = -1, col = 3)
 
 plot(a, dnorm(a), type = 'l', bty = 'n',
      main = 'When the SD is changed')
-abline(v = 0) ## add a line to indicate where the mean is
-lines(a,dnorm(a, sd = 2),col = 2) ## changing the sd
+## add a line to indicate where the mean is
+abline(v = 0) 
+## changing the sd
+lines(a,dnorm(a, sd = 2),col = 2) 
 abline(v = 0, col = 2)
-lines(a,dnorm(a, sd = 3),col = 3) ## changing the sd
+## changing the sd
+lines(a,dnorm(a, sd = 3),col = 3) 
 abline(v = 0, col = 3)
 
 plot(a, dnorm(a), bty = 'n',
-     type ='l', main = 'When the mean and SD are changed')
+     type ='l', 
+     main = 'When the mean and SD are changed')
 abline(v = 0)
-lines(a, dnorm(a, -2, 1.5), col = 2) ## changing the mean and standard dev
+## changing the mean and sd
+lines(a, dnorm(a, -2, 1.5), col = 2) 
 abline(v = -2, col = 2)
-lines(a, dnorm(a, 1, 2), col = 3) ## changing the mean and standard dev
+## changing the mean and sd
+lines(a, dnorm(a, 1, 2), col = 3) 
 abline(v = 1, col = 3)
 ```
 
@@ -167,10 +181,10 @@ for(i in 1:4){
 }
 ```
 
-The example above shows that as the number of random draws from a probability distribution increases the histogram of those draws provides a better approximation of the density itself.
+The example above shows that as the number of random draws from a probability distribution increases, the histogram of those draws provides a better approximation of the density itself.
 
 Use the code below to determine the mean and standard deviation of random draws of small and large sample sizes.
-Notice that when the sample size increases the sample mean and standard deviation get closer to the true mean of 0 and standard deviation of 1 (mean = 0, sd = 1).
+Notice that when the sample size increases, the sample mean and standard deviation get closer to the true mean of 0 and standard deviation of 1 (mean = 0, sd = 1).
 The standard error gets smaller when the sample size increases.
 
 ```{r eval=F}
@@ -189,7 +203,7 @@ save.image("lab4.RData")
 
 ## Exercise
 
-**Submission:** A PDF file containing your answers. If you are asked to work in R, your answers must contain **R codes** that you wrote and **the outputs** you get. Your codes and outputs can be text and/or screen capture.
+**Submission:** A PDF file containing your answers. If you are asked to work in R, your answers must contain **R code ** that you wrote and **the outputs** you get. Your code and outputs can be text and/or screen capture.
 
 **Full score:** 10
 
@@ -206,20 +220,20 @@ hw4 <- c(rnorm(300, 1, 2), rnorm(300, 10, 2.5))
 
 **2.** Explain in words the shape of the distribution
 
-**3.** Use R to find the mean and standard deviation of this data?
+**3.** Use R to find the mean and standard deviation of this data.
 
 **4.** In R, plot a box plot of the hw4 and show the plot.
 
-**5.** Explain in words what the limitation of the box plot to represent the shape of the distribution
+**5.** Explain in words what the limitation of the box plot in representing the shape of the distribution
 
 ### Grading Rubric
 
 | Question | Score 2 | Score 1 | Score 0 |
 |----------|---------|---------|---------|
-| 1 | Correct R code and output | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
+| 1 | Correct R code and output | One of the R code or output is not included or incorrect | R code and output are not included or incorrect |
 | 2 | Correctly describe the shape in full sentence | Correctly describe the shape in but not in full sentence | No answer |
-| 3 | Correct R code and outputs | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
-| 4 | Correct R code and output | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
+| 3 | Correct R code and outputs | One of the R code or output is not included or incorrect | R code and output are not included or incorrect |
+| 4 | Correct R code and output | One of the R code or output is not included or incorrect | R code and output are not included or incorrect |
 | 5 | Correctly explain in full sentence | Correctly explain but not in full sentence | No answer |
 
 **End of Lab 4**
