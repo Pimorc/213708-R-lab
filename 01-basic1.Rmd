@@ -137,7 +137,7 @@ Let's do:
 100 * x
 ```
 
-You will see in the Console that R prints out a vector of 6 members which are multiplied by 10. The new vector is not in Environment. Why?
+You will see in the Console that R prints out a vector of 6 members, which are multiplied by 10. The new vector is not in Environment. Why?
 
 Now try:
 
@@ -192,7 +192,7 @@ factorial(10)
 
 Let's try this and see the differences among codes:
 
-```{r}
+```{r, echo = TRUE, result = 'hide'}
 seq(1, 10, by = 0.5)
 seq(1, by = 0.5, length = 10)
 A <- seq(0, 3, by = 0.01) # create a vector named A
@@ -211,7 +211,7 @@ mean(A)
 var(A)
 ```
 
-**Note:** Using capital letters such as A and lowercase function R alternately will require greater caution. I recommend using all lowercase letters in script writing. However, it depends on personal preference.
+**Note:** Using capital letters such as A and lowercase names alternately will require greater caution. I recommend using all lowercase letters in script writing. However, it depends on personal preference.
 
 Let's see more:
 
@@ -225,13 +225,16 @@ diff(a) # differences between values
 
 cumsum(a) # cumulative sums
 
-# We can also use rep() for making sequences
+# We can also use rep() 
+for making sequences
 rep(1, 10)
 
 b <- rep(a, time = 5)
 b
 
-b1 <- rep(a, each = 5) # repeats each element of x five times before moving on to the next
+# repeats each element of x five times 
+before moving on to the next
+b1 <- rep(a, each = 5) 
 b1
 
 rep(a, each = length(a))
@@ -239,7 +242,7 @@ rep(a, each = length(a))
 
 ## Tip: The example() Function
 
-Each of the help entries comes with examples. One really nice feature of R is that the example() function will actually run those examples for you.
+Help entries come with examples. One really nice feature of R is that the example() function will actually run those examples for you.
 
 ```{r, eval = F}
 example(seq)
@@ -247,7 +250,7 @@ example(seq)
 
 ## Character Vector
 
-This is a common data type for names. Writing character will have to use "...". You can use either of '...' or "...". To create a character vector, you will use the function c() or you may use paste():
+This is a common data type for names. Writing character vectors will have to use "...". You may use either of '...' or "...". To create a character vector, you will use the function c(), or you may use paste():
 
 ```{r, eval = F}
 ### Character vector
@@ -262,7 +265,7 @@ str(char_vector) # see structure of an R object
 
 ## Logical Vector
 
-We can work with logical data. The logical vector elements can be TRUE or T, FALSE or F, and NA (for not available or missing data). I suggest typing TRUE, FALSE to avoid confusion. Logical operator used with logical vector are \<, \<=, \>, \>=, == (exact equality) and != (for inequality):
+We can work with logical data. The logical vector elements can be TRUE or T, FALSE or F, and NA (for not available or missing data). I suggest typing TRUE, FALSE to avoid confusion. Logical operators used with logical vectors are \<, \<=, \>, \>=, == (exact equality), and != (for inequality):
 
 ```{r, eval = F}
 a
@@ -275,19 +278,24 @@ str(a.new) # see structure of an R object
 
 ## Factors
 
-Factor is a special type of vector that shows categorical data. Most of the factors are used to make different models. For example, we have treatment with low, med, high level, with 2 repetitions each:
+A factor is a special type of vector that shows categorical data. Most factors are used to make different models. For example, we have treatment with low, med, high levels, with 2 repetitions each:
 
 ```{r, eval = F}
-treatment <- c('med', 'low', 'high', 'low', 'med', 'high') # create character vector
+# create character vector
+treatment <- c('med', 'low', 'high', 'low', 'med', 'high') 
 str(treatment)
 
-is.factor(treatment) ## ask if treatment is factor. Answer = logical
+## ask if treatment is a factor. 
+## Answer = logical
+is.factor(treatment) 
 
-trt.or <- factor(treatment, levels = c('low', 'med', 'high'), ordered = TRUE)
+trt.or <- factor(treatment, 
+levels = c('low', 'med', 'high'), ordered = TRUE)
 str(trt.or)
 trt.or
 
-trt.inor <- as.factor(treatment) ## coercing to be factor
+## coercing to be factor
+trt.inor <- as.factor(treatment) 
 trt.inor
 ```
 
@@ -321,11 +329,11 @@ d2
 
 **2.** Generate a sequence of values from -4.8 to -3.43 that is length 8 (show code)
 
-**3.** What is the sum of the exponential of this sequence?
+**3.** What is the sum of the exponentials of this sequence?
 
 **4.** Create a character vector and name it as you wish. The vector consists of 3 elements -- name, last name and month that you were born.
 
-**5.** Add your nickname behind your last name.
+**5.** Add your nickname after your last name.
 
 ### Grading Rubric
 
