@@ -10,8 +10,8 @@ Updated: `r format(Sys.Date(), '%B, %Y')`
 
 Students should be able to:
 
-1.  Import a data set to the program to prepare for data analysis
-2.  Remove some missing value from the data
+1.  Import a data set into the program to prepare for data analysis
+2.  Remove some missing values from the data
 
 ## Data Files for This Lab
 
@@ -21,14 +21,14 @@ Students should be able to:
 
 A data frame consists of rows and columns resembling a matrix.
 The word "data frame" is specific to R.
-Each row usually represents each observation, and each column is a variable that we measure from experiments.
+Each row usually represents one observation, and each column is a variable that we measure in experiments.
 The components of the data frame must be vectors (either numeric, character, or logical), factors, numeric matrices, lists, or other data frames.
 
 ## Data from your research
 
 Once we collect the data, we should digitize it immediately.
 My suggestion is to input your data in Excel spreadsheets.
-Then we save them in a .txt or .csv before importing them into R (Figure \@ref(fig:csv)).
+Then we save them in a .txt or .csv file before importing them into R (Figure \@ref(fig:csv)).
 
 ```{r csv, echo = FALSE, fig.cap = "Save the data as .txt or .csv file", out.width="100%"}
 knitr::include_graphics("figures/Lab 2 data.jpg")
@@ -36,22 +36,22 @@ knitr::include_graphics("figures/Lab 2 data.jpg")
 
 ## Data Input from files
 
-The easiest way is to put our data in the form of a data frame before we read the data in R.
+The easiest way is to format the data into a data frame before importing the data into R.
 We can use Excel to record the data.
 The data frame formats are:
 
 1.  There is a header of the table at the top. **Variable names must not contain spaces.**
 2.  Put the data of each variable in one column
 3.  Each row is each subject that we measure
-4.  If there is a missing value, put the NA or use another symbol such as "?", "." etc. We tell R to know when reading what missing value is.
+4.  If there is a missing value, put NA or use another symbol such as "?", "." etc. We tell R to recognize the NAs when importing the data.
 
-**Save your file as .txt or .csv files before importing to R**
+**Save your file as .txt or .csv file before importing into R**
 
 ## Prepare for importing the file
 
 1.  Open "germination.txt" in Excel and take a look to see whether the file is suitable to import into R
-2.  Check your working directory. Use `dir(getwd())` to see what files are in a current working directory
-3.  If the working directory is not set, set it with `setwd()` or Choose directory in Session menu
+2.  Check your working directory. Use `dir(getwd())` to see what files are in the current working directory
+3.  If the working directory is not set, set it with `setwd()` or Choose Directory in the Session menu
 
 ```{r, eval = FALSE}
 # Check working directory
@@ -66,11 +66,12 @@ There are several ways to import data.
 
 ```{r eval = FALSE}
 # read 1
-dat <- read.table("germination.txt", header = TRUE, na.string = "NA")
+dat <- read.table("germination.txt", 
+header = TRUE, na.string = "NA")
 ```
 
-What we did was to create an object called "dat" and import the data "germination.txt" into it.
-We tell R that we have a header (header = TRUE) and tell R that we have missing values which are represented by NA.
+What we did is to create an object called "dat" and import the data "germination.txt" into it.
+We tell R that we have a header (header = TRUE) and tell R that we have missing values, which are represented by NAs.
 
 ### Method 2: File chooser
 
@@ -78,14 +79,15 @@ Another way is:
 
 ```{r eval=FALSE}
 # read 2
-dat <- read.table(file.choose(), header = TRUE, na.string = "NA")
+dat <- read.table(file.choose(),
+header = TRUE, na.string = "NA")
 ```
 
-Then you will see a window and you will click to select the file you want.
+Then you will see a window, and you will click to select the file you want.
 
 ## For CSV files
 
-In case that you have .csv file we will use **read.csv()** instead of read.table, for example:
+If you have .csv file we will use **read.csv()** instead of read.table, for example:
 
 ```{r eval = FALSE}
 data <- read.csv("germination.csv", header = TRUE)
@@ -97,18 +99,22 @@ Then let's take a look at your imported data and clean it up.
 Run the codes below:
 
 ```{r eval=FALSE}
-dim(dat) # see the dimension of data #rows and #columns
+# see the dimension of data #rows and #columns
+dim(dat) 
 
-str(dat) # see more detail structure of the data
+# see more detailed structure of the data
+str(dat) 
 
-dat.no.na <- na.omit(dat) # remove every row with missing value
+# remove every row with missing value
+dat.no.na <- na.omit(dat) 
 ```
 
 The function `na.omit` removes every row with NA.
-If you would like to remove some specific row, you may use the command below to create a new data frame without a row in the column 'count' that has 'NA':
+If you would like to remove a specific row, you may use the command below to create a new data frame without a row in the column 'count' that has 'NA':
 
 ```{r eval=FALSE}
-dat.reduced <- dat[!is.na(dat$count), ] ## omit the row with missing value of column count
+## Omit the row with a missing value in the count column
+dat.reduced <- dat[!is.na(dat$count), ] 
 ```
 
 Now compare the data frame 'dat.no.na' with 'dat.reduced'
@@ -147,7 +153,7 @@ dat$extract # see only the extract column
 dat$count # see only the count column
 ```
 
-In addition you can browse to any position by calling the row position and column position inside [ , ].
+In addition, you can browse to any position by calling the row position and column position inside [ , ].
 The first number is the **row number** and the second number is the **column number**.
 For example, 'dat[10, 2]' means that you want to see a data point in row 10, column 2.
 Let's do it:
@@ -210,7 +216,7 @@ save.image(file = "lab2.RData")
 ## Exercise
 
 **Submission:** A PDF file containing your answers.
-Your answers must contain **R codes** that you wrote and **the outputs** you get.
+Your answers must contain **R code ** that you wrote and **the outputs** you get.
 Your codes and outputs can be text and/or screen capture.
 
 **Full score:** 10
@@ -222,19 +228,19 @@ Your codes and outputs can be text and/or screen capture.
 ### Questions/Directions
 
 **1.** In Excel, open a file 'example.xlsx'.
-See if the file is appropriate to be imported to R.
-Answer in written words: What do you have to change in the data to make the file readable by R.
+Review the file and evaluate whether the data format is appropriate to be imported into R.
+Answer in words: What must you change in the data to make the file readable by R?
 
-**2.** In Excel, arrange the data in such a way that it is ready to analyze in R and save as an 'example.txt' file.
-For your answer, show a screen capture of your corrected file.
+**2.** In Excel, format the data so the data set is ready to be analyzed in R and save it as an 'example.txt' file.
+Your answer should show a screen capture of your corrected file.
 
 **3.**.
-In R, create a data frame in R named 'data', and then import a file 'example.txt'.
+In R, create a data frame in R named 'data', and then import the file 'example.txt'.
 Show the data frame.
 
 **4.** In R, show the structure of this data frame.
 
-**5.** In R, create a new data frame, called 'data.new' (from 'data') that does not have any missing value.
+**5.** In R, create a new data frame, called 'data.new' (from 'data') that has no missing values.
 
 ### Grading Rubric
 
@@ -242,8 +248,8 @@ Show the data frame.
 |-------------------|------------------|------------------|------------------|
 | 1          | Correctly answer the question | Give partially correct answer                        | No answer                                       |
 | 2          | Correct data file             | Give partially correct data file                     | No answer                                       |
-| 3          | Correct R code and output     | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
-| 4          | Correct R code and output     | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
-| 5          | Correct R code and output     | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
+| 3          | Correct R code and output     | One of the R code or output is not included or incorrect | R code and output are not included or incorrect |
+| 4          | Correct R code and output     | One of the R code or output is not included or incorrect | R code and output are not included or incorrect |
+| 5          | Correct R code and output     | One of the R code or output is not included or incorrect | R code and output are not included or incorrect |
 
 **End of Lab 2**
