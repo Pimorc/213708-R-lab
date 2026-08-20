@@ -45,7 +45,7 @@ The data frame formats are:
 3.  Each row is each subject that we measure
 4.  If there is a missing value, put NA or use another symbol such as "?", "." etc. We tell R to recognize the NAs when importing the data.
 
-**Save your file as .txt or .csv file before importing into R**
+**Save your file as a .txt or .csv file before importing into R**
 
 ## Prepare for importing the file
 
