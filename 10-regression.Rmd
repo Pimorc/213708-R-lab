@@ -10,7 +10,7 @@ Updated: `r format(Sys.Date(), '%B, %Y')`
 
 Students should be able to
 
-1.  demonstrate steps to run regression models in R
+1.  demonstrate steps to run regression models in `R`.
 
 ## Data Files for This Lab
 
@@ -38,7 +38,7 @@ library(gvlma)
 
 ## The Data Set
 
-We import the data set of seed trait data of three tree species from Doi Suthep-Pui national park.
+We import the data set of seed trait data of three tree species from Doi Suthep-Pui National Park.
 For each species, we collected trait data from 20 seeds.
 The data contain 60 rows and 11 columns.
 Let's look at the data set and see what trait data we have.
@@ -47,7 +47,7 @@ Let's look at the data set and see what trait data we have.
 ### Import data
 seed <- read.csv("data/seed3spp.csv", header = T)
 
-### assign right types of data to the variables
+### assign the right types of data to the variables
 seed$genus <- as.factor(seed$genus)
 seed$epithet <- as.factor(seed$epithet)
 
@@ -60,7 +60,7 @@ summary(seed[,7:11])
 ## Data Visualization
 
 Now, let's visualize the data and see the correlations among the variables.
-Remember this first step is EDA and we should **always** do EDA before we run further analyses.
+Remember, this first step is EDA, and we should **always** do EDA before we run further analyses.
 
 We will plot some graphs using `ggplot2` and `GGally` packages.
 
@@ -69,7 +69,7 @@ We will plot some graphs using `ggplot2` and `GGally` packages.
 library(ggplot2)
 library(GGally)
 
-## use data from column 7:11 - volume to moisture
+## use data from columns 7:11 - volume to moisture
 ggpairs(seed,          
         columns = 4:11) # selected columns
 ```
@@ -77,10 +77,10 @@ ggpairs(seed,
 We can also plot the graph separately by species to see the differences among species.
 
 ```{r explore2, echo = T, eval = F, results='hide'}
-ggpairs(seed,                 # Data frame
-        columns = 7:11,        # Columns
-        aes(color = genus,  # Color by species 
-            alpha = 0.5))     # Transparency
+ggpairs(seed,
+        columns = 7:11,
+        aes(color = genus,
+            alpha = 0.5)) # Transparency
 ```
 
 Let's plot the two variables that we are interested in.
@@ -102,13 +102,13 @@ plot +
 ## Linear Regression Model
 
 A linear regression model aims to model a dependent variable as a function of one or more independent variable(s) [@regref]. Here, let's run linear regression models between volume (cubic mm) (dependent variable) and dry weight (mg) (independent variable).
-We will evaluate how well each model fit and get the linear equation.
+We will evaluate how well each model fits and get the linear equation.
 
 $$Y = β₀ + β₁X + ε $$
 
 -   $Y$ is the seed dry weight
 -   $X$ is the seed volume
--   $β₀$ is an intercept and
+-   $β₀$ is an intercept
 -   $β₁$ is a slope
 -   $ε$ is an error term
 
@@ -118,7 +118,7 @@ We use the `set.seed()` function to guarantee that the same random values are pr
 ##################################################
 ### Run a regression model
 ### and run a function to get
-### overall p value
+### overall p-value
 ##################################################
 set.seed(1234)
 model <- lm(dry_weight_g * 1000 ~ volume_mm3,
@@ -143,17 +143,17 @@ Dry weight * 1000 g = `r round(summary(model)$coefficients["(Intercept)", "Estim
 
 Look at the model summary.
 You will see $R-squared$ = `r round(summary(model)$r.squared, digit = 3)`.
-This means that about `r round(summary(model)$r.squared, digit = 3) * 100` of variance in the dependent variable is predictable from the independent variable (`r model$terms[[3]]`).
+This means that about `r round(summary(model)$r.squared, digit = 3) * 100` of the variance in the dependent variable is predictable from the independent variable (`r model$terms[[3]]`).
 This means the linear model fits the data well.
 
-In addition, the F-statistics indicates whether the model with (dry weight * 1000 g) fit the data better than null model (model without `r model$terms[[3]]`).
-Here we got F = `r round(summary(model)$fstatistic[["value"]], digit = 2)` and p value = `r overall_p(model)`, meaning the model with `r model$terms[[3]]` is significant.
+In addition, the F-statistic indicates whether the model with (dry weight * 1000 g) fits the data better than the null model (model without `r model$terms[[3]]`).
+Here we got F = `r round(summary(model)$fstatistic[["value"]], digit = 2)` and p-value = `r overall_p(model)`, meaning the model with `r model$terms[[3]]` is significant.
 
 ## Model Evaluation
 
 Now, we will evaluate the model to see if the model met the assumptions.
 
-First, let's check if the residuals are normally distributed with mean of 0.
+First, let's check if the residuals are normally distributed with a mean of 0.
 
 ```{r model.eval1, echo = F, eval = T, results = 'hide', fig.keep = 1}
 
@@ -161,14 +161,16 @@ hist(model$residuals)
 abline(v = mean(model$residuals))
 qqnorm(model$residuals)
 qqline(model$residuals, lwd = 2)
+
+# Shapiro test
 shapiro.test(model$residuals)
 ```
 
-The plot shows the mean of residuals is about 0 but the distribution of the residuals is not quite normal (see the result of Shapiro test; p value = `r round(shapiro.test(model$residuals)$p.value, digit = 3)`).
+The plot shows that the mean of the residuals is about 0, but the distribution of the residuals is not quite normal (see the result of the Shapiro test; p-value = `r round(shapiro.test(model$residuals)$p.value, digit = 3)`).
 
 Second, let's see a set of four diagnostic plots.
 We can check for heteroscedasticity using a fitted value vs residual plot.
-If you notice a speaker phone shape of points, it means heteroscedasticity.
+If you notice a speaker-phone shape of points, it means heteroscedasticity.
 
 ```{r eval.plot, echo = F, eval = T}
 par(mfrow=c(2,2)) 
@@ -198,10 +200,10 @@ The results of `gvlma` means
 -   Skewness: measuring the distribution.
     Here, we passed.
 
--   Kurtosis: measuring the distribution, outliers, influential data.
+-   Kurtosis: measuring the distribution, outliers, and influential data.
     Here, we passed.
 
--   Link function: whether we mis-specified model.
+-   Link function: whether we mis-specified the model.
     Here, we passed.
 
 -   Heteroscedasticity: looking for equal variance in the residuals.
@@ -212,11 +214,11 @@ The results of `gvlma` means
 
 Look at our data closely.
 
--   What factor do you think might effect the relationship of volume vs dry weight?
+-   What factor do you think might affect the relationship of volume vs dry weight?
 -   Do you think different species will have the same volume and dry weight relationship?
 
 Let's take into account the species in the linear model.
-The regression model with more than one independent variable is call a multiple regression model.
+The regression model with more than one independent variable is called a multiple regression model.
 
 ```{r reg.model2, echo = T, results = 'hide'}
 ##################################################
@@ -224,14 +226,17 @@ The regression model with more than one independent variable is call a multiple 
 ### (x = volume and species)
 ##################################################
 set.seed(1234)
+# model with an interaction effect
 model2 <- lm(dry_weight_g * 1000 ~ volume_mm3 * genus,
-            data = seed) # with a interaction effect
+            data = seed) 
 
 summary(model2)
 
-final.model <- step(model2) # step for model selection
+# step for model selection
+final.model <- step(model2)
 
-AIC(model, final.model) # compare AIC of the model
+# compare AIC of the model
+AIC(model, final.model)
 
 anova(final.model)
 
@@ -246,8 +251,8 @@ summary(final.model)
 
 ## Exercise
 
-**Submission:** A PDF file containing your answers.
-If you are asked to use R, your answers must contain **R codes** that you wrote and **the outputs** you get. Your codes and outputs can be text and/or screen capture.
+**Submission:** A PDF file containing your answers. If you are asked to work in R, your answers must include **R code ** that you wrote and **the outputs** you get.
+Your code and outputs can be text and/or screen capture.
 
 **Full score:** 10
 
@@ -255,14 +260,14 @@ If you are asked to use R, your answers must contain **R codes** that you wrote 
 
 ### Questions/Directions
 
-**1.** Select two other variables that you would like to run a linear regression.
+**1.** Select two other variables that you would like to run a linear regression on.
 In R, plot a scatter plot of the two variables.
 
 **2.** In R, run a linear model of the two selected variables, and show the summary of the model.
 
 **3.** In R, evaluate the model and show the output of the evaluation.
 
-**4.** Describe in words, how well the model fit the data.
+**4.** Describe in words how well the model fit the data.
 
 **5.** Write out the model equation and describe in words what the model means,
 
@@ -270,9 +275,9 @@ In R, plot a scatter plot of the two variables.
 
 | Question | Score = 2                                                    | Score = 1                                                          | Score = 0                                                                               |
 |-------------------|------------------|------------------|------------------|
-| 1        | Correct R code and a plot with proper axis labels            | One of R code or output is not included or incorrect               | R code and output are not included or incorrect                                         |
-| 2        | Correctly run the model and include the summary of the model | One of R code or output is not included or incorrect               | R code and output are not included or incorrect                                         |
-| 3        | Correct R code and the outputs of the model evaluation       | One of R code or output is not included or incorrect               | R code and output are not included or incorrect                                         |
+| 1        | Correct R code and a plot with proper axis labels            | One of the R code or output is not included or incorrect               | R code and output are not included or incorrect                                         |
+| 2        | Correctly run the model and include the summary of the model | One of the R code or output is not included or incorrect               | R code and output are not included or incorrect                                         |
+| 3        | Correct R code and the outputs of the model evaluation       | One of the R code or output is not included or incorrect               | R code and output are not included or incorrect                                         |
 | 4        | Correctly describe the model evaluation                      | Partially correct description of the model evaluation              | Incorrect description of the model evaluation                                           |
 | 5        | Correctly provide the equation and describe the meaning      | Partially correctly describe the model equation and/or the meaning | Incorrectly describe the model equation and/or the meaning or do not include the answer |
 
