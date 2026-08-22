@@ -58,7 +58,7 @@ germination <- read.csv('data/germination_data.csv', header = T)
 
 names(germination) ## See column names
 
-#specify the appropriate data types
+# specify the appropriate data types
 germination$genus <- as.factor(germination$genus)
 germination$epithet <- as.factor(germination$epithet)
 germination$treatment.all <-
@@ -81,10 +81,8 @@ library(dplyr)
 
 # Calculate germination percent
 data <- germination %>%
-  mutate(
-    species = paste(genus, epithet),
-    germination_percent = (germinated / sow) * 100
-  )
+  mutate(species = paste(genus, epithet),
+    germination_percent = (germinated / sow) * 100)
 ```
 
 Let's plot some box plots. 
@@ -99,20 +97,16 @@ ggplot(data, aes(x = treatment.all,
   geom_jitter(width = 0.2, size = 2, alpha = 0.6) +
   facet_wrap(~ species, ncol = 2, scales = "free_x") +
   theme_bw() +
-  theme(
-    axis.text.x = element_text(angle = 45,
+  theme(axis.text.x = element_text(angle = 45,
                               hjust = 1, size = 8),
     strip.text = element_text(face = "italic",
                               size = 10),
     legend.position = "top",
-    panel.grid.major.x = element_blank()
-  ) +
-  labs(
-    title = "Seed Germination percents by Species and Treatment",
+    panel.grid.major.x = element_blank()) +
+  labs(title = "Seed Germination by Species and Treatment",
     x = "Treatment",
     y = "Germination (%)",
-    fill = "Seed Class"
-  ) +
+    fill = "Seed Class") +
   scale_fill_manual(values =
                   c("orthodox" = "#3498db",
                     "recalcitrant" = "#e74c3c")) +
@@ -129,9 +123,8 @@ summary_stats <- data %>%
     mean_germ_percent = mean(germination_percent),
     sd_germ_percent = sd(germination_percent),
     n = n(),
-se_rate = sd(germination_rate) / sqrt(n()),
-    .groups = "drop"
-  )
+    se_rate = sd(germination_rate) / sqrt(n()),
+    .groups = "drop")
 
 summary_stats
 ```
@@ -145,9 +138,8 @@ summary_stats.group <- data %>%
     mean_germ_percent = mean(germination_percent),
     sd_germ_percent = sd(germination_percent),
     n = n(),
-se_rate = sd(germination_rate) / sqrt(n()),
-    .groups = "drop"
-  )
+    se_rate = sd(germination_rate) / sqrt(n()),
+    .groups = "drop")
 ```
 
 Use a line graph to easily compare among treatments.
@@ -159,21 +151,17 @@ ggplot(summary_stats.group,
           color = class, group = class)) +
   geom_line(linewidth = 1.5, alpha = 0.7) +
   geom_point(size = 2, alpha = 0.9) +
-  
-  # Add ribbons for error
+# Add ribbons for error
   geom_ribbon(
     aes(ymin = mean_germ_percent - se_rate, 
         ymax = mean_germ_percent + se_rate,
         fill = class),
     alpha = 0.2,
-    color = NA
-  ) +
-  
+    color = NA) +
   scale_color_manual(values = c("orthodox" = "#1982C4", 
                               "recalcitrant" = "#FF6B6B")) +
   scale_fill_manual(values = c("orthodox" = "#1982C4",
                               "recalcitrant" = "#FF6B6B")) +
-  
   theme_bw() +
   theme(
     axis.text.x = element_text(angle = 45, 
@@ -181,16 +169,12 @@ ggplot(summary_stats.group,
                               size = 9),
     strip.text = element_text(face = "bold.italic"),
     legend.position = "top",
-    panel.grid.minor = element_blank()
-  ) +
-  
-  labs(
-    title = "Germination Trends Across Treatments",
+    panel.grid.minor = element_blank()) +
+  labs(title = "Germination Across Treatments",
     x = "Treatment",
     y = "Mean Germination (%)",
     color = "Seed Class",
-    fill = "Seed Class"
-  )
+    fill = "Seed Class")
 ```
 
 We can also visualize based on treatment groups - dry vs wet storage.
@@ -198,7 +182,6 @@ We can also visualize based on treatment groups - dry vs wet storage.
 ```{r eval = F}
 # Compare baseline germination and 
 # germination after dry and wet storages
-
 ggplot(data, aes(x = treatment.group2, 
                 y = germination_percent,
                 fill = class)) +
@@ -206,20 +189,16 @@ ggplot(data, aes(x = treatment.group2,
   geom_jitter(width = 0.2, size = 2, alpha = 0.6) +
   facet_wrap(~ species, ncol = 2, scales = "free_x") +
   theme_bw() +
-  theme(
-    axis.text.x = element_text(angle = 45, 
+  theme(axis.text.x = element_text(angle = 45, 
                               hjust = 1, size = 8),
     strip.text = element_text(face = "italic", size = 10),
     legend.position = "top",
-    panel.grid.major.x = element_blank()
-  ) +
-  labs(
-    title = "Germination Percents by Species 
+    panel.grid.major.x = element_blank()) +
+  labs(title = "Germination Percents by Species 
             and Treatment Group",
     x = "Treatment group",
     y = "Germination (%)",
-    fill = "Seed Class"
-  ) +
+    fill = "Seed Class") +
   scale_fill_manual(values = c("orthodox" = "#3498db",
                               "recalcitrant" = "#e74c3c")) +
   ylim(0, 100)
@@ -233,30 +212,23 @@ ggplot(summary_stats, aes(x = treatment.group2,
                          color = class, group = class)) +
   geom_line(linewidth = 1.5, alpha = 0.7) +
   geom_point(size = 2, alpha = 0.9) +
-  
-  # Add ribbon for error
+# Add ribbon for error
   geom_ribbon(
     aes(ymin = mean_germ_percent - se_rate,
         ymax = mean_germ_percent + se_rate,
         fill = class),
     alpha = 0.2,
-    color = NA
-  ) +
-  
+    color = NA) +
   scale_color_manual(values = c("orthodox" = "#1982C4",
                               "recalcitrant" = "#FF6B6B")) +
   scale_fill_manual(values = c("orthodox" = "#1982C4",
                               "recalcitrant" = "#FF6B6B")) +
-  
-  theme_bw() +
-  theme(
-    axis.text.x = element_text(angle = 45,
+    theme_bw() +
+  theme(axis.text.x = element_text(angle = 45,
                               hjust = 1, size = 9),
     strip.text = element_text(face = "bold.italic"),
     legend.position = "top",
-    panel.grid.minor = element_blank()
-  ) +
-  
+    panel.grid.minor = element_blank()) +
   labs(
     title = "Germination Trends Across Treatments",
     x = "Treatment",
@@ -268,7 +240,7 @@ ggplot(summary_stats, aes(x = treatment.group2,
 
 **From the graphs**
 
-The seeds of *Litsea* lost their germinability after dry storage, while the germination of *Strychnos* seeds is still high after dry storage. * Litsea* seeds cannot be dried and stored in the freezer. Storing seeds in cold conditions seems to reduce the seed germination of *Strychnos*.
+The seeds of *Litsea* lost their germinability after dry storage, while the germination of *Strychnos* seeds is still high after dry storage. *Litsea* seeds cannot be dried and stored in the freezer. Storing seeds in cold conditions seems to reduce the seed germination of *Strychnos*.
 
 ## Modeling Steps [@crawley2012]
 
