@@ -24,7 +24,7 @@ ANOVA is a hypothesis testing technique. We will use an example of plant growth 
 
 ## Download additional packages
 
-We will use a number of packages in this lab, including `ggplot2` [@ggplot2], `dplyr` [@dplyr], `ggthemes` [@ggthemes], `kableExtra` [@kableextra], `DescTools` [@DescTools], `emmeans` [@emmeans], `multcomp`[@multcomp], and `effectsize` [@effectsize].
+We will use several packages in this lab, including `ggplot2` [@ggplot2], `dplyr` [@dplyr], `ggthemes` [@ggthemes], `kableExtra` [@kableextra], `DescTools` [@DescTools], `emmeans` [@emmeans], `multcomp`[@multcomp], and `effectsize` [@effectsize].
 
 ```{r eval = F}
 if(!require(ggplot2)){install.packages("ggplot2")}
@@ -50,7 +50,7 @@ library(effectsize)
 
 ### The Data Set: Plant Growth with Two Fertilizers
 
-Researcher want to compare plant height under three fertilizer treatments (Fertilizer A and B and Control - no fertilizer). The researchers starts with seedlings with the same sizes.
+Researchers want to compare plant height under three fertilizer treatments (Fertilizer A and B, and Control - no fertilizer). The researchers start with seedlings of the same size.
 
 -   **Explanatory variable**: Fertilizer type (A, B, and no fertilizer)
 -   **Response variable**: Plant height (inch)
@@ -59,7 +59,8 @@ Researcher want to compare plant height under three fertilizer treatments (Ferti
 ```{r example-data, echo=TRUE, results = 'hide', message=FALSE, warning=FALSE}
 # Create example dataset
 set.seed(213708)
-fertilizer <- rep(c("A", "B", "No fertilizer"), each = 7)
+fertilizer <- rep(c("A", "B", "No fertilizer"),
+                  each = 7)
 height <- c(
   # Treatment A (lower heights)
   6, 3, 4, 5, 3, 6, 4,
@@ -106,7 +107,7 @@ summary_plant%>%
                     "SD (inches)", "SE (inch)",
                     "Mininum height (inch)",
                     "Maximum height (inch)"),
-      caption = "Summary of plant height separated by fertilizer treatments") %>% 
+      caption = "Summary of plant height by treatments") %>% 
   kable_styling(full_width = F)
 #  column_spec(1, bold = TRUE)
 ```
@@ -116,21 +117,31 @@ Now let's create a box plot.
 ```{r visualize-groups, fig.height=5, message=FALSE, warning=FALSE, echo=TRUE, fig.cap="Boxplot shows plant height under different treatments"}
 library(ggplot2)
 # Boxplot
-ggplot(plant_data, aes(x = Fertilizer, y = Height, fill = Fertilizer)) +
+ggplot(plant_data, aes(x = Fertilizer,
+                        y = Height,
+                        fill = Fertilizer)) +
   geom_boxplot(alpha = 0.6) +
   geom_jitter(width = 0.1, size = 2) +
   geom_hline(yintercept = mean(plant_data$Height), 
-             linetype = "dashed", color = "purple", size = 1) +
-  annotate("text", x = 1.5, y = mean(plant_data$Height) + 0.3, 
+             linetype = "dashed",
+              color = "purple",
+              size = 1) +
+  annotate("text", x = 1.5, 
+          y = mean(plant_data$Height) + 0.3, 
            label = "Overall Mean", color = "purple") +
-  labs(
-       x = "Fertilizer Treatment",
+  labs(x = "Fertilizer Treatment",
        y = "Plant height (inch)") +
   theme_bw() +
-  theme(panel.border = element_blank(), legend.position = "none",
-  axis.line.x = element_line(linewidth = 0.5, linetype = "solid", colour = "black"),
-  axis.line.y = element_line(linewidth = 0.5, linetype = "solid", colour = "black"),
-  axis.text = element_text(size = 14), axis.title = element_text(size = 14))
+  theme(panel.border = element_blank(),
+        legend.position = "none",
+  axis.line.x = element_line(linewidth = 0.5,
+                            linetype = "solid",
+                            colour = "black"),
+  axis.line.y = element_line(linewidth = 0.5,
+                            linetype = "solid",
+                            colour = "black"),
+  axis.text = element_text(size = 14),
+                          axis.title = element_text(size = 14))
 
 ```
 
@@ -143,6 +154,8 @@ For one-way ANOVA with three groups:
 **Alternative Hypothesis (H₁):** Not all means are equal. There is a treatment effect.
 
 #### Sum of Squares
+
+Let's break down the components of the sum of squares: total sum of squares (SST), sum of squares error (SSE), and sum of squares treatment (SSB).
 
 ```{r calculate-ss, message=FALSE, echo=TRUE, warning=FALSE, results='hide'}
 # Calculate sums of squares manually
@@ -175,25 +188,25 @@ cat("SSB + SSE =", round(ssb + sse, digits = 2), "\n")
 
 #### Check one assumption BEFORE running ANOVA
 
-First we run **the test for homogeneity of variance**. We will use a Levene's test. It is a hypothesis testing with a null hypothesis of equal variances. For visual check, boxplots should have similar spreads.
+First, we run **the test for homogeneity of variance**. We will use Levene's test. It is a hypothesis test with a null hypothesis of equal variances. For a visual check, boxplots should have similar spreads.
 
 ```{r levene-test, , echo = TRUE, message=FALSE, warning=FALSE, results='hide'}
 # Levene's test for homogeneity of variance
 library(car)
 
-levene <- leveneTest(Height ~ Fertilizer, data = plant_data)
+levene <- leveneTest(Height ~ Fertilizer,
+                    data = plant_data)
 
 levene
 ```
 
-What does the Levene's test show? Equal variance among group? The answer is *yes*.
+What does Levene's test show? Equal variance among groups? The answer is *yes*.
 
 Levene's test is a hypothesis test, so the p-value is interpreted accordingly. In common practice, the significance level is set at $\alpha$ = 0.05. The P-value shown in the test is 0.70. We cannot reject the null hypothesis of equal variances.
 
 Now we will run the ANOVA test.
 
 ```{r run-anova, echo = TRUE, results='hide', message=FALSE, warning=FALSE}
-
 # Fit the model
 anova_model <- aov(Height ~ Fertilizer, data = plant_data)
 
@@ -208,7 +221,7 @@ We are done with running the ANOVA test. It is important to check the assumption
 1. Random Sampling. Data should be collected through random sampling.
 
 2. Homogeneity of Variance (Homoscedasticity)
-Variances should be equal across groups. We have checked this and this assumption is met.
+Variances should be equal across groups. We have checked this, and this assumption is met.
 
 3.  Independence of Errors
 Residuals should be independent of each other.
@@ -218,21 +231,20 @@ Residuals should follow a normal distribution.
 
 #### Check assumptions AFTER running ANOVA:**
 
-```{r shapiro-fertilizer, message=FALSE, warning=FALSE, echo = TRUE}
-# Shapiro-Wilk test
+**The normality of residuals** assumption is checked using visualization and the Shapiro-Wilk normality test.
 
+```{r shapiro-fertilizer, message=FALSE, warning=FALSE, echo = TRUE}
 # Extract residuals
 residuals <- residuals(anova_model)
-
-shapiro <- shapiro.test(residuals)
+# Shapiro-Wilk test
+shapiro <- shapiro.testtest(residuals)
 
 shapiro
 ```
-
-**The normality of residuals** assumption is checked using visualization and Shapiro-Wilk normality test .
+The p-value of the Shapiro test is `r shapiro$p.value`. The null hypothesis is not rejected. The Shapiro test shows that the residuals are normally distributed.
+We check the Q-Q plot and histogram of the residuals also.
 
 ```{r check-normality, message=FALSE, warning=FALSE, echo = FALSE, fig.cap="Q-Q plot (left) and histogram (right) of the residuals of the ANOVA model"}
-
 # Q-Q plot
 par(mfrow = c(1, 2))
 qqnorm(residuals)
@@ -243,13 +255,11 @@ hist(residuals, breaks = 10, main = "Histogram of Residuals",
      xlab = "Residuals", col = "lightblue")
 ```
 
-the P-value of the Shapiro test is `r shapiro$p.value`. The null hypothesis is not rejected. The Shapiro test shows that the residuals are normally distributed.
-
-At this point, **the ANOVA test we ran seems valid**. The conclusion is that not all plant height means are equal. There are the effects of fertilizer treatment on plant growth.
+At this point, **the ANOVA test we ran seems valid**. The conclusion is that not all plant height means are equal. There are effects of fertilizer treatment on plant growth.
 
 ### Effect Size: Eta-Squared (η²)
 
-Effect size measures the magnitude of the treatment effect:
+Effect size measures the magnitude of the treatment effect. It is calculated by $SSE/SST$.
 
 For our example, the η² is `r round(sse/ss_total, digit = 2)` for the fertilizer treatment. This means that **34% of the variance** in the outcome can be explained by the treatment. 
 
@@ -271,12 +281,17 @@ print(tukey_results)
 # Access the table
 tukey_table <- as.data.frame(tukey_results$Fertilizer)
 tukey_table$Comparison <- rownames(tukey_table)
-tukey_table <- tukey_table[, c("Comparison", "diff", "lwr", "upr", "p adj")]
-colnames(tukey_table) <- c("Comparison", "Mean_Diff", "Lower_CI", "Upper_CI", "p_adj")
+tukey_table <- tukey_table[,
+                c("Comparison", "diff",
+                "lwr", "upr", "p adj")]
+colnames(tukey_table) <- c("Comparison",
+                          "Mean_Diff", "Lower_CI",
+                          "Upper_CI", "p_adj")
 
 # Add significance indicator
 tukey_table$Sign. <- ifelse(tukey_table$p_adj < 0.05, "***", 
-                                  ifelse(tukey_table$p_adj < 0.10, "*", "ns"))
+                    ifelse(tukey_table$p_adj < 0.10, "*",
+                          "ns"))
 
 ```
 
@@ -284,41 +299,53 @@ Let's organize the results to make it easy to read.
 
 ```{r tukey-hsd-tab, message=FALSE, echo = TRUE, tab.cap= "Tukey's HSD results comparing three treatment pairs", warning=FALSE, results='hide'} 
 kbl(tukey_table, digit = 2, row.names = FALSE,
-    caption = "Tukey's HSD results comparing three treatment pairs") %>%
-kable_styling(bootstrap_options = "striped", full_width = F)
+    caption = "Tukey's HSD results") %>%
+kable_styling(bootstrap_options = "striped",
+              full_width = F)
 ```
 
 Now let's visualize the results better.
 
 ```{r visualize-hsd, echo=TRUE, message=FALSE, warning=FALSE, fig.height = 5, fig.cap= "Visualization of Tukey's HSD results"}
 
-add_letter <- c(by(plant_data$Height, plant_data$Fertilizer, mean))
+add_letter <- c(by(plant_data$Height,
+                  plant_data$Fertilizer, mean))
 
 # Boxplot
-ggplot(plant_data, aes(x = Fertilizer, y = Height, fill = Fertilizer)) +
+ggplot(plant_data, aes(x = Fertilizer,
+                      y = Height, fill = Fertilizer)) +
   geom_boxplot(alpha = 0.6) +
   annotate("text", x = 1:3, y = add_letter + 2.5, 
-           label = c("b", "a", "b"), color = "black", size = 6, fontface = "bold") +
-  stat_summary(fun.y = mean, geom = "point", shape = 18, size = 3, color = "darkred") +
-  geom_point(x = 2.8, y = 9, shape = 18, size = 3, color = "darkred") +
+           label = c("b", "a", "b"), color = "black",
+          size = 6, fontface = "bold") +
+  stat_summary(fun.y = mean, geom = "point",
+              shape = 18, size = 3, color = "darkred") +
+  geom_point(x = 2.8, y = 9, shape = 18,
+            size = 3, color = "darkred") +
   annotate("text", x = 3.1, y = 9, 
            label = "=  Mean", color = "black", size = 5) +
-  annotate("rect", xmin = 2.6, xmax = 3.5, ymin = 8.5, ymax = 9.5,
-           fill = NA, alpha = 0.3, color = "black") +
-  labs(
-       x = "Fertilizer Treatment",
+  annotate("rect", xmin = 2.6, xmax = 3.5,
+            ymin = 8.5, ymax = 9.5, fill = NA,
+            alpha = 0.3, color = "black") +
+  labs(x = "Fertilizer Treatment",
        y = "Plant height (inch)") +
   ylim(0, 9.5) +
   theme_bw() +
-  theme(panel.border = element_blank(), legend.position = "none",
-  axis.line.x = element_line(size = 0.5, linetype = "solid", colour = "black"),
-  axis.line.y = element_line(size = 0.5, linetype = "solid", colour = "black"),
-  axis.text = element_text(size = 14), axis.title = element_text(size = 14))
+  theme(panel.border = element_blank(),
+        legend.position = "none",
+  axis.line.x = element_line(size = 0.5,
+                            linetype = "solid",
+                            colour = "black"),
+  axis.line.y = element_line(size = 0.5,
+                            linetype = "solid",
+                            colour = "black"),
+  axis.text = element_text(size = 14),
+              axis.title = element_text(size = 14))
 ```
 
 #### Dunnett's Test
 
-This test compares treatments to a control group. It is more powerful than Tukey's HSD for this specific purpose. With this test, it means that we are not interested in comparing between fertilizer A and B.
+This test compares treatments to a control group. It is more powerful than Tukey's HSD for this specific purpose. With this test, it means that we are not interested in comparing fertilizer A and B.
 
 ```{r dunnett, message=FALSE, results='hide', warning=FALSE, echo=TRUE}
 library(DescTools)
@@ -333,24 +360,24 @@ dunnett_results <- DunnettTest(
 dunnett_results
 ```
 
-What are the interpretation of this Dunnett's test?
+What is the interpretation of this Dunnett's test?
 
-There are some other post-hoc tests available. Think about the comparisons you want to do, do more reseach, and choose the tests accordingly.
+There are some other post-hoc tests available. Think about the comparisons you want to do, do more research, and choose the tests accordingly.
 
 ### Reporting ANOVA Results
 
-This is the example of how to report the ANOVA and post-hoc results.
+This is an example of how to report the ANOVA and post-hoc results.
 
 > "An analysis of variance (ANOVA) was conducted to evaluate the effect of fertilizer treatment (Control, Fertilizer A, and B) on final plant height. There was a significant effect of fertilizer treatment on final plant height (F(2, 18) = `r round(anova(anova_model)$"F value"[1], digit = 2)`, P < 0.001, η² = `r round(sse/ss_total, digit = 2)`). 
 >
-> Post-hoc pairwise comparisons using the Tukey's HSD revealed that Fertilizer B resulted in significantly taller plants (Mean = `r summary_plant$Mean[2]` cm, SE = `r summary_plant$SE[2]`) than both Fertilizer A (Mean = `r summary_plant$Mean[1]` cm, SE = `r summary_plant$SE[1]`, p < 0.001) and the control with no fertilizer (Mean = `r summary_plant$Mean[3]` cm, SE = `r summary_plant$SE[3]`, p < 0.001). Fertilizer A did not produced significantly taller plants than the control (P > 0.05). Fertilizer B is recommended to be used for increase plant height."
+> Post-hoc pairwise comparisons using the Tukey's HSD revealed that Fertilizer B resulted in significantly taller plants (Mean = `r summary_plant$Mean[2]` cm, SE = `r summary_plant$SE[2]`) than both Fertilizer A (Mean = `r summary_plant$Mean[1]` cm, SE = `r summary_plant$SE[1]`, p < 0.001) and the control with no fertilizer (Mean = `r summary_plant$Mean[3]` cm, SE = `r summary_plant$SE[3]`, p < 0.001). Fertilizer A did not produce significantly taller plants than the control (P > 0.05). Fertilizer B is recommended to be used to increase plant height."
 
 
 ## ANCOVA
 
 ### The Data Set: Plant Growth with Two Fertilizers with Initial Seedling Size
 
-Final plant height is compared among three fertilizer treatments - Organic, Synthetic, and Control (no fertilizer). However, seedlings have different initial sizes when the experiment begins, which could confound our results.
+Final plant height is compared among three fertilizer treatments: Organic, Synthetic, and Control (no fertilizer). However, seedlings have different initial sizes when the experiment begins, which could confound our results.
 
 -   **Independent Variable (Treatment):** Fertilizer type (3 levels)
 -   **Dependent Variable (Outcome):** Final plant height (cm) after 8 weeks
@@ -365,30 +392,38 @@ n_per_group <- 15
 # Create the dataset
 fertilizer_data <- data.frame(
   Seedling_ID = 1:(3 * n_per_group),
-  Fertilizer = factor(rep(c("Control", "Organic", "Synthetic"), each = n_per_group),
-                      levels = c("Control", "Organic", "Synthetic")),
+  Fertilizer = factor(rep(c("Control",
+                            "Organic", "Synthetic"),
+                          each = n_per_group),
+                      levels = c("Control",
+                                "Organic", "Synthetic")),
   Initial_Height = c(
-    rnorm(n_per_group, 8, 2),    # Control - similar initial heights
-    rnorm(n_per_group, 8.5, 2),  # Organic - slightly taller initially
-    rnorm(n_per_group, 7.8, 2)   # Synthetic - slightly shorter initially
+    rnorm(n_per_group, 8, 2),
+    rnorm(n_per_group, 8.5, 2),
+    rnorm(n_per_group, 7.8, 2)
   )
 )
 
-# Generate final heights based on initial height + treatment effect + growth rate
+# Generate final heights based on 
+# initial height + treatment effect + growth rate
 fertilizer_data <- fertilizer_data %>%
   mutate(
     Treatment_Effect = case_when(
-      Fertilizer == "Control" ~ 12,      # Baseline growth
-      Fertilizer == "Organic" ~ 18,      # Moderate enhancement
-      Fertilizer == "Synthetic" ~ 24     # Strong enhancement
+      Fertilizer == "Control" ~ 12,  # Baseline growth
+      Fertilizer == "Organic" ~ 18,  # Moderate enhancement
+      Fertilizer == "Synthetic" ~ 24 # Strong enhancement
     ),
-    # Final height = Initial height + Treatment effect + random growth variation
-    Final_Height = Initial_Height + Treatment_Effect + rnorm(3 * n_per_group, 0, 2.5)
+    # Final height = Initial height + Treatment effect
+    # + random growth variation
+    Final_Height = Initial_Height +
+    Treatment_Effect + rnorm(3 * n_per_group, 0, 2.5)
   )
 
-fertilizer_data$Initial_Height <- round(fertilizer_data$Initial_Height, 1)
+fertilizer_data$Initial_Height <-
+    round(fertilizer_data$Initial_Height, 1)
 
-fertilizer_data$Final_Height <- round(fertilizer_data$Final_Height, 1)
+fertilizer_data$Final_Height <-
+  round(fertilizer_data$Final_Height, 1)
 
 summary_stats <- fertilizer_data %>%
   group_by(Fertilizer) %>%
@@ -402,9 +437,11 @@ summary_stats <- fertilizer_data %>%
     .groups = 'drop'
   )
 
-fertilizer_data ## see the raw data
+## see the raw data
+fertilizer_data
 
-summary_stats ## see the summary
+## see the summary
+summary_stats
 ```
 
 #### Visualizing the Data
@@ -414,19 +451,25 @@ First, let's explore the data before testing.
 ```{r summary-data-ancova, echo=TRUE, message=FALSE, warning=FALSE, tab.cap="Summary of fertilizer experiment data by treatment", results='hide'}
 summary_stats %>%
   kbl(align = "c",
-      col.names = c("Fertilizer type", "n", "Mean initial height (cm)", 
-                    "Initial height SD (cm)", "Mean final height (cm)", "Final height SD (cm)", "Absolute growth (cm)"),
-      caption = "Summary of plant height separated by fertilizer treatments") %>% 
+      col.names = c("Fertilizer type", "n",
+                  "Mean initial height (cm)",
+                  "Initial height SD (cm)",
+                  "Mean final height (cm)",
+                  "Final height SD (cm)",
+                  "Absolute growth (cm)"),
+      caption = "Summary of plant height by fertilizers") %>% 
   kable_styling(full_width = F) %>%
   column_spec(1, bold = TRUE)
 ```
 
-Next, let's plot a graph.
+Next, let's plot some graphs.
 
 ```{r visualize-data, fig.height=8, echo =TRUE, message=FALSE, warning=FALSE, fig.cap="Scatter plot (A.) shows the relationship between initial and final plant height and boxplots of initial (B.) and final heights (C.)"}
 
 # Scatter plot: Initial vs Final Height by Fertilizer
-ggplot(fertilizer_data, aes(x = Initial_Height, y = Final_Height, color = Fertilizer)) +
+ggplot(fertilizer_data, aes(x = Initial_Height,
+                            y = Final_Height,
+                            color = Fertilizer)) +
   geom_point(size = 3, alpha = 0.7) +
   geom_smooth(method = "lm", se = FALSE, size = 1.2) +
   labs(title = "A.",
@@ -435,10 +478,13 @@ ggplot(fertilizer_data, aes(x = Initial_Height, y = Final_Height, color = Fertil
        y = "Final Plant Height (cm)") +
   theme_classic() +
   theme(legend.position = "none", 
-        axis.text = element_text(size = 14), axis.title = element_text(size = 14))
+        axis.text = element_text(size = 14),
+        axis.title = element_text(size = 14))
 
 # Boxplot: Initial heights
-ggplot(fertilizer_data, aes(x = Fertilizer, y = Initial_Height, fill = Fertilizer)) +
+ggplot(fertilizer_data, aes(x = Fertilizer,
+                            y = Initial_Height,
+                            fill = Fertilizer)) +
   geom_boxplot(alpha = 0.6) +
   geom_jitter(width = 0.1, alpha = 0.5) +
   labs(title = "B.",
@@ -447,8 +493,8 @@ ggplot(fertilizer_data, aes(x = Fertilizer, y = Initial_Height, fill = Fertilize
        y = "Initial Height (cm)") +
   theme_classic() +
   theme(legend.position = "none", 
-        axis.text = element_text(size = 14), axis.title = element_text(size = 14))
-  
+        axis.text = element_text(size = 14),
+        axis.title = element_text(size = 14))
 
 # Boxplot: Final heights
 ggplot(fertilizer_data, aes(x = Fertilizer, y = Final_Height, fill = Fertilizer)) +
