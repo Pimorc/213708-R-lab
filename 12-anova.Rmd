@@ -462,83 +462,84 @@ summary_stats %>%
   column_spec(1, bold = TRUE)
 ```
 
-Next, let's plot some graphs.
+Next, let's create a scatter plot showing the relationship between initial and final plant height.
 
-```{r visualize-data, fig.height=8, echo =TRUE, message=FALSE, warning=FALSE, fig.cap="Scatter plot (A.) shows the relationship between initial and final plant height and boxplots of initial (B.) and final heights (C.)"}
-
+```{r visualize-data, fig.height=8, echo =TRUE, message=FALSE, warning=FALSE, fig.cap="Scatter plot shows the relationship between initial and final plant height"}
 # Scatter plot: Initial vs Final Height by Fertilizer
 ggplot(fertilizer_data, aes(x = Initial_Height,
                             y = Final_Height,
-                            color = Fertilizer)) +
+                            shape = Fertilizer)) +
   geom_point(size = 3, alpha = 0.7) +
   geom_smooth(method = "lm", se = FALSE, size = 1.2) +
-  labs(title = "A.",
-       #subtitle = "Colored by fertilizer treatment",
-       x = "Initial Seedling Height (cm)",
+  labs(x = "Initial Seedling Height (cm)",
        y = "Final Plant Height (cm)") +
   theme_classic() +
   theme(legend.position = "none", 
         axis.text = element_text(size = 14),
         axis.title = element_text(size = 14))
+```
 
+Next, let's create box plots showing differences in the initial and final height. We start by looking at the initial height.
+
+```{r visual-data-box, fig.height=8, echo =TRUE, message=FALSE, warning=FALSE, results = 'hide'}
 # Boxplot: Initial heights
 ggplot(fertilizer_data, aes(x = Fertilizer,
                             y = Initial_Height,
                             fill = Fertilizer)) +
   geom_boxplot(alpha = 0.6) +
   geom_jitter(width = 0.1, alpha = 0.5) +
-  labs(title = "B.",
-       #subtitle = "Shows baseline differences",
-       x = "Fertilizer Treatment",
+  labs(x = "Fertilizer Treatment",
        y = "Initial Height (cm)") +
   theme_classic() +
   theme(legend.position = "none", 
         axis.text = element_text(size = 14),
         axis.title = element_text(size = 14))
+```
 
+Also, let's create a box plot showing differences in the final plant height.
+
+```{r visual-data-box2, fig.height=8, echo =TRUE, message=FALSE, warning=FALSE, results = 'hide'}
 # Boxplot: Final heights
-ggplot(fertilizer_data, aes(x = Fertilizer, y = Final_Height, fill = Fertilizer)) +
+ggplot(fertilizer_data,
+        aes(x = Fertilizer, y = Final_Height,
+          fill = Fertilizer)) +
   geom_boxplot(alpha = 0.6) +
   geom_jitter(width = 0.1, alpha = 0.5) +
-  labs(title = "C.",
-       #subtitle = "Outcome variable",
-       x = "Fertilizer Treatment",
+  labs(x = "Fertilizer Treatment",
        y = "Final Height (cm)") +
   theme_classic() +
   theme(legend.position = "none", 
-        axis.text = element_text(size = 14), axis.title = element_text(size = 14))
+        axis.text = element_text(size = 14),
+        axis.title = element_text(size = 14))
 ```
 
 ### Running the ANCOVA test
 
-#### Check one assumption BEFORE running
+#### Check one assumption BEFORE running {#check-before-ancova}
+
+The variances of final height must be equal among treatments. Please interpret the output.
 
 ```{r ancova-levene, echo =TRUE, message=FALSE, warning=FALSE, results='hide'}
-
 # Homogeneity of variance (Levene's test)
 library(car)
-levene_test <- leveneTest(Final_Height ~ Fertilizer, data = fertilizer_data)
-cat("Levene's Test for Homogeneity of Variance:\n")
-print(levene_test)
-if (levene_test$`Pr(>F)`[1] > 0.05) {
-  cat("\n✓ Variances are equal across groups (p > 0.05)\n")
-} else {
-  cat("\n⚠ Variances may not be equal across groups (p < 0.05)\n")
-}
+levene_test <- leveneTest(Final_Height ~ Fertilizer
+                          data = fertilizer_data)
+levene_test
 ```
 
 Now, let's run ANCOVA.
 
 ```{r ancova, echo =TRUE, message=FALSE, warning=FALSE, results='hide'}
 # ANCOVA with initial height as covariate
-ancova_model <- aov(Final_Height ~ Initial_Height + Fertilizer, data = fertilizer_data)
+ancova_model <- aov(Final_Height ~ Initial_Height + Fertilizer,
+                  data = fertilizer_data)
 summary(ancova_model)
 
 # Extract key statistics
 ancova_results <- anova(ancova_model)
 ```
 
-#### Calculatation of Adjusted Means
+#### Calculation of Adjusted Means
 
 In ANCOVA, we calculate **adjusted means** - the expected group means if all groups had the same average covariate value. 
 
@@ -547,7 +548,6 @@ library(emmeans)
 
 # Calculate adjusted means
 adjusted_means <- emmeans(ancova_model, ~ Fertilizer)
-
 adjusted_means
 
 # Compare with unadjusted means
@@ -575,24 +575,30 @@ ANCOVA has all the assumptions of ANOVA, **plus additional ones**:
 
 ##### Linear Relationship between covariate and dependent variable
 
-The relationship between the covariate (initial height) and dependent variable (final height) should be linear.
+The relationship between the covariate (initial height) and dependent variable (final height) should be linear. In our case, the relationships look linear.
 
-```{r check-linearity, echo = FALSE, message=FALSE, warning=FALSE, fig.cap="Linearity Check: Initial vs. Final Height"}
+```{r check-linearity, echo = TRUE, message=FALSE, warning=FALSE, results = 'hide'}
 # Scatter plot with linear fit
-ggplot(fertilizer_data, aes(x = Initial_Height, y = Final_Height)) +
+ggplot(fertilizer_data,
+      aes(x = Initial_Height, y = Final_Height)) +
   geom_point(alpha = 0.6, size = 2) +
-  geom_smooth(method = "lm", se = FALSE, color = "blue", size = 1.2) +
-  geom_smooth(method = "loess", se = FALSE, color = "red", linetype = "dashed") +
-  labs(title = "Blue line = linear fit, Red line = loess (flexible) fit",
+  geom_smooth(method = "lm", se = FALSE, 
+              color = "blue", size = 1.2) +
+  geom_smooth(method = "loess", se = FALSE,
+              color = "red", linetype = "dashed") +
+  labs(title = "Blue line = linear fit, 
+  Red line = loess (flexible) fit",
        x = "Initial Seedling Height (cm)",
        y = "Final Plant Height (cm)") +
   theme_classic() +
   theme(legend.position = "bottom", 
-        axis.text = element_text(size = 14), axis.title = element_text(size = 14))
+        axis.text = element_text(size = 14),
+        axis.title = element_text(size = 14))
 ```
 
+Let's plot the residuals and covariate. The residuals should not show bias. 
 
-```{r check-residuals, echo = FALSE, message=FALSE, warning=FALSE, fig.cap="Residuals and covariate (Initial height) plot"}
+```{r check-residuals, echo = TRUE, message=FALSE, warning=FALSE, results = 'hide'}
 # Check residuals vs. covariate
 plot(fertilizer_data$Initial_Height, residuals(ancova_model),
      xlab = "Initial Height (cm)", ylab = "Residuals",
@@ -604,47 +610,53 @@ abline(h = 0, col = "red", lty = 2, lwd = 2)
 
 **Critical assumption:** The relationship between initial height and final height should be the same across all fertilizer treatments (parallel slopes).
 
-```{r check-slopes, fig.height=6, fig.cap="Homogeneity of Slopes Test", echo=TRUE, message=FALSE, warning=FALSE}
+```{r check-slopes, fig.height=6, echo=TRUE, message=FALSE, warning=FALSE, results = 'hide'}
 # Visual check: separate regression lines by group
-ggplot(fertilizer_data, aes(x = Initial_Height, y = Final_Height, color = Fertilizer)) +
+ggplot(fertilizer_data, aes(x = Initial_Height,
+                            y = Final_Height,
+                            shape = Fertilizer)) +
   geom_point(alpha = 0.6, size = 2) +
-  geom_smooth(method = "lm", se = TRUE, alpha = 0.2, size = 1.2) +
+  geom_smooth(method = "lm", se = TRUE,
+            alpha = 0.2, size = 1.2) +
   labs(title = "Lines should be roughly parallel (similar slopes)",
        x = "Initial Seedling Height (cm)",
        y = "Final Plant Height (cm)") +
   theme_classic() +
   theme(legend.position = "bottom",
-        axis.text = element_text(size = 14), axis.title = element_text(size = 14))
+        axis.text = element_text(size = 14),
+        axis.title = element_text(size = 14))
 
 # Statistical test for homogeneity of slopes
 # Test interaction between Fertilizer and Initial_Height
-interaction_model <- aov(Final_Height ~ Initial_Height * Fertilizer, data = fertilizer_data)
+interaction_model <- aov(Final_Height ~ Initial_Height * Fertilizer,
+                        data = fertilizer_data)
 summary(interaction_model)
 ```
 
-In this case, there is no interaction effect between initial height and fertilizer treatments. THe assumptions is met.
+Look at the summary of the interaction model; there is no interaction effect between initial height and fertilizer treatments. The assumption is met.
 
 #### Independence of Covariate and Treatment
 
 The covariate should not be affected by the treatment. This means:
 
-- The covariate should be measured **before** treatment
-- The covariate should not be influenced by group assignment
+- The covariate should be measured **before** treatment.
+- The covariate should not be influenced by group assignment.
 
 In our fertilizer example:
-- Initial seedling height was measured **before** fertilizer treatments were applied
-- Random assignment ensures fertilizer type doesn't affect initial height
-- The covariate (initial size) is a pre-existing characteristic
+
+- Initial seedling height was measured **before** fertilizer treatments were applied.
+- Random assignment ensures fertilizer type doesn't affect initial height.
+- The covariate (initial size) is a pre-existing characteristic.
 
 #### Standard ANOVA Assumptions
 
-We also should check for:
+We should also check for:
 
 - **Normality of residuals**
 
 In class practice: I let you run some tests to check whether the assumptions are met by yourself. Hint: Shapiro test, 
 
-- **Homogeneity of variance** (We already did this under the heading "Check BEFORE running")
+- **Homogeneity of variance** (We already did this under the heading "Check BEFORE running" \@ref(check-before-ancova))
 - **Independence of observations**
 
 ```{r check-standard-assumptions, include=FALSE, echo=FALSE}
@@ -674,12 +686,11 @@ par(mfrow = c(1, 1))
 
 ### Post-Hoc Comparisons with ANCOVA and Visualizing Post-Hoc Results
 
-Let's use a Tukeys's HSD post-hoc test to identify which groups differ.
+Let's use Tukey's HSD post-hoc test to identify which groups differ.
 
-```{r posthoc-ancova, echo=FALSE, results='hide', warning=FALSE, message=FALSE}
+```{r posthoc-ancova, echo=TRUE, results='hide', warning=FALSE, message=FALSE}
 # Pairwise comparisons of adjusted means
 pairwise_results <- pairs(adjusted_means)
-
 pairwise_results
 
 # Confidence intervals
@@ -692,7 +703,7 @@ cld(adjusted_means, Letters = letters)
 
 Then, let's visualize the results.
 
-```{r plot-posthoc, fig.height=6, fig.cap="Adjusted Means with Post-Hoc Comparisons. Groups with different letters are significantly different.", echo=TRUE, warning=FALSE, message=FALSE}
+```{r plot-posthoc, echo=TRUE, warning=FALSE, message=FALSE, results = 'hide'}
 
 # Plot adjusted means with error bars and significance letters
 adj_means_df <- as.data.frame(adjusted_means)
@@ -701,7 +712,8 @@ adj_means_df <- as.data.frame(adjusted_means)
 cld_result <- cld(adjusted_means, Letters = letters)
 cld_df <- as.data.frame(cld_result)
 
-ggplot(cld_df, aes(x = Fertilizer, y = emmean, fill = Fertilizer)) +
+ggplot(cld_df, aes(x = Fertilizer,
+                  y = emmean, fill = Fertilizer)) +
   geom_col(alpha = 0.7) +
   geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), 
                 width = 0.2, size = 1) +
@@ -713,17 +725,19 @@ ggplot(cld_df, aes(x = Fertilizer, y = emmean, fill = Fertilizer)) +
   theme(legend.position = "bottom", 
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 14),
-        axis.text = element_text(size = 14), axis.title = element_text(size = 14))
+        axis.text = element_text(size = 14),
+        axis.title = element_text(size = 14))
 ```
 
 ### Effect Size for ANCOVA - Partial Eta-Squared
 
-For ANCOVA, we use **partial eta-squared** which shows the proportion of variance in the outcome explained by each effect, after controlling for other effects.
+For ANCOVA, we use **partial eta-squared**, which shows the proportion of variance in the outcome explained by each effect, after controlling for other effects.
 
 The interpretation of effect size [@partial_eta]
-Small: $η²  = 0.01$
-Medium: $η² = 0.06$
-Large: $η²  = 0.14$
+
+- Small: $η²  = 0.01$
+- Medium: $η² = 0.06$
+- Large: $η²  = 0.14$
 
 ```{r effect-size-ancova, tab.cap="Partial eta-squared of ANCOVA model of the fertilizer experiment", echo =TRUE, warning=FALSE, message=FALSE, results='hide'}
 library(effectsize)
@@ -731,9 +745,11 @@ library(effectsize)
 # Calculate effect sizes
 partial_eta <- eta_squared(ancova_model, partial = TRUE)
 
-kbl(eta_squared(ancova_model, partial = TRUE), digit = 2, row.names = FALSE,
-    caption = "Partial eta-squared of ANCOVA model of the fertilizer experiment") %>%
-kable_styling(bootstrap_options = "striped", full_width = F)
+kbl(eta_squared(ancova_model, partial = TRUE), 
+  digit = 2, row.names = FALSE,
+  caption = "Partial eta-squared of ANCOVA model") %>%
+kable_styling(bootstrap_options = "striped",
+              full_width = F)
 ```
 
 ### Reporting ANCOVA Results of the Fertilizer Experiment
@@ -746,11 +762,10 @@ The following paragraph presents the written report for ANCOVA.
 >
 > Post-hoc pairwise comparisons using the Bonferroni correction revealed that synthetic fertilizer (Adjusted Mean = `r round(comparison_means$adjusted_mean[3], digit = 1)` cm, SE = `r round(comparison_means$SE[3], digit = 1)`) resulted in significantly taller plants than both organic fertilizer (Adjusted Mean = `r round(comparison_means$adjusted_mean[2], digit = 1)` cm, SE = `r round(comparison_means$SE[2], digit = 1)`), p < 0.001) and the control with no fertilizer (Adjusted Mean = `r round(comparison_means$adjusted_mean[1], digit = 1)` cm, SE = `r round(comparison_means$SE[1], digit = 1)`), p < 0.001). Organic fertilizer also produced significantly taller plants than the control (P < 0.001), demonstrating that both fertilizer types enhanced plant growth beyond the baseline."
 
-
 ## Exercise
 
-**Submission:** A PDF file containing your answers.
-If you are asked to use R, your answers must contain **R codes** that you wrote and **the outputs** you get. Your codes and outputs can be text and/or screen capture.
+**Submission:** A PDF file containing your answers. If you are asked to work in R, your answers must include **R code ** that you wrote and **the outputs** you get.
+Your code and outputs can be text and/or screen capture.
 
 **Full score:** 10 Submission:
 
@@ -773,10 +788,11 @@ E. Run the ANOVA and examine the F-statistic and p-value
 F. Visualize the data (box plots, means plot)
 G. Report results with appropriate statistics  
 
-**Correct order for question 2:** ___ → ___ → ___ → ___ → ___ → ___ → ___
+**Correct order for question 2:** 
+Answer: ___ → ___ → ___ → ___ → ___ → ___ → ___
 
 
-**Scenario B:** (For questions 3) 
+**Scenario B:** (For question 3) 
 A researcher compares plant yield across four irrigation methods. The fields have different baseline soil moisture levels (measured before irrigation started) and different initial nutrient levels (also measured beforehand).
 
 **3.** Determine whether ANOVA or ANCOVA is more appropriate. Explain your reasoning and identify any covariates.
@@ -784,9 +800,9 @@ A researcher compares plant yield across four irrigation methods. The fields hav
 - **Best analysis:** Pick one ☐ ANOVA ☐ ANCOVA
 - **Covariates (if ANCOVA):**
 
-**Scenario C:** (For questions 4 and 5 Interpreting the outputs of a study)
+**Scenario C:** (For questions 4 and 5: Interpreting the outputs of a study)
 
-A study compared three fertilizer treatment - Control (no fertilizer), Organic, and Synthetic - on tomato yield (kg), controlling for initial soil nitrogen (ppm).
+A study compared three fertilizer treatments - Control (no fertilizer), Organic, and Synthetic - on tomato yield (kg), controlling for initial soil nitrogen (ppm).
 
 **ANCOVA Results:**
 ```
@@ -809,9 +825,8 @@ Synthetic          24.8             0.8
 - Is soil nitrogen significantly related to yield?.
 - Is there a significant effect of fertilizer type?
 
-**5.** Calculate partial $η²$ for the fertilizer effect: 
-Formula: SS_fertilizer / (SS_fertilizer + SS_residuals)
-Interpret the partial $η²$ - what it means.
+**5.** Calculate partial $η²$ for the fertilizer effect using the following formula: 
+$SS_fertilizer / (SS_fertilizer + SS_residuals)$ and interpret what the partial $η²$ means.
 
 ### Grading rubric
 
