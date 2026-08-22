@@ -155,7 +155,7 @@ Now, we will evaluate the model to see if the model met the assumptions.
 
 First, let's check if the residuals are normally distributed with a mean of 0.
 
-```{r model.eval1, echo = F, eval = T, results = 'hide', fig.keep = 1}
+```{r model.eval1, echo = T, eval = T, results = 'hide'}
 
 hist(model$residuals)
 abline(v = mean(model$residuals))
@@ -172,18 +172,18 @@ Second, let's see a set of four diagnostic plots.
 We can check for heteroscedasticity using a fitted value vs residual plot.
 If you notice a speaker-phone shape of points, it means heteroscedasticity.
 
-```{r eval.plot, echo = F, eval = T}
+```{r eval.plot, echo = TRUE, eval = T, results = 'hide'}
 par(mfrow=c(2,2)) 
 plot(model)
 ```
 
 See the upper left plot.
-We seems to have a heteroscedasticity issue here.
+We seem to have a heteroscedasticity issue here.
 
 Also, see the Q-Q residuals plot. The residuals are not quite normally distributed.
-The bottom right plot, Residuals vs Leverage shows the regression is influenced by each data point.
+The bottom-right plot, Residuals vs Leverage, shows the regression is influenced by each data point.
 
-From the plots, some data points (with written number) influence the regression and affect the quality of the regression.
+From the plots, some data points (with written numbers) influence the regression and affect the quality of the regression.
 
 In addition, there is a package that can help you check the assumptions of linear regression. Let's use `gvlma()` function from `gvlma` package.
 
@@ -192,7 +192,7 @@ library(gvlma)
 gvlma::gvlma(model)
 ```
 
-The results of `gvlma` means
+The results of `gvlma` mean:
 
 -   Global Stat: overall metric indicates whether the model passes or fails.
     Here, the model failed.
