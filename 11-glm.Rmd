@@ -10,8 +10,8 @@ Updated: `r format(Sys.Date(), '%B, %Y')`
 
 Students should be able to
 
-1.  demonstrate steps to run GLMs in R
-2.  Interpret the results of the models
+1.  demonstrate steps to run GLMs in R.
+2.  interpret the results of the models.
 
 ## Data files for this lab
 
@@ -26,9 +26,9 @@ We consider using GLMs when the dependent (response) variable is:
 3.  Binary data
 4.  Data on time to death
 
-In our lab today we will work with seed germination data (proportion data) of two tree species *Strychnos nux-vomica* and *Litsea glutinosa*. The germination is tested under two treatment group of dry and wet storage with an additional cold storage (-20 degree celcius) at the driest storage (dry to 5% of initial moisture content). Overall, there are eight treatments - control (baseline), and four dry storage, and three wet storage treatments.
+In our lab today, we will work with seed germination data (proportion data) of two tree species, *Strychnos nux-vomica* and *Litsea glutinosa*. Germination is tested under two treatment groups: dry and wet storage, with an additional cold storage (-20 degree celcius) at the driest storage (dry to 5% of initial moisture content). Overall, there are eight treatments: control (baseline), four dry storage, and three wet storage treatments.
 
-The explanatory (independent) variables are categorical variable - species and treatments.
+The explanatory (independent) variables are categorical: species and treatments.
 
 ## Download additional packages
 
@@ -61,16 +61,19 @@ names(germination) ## See column names
 #specify the appropriate data types
 germination$genus <- as.factor(germination$genus)
 germination$epithet <- as.factor(germination$epithet)
-germination$treatment.all <- as.factor(germination$treatment.all)
-germination$treatment.group <- as.factor(germination$treatment.group)
-germination$treatment.group2 <- as.factor(germination$treatment.group2)
+germination$treatment.all <-
+    as.factor(germination$treatment.all)
+germination$treatment.group <-
+    as.factor(germination$treatment.group)
+germination$treatment.group2 <-
+    as.factor(germination$treatment.group2)
 germination$rep <- as.factor(germination$rep)
 germination$class <- as.factor(germination$class)
 ```
 
 ## Data Visualization
 
-Let's plot some graphs
+First, let's calculate germination percent.
 
 ```{r eval = F}
 library(ggplot2)
@@ -82,17 +85,25 @@ data <- germination %>%
     species = paste(genus, epithet),
     germination_percent = (germinated / sow) * 100
   )
+```
 
+Let's plot some box plots. 
+
+```{r eval = F}
 # Create the plot
 # First, see all treatments
-ggplot(data, aes(x = treatment.all, y = germination_percent, fill = class)) +
+ggplot(data, aes(x = treatment.all, 
+                y = germination_percent, 
+                fill = class)) +
   geom_boxplot(alpha = 0.7) +
   geom_jitter(width = 0.2, size = 2, alpha = 0.6) +
   facet_wrap(~ species, ncol = 2, scales = "free_x") +
   theme_bw() +
   theme(
-    axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
-    strip.text = element_text(face = "italic", size = 10),
+    axis.text.x = element_text(angle = 45,
+                              hjust = 1, size = 8),
+    strip.text = element_text(face = "italic",
+                              size = 10),
     legend.position = "top",
     panel.grid.major.x = element_blank()
   ) +
@@ -102,9 +113,15 @@ ggplot(data, aes(x = treatment.all, y = germination_percent, fill = class)) +
     y = "Germination (%)",
     fill = "Seed Class"
   ) +
-  scale_fill_manual(values = c("orthodox" = "#3498db", "recalcitrant" = "#e74c3c")) +
+  scale_fill_manual(values =
+                  c("orthodox" = "#3498db",
+                    "recalcitrant" = "#e74c3c")) +
   ylim(0, 100)
+```
 
+Then, let's create a summary table.
+
+```{r eval = F}
 # Create a summary table
 summary_stats <- data %>%
   group_by(species, class, treatment.all) %>%
@@ -119,7 +136,7 @@ se_rate = sd(germination_rate) / sqrt(n()),
 summary_stats
 ```
 
-Use a line graph to easily compare among treatments.
+Let's explore separated by different treatment groups.
 
 ```{r eval = F}
 summary_stats.group <- data %>%
@@ -131,25 +148,37 @@ summary_stats.group <- data %>%
 se_rate = sd(germination_rate) / sqrt(n()),
     .groups = "drop"
   )
+```
 
-ggplot(summary_stats.group, aes(x = treatment.group2, y = mean_germ_percent, 
-                         color = class, group = class)) +
+Use a line graph to easily compare among treatments.
+
+```{r eval = F}
+ggplot(summary_stats.group, 
+      aes(x = treatment.group2,
+          y = mean_germ_percent,
+          color = class, group = class)) +
   geom_line(linewidth = 1.5, alpha = 0.7) +
   geom_point(size = 2, alpha = 0.9) +
   
-  # Add ribbon for error
+  # Add ribbons for error
   geom_ribbon(
-    aes(ymin = mean_germ_percent - se_rate, ymax = mean_germ_percent+ se_rate, fill = class),
+    aes(ymin = mean_germ_percent - se_rate, 
+        ymax = mean_germ_percent + se_rate,
+        fill = class),
     alpha = 0.2,
     color = NA
   ) +
   
-  scale_color_manual(values = c("orthodox" = "#1982C4", "recalcitrant" = "#FF6B6B")) +
-  scale_fill_manual(values = c("orthodox" = "#1982C4", "recalcitrant" = "#FF6B6B")) +
+  scale_color_manual(values = c("orthodox" = "#1982C4", 
+                              "recalcitrant" = "#FF6B6B")) +
+  scale_fill_manual(values = c("orthodox" = "#1982C4",
+                              "recalcitrant" = "#FF6B6B")) +
   
   theme_bw() +
   theme(
-    axis.text.x = element_text(angle = 45, hjust = 1, size = 9),
+    axis.text.x = element_text(angle = 45, 
+                              hjust = 1,
+                              size = 9),
     strip.text = element_text(face = "bold.italic"),
     legend.position = "top",
     panel.grid.minor = element_blank()
@@ -164,53 +193,65 @@ ggplot(summary_stats.group, aes(x = treatment.group2, y = mean_germ_percent,
   )
 ```
 
-We can also visual based on treatment groups - dry vs wet storage.
+We can also visualize based on treatment groups - dry vs wet storage.
 
 ```{r eval = F}
-# Compare among baseline germination, and germination after dry and wet storages
+# Compare baseline germination and 
+# germination after dry and wet storages
 
-ggplot(data, aes(x = treatment.group2, y = germination_percent, fill = class)) +
+ggplot(data, aes(x = treatment.group2, 
+                y = germination_percent,
+                fill = class)) +
   geom_boxplot(alpha = 0.7) +
   geom_jitter(width = 0.2, size = 2, alpha = 0.6) +
   facet_wrap(~ species, ncol = 2, scales = "free_x") +
   theme_bw() +
   theme(
-    axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+    axis.text.x = element_text(angle = 45, 
+                              hjust = 1, size = 8),
     strip.text = element_text(face = "italic", size = 10),
     legend.position = "top",
     panel.grid.major.x = element_blank()
   ) +
   labs(
-    title = "Seed Germination Percents by Species and Treatment Group",
+    title = "Germination Percents by Species 
+            and Treatment Group",
     x = "Treatment group",
     y = "Germination (%)",
     fill = "Seed Class"
   ) +
-  scale_fill_manual(values = c("orthodox" = "#3498db", "recalcitrant" = "#e74c3c")) +
+  scale_fill_manual(values = c("orthodox" = "#3498db",
+                              "recalcitrant" = "#e74c3c")) +
   ylim(0, 100)
 ```
 
-A line graph for easily comparison of treatment groups.
+A line graph for easy comparison of treatment groups.
 
 ```{r eval = F}
-ggplot(summary_stats, aes(x = treatment.group2, y = mean_germ_percent, 
+ggplot(summary_stats, aes(x = treatment.group2,
+                          y = mean_germ_percent,
                          color = class, group = class)) +
   geom_line(linewidth = 1.5, alpha = 0.7) +
   geom_point(size = 2, alpha = 0.9) +
   
   # Add ribbon for error
   geom_ribbon(
-    aes(ymin = mean_germ_percent - se_rate, ymax = mean_germ_percent+ se_rate, fill = class),
+    aes(ymin = mean_germ_percent - se_rate,
+        ymax = mean_germ_percent + se_rate,
+        fill = class),
     alpha = 0.2,
     color = NA
   ) +
   
-  scale_color_manual(values = c("orthodox" = "#1982C4", "recalcitrant" = "#FF6B6B")) +
-  scale_fill_manual(values = c("orthodox" = "#1982C4", "recalcitrant" = "#FF6B6B")) +
+  scale_color_manual(values = c("orthodox" = "#1982C4",
+                              "recalcitrant" = "#FF6B6B")) +
+  scale_fill_manual(values = c("orthodox" = "#1982C4",
+                              "recalcitrant" = "#FF6B6B")) +
   
   theme_bw() +
   theme(
-    axis.text.x = element_text(angle = 45, hjust = 1, size = 9),
+    axis.text.x = element_text(angle = 45,
+                              hjust = 1, size = 9),
     strip.text = element_text(face = "bold.italic"),
     legend.position = "top",
     panel.grid.minor = element_blank()
@@ -227,13 +268,14 @@ ggplot(summary_stats, aes(x = treatment.group2, y = mean_germ_percent,
 
 **From the graphs**
 
-The seeds of *Litsea* lost its germinability after dry storage, while the germination of *Strychnos*'s seeds is still high after dry storage. *Litsea*'s seed cannot be dried and stored in the freezer. Storing seeds in the cold conditions seems to reduced the seed germination of *Strychnos*.
+The seeds of *Litsea* lost their germinability after dry storage, while the germination of *Strychnos* seeds is still high after dry storage. * Litsea* seeds cannot be dried and stored in the freezer. Storing seeds in cold conditions seems to reduce the seed germination of *Strychnos*.
 
 ## Modeling Steps [@crawley2012]
 
 ```{r eval=F}
 y <- cbind(germinated, sow-germinated) 
-# Create new vector of successful & unsuccessful germination
+# Create new vector of 
+# successful & unsuccessful germination
 
 y
 
@@ -243,24 +285,26 @@ levels(germination$treatment.group)
 levels(germination$treatment.group2)
 levels(germination$genus)
 
-model <- glm(y ~ genus * treatment.group2, data = germination, family = binomial)
+model <- glm(y ~ genus * treatment.group2, 
+            data = germination, family = binomial)
 
 # 2 x 8 factorial analysis
 
 summary(model)
-
 ```
 
 ## Model Evaluation
 
-First, let's look at the ration of the residual deviance and the df in the summary. In this case, the ratio value is \> 1. This is show overdispersion.
+First, let's look at the ratio of the residual deviance and the df in the summary. In this case, the ratio value is \> 1. This shows overdispersion.
 
 ```{r eval=F}
-# See if there is an overdispersion
+# See if there is overdispersion
 model$deviance/model$df.residual
-# solve problem using quasibinomial
 
-model <- glm(y ~ genus * treatment.group2, data = germination, family = quasibinomial) 
+# Solve the problem using quasibinomial
+model <- glm(y ~ genus * treatment.group2,
+            data = germination,
+            family = quasibinomial) 
 
 # Update model by removing interaction term
 model2 <- update(model, ~ .-genus :treatment.group2) 
@@ -271,9 +315,7 @@ anova(model, model2, test = "Chisq")
 
 ## Model Summary
 
-Let's see the summary
-
-Now we use quasi binomial. We do not need to see the residual deviance anymore. The two models are significantly different. We cannot remove the interaction term.
+Let's see the summary. Now we use quasi-binomial. We do not need to see the residual deviance anymore. The two models are significantly different. We cannot remove the interaction term.
 
 ```{r eval=F}
 summary(model)
@@ -281,13 +323,13 @@ summary(model)
 anova(model)
 ```
 
-The output of `anova(model)` shows that the explanatory variables of species and treatment are a significant terms in the model. The interaction term is also significant. This mean that the effect of storage treatments depends on species.
+The output of `anova(model)` shows that the explanatory variables of species and treatment are significant terms in the model. The interaction term is also significant. This means that the effect of storage treatments depends on species.
 
-One of our options would be analyze the effect of storage separately by species.
+One of our options would be to analyze the effect of storage separately by species.
 
 ## Exercise
 
-**Submission:** A PDF file containing your answers. If you are asked to use R, your answers must contain **R codes** that you wrote and **the outputs** you get. Your codes and outputs can be text and/or screen capture.
+**Submission:** A PDF file containing your answers. If you are asked to work in R, your answers must include **R code ** that you wrote and **the outputs** you get. Your code and outputs can be text and/or screen capture.
 
 **Full score:** 10 Submission:
 
@@ -295,15 +337,15 @@ One of our options would be analyze the effect of storage separately by species.
 
 ### Questions/directions
 
-**1.** In R, create a data frame of a subset data by choosing one of the species and show the data frame.
+**1.** In R, create a data frame of a subset of the data by choosing one of the *species* and show the data frame.
 
-**2.** In R, run a GLM to test whether the germination of the chosen species is affected by the treatment. You may shoose to use all treatments or treatment groups as your explanatory variable.
+**2.** In R, run a GLM to test whether the germination of the chosen species is affected by the treatment. You may choose to use all treatments or treatment groups as your explanatory variable.
 
-**3.** In R, check for violation of model assumption and provide the solution if the assumption is violated.
+**3.** In R, check for violations of model assumptions and provide the solution if the assumption is violated.
 
 **4.** In R, plot a graph to show the mean germination of each treatment.
 
-**5.** Write in words, the interpretation of the model explaining the effects of the types of storage on seeds germination of the selected species? According to the results, will we be able to store the species in dry and cold conditions?
+**5.** Write, in words, the interpretation of the model explaining the effects of the types of storage on seed germination of the selected species. According to the results, will we be able to store the species in dry and cold conditions?
 
 ### Grading rubric
 
