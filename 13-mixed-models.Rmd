@@ -10,8 +10,8 @@ Updated: `r format(Sys.Date(), '%B, %Y')`
 
 Students should be able to:
 
-1. Demonstrate steps to run mixed models in R.
-2. Explain the outputs of the mixed models.
+1. demonstrate steps to run mixed models in R.
+2. explain the outputs of the mixed models.
 
 ## Data files for this lab
 
@@ -27,25 +27,37 @@ In this lab, we will learn how to build, compare, and interpret mixed effects mo
 
 ## Download additional packages
 
-We will use a number of packages in this lab, including `ggplot2` [@ggplot2], `ggforce` [@ggforce], `dplyr` [@dplyr], `lme4` [@Bates2015], `lmerTest` [@lmerTest2017], `kableExtra` [@kableextra], `emmeans` [@emmeans], `multcomp`[@multcomp], and `effectsize` [@effectsize].
+We will use several packages in this lab, including `ggplot2` [@ggplot2], `ggforce` [@ggforce], `dplyr` [@dplyr], `lme4` [@Bates2015], `lmerTest` [@lmerTest2017], `kableExtra` [@kableextra], `emmeans` [@emmeans], `multcomp`[@multcomp], and `effectsize` [@effectsize].
 
 ```{r setup-mixed, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 # Install and load required packages
-if (!require("lme4")){install.packages("lme4", dependencies = TRUE)}
-if (!require("lmerTest")){install.packages("lmerTest", dependencies = TRUE)}
-if (!require("emmeans")){install.packages("emmeans", dependencies = TRUE)}
-if (!require("ggplot2")){install.packages("ggplot2", dependencies = TRUE)}
-if (!require("ggforce")){install.packages("ggforce", dependencies = TRUE)}
-if (!require("dplyr")){install.packages("dplyr", dependencies = TRUE)}
-if (!require("knitr")){install.packages("knitr", dependencies = TRUE)}
-if (!require("kableExtra")){install.packages("kableExtra", dependencies = TRUE)}
-if (!require("ggpattern")){install.packages("ggpattern", dependencies = TRUE)}
-if(!require("MuMIn")) {install.packages("MuMIn", dependencies = TRUE)}
-if(!require("sfsmisc", character.only = TRUE)) {
+if(!require("lme4")){
+  install.packages("lme4", dependencies = TRUE)}
+if(!require("lmerTest")){
+  install.packages("lmerTest", dependencies = TRUE)}
+if(!require("emmeans")){
+  install.packages("emmeans", dependencies = TRUE)}
+if(!require("ggplot2")){
+  install.packages("ggplot2", dependencies = TRUE)}
+if(!require("ggforce")){
+  install.packages("ggforce", dependencies = TRUE)}
+if(!require("dplyr")){
+  install.packages("dplyr", dependencies = TRUE)}
+if(!require("knitr")){
+  install.packages("knitr", dependencies = TRUE)}
+if(!require("kableExtra")){
+  install.packages("kableExtra", dependencies = TRUE)}
+if(!require("ggpattern")){
+  install.packages("ggpattern", dependencies = TRUE)}
+if(!require("MuMIn")){
+  install.packages("MuMIn", dependencies = TRUE)}
+if(!require("sfsmisc", character.only = TRUE)){
   install.packages("sfsmisc", dependencies = TRUE)}
-if(!require("formatdown", character.only = TRUE)) {
+if(!require("formatdown", character.only = TRUE)){
   install.packages("formatdown", dependencies = TRUE)}
+```
 
+```{r call-library, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 library(lme4)
 library(lmerTest)
 library(emmeans)
@@ -75,12 +87,18 @@ The experiment used five framework tree species (*Saraca indica*, *Sandoricum ko
 The experiment used a **randomised complete block design (RCBD)** with three replicates (blocks) per species. Root length data are used as an example for the mixed model analysis.
 
 ```{r data-mixed, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
-chaiklang_data <- read.csv("data/root_data_chaiklang.csv", header = T)
+chaiklang_data <- read.csv("root_data_chaiklang.csv",
+                          header = T)
 chaiklang_data$Treatment <- factor(chaiklang_data$Treatment,
-                                   levels = c("CON", "COB", "COG"))
+                                   levels = c("CON", "COB",
+                                            "COG"))
 chaiklang_data$Species   <- factor(chaiklang_data$Species,
-                                   levels = c("C.operculatus", "G.hombroniana",
-                   "L.rubiginosa",  "S.indica", "S.koetjape"))
+                                   levels = 
+                                    c("C.operculatus",
+                                    "G.hombroniana",
+                                    "L.rubiginosa",
+                                    "S.indica",
+                                    "S.koetjape"))
 
 head(chaiklang_data, 12)
 unique(chaiklang_data$Species)
@@ -92,26 +110,25 @@ Let's explore the data set.
 
 ```{r chaiklang-boxplot, fig.height=5, fig.cap="Root length (cm) of five framework tree species under three nursery production systems. CON = polybags on ground (control); COB = crates on wire benches; COG = crates on ground. Points represent individual sapling measurements.", echo=TRUE, fig.align='center', message=FALSE, warning=FALSE, eval=FALSE}
 ggplot(chaiklang_data,
-       aes(x = Treatment, y = Rootlength, fill = Treatment)) +
-  geom_boxplot_pattern(aes(pattern = Treatment), alpha = 0.6, outlier.shape = NA,
-                       pattern_color = "black",
-                       pattern_fill = "white",
-                       pattern_density = 0.1) +
-  #geom_jitter(width = 0.15, size = 0.8, alpha = 0.4) +
+       aes(x = Treatment, y = Rootlength,
+          fill = Treatment)) +
+  geom_boxplot_pattern(aes(pattern = Treatment),
+                      alpha = 0.6, outlier.shape = NA,
+                      pattern_color = "black",
+                      pattern_fill = "white",
+                      pattern_density = 0.1) +
   facet_wrap(~ Species, nrow = 1) +
-  #scale_fill_manual(values = c("CON" = "#4575b4",
-  #                             "COB" = "#d73027",
-  #                             "COG" = "#1a9850")) +
   labs(x = "Treatment",
        y = "Root length (cm)",
        fill = "Treatment") +
   theme_bw() +
   theme(axis.title = element_text(size = 14),
         axis.text.y  = element_text(size = 14),
-    axis.text.x  = element_text(angle = 45, hjust = 1, size = 13),
-    strip.text   = element_text(face = "italic", size = 13),
-    legend.position = "none"
-  )
+        axis.text.x  = element_text(angle = 45,
+                        hjust = 1, size = 13),
+        strip.text   = element_text(face = "italic",
+                        size = 13),
+    legend.position = "none")
 ```
 
 Create a summary table of means and standard errors before modelling. 
@@ -129,12 +146,15 @@ summary_ch <- chaiklang_data %>%
 
 summary_ch
 
-## Make a nicer look table
+## Make a nicer-looking table
 kbl(summary_ch,
-    col.names = c("Species", "Treatment", "n", "Mean root length (cm)",
-                  "SD", "SE"),
-    caption = "Summary statistics for root length (cm) by species and treatment") %>%
-  kable_styling(full_width = TRUE, bootstrap_options = "striped") %>%
+    col.names = c("Species", "Treatment",
+                "n", "Mean root length (cm)",
+                "SD", "SE"),
+    caption = "Summary statistics for root length (cm) 
+              by species and treatment") %>%
+  kable_styling(full_width = TRUE,
+                bootstrap_options = "striped") %>%
   column_spec(1, italic = TRUE)
 ```
 
@@ -145,25 +165,27 @@ First, let's start by running a **random intercept model** with
 - fixed effects = `Treatment`, `Species`, and their interaction
 - a random effect = `Replicate`.
 
-We use the `lmerTest` package [@lmerTest2017] which extends `lme4` [@Bates2015] to provide p-values in the summary table.
+We use the `lmerTest` package [@lmerTest2017], which extends `lme4` [@Bates2015] to provide p-values in the summary table.
 
 ```{r fit-model1, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 # Fit the mixed effects model
-# Fixed effects: Treatment + Species + Treatment:Species interaction
+# Fixed effects: Treatment + Species + 
+# Treatment: Species interaction
 # Random effect: random intercept for Replicate (block)
-mixed_model_IntOnly2 <- lmer(Rootlength ~ Treatment * Species + (1|Replicate),
-                             REML = TRUE, data = chaiklang_data)
+mixed_model_IntOnly2 <- lmer(Rootlength ~ Treatment * Species +
+                            (1|Replicate), REML = TRUE,
+                            data = chaiklang_data)
 ```
 
-Then we do a **random slope and intercept model** and compare the two models and make a decision which one fit better according to AIC scores. 
+Then we do a **random slope and intercept model**, compare the two models, and make a decision on which one fits better according to AIC scores. 
 
 ```{r fit-model2, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 mixed_model_IntSlope2 <- lmer(Rootlength ~ Treatment * Species + 
                           (1 + Species|Replicate),
                           data = chaiklang_data, REML = TRUE)
 
-summary(mixed_model_IntSlope2) ## it turns out to be too complex of a model
-
+summary(mixed_model_IntSlope2)
+## It turns out to be too complex a model.
 ## We also take a look at the model without the fixed effect.
 
 mixed_model_NoFix <- lmer(Rootlength ~ 1 + (1 | Replicate),
@@ -172,14 +194,17 @@ mixed_model_NoFix <- lmer(Rootlength ~ 1 + (1 | Replicate),
 summary(mixed_model_NoFix)
 
 ### model selection
-AICc(mixed_model_IntOnly2, mixed_model_IntSlope2, mixed_model_NoFix) 
+AICc(mixed_model_IntOnly2, 
+    mixed_model_IntSlope2,
+    mixed_model_NoFix) 
 ```
 
-According to the AIC scores, the model with random intercept is better. Also, there is no interaction effect. We will cut the interaction from the model.
+According to the AIC scores, the model with a random intercept is better. Also, there is no interaction effect. We will remove the interaction from the model.
 
 ```{r fit-model-final, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 ## This model is for final results
-model_final <- lmer(Rootlength ~ Treatment + Species + (1 | Replicate),
+model_final <- lmer(Rootlength ~ Treatment + Species +
+                 (1 | Replicate),
                  data = chaiklang_data,
                  REML = FALSE)
 
@@ -199,7 +224,7 @@ Before interpreting the model, we must check the residuals. The key assumptions 
 2.  Residuals have roughly constant variance (homoscedasticity)
 3.  Random effects are normally distributed
 
-```{r model-validation, fig.height=4, fig.cap="Model diagnostics for the mixed effects model: (A) residuals vs. fitted values (checks homoscedasticity); (B) Q-Q plot of residuals (checks normality).", fig.align='center', echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
+```{r model-validation, fig.cap="Model diagnostics for the mixed effects model: (A) residuals vs. fitted values (checks homoscedasticity); (B) Q-Q plot of residuals (checks normality).", echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 # split the plotting area
 par(mfrow = c(1, 2))
 
@@ -218,7 +243,7 @@ qqline(resid(model_final), col = "red", lty = 2)
 par(mfrow = c(1, 1))
 ```
 
-No strong patterns in the residual plot; however, there are some outliers. Also, the Q-Q plot indicate that the model assumptions are reasonably satisfied.
+No strong patterns in the residual plot; however, there are some outliers. Also, the Q-Q plot indicates that the model assumptions are reasonably satisfied.
 
 ## ANOVA Table for Fixed Effects
 
@@ -228,16 +253,18 @@ anova_final <- anova(model_final)
 
 anova_final
 
-## Make a nicer look table
+## Make a nicer-looking table
 
 kbl(round(as.data.frame(anova_final), 2),
-    caption = "ANOVA table (Type III Sums of Squares) for the mixed effects model of root length") %>%
-  kable_styling(full_width = FALSE, bootstrap_options = "striped",font_size = 13)
+    caption = "ANOVA table (Type III Sums of Squares) 
+              for the mixed effects model of root length") %>%
+  kable_styling(full_width = FALSE,
+              bootstrap_options = "striped",font_size = 13)
 ```
 
 **Interpretation of the results:** The interaction between the treatment and species variables are not significant. There are significant effects of Treatment (the crating treatments increasing root length) and Species (different species grow at different rates). 
 
-Let's compare the treatments effects on root length, separately by species using estimated marginal means (EMMs) with Tukey's HSD correction (See @Chaiklang2025).
+Let's compare the treatment effects on root length, separately by species, using estimated marginal means (EMMs) with Tukey's HSD correction (See @Chaiklang2025).
 
 ```{r posthoc-table-mixed, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 # Estimated marginal means for Treatment within each Species
@@ -251,13 +278,13 @@ pairs_final <- pairs(emm_final, adjust = "tukey")
 
 ```{r emm-plot, fig.height=5, fig.cap="Estimated marginal means (±95% CI) for relative height growth rate (RGR-H) of five framework tree species under three nursery production systems from the mixed effects model.", echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 
-# I didn't use this in the lesson content. This might be useful for practical session
 emm_df <- as.data.frame(emm_final)
 
 ggplot(emm_df, aes(x = Treatment, y = emmean,
                    colour = Treatment, group = Treatment)) +
   geom_point(size = 3) +
-  geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), width = 0.2, linewidth = 0.8) +
+  geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL),
+                width = 0.2, linewidth = 0.8) +
   facet_wrap(~ Species, nrow = 1) +
   scale_colour_manual(values = c("CON" = "#4575b4",
                                  "COB" = "#d73027",
@@ -277,12 +304,11 @@ ggplot(emm_df, aes(x = Treatment, y = emmean,
 
 The following paragraph presents the written report for a mixed effects model.
 
-> A linear mixed effects model (lme4; Bates et al. 2015) was used to assess the effects of nursery production system (CON, COB, COG) and species on the root length of five framework tree species. Treatment and species were included as fixed effects along with their interaction. Replicate (block location in the nursery) was included as a random intercept to account for spatial variability. Significant effects of treatment (F = `r round(anova_final["Treatment","F value"], 2)`, P \< 0.05), species (F = `r round(anova_final["Species","F value"], 2)`, P \< 0.05) were detected. Post-hoc comparisons (Tukey HSD) showed that both crating treatments (COB and COG) significantly increased mean rooth length compared with the control for most species, consistent with the hypothesis that crating promotes air root-pruning and improves post-planting sapling performance.
+> A linear mixed effects model (lme4; Bates et al. 2015) was used to assess the effects of nursery production system (CON, COB, COG) and species on the root length of five framework tree species. Treatment and species were included as fixed effects along with their interaction. Replicate (block location in the nursery) was included as a random intercept to account for spatial variability. Significant effects of treatment (F = `r round(anova_final["Treatment","F value"], 2)`, P \< 0.05) and species (F = `r round(anova_final["Species","F value"], 2)`, P \< 0.05) were detected. Post-hoc comparisons (Tukey HSD) showed that both crating treatments (COB and COG) significantly increased mean root length compared with the control for most species, consistent with the hypothesis that crating promotes air root-pruning and improves post-planting sapling performance.
 
 ## Exercise
 
-**Submission:** A PDF file containing your answers.
-If you are asked to use R, your answers must contain **R codes** that you wrote and **the outputs** you get. Your codes and outputs can be text and/or screen capture.
+**Submission:** A PDF file containing your answers. If you are asked to work in R, your answers must include **R code ** that you wrote and **the outputs** you get. Your code and outputs can be text and/or screen capture.
 
 **Full score:** 10 Submission:
 
@@ -290,14 +316,13 @@ If you are asked to use R, your answers must contain **R codes** that you wrote 
 
 ### Questions/directions
 
-We will use the data - RIKZ dataset in @Zuur2007 and @Zuur2009. We will examine species richness at different beaches, to understand how environmental factors affect biodiversity while accounting for the nested structure of our data.
-The data set includes:
+We will use the RIKZ dataset in @Zuur2007 and @Zuur2009. We will examine species richness at different beaches to understand how environmental factors affect biodiversity while accounting for the nested structure of our data. The data set includes:
 
 1. Species richness
 2. Beach: 9 beaches
 3. NAP: Height compared to mean tidal level
 4. Exposure: Index composed of the surf zone, slope, grain size, and depth of anaerobic layer
-5. Site: 5 sites nested in the beaches
+5. Site: 5 sites nested within the beaches
 
 This exercise is modified from the lesson **Linear mixed-effects models** [@santangelo1] and **Model selection** [@santangelo2].
 
@@ -309,17 +334,18 @@ rikz_data$Site <- as.factor(rikz_data$Site)
 
 ## Explore the data
 # Plot
-
-ggplot(rikz_data, aes(x = NAP, y = Richness, colour = as.factor(Beach))) +
+ggplot(rikz_data, aes(x = NAP, y = Richness,
+                    color = as.factor(Beach))) +
   geom_point(size = 3) +
   theme_classic() +
   theme(legend.position = "none") +
   scale_colour_brewer(palette="Set1") +
   scale_fill_brewer(palette="Set1") +
-  ggforce::geom_mark_hull (aes(fill = as.factor(Beach), label = as.factor(Beach)),
-             concavity = 2)
+  ggforce::geom_mark_hull (aes(fill = as.factor(Beach),
+                          label = as.factor(Beach)),
+                          concavity = 2)
   
-#### See the data separate by beach
+#### See the data separated by beach
 ggplot(rikz_data, aes(x = NAP, y = Richness)) +
   geom_point() +
   geom_smooth(method = "lm") +
@@ -333,21 +359,22 @@ ggplot(rikz_data, aes(x = NAP, y = Richness)) +
 - fixed effects = NAP 
 - random effect = Beach
 
-show codes and other competing models that you run.
+Show the code and other competing models that you run.
 
-**2.**	In `R`, show the codes of how you select the best model and output of the best model
+**2.**	In `R`, show the code for how you select the best model and the output of the best model
 
-**3.**	In `R`, show code for model validation and explain in words if the model reach the assumption
+**3.**	In `R`, show code for model validation and explain in words whether the model meets the assumptions.
 
 **4.**	Write a paragraph to report the results of the model.
 
-**5.**	In `R`, use this code to draw a graph and show the graph in the report. Insert the name of your best fit model where appropriate.
+**5.**	In `R`, use this code to draw a graph and show the graph in the report. Insert the name of your best-fit model where appropriate.
 
 ```{r eval=F}
-rikz_data$fit_bestmodel <- predict(## name of your best fit model##
-  ,type = 'response')
+rikz_data$fit_bestmodel <- predict(#your best-fit model#,
+                                  type = 'response')
 
-ggplot(rikz_data, aes(x = NAP, y = Richness, colour = Beach)) +
+ggplot(rikz_data, aes(x = NAP, y = Richness,
+                      colour = Beach)) +
   # Add fitted values (i.e. regression) for each beach
   geom_line(aes(y = fit_bestmodel), size = 1) +
   geom_point(size = 3) +
@@ -360,10 +387,10 @@ ggplot(rikz_data, aes(x = NAP, y = Richness, colour = Beach)) +
 
 | Question | Score = 2 | Score = 1 | Score = 0 |
 |----------|---------|---------|---------|
-| 1 | Correct R code and outputs | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
-| 2 | Correct R code and outputs | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
-| 3 | Correct R code and explanation of the model checking | One of R code or the explanation is not included or incorrect | R code and the explanation are not included or incorrect |
+| 1 | Correct R code and outputs | One of the R code or outputs is not included or incorrect | R code and output are not included or incorrect |
+| 2 | Correct R code and outputs | One of the R code or outputs is not included or incorrect | R code and output are not included or incorrect |
+| 3 | Correct R code and explanation of the model checking | One of the R code or the explanation is not included or incorrect | R code and the explanation are not included or incorrect |
 | 4 | Correct results with statistical values reported | Partially correct results - missing important values | Incorrect results |
-| 5 | Correct R code and a plot with proper axis labels | One of R code or output is not included or incorrect | R code and output are not included or incorrect |
+| 5 | Correct R code and a plot with proper axis labels | One of the R code or output is not included or incorrect | R code and output are not included or incorrect |
 
 **End of Lab 13**
