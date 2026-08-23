@@ -10,8 +10,8 @@ Updated: `r format(Sys.Date(), '%B, %Y')`
 
 Students should be able to:
 
-1.  Demonstrate how to change data types/structures in R
-2.  Demonstrate an ability to manipulate data frames to reflect a proper experimental design
+1.  demonstrate how to change data types/structures in R
+2.  demonstrate an ability to manipulate data frames to reflect a proper experimental design
 
 ## Data Files for This Lab
 
