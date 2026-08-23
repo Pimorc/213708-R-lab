@@ -10,8 +10,8 @@ Updated: `r format(Sys.Date(), '%B, %Y')`
 
 Students should be able to:
 
-1.  Import a data set into the program to prepare for data analysis
-2.  Remove some missing values from the data
+1.  import a data set into the program to prepare for data analysis
+2.  remove some missing values from the data
 
 ## Data Files for This Lab
 
