@@ -10,7 +10,7 @@ Updated: `r format(Sys.Date(), '%B, %Y')`
 
 Students should be able to:
 
-1. Generate plots of random variables and describe the shape of the distribution
+1. generate plots of random variables and describe the shape of the distribution
 
 ## Data Files for This Lab
 
@@ -18,7 +18,7 @@ None to download. A data set is generated in the worksheet
 
 ## Introduction
 
-This worksheet will introduce you to random variables and probability distributions.
+This worksheet introduces you to random variables and probability distributions.
 We will use a normal distribution in this lab. The workflow in this lab is inspired by a lesson the instructor took in a graduate program [@ib519]. 
 The workflow is modified to be more targeted at the normal distribution. Read the text for explanations and enter the code into R (copy and paste into R is fine) 
 
