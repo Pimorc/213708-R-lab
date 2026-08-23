@@ -10,7 +10,7 @@ Updated: `r format(Sys.Date(), '%B, %Y')`
 
 Students should be able to:
 
-1.  Generate plots of some common distributions and describe their important properties
+1.  generate plots of some common distributions and describe their important properties
 
 ## Data Files for This Lab
 
