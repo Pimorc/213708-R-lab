@@ -10,7 +10,7 @@ Updated: `r format(Sys.Date(), '%B, %Y')`
 
 Students should be able to:
 
-1.  Demonstrate how to design an experiment when given research questions and hypotheses
+1.  demonstrate how to design an experiment when given research questions and hypotheses
 
 ## Data Files for This Lab
 
