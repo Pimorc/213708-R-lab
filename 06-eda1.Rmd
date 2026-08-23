@@ -10,7 +10,7 @@ Updated: `r format(Sys.Date(), '%B, %Y')`
 
 Students should be able to:
 
-1.  Demonstrate how to explore data and visualize data.
+1.  demonstrate how to explore data and visualize data.
 
 ## Data Files for This Lab
 
@@ -19,7 +19,7 @@ Iris dataset [@Anderson1935]
 ## Introduction
 
 Exploratory data analysis is important and should be done before you go into deeper analysis of the data.
-This worksheet will guide you on how to do EDA of various kinds. Read the text for explanations and enter the code into R (copy and paste into R is fine).
+This worksheet guides you on how to do EDA of various kinds. Read the text for explanations and enter the code into R (copy and paste into R is fine).
 
 ## Download Additional Packages
 
