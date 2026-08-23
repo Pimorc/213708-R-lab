@@ -10,9 +10,9 @@ Updated: `r format(Sys.Date(), '%B, %Y')`
 
 Students should be able to:
 
-1.  Distinguish LDA from PCA and explain when each is appropriate
-2.  List and check the assumptions of LDA
-3.  Apply LDA in classification
+1.  distinguish LDA from PCA and explain when each is appropriate
+2.  list and check the assumptions of LDA
+3.  apply LDA in classification
 
 ## Data Files for This Lab
 
@@ -20,12 +20,13 @@ Students should be able to:
 
 ## Download additional packages
 
-We will use a number of packages in this lab, including `dplyr` [@dplyr], `ggplot2` [@ggplot2] and `GGally` [@ggally], `kableExtra` [@kableextra], `ggthemes` [@ggthemes], `tidyr`[@tidyr], and `scales` [@scales], `ggrepel` [@ggrepel], `biotools` [@biotools], and `corrplot` [@corrplot2024].
+We will use several packages in this lab, including `dplyr` [@dplyr], `ggplot2` [@ggplot2], `GGally` [@ggally], `kableExtra` [@kableextra], `ggthemes` [@ggthemes], `tidyr`[@tidyr], `scales` [@scales], `ggrepel` [@ggrepel], `biotools` [@biotools], and `corrplot` [@corrplot2024].
 
 ```{r package-download15, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 # Install and load required packages
 
-if (!require("ggplot2")){install.packages("ggplot2", dependencies = TRUE)}
+if (!require("ggplot2")){
+  install.packages("ggplot2", dependencies = TRUE)}
 if(!require("GGally", character.only = TRUE))
   {install.packages("GGally", dependencies = TRUE)}
 if(!require("ggthemes", character.only = TRUE))
@@ -38,7 +39,8 @@ if(!require("corrplot"))
   {install.packages("corrplot", dependencies = TRUE)}
 if(!require("kableExtra"))
   {install.packages("kableExtra", dependencies = TRUE)}
-if(!require("dplyr")){install.packages("dplyr", dependencies = TRUE)}
+if(!require("dplyr")){
+  install.packages("dplyr", dependencies = TRUE)}
 if(!require("scales", character.only = TRUE))
   {install.packages("scales", dependencies = TRUE)}
 if(!require("tidyr", character.only = TRUE))
@@ -71,7 +73,7 @@ There are three studied species:
 -   *Erythrina subumbrans* (Hassk.) Merr. (Fabaceae)
 -   *Garcinia cowa* Roxb. ex Choisy (Clusiaceae)
 
-For each species 20 seeds were measured ($n = 60$ total). The measured variables are:
+For each species, 20 seeds were measured ($n = 60$ total). The measured variables are:
 
 1. seed width (mm),
 2. seed length (mm),
@@ -101,7 +103,8 @@ head(seed) ### seed few rows
 seed$species <- paste(seed$genus, seed$epithet)
 seed$species <- trimws(seed$species)
 
-seed$species.abb <- paste0(substr(seed$genus, 1, 1),". ",seed$epithet)
+seed$species.abb <- paste0(substr(seed$genus, 1, 1),
+                    ". ",seed$epithet)
 
 seed$species <- as.factor(seed$species)
 seed$species.abb <- as.factor(seed$species.abb)
@@ -111,24 +114,24 @@ summary(seed)
 # Select trait variables and species label for LDA later
 ## dplyr and MASS have the same function named select()
 seed_traits <- seed %>% 
-  dplyr::select(species.abb, width_mm, long_mm, thickness_mm, volume_mm3,
-         coat_thick_mm, wet_weight_g, dry_weight_g, moisture_percent)
+  dplyr::select(species.abb, width_mm,
+                long_mm, thickness_mm, volume_mm3,
+                coat_thick_mm, wet_weight_g,
+                dry_weight_g, moisture_percent)
 
 # Quick summary
 table(seed_traits$species.abb)
-
 ```
 
-Here we have data of seed traits of three tree species. The number of seeds are 20 each. The data contain 60 rows and 11 columns. Let's look at the data set and see what trait data we have and see the correlation between each seed variable.
+Here we have the seed traits data of three tree species. The number of seeds is 20 for each. The data contain 60 rows and 11 columns. Let's look at the data set, see what trait data we have, and see the correlation between each seed variable.
 
 ## Running LDA of Seed Morphology Data
 
 ### Step 1: Explore the Data
 
-Let's create box plots separated by traits.
+We start by creating a new data frame called `seed_long` and then use the data frame to make some plots.
 
-```{r boxplots-seed2, echo=TRUE, fig.cap="Boxplots of all eight seed morphological traits by species. Note that Garcinia cowa seeds are substantially larger than the other two species on all traits.", eval = F, results ='hide'}
-
+```{r seed-long, echo=TRUE, fig.cap="Boxplots of all eight seed morphological traits by species. Note that Garcinia cowa seeds are substantially larger than the other two species on all traits.", results ='hide', message=FALSE, warning=FALSE}
 trait_labels <- c(
   width_mm      = "Width (mm)",
   long_mm       = "Length (mm)",
@@ -141,24 +144,29 @@ trait_labels <- c(
 )
 
 seed_long <- seed_traits %>%
-  pivot_longer(cols = -species.abb, names_to = "trait", values_to = "value")
+  pivot_longer(cols = -species.abb,
+              names_to = "trait",
+              values_to = "value")
+```
 
-ggplot(seed_long, aes(x = species.abb, y = value, fill = species.abb)) +
+Let's create box plots separated by traits. 
+
+```{r boxplots-seed2, echo=TRUE, fig.cap="Boxplots of all eight seed morphological traits by species. Note that Garcinia cowa seeds are substantially larger than the other two species on all traits.", results ='hide', message=FALSE, warning=FALSE}
+ggplot(seed_long, aes(x = species.abb,
+                  y = value, fill = species.abb)) +
   geom_boxplot(alpha = 0.6, outlier.shape = 21) +
   geom_jitter(width = 0.12, size = 1.3, alpha = 0.5) +
   facet_wrap(~ trait, scales = "free_y", ncol = 4) +
   labs(x = NULL, y = "Value") +
   scale_x_discrete(guide = guide_axis(n.dodge = 2.5)) +
   theme_bw() +
-  theme(
-    legend.position = "none",
+  theme(legend.position = "none",
     legend.title = element_blank(),
-    
     strip.text = element_text(size = 14),
-    axis.text.x = element_text(size = 14, face = "italic"),
+    axis.text.x = element_text(size = 14,
+                              face = "italic"),
     axis.text.y = element_text(size = 14),
-    axis.title = element_text(size = 14))
-    
+    axis.title = element_text(size = 14))  
 ```
 
 Let's create a pairs plot of selected traits.
@@ -172,16 +180,19 @@ species_cols <- c(
 
 species_shp <- c(
   "E. subumbrans" = 16,
-  "G. cowa"        = 17,
-    "N. caudatum"  = 15
+  "G. cowa" = 17,
+  "N. caudatum" = 15
 )
 
 pairs(oma=c(2,2,2,1),
-  seed_traits[, c("long_mm", "width_mm", "dry_weight_g", "moisture_percent")],
-  col   = species_cols[as.character(seed_traits$species.abb)],
-  pch   = species_shp[as.numeric(seed_traits$species.abb)],
-  cex   = 1.2,
-  labels = c("Length\n(mm)", "Width\n(mm)", "Dry wt\n(g)", "Moisture\n(%)"),
+  seed_traits[, c("long_mm", "width_mm",
+                  "dry_weight_g",
+                  "moisture_percent")],
+  col = species_cols[as.character(seed_traits$species.abb)],
+  pch = species_shp[as.numeric(seed_traits$species.abb)],
+  cex = 1.2,
+  labels = c("Length\n(mm)", "Width\n(mm)",
+            "Dry wt\n(g)", "Moisture\n(%)"),
   gap   = 0.3
 )
 ```
@@ -192,11 +203,13 @@ pairs(oma=c(2,2,2,1),
 
 Let's use a Shapiro-Wilk test to test the mnormality of each trait. In our cases, the normallity test was satisfied except for two variables each of *E. subumbrans* and *G. cowa*. See the rows with the $P value < 0.05$.
 
-```{r normality-test-lda, echo=TRUE, message=FALSE, warning=FALSE, results='hide', results='hide'}
-
-traits <- c("width_mm","long_mm","thickness_mm","volume_mm3", "coat_thick_mm","wet_weight_g","dry_weight_g","moisture_percent")
-
-norm_results <-  lapply(unique(seed_traits$species.abb), function(sp) {
+```{r normality-test-lda, echo=TRUE, message=FALSE, warning=FALSE', results='hide'}
+traits <- c("width_mm","long_mm",
+            "thickness_mm","volume_mm3",
+            "coat_thick_mm","wet_weight_g",
+            "dry_weight_g","moisture_percent")
+norm_results <- lapply(unique(seed_traits$species.abb),
+                      function(sp) {
   sub <- seed_traits %>% filter(species.abb == sp)
   lapply(traits, function(tr) {
     sw <- shapiro.test(sub[[tr]])
