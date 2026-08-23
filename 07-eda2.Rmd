@@ -10,7 +10,7 @@ Updated: `r format(Sys.Date(), '%B, %Y')`
 
 Students should be able to:
 
-1. Demonstrate how to explore and visualize data
+1. demonstrate how to explore and visualize data
 
 ## Data Files for This Lab
 
