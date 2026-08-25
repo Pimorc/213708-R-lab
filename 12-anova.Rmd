@@ -231,13 +231,13 @@ Residuals should follow a normal distribution.
 
 #### Check assumptions AFTER running ANOVA:**
 
-**The normality of residuals** assumption is checked using visualization and the Shapiro-Wilk normality test.
+**The normality of residuals** assumption is checked using visualization and the -Wilk normality test.
 
-```{r shapiro-fertilizer, message=FALSE, warning=FALSE, echo = TRUE}
+```{r -fertilizer, message=FALSE, warning=FALSE, echo = TRUE}
 # Extract residuals
 residuals <- residuals(anova_model)
 # Shapiro-Wilk test
-shapiro <- shapiro.testtest(residuals)
+shapiro <- shapiro.test(residuals)
 
 shapiro
 ```
