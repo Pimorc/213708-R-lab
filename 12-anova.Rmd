@@ -522,8 +522,8 @@ The variances of final height must be equal among treatments. Please interpret t
 ```{r ancova-levene, echo =TRUE, message=FALSE, warning=FALSE, results='hide'}
 # Homogeneity of variance (Levene's test)
 library(car)
-levene_test <- leveneTest(Final_Height ~ Fertilizer
-                          data = fertilizer_data)
+levene_test <- leveneTest(fertilizer_data$Final_Height ~
+                          fertilizer_data$Fertilizer)
 levene_test
 ```
 
