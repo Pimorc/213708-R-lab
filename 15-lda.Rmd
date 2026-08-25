@@ -203,7 +203,7 @@ pairs(oma=c(2,2,2,1),
 
 We use a Shapiro-Wilk test to assess the normality of each trait. In our case, the normality test was satisfied except for two variables each of *E. subumbrans* and *G. cowa*. See the rows with the $P value < 0.05$.
 
-```{r normality-test-lda, echo=TRUE, message=FALSE, warning=FALSE', results='hide'}
+```{r normality-test-lda, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 traits <- c("width_mm","long_mm",
             "thickness_mm","volume_mm3",
             "coat_thick_mm","wet_weight_g",
