@@ -87,7 +87,7 @@ The experiment used five framework tree species (*Saraca indica*, *Sandoricum ko
 The experiment used a **randomised complete block design (RCBD)** with three replicates (blocks) per species. Root length data are used as an example for the mixed model analysis.
 
 ```{r data-mixed, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
-chaiklang_data <- read.csv("root_data_chaiklang.csv",
+chaiklang_data <- read.csv("data/root_data_chaiklang.csv",
                           header = T)
 chaiklang_data$Treatment <- factor(chaiklang_data$Treatment,
                                    levels = c("CON", "COB",
