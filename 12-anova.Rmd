@@ -826,7 +826,7 @@ Synthetic          24.8             0.8
 - Is there a significant effect of fertilizer type?
 
 **5.** Calculate partial $η²$ for the fertilizer effect using the following formula: 
-$SS_fertilizer / (SS_fertilizer + SS_residuals)$ and interpret what the partial $η²$ means.
+$SSfertilizer / (SSfertilizer + SSresiduals)$ and interpret what the partial $η²$ means.
 
 ### Grading rubric
 
