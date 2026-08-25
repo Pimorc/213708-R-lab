@@ -15,7 +15,8 @@ Students should be able to:
 
 ## Data Files for This Lab
 
--   germination.txt [Click here to download the file](https://o365cmu-my.sharepoint.com/:t:/g/personal/pimonrat_t_cmu_ac_th/EQzNo6jjdE5IkDMjUS7PYlMBr3zp0Fd9cBHh1gthjY1BpQ?e=e0zL5v)
+-   germination.txt [Click here to download the file](https://o365cmu-my.sharepoint.com/:t:/g/personal/pimonrat_t_cmu_ac_th/IQCMvDUji7vLQrxfquxUnGpTAVBV0G42E6KqbVNwpRzQClE?e=mCSDo9)
+
 
 ## What is a data frame?
 
