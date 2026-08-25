@@ -82,7 +82,7 @@ Let's import a data set and specify the appropriate data types.
 #########################
 ### Import data sets
 #########################
-seed <- read.csv('seed3spp.csv', header = T)
+seed <- read.csv('data/seed3spp.csv', header = T)
 
 ### assign right types of data to the variables
 seed$genus <- as.factor(seed$genus)
