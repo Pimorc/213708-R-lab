@@ -1,4 +1,4 @@
-# Random Variables {#lab4randomvar}
+# Random Variables {#randomvar}
 
 *Pimonrat Tiansawat (Chiang Mai University)*
 
