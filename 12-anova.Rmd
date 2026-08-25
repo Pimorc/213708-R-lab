@@ -195,7 +195,7 @@ First, we run **the test for homogeneity of variance**. We will use Levene's tes
 library(car)
 
 levene <- leveneTest(Height ~ Fertilizer,
-                    data = plant_data)
+data = plant_data)
 
 levene
 ```
