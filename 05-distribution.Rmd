@@ -1,4 +1,4 @@
-# Probability Distributions {#lab5prob}
+# Probability Distributions {#distribution}
 
 *Pimonrat Tiansawat (Chiang Mai University)*
 
